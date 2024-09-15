@@ -36,7 +36,7 @@ FROM nginx:latest
 
 WORKDIR /
 
-COPY --from=build /react/dist /usr/share/nginx/html
+COPY --from=build /react/build /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 
