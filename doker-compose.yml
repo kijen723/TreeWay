@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  backend:
+    image: treeway-dev-backend:latest
+    container_name: treeway-dev-backend
+    # restart: unless-stopped
+    ports:
+    # 임시로 8081할당
+      - 8081:8080
