@@ -14,5 +14,5 @@ services:
     container_name: treeway-dev-frontend
     # restart: unless-stopped
     ports:
-    # 임시로 8081할당
-      - 3001:3000
+    # 임시로 3001할당
+      - 3001:80
