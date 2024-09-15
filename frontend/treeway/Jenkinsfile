@@ -36,20 +36,20 @@ pipeline {
                 }
             }
         }
-        stage('Stop old Container') {
-            steps {
-                script {
-                    sh 'docker stop treeway-dev-frontend'
-                    sh 'docker rm treeway-dev-frontend' 
-                }
-            }
-        }
+        // stage('Stop old Container') {
+        //     steps {
+        //         script {
+        //             sh 'docker stop treeway-dev-frontend'
+        //             sh 'docker rm treeway-dev-frontend' 
+        //         }
+        //     }
+        // }
 
         stage('Depoly') {
             steps {
                 dir('/var/jenkins_home/workspace/test2') {
-                    // sh 'docker-compose stop frontend || true'
-                    // sh 'docker-compose rm -f frontend || true'
+                    sh 'docker-compose stop frontend || true'
+                    sh 'docker-compose rm -f frontend || true'
                     sh 'docker-compose up frontend -d'
                 }
             }
