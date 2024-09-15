@@ -13,7 +13,7 @@ FROM amazoncorretto:17-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/build/libs/ptpt-0.0.1-SNAPSHOT.jar /app/treeway-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/build/libs/treeway-0.0.1-SNAPSHOT.jar /app/treeway-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8081
 
