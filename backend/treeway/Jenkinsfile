@@ -50,7 +50,7 @@ pipeline {
 
         stage('Depoly') {
             steps {
-                dir('/shared/jenkins/workspace') { 
+                dir('/var/jenkins_home/workspace/test') {
                     sh 'docker-compose stop backend || true'
                     sh 'docker-compose rm -f backend || true'
                     sh 'docker-compose up backend -d'
