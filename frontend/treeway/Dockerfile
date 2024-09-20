@@ -6,13 +6,13 @@ FROM node:20 AS build
 WORKDIR /app
 
 # package.json과 package-lock.json을 복사하여 의존성을 설치
-COPY frontend/package*.json ./
+COPY package*.json ./
 
 # 필요한 모든 의존성을 설치
 RUN npm install
 
-# 프론트엔드 밑에 모든 파일을 복사(트리웨이 리액트 지워야함)
-COPY frontend/ ./
+# 프론트엔드 밑에 모든 파일을 복사
+COPY . .
 
 # Next.js 애플리케이션을 빌드
 RUN npm run build
