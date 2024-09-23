@@ -33,7 +33,7 @@ COPY --from=build /app /app
 
 
 # 환경 변수 설정
-ENV PORT=3001
+ENV PORT=3000
 
 # 포트 설정 (Next.js는 기본적으로 3000번 포트 사용)
 EXPOSE 3001
