@@ -24,11 +24,12 @@ FROM node:20-alpine
 WORKDIR /app
 
 # build 스테이지에서 빌드된 파일을 복사
-COPY --from=build /app/.next ./.next
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/public ./public
-COPY --from=build /app/next.config.mjs ./next.config.mjs
+# COPY --from=build /app/.next ./.next
+# COPY --from=build /app/node_modules ./node_modules
+# COPY --from=build /app/package*.json ./
+# COPY --from=build /app/public ./public
+# COPY --from=build /app/next.config.mjs ./next.config.mjs
+COPY --from=build /app /app
 
 
 # 환경 변수 설정
