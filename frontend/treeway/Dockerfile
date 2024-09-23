@@ -33,10 +33,10 @@ COPY --from=build /app /app
 
 
 # 환경 변수 설정
-# ENV PORT=3001
+ENV PORT=3001
 
 # 포트 설정 (Next.js는 기본적으로 3000번 포트 사용)
-EXPOSE 3000
+EXPOSE 3001
 
 # Next.js 애플리케이션을 시작하는 명령어
 CMD ["npm", "run", "start"]
