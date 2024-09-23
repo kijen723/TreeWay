@@ -4,15 +4,19 @@ services:
   backend:
     image: treeway-dev-backend:latest
     container_name: treeway-dev-backend
-    # restart: unless-stopped
     ports:
-    # 임시로 8081할당
       - 8081:8080
+    networks:
+      - treeway-network
 
   frontend:
     image: treeway-dev-frontend:latest
     container_name: treeway-dev-frontend
-    # restart: unless-stopped
     ports:
-    # 임시로 3001할당
       - 3001:80
+    networks:
+      - treeway-network
+
+networks:
+  treeway-network:
+    driver: bridge
