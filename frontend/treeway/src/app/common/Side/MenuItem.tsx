@@ -1,9 +1,5 @@
 import styles from './SideList.module.scss'
-
-interface MenuItemProps {
-    icon: JSX.Element;
-    label: string;
-}
+import { MenuItemProps } from '@/types/CommonPropsTypes';
 
 export default function MenuItem({ icon, label } : MenuItemProps) {
     return (

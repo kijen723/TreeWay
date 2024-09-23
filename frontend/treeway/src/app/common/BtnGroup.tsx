@@ -1,17 +1,6 @@
 import styles from './BtnGroup.module.scss';
 import { IconType } from 'react-icons';
-
-interface Button {
-  icon?: IconType;
-  alt: string;
-  imgSrc?: string;
-  onClick?: () => void;
-}
-
-interface BtnGroupProps {
-  buttons: Button[];
-  direction: 'row' | 'column';
-}
+import { Button, BtnGroupProps } from '@/types/CommonPropsTypes';
 
 export default function BtnGroup({ buttons, direction }: BtnGroupProps) {
   return (
