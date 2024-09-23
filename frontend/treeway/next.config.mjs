@@ -9,5 +9,5 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default withPWA({
     dest : "public",
-    assetPrefix: isProd ? '/.next' : '',
+    assetPrefix: isProd ? '/_next' : '',
 })(nextConfig)
