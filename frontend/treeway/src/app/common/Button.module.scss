@@ -1,0 +1,46 @@
+.button {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
+
+.small {
+    width: 50px;
+    padding: 8px 5px;
+    font-size: 12px;
+}
+
+.medium {
+    width: 15vw;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.large {
+    width: 30vw;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+.green {
+    background-color: #2ECC71;
+    color: white;
+}
+
+.blue {
+    background-color: #0089FF;
+    color: white;
+}
+
+.yellow {
+    background-color: #FEC003;
+    color: white;
+}
+
