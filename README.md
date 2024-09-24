@@ -2,6 +2,8 @@
 
 ## 깃 컨벤션
 **branch 이름 규칙: "fe/feat/[기능명]/[상세] (상세생략가능)"**
+**develop-역활 -> checkout -b 브랜치명**
+**작업 완료 후 -> develop-역활에 merge request**
 
 **태그: 제목의 형태**
 
