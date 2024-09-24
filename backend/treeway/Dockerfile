@@ -15,6 +15,10 @@ WORKDIR /app
 
 COPY --from=build /app/build/libs/treeway-0.0.1-SNAPSHOT.jar /app/treeway-0.0.1-SNAPSHOT.jar
 
+<<<<<<< HEAD
 #EXPOSE 8081
+=======
+# EXPOSE 8081
+>>>>>>> 6846c0c (Update backend/treeway/Dockerfile)
 
 CMD ["java", "-jar", "/app/treeway-0.0.1-SNAPSHOT.jar"]
