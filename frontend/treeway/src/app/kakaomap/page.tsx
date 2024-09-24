@@ -49,14 +49,13 @@ const KakaoMap = () => {
     };
   };
 
-  const apiKey: string | undefined = "f6d7187f1bde05e9cd4d861c687a315b";
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [polygonData, setPolygonData] = useState<Polygon2 | null>(null);
 
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement("script");
     script.async = true;
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&autoload=false`;
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false`;
     document.head.appendChild(script);
 
     script.addEventListener("load", () => {
