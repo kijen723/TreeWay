@@ -25,6 +25,7 @@ export type Polygon1 = {
 export type Polygon2 = {
   type: string;
   features: {
+    isMouseOver : boolean;
     geometry: {
       type: string;
       coordinates: LatLng[][] | LatLng[];
