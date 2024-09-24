@@ -1,30 +1,14 @@
-'use client'
 
-import { useState } from 'react';
-import FormField from "./components/FormField";
+import styles from './page.module.scss';
+import SignupForm from './components/SignupForm';
 
 export default function Regist() {
-    const [email, setEmail] = useState('email@example.com');
-    const [name, setName] = useState('정다운');
-
     return (
-        <form>
-            <FormField 
-                label="이메일" 
-                htmlFor="email" 
-                type="email" 
-                value={email}
-                onChange={() => {}}
-                disabled={true}
-            />
-            <FormField 
-                label="이름" 
-                htmlFor="name" 
-                type="name" 
-                value={name}
-                onChange={() => {}}
-                disabled={true}
-            />
-        </form>
+        <div className={styles.background}>
+            <div className={styles.block}>
+                <h1>TREEWAY</h1>
+                <SignupForm />
+            </div>
+        </div>
     );
 }

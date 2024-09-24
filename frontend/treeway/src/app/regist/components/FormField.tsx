@@ -1,3 +1,4 @@
+import styles from '../page.module.scss';
 import Label from "./Label";
 import InputField from "./InputField";
 
@@ -13,7 +14,7 @@ interface FormFieldProps {
 
 export default function FormField({ label, htmlFor, type, placeholder, value, onChange, disabled } : FormFieldProps) {
     return (
-        <div>
+        <div className={styles.formField}>
             <Label text={label} htmlFor={htmlFor}/>
             <InputField
                 id={htmlFor}
