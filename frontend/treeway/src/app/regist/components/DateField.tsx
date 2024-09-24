@@ -1,12 +1,6 @@
 import styles from '../page.module.scss'
 import Label from "./Label";
-
-interface DateInputFieldProps {
-    htmlFor: string;
-    label: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { DateInputFieldProps } from '@/types/RegistPropsTypes';
 
 export default function DateField({ htmlFor, label, value, onChange } : DateInputFieldProps ) {
     return (

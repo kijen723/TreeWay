@@ -1,7 +1,4 @@
-interface LabelProps {
-    text: string;
-    htmlFor: string;
-}
+import { LabelProps } from '@/types/RegistPropsTypes';
 
 export default function Label({ text, htmlFor } : LabelProps) {
     return (

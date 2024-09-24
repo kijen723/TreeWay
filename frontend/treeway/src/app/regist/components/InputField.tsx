@@ -1,11 +1,4 @@
-interface InputProps {
-    id: string;
-    type: string;
-    placeholder?: string;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled?: boolean;
-}
+import { InputProps } from '@/types/RegistPropsTypes';
 
 export default function InputField({ id, type, placeholder, value, onChange, disabled = false } : InputProps) {
     return (
