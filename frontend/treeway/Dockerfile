@@ -39,4 +39,4 @@ ENV PORT=3001
 EXPOSE 3001
 
 # Next.js 애플리케이션을 시작하는 명령어
-CMD ["next", "start", "-H", "0.0.0.0", "-p", "3001"]
+CMD ["npm", "run", "start"]
