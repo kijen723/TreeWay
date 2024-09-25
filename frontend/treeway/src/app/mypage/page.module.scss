@@ -1,6 +1,9 @@
 .background {
     background-color: antiquewhite;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .block {
@@ -47,4 +50,18 @@
     align-items: center;
     margin: 5px;
     gap: 20px;
+}
+
+.contentBlock {
+    width: 50vw; 
+    height: 75vh; 
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
 }

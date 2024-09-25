@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '../page.module.scss';
+import styles from '@/app/mypage/page.module.scss';
 import RoundBtnGroup from "@/app/common/RoundBtnGroup";
 import { IoReader, IoBookmarks, IoHeart } from "react-icons/io5";
 

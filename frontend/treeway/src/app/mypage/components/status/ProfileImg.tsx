@@ -1,4 +1,4 @@
-import styles from '../page.module.scss'
+import styles from '@/app/mypage/page.module.scss';
 
 export default function ProfileImg() {
     const imagePreview = '/image/cat.jpg';

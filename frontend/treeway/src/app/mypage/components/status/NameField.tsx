@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '../page.module.scss';
+import styles from '@/app/mypage/page.module.scss';
 import { FaPen } from "react-icons/fa";
 
 export default function NameField() {
