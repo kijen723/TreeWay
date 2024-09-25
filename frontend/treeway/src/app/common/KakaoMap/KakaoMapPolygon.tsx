@@ -7,13 +7,13 @@ import {
   MapMarker,
   Polygon,
 } from "react-kakao-maps-sdk";
-import styles from "./page.module.scss";
-import { LatLng, Polygon1, Polygon2 } from "./type/Type";
+import styles from "./KakaoMapPolygon.module.scss";
+import { LatLng, Polygon1, Polygon2 } from "@/types/MapType";
 import hole, {areaInfo} from "./data";
 
 
 // 뒤로가기 버튼 만들어야 돼!!!!!!!
-const KakaoMap = () => {
+const KakaoMapPolygon = () => {
   const convertCoordinates = (polygonData: Polygon1): Polygon2 => {
     return {
       type: polygonData.type,
@@ -178,4 +178,4 @@ const KakaoMap = () => {
   );
 };
 
-export default KakaoMap;
+export default KakaoMapPolygon;
