@@ -1,7 +1,7 @@
 import styles from './SideNav.module.scss'
 import { GoBell } from 'react-icons/go';
 import { MdLogout, MdOutlineSettings } from 'react-icons/md';
-import BtnGroup from '../BtnGroup';
+import RoundBtnGroup from '../RoundBtnGroup';
 
 export default function SideNav() {
     const upperButtons = [
@@ -18,8 +18,8 @@ export default function SideNav() {
 
     return (
         <nav className={styles.navbar}>
-            <BtnGroup buttons={upperButtons} direction="column"/>
-            <BtnGroup buttons={lowerButtons} direction="column"/>
+            <RoundBtnGroup buttons={upperButtons} direction="column"/>
+            <RoundBtnGroup buttons={lowerButtons} direction="column"/>
         </nav>
     );
 }

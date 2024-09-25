@@ -1,8 +1,7 @@
-import styles from './BtnGroup.module.scss';
-import { IconType } from 'react-icons';
-import { Button, BtnGroupProps } from '@/types/CommonPropsTypes';
+import styles from './RoundBtnGroup.module.scss';
+import { RoundBtnGroupProps } from '@/types/CommonPropsTypes';
 
-export default function BtnGroup({ buttons, direction }: BtnGroupProps) {
+export default function RoundBtnGroup({ buttons, direction }: RoundBtnGroupProps) {
   return (
     <div className={`${styles.btnGroupContainer} ${direction === 'column' ? styles.column : styles.row}`}>
       {buttons.map((button, index) => (

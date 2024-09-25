@@ -3,7 +3,7 @@ import { GoBell } from 'react-icons/go';
 import styles from './HeaderNav.module.scss'
 import Logo from './Logo';
 import SearchBar from './SearchBar';
-import BtnGroup from '../BtnGroup';
+import RoundBtnGroup from '../RoundBtnGroup';
 
 export default function HeaderNav() {
     const isLogin = true; // 로그인 상태
@@ -22,7 +22,7 @@ export default function HeaderNav() {
         <nav className={styles.navbar}>
             <Logo />
             <SearchBar />
-            <BtnGroup buttons={buttons} direction="row"/>
+            <RoundBtnGroup buttons={buttons} direction="row"/>
         </nav>
     );
 }

@@ -1,14 +1,14 @@
 import { IconType } from 'react-icons';
 
-export type Button = {
+export type RoundButton = {
     icon?: IconType
     alt: string
     imgSrc?: string
     onClick?: () => void
 }
 
-export type BtnGroupProps = {
-    buttons: Button[]
+export type RoundBtnGroupProps = {
+    buttons: RoundButton[]
     direction: 'row' | 'column'
 }
 
