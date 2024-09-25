@@ -142,11 +142,11 @@ const KakaoMap = () => {
                       ? [...(data.geometry.coordinates as LatLng[][]), hole]
                       : (data.geometry.coordinates as LatLng[])
                   }
-                  strokeWeight={2}
+                  strokeWeight={3}
                   strokeColor="black"
                   strokeOpacity={1}
-                  fillColor={data.isMouseOver ? "black" : "#eee"}
-                  fillOpacity={0.5}
+                  fillColor={data.isMouseOver ? "#99582a" : "#edede9"}
+                  fillOpacity={0.7}
                   onMouseover={() => {
                     const result = {...polygonData}
                     result.features[index].isMouseOver = true;
@@ -166,8 +166,8 @@ const KakaoMap = () => {
               );
             })}
             {polygonData?.features.findIndex((v) => v.isMouseOver) !== -1 && (
-              <CustomOverlayMap position = {mousePosition} yAnchor={2}>
-                <div>{areaIndex === -1 ? polygonData?.features.find((v) => v.isMouseOver)?.properties.CTP_KOR_NM : polygonData?.features.find((v) => v.isMouseOver)?.properties.SIG_KOR_NM}</div>
+              <CustomOverlayMap position = {mousePosition} xAnchor={0.5} yAnchor={1.5}>
+                <div className={styles.overlay}>{areaIndex === -1 ? polygonData?.features.find((v) => v.isMouseOver)?.properties.CTP_KOR_NM : polygonData?.features.find((v) => v.isMouseOver)?.properties.SIG_KOR_NM}</div>
               </CustomOverlayMap>
             )}
         </Map>
