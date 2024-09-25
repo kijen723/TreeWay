@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import ClientLayout from "../redux/ClientLayout";
 import "./globals.scss";
+import HeaderNav from "./common/Header/HeaderNav";
+import SideNav from "./common/Side/SideNav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,7 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}}`}>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <HeaderNav/>
+          <SideNav/>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

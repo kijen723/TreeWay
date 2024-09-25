@@ -12,7 +12,7 @@ export default function Side() {
   return (
     <>
       <SideList sideState={sideState.value} items={<SmallSortList />} />
-      <SideDetail sideState={sideState.value} items={<SideDetailItems />} />
+      <SideDetail sideState={sideState.value} items={<SideDetailItems/>} />
     </>
   );
 }

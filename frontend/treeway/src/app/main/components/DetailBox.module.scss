@@ -1,0 +1,11 @@
+.DetailBox{
+    position : fixed;
+    left : 6vw;
+    top : 10vh;
+    width : 67.5vw;
+    height : 89vh;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
