@@ -3,7 +3,7 @@ import { RoundBtnGroupProps } from '@/types/CommonPropsTypes';
 
 export default function RoundBtnGroup({ buttons, direction }: RoundBtnGroupProps) {
   return (
-    <div className={`${styles.btnGroupContainer} ${direction === 'column' ? styles.column : styles.row}`}>
+    <div className={`${styles.btnGroupContainer} ${direction === 'column' ? styles.column : (direction === 'row' ? styles.row : styles.single)}`}>
       {buttons.map((button, index) => (
         <div key={index} className={styles.button} onClick={button.onClick}>
           {button.imgSrc ? (

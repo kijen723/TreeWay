@@ -9,7 +9,7 @@ export type RoundButton = {
 
 export type RoundBtnGroupProps = {
     buttons: RoundButton[]
-    direction: 'row' | 'column'
+    direction: 'row' | 'column' | 'single'
 }
 
 export type MenuItemProps = {
