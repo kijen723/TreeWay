@@ -1,22 +1,19 @@
 "use client"
 
-import { useRouter } from 'next/navigation';
 import styles from './SideDetailItems.module.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import SideDetailItem from './SideDetailItem';
 
 export default function SideDetailItems(){
-    const router = useRouter();
+    const dumdata = useSelector((state :RootState) => state.dumdata.value);
     return(
         <div className={styles.items}>
-            <div className={styles.item} onClick={()=>{
-                router.push("/main/1")
-            }}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
-            <div className={styles.item}>매물정보</div>
+            {dumdata && dumdata.map((value, index)=>{
+                return(
+                    <SideDetailItem data={value}></SideDetailItem>
+                )
+            })}
         </div>
     )
 }

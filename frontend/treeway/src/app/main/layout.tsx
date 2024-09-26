@@ -1,4 +1,6 @@
 import KakaoMap from "../common/KakaoMap/KakaoMap";
+import SideDetail from "../common/Side/SideDetail";
+import SideDetailItems from "./components/SideDetailItems";
 
 export default function MainLayout({
     children,
@@ -8,6 +10,7 @@ export default function MainLayout({
     return(
         <>
             <KakaoMap></KakaoMap>
+            <SideDetail items={<SideDetailItems/>} />
             {children}
         </>
     )

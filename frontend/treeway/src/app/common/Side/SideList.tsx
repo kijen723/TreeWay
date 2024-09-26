@@ -1,23 +1,26 @@
+'use client'
+
 import MenuItem from "./MenuItem";
 import styles from "./SideList.module.scss";
 import { FaHome } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
 import { changeSideControl } from "@/redux/slice/sidecontrolSlice";
+import { usePathname } from "next/navigation";
 
 export default function SideList({
-  sideState,
-  items,
+  items
 }: {
-  sideState: boolean;
   items: JSX.Element;
 }) {
+  const sideState = useSelector((state :RootState) => state.sidecontrol.value);
   const dispatch: AppDispatch = useDispatch();
+  const pathname = usePathname();
   return (
     <nav className={styles.navbar} style={!sideState ? {height : "7vh"} : {}}>
-      <button onClick={() => {
+      {pathname === "/trend" ? null : <button onClick={() => {
           dispatch(changeSideControl());
-          }}>123</button>
+          }}>지도 안보이면 눌러라</button>}
       <div className={styles.menuItems}>
         {/* <MenuItem icon={<FaHome />} label="HOME"/>
                 <MenuItem icon={<FaHome />} label="HOME"/>

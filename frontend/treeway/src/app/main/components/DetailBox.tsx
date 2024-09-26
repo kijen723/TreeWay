@@ -1,9 +1,12 @@
-import styles from './DetailBox.module.scss';
+import { useRouter } from "next/navigation";
+import styles from "./DetailBox.module.scss";
+import DetailBackBtn from "./DetailBackBtn";
 
-export default function DetailBox(){
-    return(
-        <div className={styles.DetailBox}>
-
-        </div>
-    )
+export default function DetailBox() {
+  // const router = useRouter();
+  return (
+    <div className={styles.DetailBox}>
+      <DetailBackBtn/>
+    </div>
+  );
 }

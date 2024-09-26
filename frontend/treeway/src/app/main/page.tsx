@@ -1,11 +1,14 @@
 import KakaoMap from "../common/KakaoMap/KakaoMap";
-import Side from "./components/Side";
+import SideList from "../common/Side/SideList";
+import DetailBox from "./components/DetailBox";
+import SmallSortList from "./components/SmallSortList";
 import styles from "./page.module.scss";
+import {Store} from "@/util/MakeData";
 
 export default function Main(){
     return(
         <div className={styles.main}>
-            <Side></Side>
+            <SideList items={<SmallSortList />} />
         </div>
     )
 }

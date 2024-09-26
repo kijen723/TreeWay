@@ -1,6 +1,6 @@
 .navbar {
   position : fixed;
-  left : 5.5vw;
+  left : 60px;
   top : 10vh;
   width: 15vw; 
   height: 89vh; 
@@ -17,6 +17,8 @@
   flex-direction: column;
   border-radius: 10px;
   box-sizing: border-box;
+  min-width: 150px;
+  z-index : 4;
 }
 
 .menuItems {
