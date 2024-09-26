@@ -1,8 +1,8 @@
 'use client'
 
-import Comments from './component/Comments';
-import PostDetail from './component/PostDetail';
-import PostSummary from './component/PostSummary'
+import Comments from './component/title/Comments';
+import PostDetail from './component/title/PostDetail';
+import PostSummary from './component/title/PostSummary'
 import styles from './page.module.scss'
 
 export default function CommunityDetail() {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from '../page.module.scss';
+import styles from '@/app/community/[postId]/page.module.scss'
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
 export default function ScrapBtn() {

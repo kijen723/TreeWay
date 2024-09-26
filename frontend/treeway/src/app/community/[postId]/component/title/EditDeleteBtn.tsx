@@ -1,4 +1,4 @@
-import styles from "../page.module.scss";
+import styles from '@/app/community/[postId]/page.module.scss'
 import { FaPen, FaTrash } from "react-icons/fa";
 
 export default function EditDeleteBtn() {
