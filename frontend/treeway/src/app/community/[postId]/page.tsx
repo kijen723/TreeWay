@@ -1,8 +1,8 @@
 'use client'
 
 import SideList from '@/app/common/Side/SideList';
-import Comments from './component/title/Comments';
-import PostDetail from './component/title/PostDetail';
+import Comments from './component/comment/Comments';
+import PostDetail from './component/detail/PostDetail';
 import PostSummary from './component/title/PostSummary'
 import styles from './page.module.scss'
 import { useSelector } from 'react-redux';
