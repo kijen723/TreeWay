@@ -201,4 +201,12 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
+
+    .postBlock {
+        background-color: white;
+        border-radius: 10px;
+        width: 100%;
+        height: 95%;
+        padding: 10px;
+    }
 }
