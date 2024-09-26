@@ -5,7 +5,7 @@ import SmallSortList from "../main/components/SmallSortList";
 export default function Trend(){
     return(
         <>
-            <SideList sideState={true} items={<SmallSortList />} />
+            <SideList items={<SmallSortList />} />
             <KakaoMapPolygon/>
         </>
     )
