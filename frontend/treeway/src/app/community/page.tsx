@@ -15,7 +15,7 @@ export default function Community() {
     return (
         <div className={styles.background}>
             <div>
-                <SideList sideState={sideState.value} items={<SmallSortList />} />
+                <SideList items={<SmallSortList />} />
             </div>
             <div className={styles.block}>
                 <div className={styles.postBlock}>
