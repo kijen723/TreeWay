@@ -15,6 +15,7 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-radius: 10px;
 }
 
@@ -28,23 +29,23 @@
         width: 85%;
         display: flex;
         justify-content: flex-end;
-    
+
         .rightBlock {
             display: flex;
             align-items: end;
             gap: 10px;
-        
+
             .sortDropdown {
                 display: inline-block;
             }
-            
+
             .label {
                 font-size: 14px;
                 color: #333;
                 margin-bottom: 5px;
                 display: block;
             }
-            
+
             .dropdown {
                 width: 150px;
                 padding: 10px;
@@ -57,17 +58,17 @@
                 -moz-appearance: none;
                 position: relative;
             }
-            
+
             .dropdown:focus {
                 outline: none;
                 border-color: #0070f3;
             }
-            
+
             .dropdown:hover {
                 border-color: #0070f3;
                 cursor: pointer;
             }
-        
+
             .searchContainer {
                 display: flex;
                 align-items: center;
@@ -80,18 +81,18 @@
                 width: fit-content;
                 height: 50%;
             }
-            
+
             .searchIcon {
                 font-size: 24px;
                 cursor: pointer;
                 color: #333;
                 transition: color 0.3s ease;
             }
-            
+
             .searchIcon:hover {
                 color: #0070f3;
             }
-            
+
             .searchInput {
                 padding: 8px;
                 border: none;
@@ -100,25 +101,25 @@
                 transition: width 0.5s ease, opacity 0.5s ease;
                 outline: none;
             }
-            
+
             .searchInput.open {
                 width: 20vw;
                 opacity: 1;
             }
-            
+
             .searchInput:focus {
                 border-color: none;
             }
         }
     }
-    
+
     .postList {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
-    
+
         .post {
             background-color: white;
             width: 80%;
@@ -127,29 +128,29 @@
             justify-content: space-between;
             border-radius: 10px;
         }
-        
+
         .postSummary {
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        
+
             h2 {
                 margin: 5px 0;
             }
-        
+
             p {
                 margin: 0;
                 margin-right: 10px;
                 font-size: 14px;
             }
         }
-        
+
         .postInfo {
             display: flex;
             flex-direction: row;
         }
-        
+
         .postImg {
             width: 15%;
             aspect-ratio: 1 / 1;
@@ -159,5 +160,52 @@
     }
 }
 
+.pageBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 45vh;
+    margin: 0 2vw;
 
+    .arrowWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
 
+        .arrowIcon {
+            color: orange;
+            font-size: 18px;
+        }
+    }
+
+    .numberList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+        .number {
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .highlight {
+            color: orange;
+            font-weight: bold;
+            background-color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+    }    
+}

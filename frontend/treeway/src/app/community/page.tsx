@@ -1,3 +1,5 @@
+'use client'
+
 import Pagenation from './component/Pagenation';
 import PostList from './component/PostList';
 import UpperNav from './component/UpperNav';
@@ -12,7 +14,7 @@ export default function Community() {
                     <PostList />
                 </div>
                 <div>
-                    <Pagenation />
+                    <Pagenation postCnt={4} />
                 </div>
             </div>
         </div>
