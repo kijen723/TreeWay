@@ -1,0 +1,58 @@
+.background {
+    background-color: antiquewhite;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.block {
+    position: absolute;
+    top: 11vh;
+    left: 22vw;
+    width: 75vw;
+    height: 85vh;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    padding: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+    .formBlock {
+        width: 100%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            width: 70%;
+            margin-bottom: 10px;
+        
+            input {
+                width: 100%;
+                padding: 0;
+                
+                :focus {
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+        
+        .textEditorBlock {
+            width: 70%;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 10px;
+        
+            .textEditor {
+                border-radius: 10px;
+                background-color: white;
+            }
+        }
+    }
+}

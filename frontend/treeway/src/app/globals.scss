@@ -2,3 +2,14 @@ body{
     margin : 0px;
     padding : 0px;
 }
+
+.ql-toolbar.ql-snow {
+    border-radius: 10px 10px 0 0;
+    border: none !important;
+    border-bottom: solid 1px rgb(221, 221, 221) !important;
+}
+
+.ql-container.ql-snow {
+    border-radius: 0 0 10px 10px;
+    border: none !important;
+}
