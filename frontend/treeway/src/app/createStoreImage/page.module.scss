@@ -1,0 +1,45 @@
+.background {
+    background-color: antiquewhite;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.block {
+    position: absolute;
+    top: 11vh;
+    left: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 92vw;
+    height: 85vh;
+}
+
+.formBlock {
+    width: 40%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    padding: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .headerText {
+        text-align: center;
+        color: rgb(60, 60, 60);
+    }
+
+    .formArea {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
