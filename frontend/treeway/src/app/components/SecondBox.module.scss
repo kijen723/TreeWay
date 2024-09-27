@@ -1,0 +1,35 @@
+.main{
+    height : 100vh;
+    position : relative;
+    background-color: #E9ECC9;
+
+    .img1{
+        position : absolute;
+        border : 1px solid black;
+        top : 15%;
+        left : 10%;
+        border-radius: 20px;
+        width : 30%;
+        height : 50%;
+    }
+
+    .img2{
+        position : absolute;
+        border : 1px solid black;
+        top : 20%;
+        left : 13%;
+        border-radius: 20px;
+        width : 30%;
+        height : 50%;
+    }
+
+    .img3{
+        position : absolute;
+        border : 1px solid black;
+        top : 25%;
+        left : 16%;
+        border-radius: 20px;
+        width : 30%;
+        height : 50%;
+    }
+}

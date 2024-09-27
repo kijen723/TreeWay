@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
     margin : 0px;
     padding : 0px;
@@ -13,3 +14,20 @@ body{
     border-radius: 0 0 10px 10px;
     border: none !important;
 }
+=======
+@font-face {
+  font-family: "힘내라는말보단";
+  src: url("./fonts/test.ttf");
+}
+
+@font-face {
+  font-family: "흰꼬리수리";
+  src: url("./fonts/test2.ttf");
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
+>>>>>>> a336d7c (feat : add promotion page)

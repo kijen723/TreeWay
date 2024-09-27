@@ -1,3 +1,28 @@
-.hi{
-  color : red;
+.home{
+  display : flex;
+  flex-direction: column;
+  height : 1000vh;
+  width : 100vw;
+  background-color: #E9ECC9;
+
+  .imgBox{
+    width : 100%;
+    height : 100vh;
+    background-image: url("../../public/image/backgroundTest1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .title{
+      display : flex;
+      justify-content: center;
+      align-items: center;
+      width : 100%;
+      height : 55%;
+      color : white;
+      font-size: 15vw;
+      font-weight: bold;
+      letter-spacing: 10px;
+      text-shadow: 5px 5px black;
+    }
+  }
 }
