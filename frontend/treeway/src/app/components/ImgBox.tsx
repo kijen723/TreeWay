@@ -40,7 +40,7 @@ export default function ImgBox() {
         animate={{ opacity: 1, translateY: "5px" }}
         transition={{ delay: 0.5, duration: 0.7 }}
       >
-        창업의 모든 것
+        창업에 빅데이터를 더하다
       </motion.span>
       <motion.span
         className={styles.title}

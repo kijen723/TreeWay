@@ -20,6 +20,7 @@ export default function Progress(){
             window.removeEventListener('scroll', handleScroll);
         }
     })
+
     return(
         <div className={styles.progress} style={{width : `${scrollPosition}%`}}>
 
