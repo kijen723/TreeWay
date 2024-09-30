@@ -4,7 +4,6 @@ import ClientLayout from "../redux/ClientLayout";
 import "./globals.scss";
 import HeaderNav from "./common/Header/HeaderNav";
 import SideNav from "./common/Side/SideNav";
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",

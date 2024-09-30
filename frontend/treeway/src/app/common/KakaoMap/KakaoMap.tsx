@@ -9,9 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeDumData } from "@/redux/slice/dumdataSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
+import { csvData, csvToJson } from "@/util/csvToJson";
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
+  const CsvToJson = csvToJson(csvData);
+  console.log(CsvToJson);
   const data = useSelector((state: RootState) => state.dumdata.value);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [nowPosition, setNowPosition] = useState<LatLng>({
