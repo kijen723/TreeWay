@@ -9,16 +9,16 @@ import {
 } from "react-kakao-maps-sdk";
 import styles from "./KakaoMapPolygon.module.scss";
 import { LatLng, Polygon1, Polygon2 } from "@/types/MapType";
-import hole, {areaInfo} from "./data";
+import hole, { areaInfo } from "./data";
+import { IoArrowBackSharp } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
-
-// 뒤로가기 버튼 만들어야 돼!!!!!!!
 const KakaoMapPolygon = () => {
   const convertCoordinates = (polygonData: Polygon1): Polygon2 => {
     return {
       type: polygonData.type,
       features: polygonData.features.map((feature) => ({
-        isMouseOver : false,
+        isMouseOver: false,
         type: feature.type,
         geometry: {
           type: feature.geometry.type,
@@ -58,25 +58,31 @@ const KakaoMapPolygon = () => {
       })),
     };
   };
-  const [nowPosition, setNowPosition] = useState<LatLng>({lat : 36.628297, lng : 127.492533});
+  const [nowPosition, setNowPosition] = useState<LatLng>({
+    lat: 36.628297,
+    lng: 127.492533,
+  });
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [polygonData, setPolygonData] = useState<Polygon2 | null>(null);
-  const [mousePosition, setMousePosition] = useState<LatLng>({lat : 0, lng : 0});
+  const [mousePosition, setMousePosition] = useState<LatLng>({
+    lat: 0,
+    lng: 0,
+  });
   const [areaIndex, setAreaIndex] = useState<number>(-1);
-
-  useEffect(()=>{
+  const router = useRouter();
+  useEffect(() => {
     const loadJson = async () => {
       let data;
-      if(areaIndex === -1){
+      if (areaIndex === -1) {
         data = await import("./JSON/Korea.json");
-      }else{
+      } else {
         data = await import(`./JSON/${areaInfo[areaIndex].name}.json`);
       }
-      
+
       setPolygonData(convertCoordinates(data as Polygon1));
-    }
+    };
     loadJson();
-  }, [areaIndex])
+  }, [areaIndex]);
 
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement("script");
@@ -88,10 +94,13 @@ const KakaoMapPolygon = () => {
       setScriptLoad(true);
     });
 
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position)=>{
-        setNowPosition({lat : position.coords.latitude, lng : position.coords.longitude});
-      })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setNowPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      });
     }
     // setPolygonData(convertCoordinates(data));
   }, []);
@@ -102,21 +111,30 @@ const KakaoMapPolygon = () => {
 
   return (
     <div className={styles.box}>
+      {areaIndex !== -1 ? (
+        <div className={styles.back} onClick={()=>{
+          setAreaIndex(-1);
+        }}>
+          <IoArrowBackSharp />
+        </div>
+      ) : null}
       {scriptLoad ? (
         <Map
-          center={areaIndex === -1 ? { lat: nowPosition.lat, lng: nowPosition.lng } : areaInfo[areaIndex].position}
+          center={
+            areaIndex === -1
+              ? { lat: nowPosition.lat, lng: nowPosition.lng }
+              : areaInfo[areaIndex].position
+          }
           style={{ width: "100vw", height: "100vh" }}
           level={areaIndex === -1 ? 12 : areaInfo[areaIndex].level}
           zoomable={false}
           disableDoubleClickZoom={true}
-          
-          onMouseMove={(_map, mouseEvent)=>{
+          onMouseMove={(_map, mouseEvent) => {
             setMousePosition({
-              lat : mouseEvent.latLng.getLat(),
-              lng : mouseEvent.latLng.getLng(),
-            })
+              lat: mouseEvent.latLng.getLat(),
+              lng: mouseEvent.latLng.getLng(),
+            });
           }}
-          
         >
           {/* <MapMarker
             position={{
@@ -148,28 +166,38 @@ const KakaoMapPolygon = () => {
                   fillColor={data.isMouseOver ? "#99582a" : "#edede9"}
                   fillOpacity={0.7}
                   onMouseover={() => {
-                    const result = {...polygonData}
+                    const result = { ...polygonData };
                     result.features[index].isMouseOver = true;
                     setPolygonData(result);
                   }}
                   onMouseout={() => {
-                    const result = {...polygonData}
+                    const result = { ...polygonData };
                     result.features[index].isMouseOver = false;
                     setPolygonData(result);
                   }}
-                  onClick={()=>{
-                    if(areaIndex === -1){
-                      setAreaIndex(index)
+                  onClick={() => {
+                    if (areaIndex === -1) {
+                      setAreaIndex(index);
                     }
                   }}
                 ></Polygon>
               );
             })}
-            {polygonData?.features.findIndex((v) => v.isMouseOver) !== -1 && (
-              <CustomOverlayMap position = {mousePosition} xAnchor={0.5} yAnchor={1.5}>
-                <div className={styles.overlay}>{areaIndex === -1 ? polygonData?.features.find((v) => v.isMouseOver)?.properties.CTP_KOR_NM : polygonData?.features.find((v) => v.isMouseOver)?.properties.SIG_KOR_NM}</div>
-              </CustomOverlayMap>
-            )}
+          {polygonData?.features.findIndex((v) => v.isMouseOver) !== -1 && (
+            <CustomOverlayMap
+              position={mousePosition}
+              xAnchor={0.5}
+              yAnchor={1.5}
+            >
+              <div className={styles.overlay}>
+                {areaIndex === -1
+                  ? polygonData?.features.find((v) => v.isMouseOver)?.properties
+                      .CTP_KOR_NM
+                  : polygonData?.features.find((v) => v.isMouseOver)?.properties
+                      .SIG_KOR_NM}
+              </div>
+            </CustomOverlayMap>
+          )}
         </Map>
       ) : (
         <div></div>

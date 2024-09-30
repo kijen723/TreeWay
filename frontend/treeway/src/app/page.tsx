@@ -1,3 +1,4 @@
+import Final from "./components/Final";
 import FirstBox from "./components/FirstBox";
 import ImgBox from "./components/ImgBox";
 import Intro from "./components/Intro";
@@ -14,6 +15,7 @@ export default function Home() {
         <ImgBox />
         <Intro/>
         <Why/>
+        <Final/>
         {/* <FirstBox /> */}
         {/* <SecondBox /> */}
       </div>

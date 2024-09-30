@@ -1,0 +1,38 @@
+.main{
+    width : 100vw;
+    height : 4000px;
+    position : relative;
+    border: 1px solid black;
+
+    .box{
+        display : flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width : 100vw;
+        height : 100vh;
+        position : sticky;
+        top : 0;
+        font-weight : bold;
+        gap : 3vh;
+
+        .first{
+            font-size : 5vw;
+            opacity: 0;
+            transition : opacity 0.5s linear;
+        }
+
+        .second{
+            font-size : 5vw;
+            color : #E94A21;
+            opacity: 0;
+            transition : opacity 0.5s linear;
+        }
+
+        .last{
+            font-size : 17vw;
+            color : #588157;
+            text-shadow: 10px 10px black;
+        }
+    }
+}

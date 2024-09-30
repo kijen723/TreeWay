@@ -15,4 +15,5 @@ export type RoundBtnGroupProps = {
 export type MenuItemProps = {
     icon: JSX.Element
     label: string
+    index : number
 }

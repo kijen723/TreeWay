@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./Intro.module.scss";
 import { motion } from "framer-motion";
 
@@ -15,7 +15,7 @@ export default function Intro() {
     ["전국 트렌드 확인", "/image/cat.jpg"],
   ];
 
-  const scrollhandle = () => {
+  const scrollhandle = useCallback(() => {
     const height = window.innerHeight;
     const scrollY = window.scrollY;
 
@@ -37,7 +37,7 @@ export default function Intro() {
       setNowCard(5);
       setImgSrc("/image/first1.png");
     }
-  };
+  }, []);
 
   const [imgSrc, setImgSrc] = useState<string>("/image/cat.jpg");
   const [nowCard, setNowCard] = useState<number>(0);
@@ -52,7 +52,7 @@ export default function Intro() {
   return (
     <motion.div
       className={styles.main}
-      animate={{backgroundImage : `url(${imgSrc})`}}
+      animate={{ backgroundImage: `url(${imgSrc})` }}
     >
       <div className={styles.left}>
         <div className={styles.info}>
