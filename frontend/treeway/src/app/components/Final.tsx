@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./Final.module.scss";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 export default function Final() {
   const height = window.innerHeight;
@@ -85,6 +85,7 @@ export default function Final() {
           style={{translateY : "-70px"}}
           initial = {{scale : 5}}
           animate = {{scale : 1}}
+          transition = {{duration : 0.3}}
           >TREEWAY</motion.div>
         ) : null}
       </div>

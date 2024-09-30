@@ -1,0 +1,33 @@
+.main{
+    width : 3600px;
+    height : 200px;
+    display : flex;
+    overflow : hidden;
+    white-space: nowrap;
+
+    .imgBox{
+        width : 100%;
+        min-width: 100px;
+        margin-right: 20px;
+        padding : 10px;
+        word-break: keep-all;
+        unicode-bidi: isolate;
+        animation : aniScroll 15s linear infinite
+    }
+
+    .img{
+        width : 300px;
+        height : 100%;
+        box-sizing: border-box;
+        padding : 10px;
+    }
+}
+
+@keyframes aniScroll{
+    0%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform : translateX(-1800px);
+    }
+}

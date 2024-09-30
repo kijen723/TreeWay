@@ -1,3 +1,5 @@
+'use client'
+
 import styles from '@/app/community/[postId]/page.module.scss'
 import { FaPen, FaTrash } from "react-icons/fa";
 

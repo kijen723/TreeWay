@@ -1,3 +1,5 @@
+'use client'
+
 import Button from '@/app/common/Button';
 import styles from '@/app/community/[postId]/page.module.scss'
 import { useState } from 'react';

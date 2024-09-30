@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react';
 import styles from '@/app/community/[postId]/page.module.scss'
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";

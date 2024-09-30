@@ -1,5 +1,6 @@
 import KakaoMap from "../common/KakaoMap/KakaoMap";
 import SideDetail from "../common/Side/SideDetail";
+import SearchBtn from "./components/SearchBtn";
 import SideDetailItems from "./components/SideDetailItems";
 
 export default function MainLayout({
@@ -11,6 +12,7 @@ export default function MainLayout({
         <>
             <KakaoMap></KakaoMap>
             <SideDetail items={<SideDetailItems/>} />
+            <SearchBtn/>
             {children}
         </>
     )

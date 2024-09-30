@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 import { useEffect, useRef } from "react";
+import { FaLocationDot, FaWonSign } from "react-icons/fa6";
+import { SlArrowRightCircle } from "react-icons/sl";
 
 export default function SideDetailItem({ data }: { data: Store }) {
   const router = useRouter();
@@ -15,7 +17,10 @@ export default function SideDetailItem({ data }: { data: Store }) {
 
   useEffect(() => {
     if (targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: "instant", block: "center" });
+      targetRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }, [shopIdx]);
   return (
@@ -27,17 +32,31 @@ export default function SideDetailItem({ data }: { data: Store }) {
         dispatch(changeShopIndex(data.id));
       }}
     >
-      <img src="/image/192.png" alt="" />
-      <div className={styles.Info}>
-        <span>{data.companyName}</span>
-        <span>{data.category}</span>
-        <span>권리금 {Math.floor(data.rightFee / 10000)}만원</span>
-        <span>보증금 {Math.floor(data.managementFee / 10000)}만원</span>
-        <span>월매출 {Math.floor(data.monthlyRevenue / 10000)}만원</span>
-        {/* <span>월수익 {Math.floor(data.monthlyProfit / 10000)}만원</span> */}
-        <button onClick={()=>{
+      {shopIdx === data.id ? (
+        <SlArrowRightCircle className={styles.back} onClick={()=>{
           router.push(`/main/${data.id}`)
-        }}>자세히 보기</button>
+        }} />
+      ) : null}
+      <div className={styles.Info}>
+        <div className={styles.top}>
+          <span className={styles.category}>{data.category}</span>
+          <span className={styles.name}>{data.companyName}</span>
+        </div>
+        <span className={styles.address}>
+          <FaLocationDot /> {data.address}
+        </span>
+        <div className={styles.mid}>
+          <span>권리금 {Math.floor(data.rightFee / 10000)}만원 /</span>
+          <span>보증금 {Math.floor(data.managementFee / 10000)}만원</span>
+        </div>
+        <span className={styles.mid2}>
+          월세 {Math.floor(data.monthlyRent / 10000)}만원
+        </span>
+        <div className={styles.bottom}>
+          <FaWonSign className={styles.icon} />
+          <span>월매출 {Math.floor(data.monthlyProfit / 10000)}만원 /</span>
+          <span>월수익 {Math.floor(data.monthlyRevenue / 10000)}만원</span>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Final from "./components/Final";
 import FirstBox from "./components/FirstBox";
+import Footer from "./components/Footer";
 import ImgBox from "./components/ImgBox";
 import Intro from "./components/Intro";
 import Progress from "./components/Progress";
@@ -16,6 +17,7 @@ export default function Home() {
         <Intro/>
         <Why/>
         <Final/>
+        <Footer/>
         {/* <FirstBox /> */}
         {/* <SecondBox /> */}
       </div>

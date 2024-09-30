@@ -1,5 +1,3 @@
-'use client'
-
 import SideList from '@/app/common/Side/SideList';
 import Comments from './component/comment/Comments';
 import PostDetail from './component/detail/PostDetail';
@@ -11,12 +9,15 @@ import WideComments from './component/comment/wideComment/WideComments';
 import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSummary';
 
 export default function CommunityDetail() {
+<<<<<<< HEAD
     const [ defView, setDefView ] = useState(true);
 
     const toggleDefView = () => {
         setDefView(!defView);
     }
 
+=======
+>>>>>>> a452d35 (feat : modify main page list)
     return (
         <div className={styles.background}>
             <div className={styles.contentsArea}>

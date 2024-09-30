@@ -10,9 +10,6 @@ import SideList from '../common/Side/SideList';
 export default function Community() {
     return (
         <div className={styles.background}>
-            <div>
-                <SideList items={<SmallSortList />} />
-            </div>
             <div className={styles.block}>
                 <div className={styles.postBlock}>
                     <UpperNav />

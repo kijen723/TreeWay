@@ -12,7 +12,6 @@
     left: 20vw;
     width: 70vw;
     height: 75vh;
-    padding: 10px;
     display: flex;
     align-items: center;
     gap: 2vh;
@@ -126,14 +125,16 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-radius: 10px;
 
     .commentBlock {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
         background-color: white;
         border-radius: 10px;
         width: 100%;
-        height: 90%;
+        height: 97%;
         padding: 10px;
 
         .commentHeader {

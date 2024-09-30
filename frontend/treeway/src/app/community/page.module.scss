@@ -8,14 +8,13 @@
 
 .block {
     position: absolute;
-    top: 11vh;
-    left: 22vw;
-    width: 75vw;
-    height: 85vh;
+    top : calc(max(60px, 10vh));
+    left: 70px;
+    width: 94.5vw;
+    height: 89vh;
     background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(2px);
-    padding: 10px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     border-radius: 10px;
