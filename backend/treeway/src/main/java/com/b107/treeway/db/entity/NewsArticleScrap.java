@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -11,10 +13,15 @@ import lombok.Setter;
 public class NewsArticleScrap {
 
     @Id
-    @Column(name = "member_id", nullable = false)
-    private Long memberId; // 맴버 ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "news_article_scrap_id", nullable = false)
+    private Long id;
 
-    @Id
-    @Column(name = "news_article_id", nullable = false)
-    private Long newsArticleId; // 뉴스 ID
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "new_article_id")
+    private NewsArticle newsArticle;
 }

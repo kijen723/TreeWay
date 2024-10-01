@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -15,9 +17,9 @@ public class Sigungu {
     @Column(name = "sigungu_id", nullable = false)
     private Long id;
 
-    @Column(name = "citysi_id", nullable = false)
-    private Long citysiId;
-
     @Column(name = "sigungu_name", length = 255)
     private String sigunguName;
+
+    @OneToMany(mappedBy = "sigungu")
+    private List<CitySi> citySi;
 }

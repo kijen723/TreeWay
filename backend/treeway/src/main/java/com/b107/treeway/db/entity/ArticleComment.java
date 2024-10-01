@@ -16,11 +16,13 @@ public class ArticleComment {
     @Column(name = "article_comment_id", nullable = false)
     private Long id;
 
-    @Column(name = "article_id", nullable = false)
-    private Long articleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
+    private Article article;
 
-    @Column(name = "member_id", nullable = false)
-    private Long memberId = 1L; // 기본값 1로 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private Member member;
 
     @Column(name = "content", length = 3000)
     private String content;

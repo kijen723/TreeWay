@@ -11,8 +11,11 @@ import lombok.Setter;
 public class SalesDetail {
 
     @Id
-    @Column(name = "sales_id", nullable = false)
-    private Long salesId; // 매물 ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Sales sales;
 
     @Column(name = "field", nullable = true)
     private String location; // 소재지
@@ -83,5 +86,4 @@ public class SalesDetail {
     @Column(name = "field23", nullable = true)
     private String propertyDescription; // 매물 설명
 
-    // 필요한 경우 추가적인 메서드나 로직을 여기에 구현할 수 있습니다.
 }

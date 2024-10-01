@@ -18,5 +18,4 @@ public class MajorBusiness {
     @Column(name = "major_business_name", length = 255)
     private String majorBusinessName;
 
-    // 필요한 경우 추가적인 메서드나 로직을 여기에 구현할 수 있습니다.
 }

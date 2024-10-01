@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -11,10 +13,15 @@ import lombok.Setter;
 public class SalesScrap {
 
     @Id
-    @Column(name = "member_id", nullable = false)
-    private Long memberId; // 맴버 ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
-    @Column(name = "sales_id", nullable = false)
-    private Long salesId; // 매물 ID
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "news_article_id")
+    private NewsArticle newsArticle;
+
 }

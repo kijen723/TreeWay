@@ -14,6 +14,7 @@ public class AnalysisResume {
     @Column(name = "analysis_resume_id", nullable = false)
     private Long analysisResumeId; // 분석 이력 ID
 
-    @Column(name = "member_id", nullable = false)
-    private Long memberId; // 맴버 ID
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private Member member;
 }

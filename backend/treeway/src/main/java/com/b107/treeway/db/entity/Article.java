@@ -16,14 +16,17 @@ public class Article {
     @Column(name = "article_id", nullable = false)
     private Long id;
 
-    @Column(name = "minor_business_id", nullable = false)
-    private Long minorBusinessId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sigungu_id")
+    private Sigungu sigungu;
 
-    @Column(name = "sigungu_id", nullable = false)
-    private Long sigunguId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "minor_business_id")
+    private MinorBusiness minorBusiness;
 
-    @Column(name = "member_id", nullable = false)
-    private Long memberId = 1L; // 기본값 1로 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private Member member;
 
     @Column(name = "title", length = 255)
     private String title;
@@ -39,4 +42,5 @@ public class Article {
 
     @Column(name = "view_count")
     private Integer viewCount;
+
 }

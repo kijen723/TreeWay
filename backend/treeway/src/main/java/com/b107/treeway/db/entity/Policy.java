@@ -16,11 +16,13 @@ public class Policy {
     @Column(name = "policy_id", nullable = false)
     private Long id;
 
-    @Column(name = "minor_business_id", nullable = false)
-    private Long minorBusinessId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "minor_business_id")
+    private MinorBusiness minorBusiness;
 
-    @Column(name = "sigungu_id", nullable = false)
-    private Long sigunguId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sigungu_id")
+    private Sigungu sigungu;
 
     @Column(name = "title", length = 255)
     private String title;

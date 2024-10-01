@@ -17,4 +17,8 @@ public class CitySi {
 
     @Column(name = "citysi_name", length = 255)
     private String citysiName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sigungu_id")
+    private Sigungu sigungu;
 }

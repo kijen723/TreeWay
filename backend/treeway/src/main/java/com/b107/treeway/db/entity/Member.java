@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -42,4 +44,10 @@ public class Member {
 
     @Column(name = "oauth_email", length = 255)
     private String oauthEmail;
+
+    @OneToMany(mappedBy = "member")
+    private List<Article> article;
+
+    @OneToMany(mappedBy = "member")
+    private List<AnalysisResume> AnalysisResume;
 }

@@ -15,11 +15,13 @@ public class Sales {
     @Column(name = "sales_id", nullable = false)
     private Long salesId;
 
-    @Column(name = "minor_business_id", nullable = false)
-    private Long minorBusinessId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "minor_business_id")
+    private MinorBusiness minorBusiness;
 
-    @Column(name = "sigungu_id", nullable = false)
-    private Long sigunguId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sigungu_id")
+    private Sigungu sigungu;
 
     @Column(name = "field", nullable = true)
     private String field; // 권리금
@@ -36,5 +38,4 @@ public class Sales {
     @Column(name = "field5", nullable = true)
     private String field5; // 평수
 
-    // 필요한 경우 추가적인 메서드나 로직을 여기에 구현할 수 있습니다.
 }
