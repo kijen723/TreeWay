@@ -4,7 +4,11 @@ import Button from '@/app/common/Button';
 import styles from '@/app/community/[postId]/page.module.scss'
 import { useState } from 'react';
 
-export default function CommentForm() {
+interface clickEventProps {
+    onClick: React.MouseEventHandler<HTMLDivElement>
+}
+
+export default function CommentForm({onClick} : clickEventProps) {
     const [ comment, setComment ] = useState<string>('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -16,7 +20,7 @@ export default function CommentForm() {
     }
 
     return (
-        <div className={styles.commentForm}>
+        <div className={styles.commentForm} onClick={onClick}>
             <textarea
                 className={styles.commentInput}
                 value={comment}
