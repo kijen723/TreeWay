@@ -13,7 +13,7 @@ public class MajorBusiness {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "major_business_id", nullable = false)
-    private Long majorBusinessId;
+    private Long id;
 
     @Column(name = "major_business_name", length = 255)
     private String majorBusinessName;

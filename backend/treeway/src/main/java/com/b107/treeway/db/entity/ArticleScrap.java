@@ -14,6 +14,7 @@ public class ArticleScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "article_scrap_id", nullable = false)
     private Long Id;
 
     @ManyToOne(fetch = FetchType.LAZY)

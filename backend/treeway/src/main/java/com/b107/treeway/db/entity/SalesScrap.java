@@ -14,6 +14,7 @@ public class SalesScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sales_scrap_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

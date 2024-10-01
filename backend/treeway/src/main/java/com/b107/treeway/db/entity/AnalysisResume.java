@@ -11,8 +11,9 @@ import lombok.Setter;
 public class AnalysisResume {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "analysis_resume_id", nullable = false)
-    private Long analysisResumeId; // 분석 이력 ID
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")

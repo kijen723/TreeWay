@@ -12,6 +12,7 @@ public class SalesDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sales_detail_id", nullable = false)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

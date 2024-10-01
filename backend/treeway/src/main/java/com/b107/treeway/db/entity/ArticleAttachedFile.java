@@ -13,7 +13,7 @@ public class ArticleAttachedFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_attached_file_id", nullable = false)
-    private Long articleAttachedFileId;
+    private Long id;
 
     @Column(name = "file_path", length = 3000)
     private String filePath;
