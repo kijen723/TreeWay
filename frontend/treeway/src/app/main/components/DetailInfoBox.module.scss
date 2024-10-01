@@ -1,0 +1,284 @@
+.main {
+  width: 96%;
+  height: 89%;
+  overflow-y: scroll;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .Info1 {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-left : 10px;
+
+    .category {
+      width: 200px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2px;
+      border-radius: 7px;
+      color: white;
+      font-weight: bold;
+      background-color: #ffb704;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+
+    .premium {
+      display: flex;
+      align-items: center;
+      color: #7e6ef7;
+      font-weight: 600;
+      font-size: 30px;
+      margin-top: 25px;
+      gap: 10px;
+    }
+
+    .address {
+      display: flex;
+      align-items: center;
+      color: #c3c3c5;
+      margin-top: 15px;
+    }
+  }
+
+  .Info2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    margin-top: 50px;
+    box-sizing: border-box;
+
+    .fee {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 48%;
+      height: 100%;
+      border-radius: 20px;
+      background-color: #eae8fe;
+      box-sizing: border-box;
+      padding: 15px;
+      color: #717275;
+
+      .monthSell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+          }
+
+          &:last-child {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            letter-spacing: -1px;
+          }
+        }
+      }
+
+      .monthRevenue {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+          }
+
+          &:last-child {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            letter-spacing: -1px;
+          }
+        }
+      }
+    }
+
+    .seller {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 48%;
+      height: 100%;
+      border-radius: 20px;
+      box-sizing: border-box;
+      padding: 15px;
+      color: #717275;
+      background-color: #f5f7fa;
+
+      .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+          }
+
+          &:last-child {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            letter-spacing: -1px;
+          }
+        }
+      }
+
+      .phone {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+          }
+
+          &:last-child {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            letter-spacing: -1px;
+          }
+        }
+      }
+    }
+  }
+
+  .Mid {
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 15px;
+    box-sizing: border-box;
+
+    .shopInfoTitle {
+      font-weight: bold;
+      font-size: 20px;
+      padding-left : 10px;
+    }
+
+    .shopInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 100%;
+      height: 200px;
+      border-radius: 20px;
+      background-color: #f8fafd;
+      padding: 15px;
+
+      div {
+        width: 300px;
+        display: grid;
+        grid-template-columns: 100px 200px;
+        gap: 100px;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+            color: #717275;
+          }
+          &:last-child {
+            font-weight: bold;
+            letter-spacing: -1px;
+          }
+        }
+      }
+    }
+  }
+
+  .Bottom {
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 15px;
+    box-sizing: border-box;
+
+    .feeInfoTitle {
+      font-weight: bold;
+      font-size: 20px;
+      padding-left : 10px;
+    }
+
+    .feeInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 100%;
+      height: 170px;
+      border-radius: 20px;
+      background-color: #f8fafd;
+      padding: 15px;
+
+      div {
+        width: 300px;
+        display: grid;
+        grid-template-columns: 100px 200px;
+        gap: 100px;
+
+        span {
+          &:first-child {
+            letter-spacing: -1px;
+            color: #717275;
+          }
+          &:last-child {
+            font-weight: bold;
+            letter-spacing: -1px;
+          }
+        }
+      }
+    }
+
+    .sellTitle {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 50px;
+      padding-left : 10px;
+    }
+  }
+
+  .Last{
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 15px;
+    box-sizing: border-box;
+
+    .shopDescriptTitle {
+      font-weight: bold;
+      font-size: 20px;
+      padding-left : 10px;
+    }
+
+    .description {
+      display: flex;
+      width: 100%;
+      height : auto;
+      white-space: wrap;
+      word-wrap : break-word;
+      border-radius: 20px;
+      background-color: #f8fafd;
+      padding: 15px;
+    }
+  }
+}
