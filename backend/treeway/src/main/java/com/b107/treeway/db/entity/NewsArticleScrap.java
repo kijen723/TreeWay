@@ -22,6 +22,6 @@ public class NewsArticleScrap {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "new_article_id")
+    @JoinColumn(name = "news_article_id")
     private NewsArticle newsArticle;
 }

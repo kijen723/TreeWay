@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "article_comments")
+@Table(name = "article_comment")
 public class ArticleComment {
 
     @Id
