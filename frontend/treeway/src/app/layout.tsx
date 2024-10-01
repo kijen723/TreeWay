@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,11 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}}`}>
-        <ClientLayout>
-          <HeaderNav/>
-          <SideNav/>
-          {children}
-        </ClientLayout>
+          <ClientLayout>
+            <HeaderNav />
+            <SideNav />
+            {children}
+          </ClientLayout>
       </body>
     </html>
   );

@@ -3,19 +3,16 @@
 import { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
-import { LatLng } from "@/types/MapType";
-import makedata, { Store } from "@/util/MakeData";
+import { LatLng, Store } from "@/types/MapType";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDumData } from "@/redux/slice/dumdataSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
-import { csvData, csvToJson } from "@/util/csvToJson";
+import { useQuery } from "@tanstack/react-query";
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
-  const CsvToJson = csvToJson(csvData);
-  console.log(CsvToJson);
-  const data = useSelector((state: RootState) => state.dumdata.value);
+  // const data = useSelector((state: RootState) => state.dumdata.value);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [nowPosition, setNowPosition] = useState<LatLng>({
     lat: 36.628297,
@@ -24,18 +21,27 @@ export default function KakaoMap() {
   const shopIdx: number = useSelector(
     (state: RootState) => state.shopIndex.value
   );
+  const { isLoading, error, data} : {isLoading:boolean, error: any, data : Store[] | undefined} = useQuery({
+    queryKey: ["dumdata"],
+    queryFn: async () => {
+      return await fetch("https://j11b107.p.ssafy.io/api/temp").then((res) => res.json());
+    },
+  });
 
   // 더미 데이터 로드
   useEffect(() => {
-    const dumdata = makedata();
-    dispatch(changeDumData(dumdata));
-  }, []);
+    if(data){
+      const dumdata = data;
+      console.log(data);
+      dispatch(changeDumData(dumdata));
+    }
+  }, [data]);
 
   useEffect(() => {
     if (data && shopIdx !== 0) {
       setNowPosition({
-        lat: data.find((a) => a.id == shopIdx)!.latitude,
-        lng: data.find((a) => a.id == shopIdx)!.longitude,
+        lat: data.find((a :Store) => a.id == shopIdx)!.latitude,
+        lng: data.find((a :Store) => a.id == shopIdx)!.longitude,
       });
     }
   }, [shopIdx]);
@@ -78,7 +84,7 @@ export default function KakaoMap() {
                     lng: value.longitude,
                   }}
                   image={
-                    value.id == shopIdx
+                    value.id === shopIdx
                       ? {
                           src: "/image/greenMarker.png",
                           size: {

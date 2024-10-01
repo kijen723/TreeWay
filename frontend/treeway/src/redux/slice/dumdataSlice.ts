@@ -1,4 +1,4 @@
-import { Store } from '@/util/MakeData';
+import { Store } from '@/types/MapType';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // State 타입 정의

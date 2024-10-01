@@ -41,3 +41,28 @@ export type Polygon2 = {
     type: string;
   }[];
 };
+
+export type Store = {
+  
+    "id": number,
+    "majorBusiness": string,
+    "minorBusiness": string,
+    "address": string,
+    "monthlySales": number,
+    "monthlyEarnings": number,
+    "name": string,
+    "phone": string,
+    "tradename": string,
+    "floorClass": string,
+    "currentFloor": number,
+    "monthlyRent": number,
+    "administrationCost": number,
+    "materialCost": number,
+    "personnelExpense": number,
+    "utilityBill": number,
+    "otherExpenses": number,
+    "additionalInformation": string,
+    itemnum: number,
+    "latitude": number,
+    "longitude": number
+}
