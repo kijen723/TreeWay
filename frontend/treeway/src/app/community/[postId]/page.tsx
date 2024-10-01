@@ -1,3 +1,5 @@
+'use client'
+
 import SideList from '@/app/common/Side/SideList';
 import Comments from './component/comment/Comments';
 import PostDetail from './component/detail/PostDetail';
@@ -10,14 +12,20 @@ import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSum
 
 export default function CommunityDetail() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 19073e0 (fix: merge 에러 수정)
     const [ defView, setDefView ] = useState(true);
 
     const toggleDefView = () => {
         setDefView(!defView);
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> a452d35 (feat : modify main page list)
+=======
+>>>>>>> 19073e0 (fix: merge 에러 수정)
     return (
         <div className={styles.background}>
             <div className={styles.contentsArea}>
