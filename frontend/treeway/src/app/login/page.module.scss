@@ -12,6 +12,11 @@
     align-items: center;
     width: 30vw;
     box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 5%;
 
     .logo {
         width: 70%;
