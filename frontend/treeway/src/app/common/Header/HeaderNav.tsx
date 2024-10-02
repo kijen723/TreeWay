@@ -1,16 +1,17 @@
 "use client";
 
 import { MdLogin } from "react-icons/md";
-import { GoBell } from "react-icons/go";
 import styles from "./HeaderNav.module.scss";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import RoundBtnGroup from "../RoundBtnGroup";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 export default function HeaderNav() {
-  const [isLogin, setIsLogin] = useState<boolean>(false); // 로그인 상태
+  const isLogin = useSelector((state: RootState) => state.auth.isAuth);
+  
   const profileImageUrl: string = "/image/192.png";
   const pathname = usePathname();
   const router = useRouter();
