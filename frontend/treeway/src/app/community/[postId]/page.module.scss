@@ -9,8 +9,8 @@
 .contentsArea {
     position: absolute;
     top: 16vh;
-    left: 20vw;
-    width: 70vw;
+    left: 5vw;
+    width: 92vw;
     height: 75vh;
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .postSummary {
-    width: 30vw;
+    width: 35vw;
     height: 55vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);
@@ -117,7 +117,7 @@
 }
 
 .comments {
-    width: 30vw;
+    width: 35vw;
     height: 25vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);
@@ -192,7 +192,7 @@
 }
 
 .narrowPostSummary {
-    width: 30vw;
+    width: 35vw;
     height: 20vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);
@@ -290,7 +290,7 @@
 }
 
 .wideComments {
-    width: 30vw;
+    width: 35vw;
     height: 60vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);
@@ -363,7 +363,7 @@
 }
 
 .postDetail {
-    width: 44vw;
+    width: 55vw;
     height: 84vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);

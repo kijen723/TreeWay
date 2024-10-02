@@ -30,9 +30,6 @@ export default function CommunityDetail() {
         <div className={styles.background}>
             <div className={styles.contentsArea}>
                 <div>
-                    <SideList items={<SmallSortList />}/>
-                </div>
-                <div>
                     { defView ? (
                         <>
                             <PostSummary />

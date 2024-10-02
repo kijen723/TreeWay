@@ -23,9 +23,6 @@ export default function CreatePost() {
 
     return (
         <div className={styles.background}>
-            <div>
-                <SideList items={<SmallSortList />} />
-            </div>
             <div className={styles.block}>
                 <div className={styles.formBlock}>
                     <div className={styles.title}>
