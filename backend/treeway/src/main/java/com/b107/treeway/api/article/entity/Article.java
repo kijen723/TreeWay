@@ -1,8 +1,7 @@
 package com.b107.treeway.api.article.entity;
 
-import com.b107.treeway.api.recommend.entity.MinorBusiness;
+import com.b107.treeway.api.recommend.entity.IndustryDetail;
 import com.b107.treeway.api.member.entity.Member;
-import com.b107.treeway.api.recommend.entity.Sigungu;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -20,12 +19,8 @@ public class Article {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sigungu_id")
-    private Sigungu sigungu;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "minor_business_id")
-    private MinorBusiness minorBusiness;
+    private IndustryDetail industryDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")

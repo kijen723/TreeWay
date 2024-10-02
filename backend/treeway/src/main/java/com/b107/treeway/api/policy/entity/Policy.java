@@ -1,7 +1,7 @@
 package com.b107.treeway.api.policy.entity;
 
-import com.b107.treeway.api.recommend.entity.MinorBusiness;
-import com.b107.treeway.api.recommend.entity.Sigungu;
+import com.b107.treeway.api.recommend.entity.IndustryDetail;
+import com.b107.treeway.api.recommend.entity.Region;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,12 +20,12 @@ public class Policy {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "minor_business_id")
-    private MinorBusiness minorBusiness;
+    @JoinColumn(name = "industry_detail_id")
+    private IndustryDetail industryDetail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sigungu_id")
-    private Sigungu sigungu;
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     @Column(name = "title", length = 255)
     private String title;

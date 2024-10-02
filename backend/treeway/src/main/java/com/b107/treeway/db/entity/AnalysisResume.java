@@ -1,5 +1,6 @@
 package com.b107.treeway.db.entity;
 
+import com.b107.treeway.api.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

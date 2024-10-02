@@ -1,7 +1,7 @@
 package com.b107.treeway.api.recommend.controller;
 
-import com.b107.treeway.api.recommend.entity.CitySi;
-import com.b107.treeway.api.recommend.entity.JobRecommend;
+import com.b107.treeway.api.recommend.entity.Region;
+import com.b107.treeway.api.recommend.entity.Rating;
 import com.b107.treeway.api.recommend.service.CitySiService;
 import com.b107.treeway.api.recommend.service.RecommendService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,9 +22,9 @@ public class RecommendController {
 
     @GetMapping
     @Operation(summary = "추천 조회")
-    public ResponseEntity<List<CitySi>> findRecommend(){
-        List<JobRecommend> jobRecommend = recommendService.findAll();
-        List<CitySi> city = citySiService.findAll();
+    public ResponseEntity<List<Region>> findRecommend(){
+        List<Rating> rating = recommendService.findAll();
+        List<Region> city = citySiService.findAll();
 
         return ResponseEntity.ok().body(city);
     }

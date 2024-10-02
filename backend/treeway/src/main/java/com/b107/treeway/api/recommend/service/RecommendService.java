@@ -1,7 +1,7 @@
 package com.b107.treeway.api.recommend.service;
 
-import com.b107.treeway.api.recommend.entity.JobRecommend;
-import com.b107.treeway.api.recommend.repository.RecommendRepository;
+import com.b107.treeway.api.recommend.entity.Rating;
+import com.b107.treeway.api.recommend.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +12,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecommendService {
 
-    private final RecommendRepository recommendRepository;
+    private final RatingRepository ratingRepository;
 
-    public List<JobRecommend> findAll() {
+    public List<Rating> findAll() {
         System.out.println("1");
-        List<JobRecommend> list = recommendRepository.findAll();
+        List<Rating> list = ratingRepository.findAll();
         System.out.println(Arrays.toString(list.toArray()));
         return list;
     }

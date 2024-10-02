@@ -7,12 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "citysi")
-public class CitySi {
+@Table(name = "region")
+public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "citysi_id", nullable = false)
+    @Column(name = "region_id", nullable = false)
     private Long id;
 
     @Column(name = "si_code")
@@ -30,7 +30,4 @@ public class CitySi {
     @Column(name = "si_name")
     private String siName;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "sigungu_id")
-//    private Sigungu sigungu;
 }
