@@ -23,4 +23,6 @@ public class ExpectedCost {
 
     private int cost;
 
+    @Column(name = "region_detail")
+    private String regionDetail;
 }
