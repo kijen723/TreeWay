@@ -16,8 +16,8 @@ public class BusinessHour {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "industry_id")
-    private Industry industry;
+    @JoinColumn(name = "industry_detail_id")
+    private IndustryDetail industryDetailId;
 
     @Column(name = "hour", length = 255)
     private int hour;

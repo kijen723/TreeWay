@@ -18,7 +18,7 @@ public class Rating {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "region_id")
-        private Region region;
+    private Region region;
 
     @Column(name = "rating_score")
     private double ratingScore;

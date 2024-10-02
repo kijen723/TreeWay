@@ -12,15 +12,13 @@ public class IndustryDetail {
 
     @Id
     @Column(name = "industry_detail_id", nullable = false)
-    private Long industryDetailCode;
+    private Long industryDetailId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industr_id")
     private Industry industry;
 
     @Column(name = "industry_detail_name")
-    private String industryName;
+    private String industryDetailName;
 
-    @Column(name = "industry_detail_time")
-    private int industryDetailTime;
 }
