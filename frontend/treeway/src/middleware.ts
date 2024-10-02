@@ -8,25 +8,22 @@ const protectedRoutes = ["/regist", /^\/community(?:\/|$)/, "/createStoreImage"]
 const publicRoutes = ["/login"]; // 로그인 유저는 접근할 수 없는 페이지
 
 export function middleware(request: NextRequest) {
-    const token = request.cookies.get('Authorization');
+    const isAuth = request.cookies.get('isAuth');
     const currentPath = request.nextUrl.pathname;
     
-    console.log("Token:", token); 
+    console.log(isAuth); 
   
-    // 쿠키에 담긴 token의 유효성은 검사하지 않고있음... 로직 추가 필요
-
-    if (!token && protectedRoutes.some(route => currentPath.match(route))) {
+    if (!isAuth && protectedRoutes.some(route => currentPath.match(route))) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
   
-    if (token && publicRoutes.includes(currentPath)) {
+    if (isAuth && publicRoutes.includes(currentPath)) {
       const url = request.nextUrl.clone();
       url.pathname = "/main";
       return NextResponse.redirect(url);
     }
   
     return NextResponse.next();
-  }
-  
+}

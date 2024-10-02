@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { setCookie, deleteCookie } from 'cookies-next';
 
 interface AuthState {
   isAuth: boolean; 
@@ -21,11 +22,13 @@ export const authSlice = createSlice({
       state.isAuth = true;
       state.username = action.payload.username;
       state.email = action.payload.email;
+      setCookie('isAuth', true);
     },
     logOut: (state) => {
       state.isAuth = false;
       state.username = null;
       state.email = null;
+      deleteCookie('isAuth');
     },
   },
 });

@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./SideNav.module.scss";
-import { GoBell } from "react-icons/go";
 import { MdLogout } from "react-icons/md";
 import RoundBtnGroup from "../RoundBtnGroup";
 import { usePathname, useRouter } from "next/navigation";
@@ -11,9 +10,13 @@ import {
   FcGlobe,
   FcReading,
 } from "react-icons/fc";
+import { useDispatch } from "react-redux";
+import { logOut } from "@/redux/slice/authSlice";
 
 export default function SideNav() {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const upperButtons = [
     {
       icon: FcGlobe,
@@ -44,8 +47,8 @@ export default function SideNav() {
       icon: MdLogout,
       alt: "Alarm Button",
       onClick: () => {
+        dispatch(logOut());
         router.push("/");
-        // 여기에 로그아웃 기능 추가해야합니다.
       },
     },
   ];
