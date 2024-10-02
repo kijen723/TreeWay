@@ -1,4 +1,4 @@
-package com.b107.treeway.api.recommend.entity;
+package com.b107.treeway.api.rating.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class BusinessHour {
     @Column(name = "business_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_id")
     private Industry industry;
 

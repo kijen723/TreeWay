@@ -1,7 +1,7 @@
-package com.b107.treeway.api.recommend.service;
+package com.b107.treeway.api.rating.service;
 
-import com.b107.treeway.api.recommend.entity.Rating;
-import com.b107.treeway.api.recommend.repository.RatingRepository;
+import com.b107.treeway.api.rating.entity.Rating;
+import com.b107.treeway.api.rating.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

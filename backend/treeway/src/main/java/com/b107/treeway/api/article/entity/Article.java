@@ -1,6 +1,6 @@
 package com.b107.treeway.api.article.entity;
 
-import com.b107.treeway.api.recommend.entity.IndustryDetail;
+import com.b107.treeway.api.rating.entity.IndustryDetail;
 import com.b107.treeway.api.member.entity.Member;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -18,11 +18,11 @@ public class Article {
     @Column(name = "article_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "minor_business_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "industry_detail_id")
     private IndustryDetail industryDetail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
@@ -32,8 +32,8 @@ public class Article {
     @Column(name = "content", length = 3000)
     private String content;
 
-    @Column(name = "create_at")
-    private LocalDateTime createAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;

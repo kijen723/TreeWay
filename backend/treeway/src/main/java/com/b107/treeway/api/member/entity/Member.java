@@ -16,26 +16,26 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", nullable = false)
-    private Long memberId;
+    private Long id;
 
-    @Column(name = "member_name", length = 255)
-    private String memberName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "phone_number", length = 50)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false; // 기본값을 false로 설정
+    private Boolean isDeleted = false;
 
     @Column(name = "regist_time", nullable = false)
     private java.sql.Timestamp registTime;
 
     @Lob
     @Column(name = "profile_img")
-    private byte[] profileImg; // MEDIUMBLOB을 byte 배열로 매핑
+    private byte[] profileImg;
 
     @Column(name = "oauth_provider", length = 100)
     private String oauthProvider;
@@ -46,9 +46,9 @@ public class Member {
     @Column(name = "oauth_email", length = 255)
     private String oauthEmail;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Article> article;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<com.b107.treeway.db.entity.AnalysisResume> AnalysisResume;
 }

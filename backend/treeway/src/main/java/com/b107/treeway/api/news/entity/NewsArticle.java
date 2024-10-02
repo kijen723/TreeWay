@@ -1,7 +1,7 @@
 package com.b107.treeway.api.news.entity;
 
-import com.b107.treeway.api.recommend.entity.IndustryDetail;
-import com.b107.treeway.api.recommend.entity.Region;
+import com.b107.treeway.api.rating.entity.IndustryDetail;
+import com.b107.treeway.api.rating.entity.Region;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -18,11 +18,11 @@ public class NewsArticle {
     @Column(name = "news_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_id")
     private IndustryDetail industryDetailId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "region_id")
     private Region region;
 

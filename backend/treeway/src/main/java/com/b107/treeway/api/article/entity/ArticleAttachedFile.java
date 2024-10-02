@@ -21,7 +21,7 @@ public class ArticleAttachedFile {
     @Column(name = "file_name", length = 3000)
     private String fileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "article_id")
     private Article article;
 }

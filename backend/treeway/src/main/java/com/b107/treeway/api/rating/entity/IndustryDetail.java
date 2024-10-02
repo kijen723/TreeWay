@@ -1,4 +1,4 @@
-package com.b107.treeway.api.recommend.entity;
+package com.b107.treeway.api.rating.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,7 +14,7 @@ public class IndustryDetail {
     @Column(name = "industry_detail_id", nullable = false)
     private Long industryDetailCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industr_id")
     private Industry industry;
 

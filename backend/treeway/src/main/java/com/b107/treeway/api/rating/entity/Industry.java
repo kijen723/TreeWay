@@ -1,4 +1,4 @@
-package com.b107.treeway.api.recommend.entity;
+package com.b107.treeway.api.rating.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

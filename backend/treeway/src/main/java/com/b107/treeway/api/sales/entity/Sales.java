@@ -1,7 +1,7 @@
 package com.b107.treeway.api.sales.entity;
 
-import com.b107.treeway.api.recommend.entity.IndustryDetail;
-import com.b107.treeway.api.recommend.entity.Region;
+import com.b107.treeway.api.rating.entity.IndustryDetail;
+import com.b107.treeway.api.rating.entity.Region;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +17,11 @@ public class Sales {
     @Column(name = "sales_id", nullable = false)
     private Long salesId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_detail_id")
     private IndustryDetail industryDetail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "region_id")
     private Region region;
 

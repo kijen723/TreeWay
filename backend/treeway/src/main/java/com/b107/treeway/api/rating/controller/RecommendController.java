@@ -1,9 +1,9 @@
-package com.b107.treeway.api.recommend.controller;
+package com.b107.treeway.api.rating.controller;
 
-import com.b107.treeway.api.recommend.entity.Region;
-import com.b107.treeway.api.recommend.entity.Rating;
-import com.b107.treeway.api.recommend.service.CitySiService;
-import com.b107.treeway.api.recommend.service.RecommendService;
+import com.b107.treeway.api.rating.entity.Region;
+import com.b107.treeway.api.rating.entity.Rating;
+import com.b107.treeway.api.rating.service.CitySiService;
+import com.b107.treeway.api.rating.service.RecommendService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

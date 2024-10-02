@@ -1,4 +1,4 @@
-package com.b107.treeway.api.recommend.dto;
+package com.b107.treeway.api.rating.dto;
 
 import lombok.*;
 

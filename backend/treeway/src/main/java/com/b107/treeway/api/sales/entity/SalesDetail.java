@@ -15,7 +15,7 @@ public class SalesDetail {
     @Column(name = "sales_detail_id", nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Sales sales;
 
     @Column(name = "field", nullable = true)
