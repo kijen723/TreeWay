@@ -18,8 +18,8 @@ public class Member {
     @Column(name = "member_id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "member_name")
+    private String memberName;
 
     @Column(name = "age")
     private Integer age;

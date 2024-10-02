@@ -19,7 +19,7 @@ public class BusinessHour {
     @JoinColumn(name = "industry_detail_id")
     private IndustryDetail industryDetailId;
 
-    @Column(name = "hour", length = 255)
-    private int hour;
+    @Column(name = "business_time", length = 255)
+    private int businessTime;
 
 }
