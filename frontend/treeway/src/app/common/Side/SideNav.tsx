@@ -25,7 +25,12 @@ export default function SideNav() {
         router.push("/main");
       },
     },
-    { icon: FcReading, alt: "Alarm Button" },
+    { icon: FcReading, 
+      alt: "Alarm Button",
+      onClick: () => {
+        router.push("/newsPolicy");
+      },
+    },
     {
       icon: FcCollaboration,
       alt: "Alarm Button",
