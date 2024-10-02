@@ -5,7 +5,7 @@ import styles from '@/app/community/[postId]/page.module.scss'
 import { useState } from 'react';
 
 interface clickEventProps {
-    onClick: React.MouseEventHandler<HTMLDivElement>
+    onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
 export default function CommentForm({onClick} : clickEventProps) {
