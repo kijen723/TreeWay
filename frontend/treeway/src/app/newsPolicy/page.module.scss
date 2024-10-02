@@ -22,13 +22,14 @@
 }
 
 .postBlock {
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 
     .upperNav {
-        width: 70%;
+        width: 80%;
         display: flex;
         justify-content: space-between;
 
@@ -148,7 +149,7 @@
 
         .news {
             background-color: white;
-            width: 70%;
+            width: 80%;
             padding: 1%;
             display: flex;
             justify-content: space-between;
@@ -181,7 +182,89 @@
             margin: 0;
         }
 
+        .newsBody {
+            width: 90%;
+        }
+
         .newsStats {
+            width: 10%;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: space-between;
+
+            .count {
+                display: flex;
+                gap: 5px;
+            }
+
+            .scrapBtn {
+                font-size: 24px;
+
+                .colorBookmark {
+                    color: red;
+                }
+            }
+        }
+    }
+
+    .policyList {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .policy {
+            background-color: white;
+            width: 80%;
+            padding: 1%;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px;
+            gap: 10px;
+        }
+ 
+        .policyInfo {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .policyTitle {
+            color: black;
+            text-decoration: none;
+            font-size: 14px;
+            
+            :hover {
+                color: #004fe2;
+            }
+
+            h3 {
+                margin: 10px 0;
+            }
+        }
+
+        .policyContent {
+            font-size: 12px;
+            margin: 0;
+
+            .content {
+                display: flex;
+                justify-content: space-between;
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+
+        .policyBody {
+            width: 90%;
+        }
+
+        .policyStats {
             width: 15%;
             font-size: 12px;
             display: flex;

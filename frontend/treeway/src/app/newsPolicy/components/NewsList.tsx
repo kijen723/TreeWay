@@ -12,6 +12,7 @@ interface NewsItem {
     URL: string;
     ViewCount: number;
     ScrapCount: number;
+    isScrap: boolean; 
 }
 
 interface NewsListProps {
@@ -19,18 +20,27 @@ interface NewsListProps {
 }
 
 export default function NewsList({ newsData }: NewsListProps) {
-    // 각 뉴스의 스크랩 여부를 NewsItem에 받아와야하나?
-    const [isScraped, setIsScraped] = useState(false);
+    // 스크랩 수 상태 관리
+    const [scrapCounts, setScrapCounts] = useState(newsData.map(news => news.ScrapCount));
+    const [scrapStatus, setScrapStatus] = useState(newsData.map(news => news.isScrap)); // 스크랩 여부를 초기화
 
-    const toggleScrap = () => {
-        setIsScraped((prev) => !prev);
+    const toggleScrap = (index: number) => {
+        const updatedScrapStatus = [...scrapStatus];
+        updatedScrapStatus[index] = !updatedScrapStatus[index];
+        setScrapStatus(updatedScrapStatus);
+
+        const updatedScrapCounts = [...scrapCounts];
+        updatedScrapCounts[index] = updatedScrapStatus[index]
+            ? updatedScrapCounts[index] + 1
+            : updatedScrapCounts[index] - 1;
+        setScrapCounts(updatedScrapCounts);
     };
 
     return (
         <div className={styles.newsList}>
             {newsData.map((news, index) => (
                 <div key={index} className={styles.news}>
-                    <div>
+                    <div className={styles.newsBody}>
                         <div className={styles.newsInfo}>
                             <span>{news.NewsClass}</span>
                             <span>{news.Time}</span>
@@ -43,17 +53,16 @@ export default function NewsList({ newsData }: NewsListProps) {
                     <div className={styles.newsStats}>
                         <div className={styles.count}>
                             <span><LuEye /> {news.ViewCount}</span>
-                            <span><MdBookmarks /> {news.ScrapCount}</span>
+                            <span><MdBookmarks /> {scrapCounts[index]}</span>
                         </div>
-                        <div className={styles.scrapBtn} onClick={toggleScrap}>
-                            {isScraped ?
+                        <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
+                            {scrapStatus[index] ?
                                 <IoBookmark className={styles.colorBookmark} /> :
                                 <IoBookmarkOutline className={styles.bookmark} />}
                         </div>
                     </div>
                 </div>
             ))}
-
         </div>
     );
 }
