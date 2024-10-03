@@ -1,42 +1,37 @@
 import styles from "../page.module.scss";
 import Post from "./Post";
+import { useRouter } from 'next/navigation'
 
-export default function PostList() {
-    const postList = [
-        {
-            title: "title1",
-            author: "author",
-            date: "date",
-            viewCnt: 0,
-            imgSrc: "/image/cat.jpg", // 대표사진
-        },
-        {
-            title: "title2",
-            author: "author",
-            date: "date",
-            viewCnt: 0,
-            imgSrc: "/image/cat.jpg", // 대표사진
-        },
-        {
-            title: "title3",
-            author: "author",
-            date: "date",
-            viewCnt: 0,
-            imgSrc: "/image/cat.jpg", // 대표사진
-        },
-        {
-            title: "title4",
-            author: "author",
-            date: "date",
-            viewCnt: 0,
-            imgSrc: "/image/cat.jpg", // 대표사진
-        },
-    ]
+interface PostListProps {
+    currentPage: number;
+    postsPerPage: number;
+    postList: Array<{
+        id: number;
+        title: string;
+        author: string;
+        date: string;
+        viewCnt: number;
+        imgSrc: string;
+        viewCount: number;
+        scrapCount: number;
+        isScrap: boolean;
+    }>;
+}
+
+export default function PostList({ currentPage, postsPerPage, postList }: PostListProps) {
+    const router = useRouter(); 
+
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const currentPosts = postList.slice(startIndex, startIndex + postsPerPage);
+
+    const handlePostClick = (id: number) => {
+        router.push(`/community/${id}`);
+    };
 
     return (
         <div className={styles.postList}>
-            {postList.map((post, index) => (
-                <Post key={index} post={post}/>
+            {currentPosts.map((post, index) => (
+                <Post key={index} post={post} onClick={() => handlePostClick(post.id)}/>
             ))}
         </div>
     );
