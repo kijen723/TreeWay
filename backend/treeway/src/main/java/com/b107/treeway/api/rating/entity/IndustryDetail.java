@@ -11,14 +11,15 @@ import lombok.Setter;
 public class IndustryDetail {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "industry_detail_id", nullable = false)
     private Long industryDetailId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "industr_id")
+    @JoinColumn(name = "industry_id")
     private Industry industry;
 
-    @Column(name = "industry_detail_name")
+    @Column(name = "industry_detail_name", nullable = false, length = 255)
     private String industryDetailName;
 
 }

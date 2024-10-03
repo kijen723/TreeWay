@@ -2,11 +2,14 @@ package com.b107.treeway.api.article.entity;
 
 import com.b107.treeway.api.rating.entity.IndustryDetail;
 import com.b107.treeway.api.member.entity.Member;
+import com.b107.treeway.api.rating.entity.Region;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Setter
@@ -20,26 +23,33 @@ public class Article {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "industry_detail_id")
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "industry_detail_id", nullable = false)
     private IndustryDetail industryDetail;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
-    @JsonBackReference  // 순환 참조 방지
-    private Member member;
+    @JoinColumn(name = "region_id", nullable = false)
+    private Region region;
 
-    @Column(name = "title", length = 255)
+    @Column(name = "title", nullable = false, length = 255)
     private String title;
 
-    @Column(name = "content", length = 3000)
+    @Column(name = "content", nullable = false, length = 3000)
     private String content;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "modified_at")
+    @CreationTimestamp
+    @UpdateTimestamp
+    @Column(name = "modified_at", nullable = false)
     private LocalDateTime modifiedAt;
 
-    @Column(name = "view_count")
+    @ColumnDefault("0")
+    @Column(name = "view_count", nullable = false)
     private Integer viewCount;
 }

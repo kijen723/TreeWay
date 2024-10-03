@@ -15,7 +15,7 @@ public class Industry {
     @Column(name = "industry_id", nullable = false)
     private Long id;
 
-    @Column(name = "industry_name", length = 255)
+    @Column(name = "industry_name", nullable = false, unique = true, length = 255)
     private String industryName;
 
 }

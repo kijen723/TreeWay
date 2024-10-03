@@ -1,12 +1,8 @@
 package com.b107.treeway.api.member.entity;
 
-import com.b107.treeway.api.article.entity.Article;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -19,35 +15,31 @@ public class Member {
     @Column(name = "member_id", nullable = false)
     private Long id;
 
-    @Column(name = "member_name")
+    @Column(name = "member_name", nullable = false, length = 255)
     private String memberName;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false, unique = true, length = 255)
     private String phoneNumber;
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    @Column(name = "regist_time", nullable = false)
-    private java.sql.Timestamp registTime;
+    @Column(name = "registed_time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private java.sql.Timestamp registedTime;
 
-    @Lob
     @Column(name = "profile_img")
-    private byte[] profileImg;
-
-    @Column(name = "oauth_provider", length = 100)
-    private String oauthProvider;
-
-    @Column(name = "oauth_id", length = 100)
-    private String oauthId; // Google, Kakao 등에서 받은 고유번호
+    private String profileImg;
 
     @Column(name = "oauth_email", length = 255)
     private String oauthEmail;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    @JsonIgnore  // 순환 참조 방지
-    private List<Article> article;
+    @Column(name = "oauth_id", length = 255)
+    private String oauthId;
+
+    @Column(name = "oauth_provider", length = 255)
+    private String oauthProvider;
+
 }

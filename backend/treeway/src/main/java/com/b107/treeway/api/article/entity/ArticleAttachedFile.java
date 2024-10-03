@@ -15,13 +15,14 @@ public class ArticleAttachedFile {
     @Column(name = "article_attached_file_id", nullable = false)
     private Long id;
 
-    @Column(name = "file_path", length = 3000)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_id", nullable = false)
+    private Article article;
+
+    @Column(name = "file_path", nullable = false, length = 3000)
     private String filePath;
 
-    @Column(name = "file_name", length = 3000)
+    @Column(name = "file_name", nullable = false, length = 3000)
     private String fileName;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "article_id")
-    private Article article;
 }

@@ -15,10 +15,10 @@ public class Region {
     @Column(name = "region_id", nullable = false)
     private Long id;
 
-    @Column(name = "region_name")
+    @Column(name = "region_name", nullable = false, unique = true, length = 255)
     private String regionName;
 
-    @Column(name = "region_detail_name")
+    @Column(name = "region_detail_name", nullable = false, unique = true, length = 255)
     private String regionDetailName;
 
 }
