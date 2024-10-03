@@ -6,5 +6,5 @@ import java.util.List;
 
 
 public interface RatingRepositoryCustom {
-        List<IndustryResponse> getRatingIndustry();
+        List<IndustryResponse> getRatingIndustry(IndustryRequest industryRequest);
 }

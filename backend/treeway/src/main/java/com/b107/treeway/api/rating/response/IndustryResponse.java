@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class IndustryResponse {
     private String regionName;
+    private String regionDetail;
     private String industryDetailName;
-    private double ratingScore;
+    private int cost;
 }

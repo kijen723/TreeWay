@@ -33,18 +33,15 @@ public class RatingController {
 
         IndustryRequest industryRequest = new IndustryRequest(businessTime, region, cost);
 
-        // 전부 무관일때
-        if (businessTime == 0 || region == 0 || cost == 0){
-            System.out.println("선택지가 전부 무관일태 추천 요청");
-            List<IndustryResponse> industryRating = ratingService.getIndustryRating();
-            for (IndustryResponse industryResponse : industryRating) {
-                System.out.println(industryResponse.getRegionName() + " " + industryResponse.getIndustryDetailName() + "\n");
-            }
-        }else{
+        System.out.println("선택지가 전부 무관일태 추천 요청");
+        List<IndustryResponse> industryRating = ratingService.getIndustryRating(industryRequest);
+        for (IndustryResponse industryResponse : industryRating) {
+            System.out.println(industryResponse.getRegionDetail()
+                    + " " + industryResponse.getIndustryDetailName()
+                    + " " + industryResponse.getCost()+ "\n");
         }
 
+        return ResponseEntity.ok().body(industryRating);
 
-
-        return null;
     }
 }
