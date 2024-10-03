@@ -1,22 +1,7 @@
 import styles from "../page.module.scss";
 import Post from "./Post";
 import { useRouter } from 'next/navigation'
-
-interface PostListProps {
-    currentPage: number;
-    postsPerPage: number;
-    postList: Array<{
-        id: number;
-        title: string;
-        author: string;
-        date: string;
-        viewCnt: number;
-        imgSrc: string;
-        viewCount: number;
-        scrapCount: number;
-        isScrap: boolean;
-    }>;
-}
+import { PostListProps } from "@/types/CommunityPropsTypes";
 
 export default function PostList({ currentPage, postsPerPage, postList }: PostListProps) {
     const router = useRouter(); 

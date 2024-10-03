@@ -3,19 +3,10 @@ import { LuEye } from "react-icons/lu";
 import { MdBookmarks } from "react-icons/md";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useState } from "react";
+import { PostType } from "@/types/CommunityPropsTypes";
 
 interface PostProps {
-  post: {
-    id: number;
-    title: string;
-    author: string;
-    date: string;
-    viewCnt: number;
-    imgSrc: string;
-    viewCount: number;
-    scrapCount: number;
-    isScrap: boolean;
-  };
+  post: PostType;
   onClick: () => void;
 }
 
