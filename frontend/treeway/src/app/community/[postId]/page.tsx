@@ -1,20 +1,41 @@
 'use client'
 
-import SideList from '@/app/common/Side/SideList';
 import Comments from './component/comment/Comments';
 import PostDetail from './component/detail/PostDetail';
 import PostSummary from './component/title/PostSummary'
 import styles from './page.module.scss'
-import SmallSortList from '@/app/main/components/SmallSortList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation'
 import WideComments from './component/comment/wideComment/WideComments';
 import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSummary';
+
+const fetchPost = async (postId: string | undefined) => {
+    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/${postId}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch post');
+    }
+    return res.json();
+};
 
 export default function CommunityDetail() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 19073e0 (fix: merge 에러 수정)
+=======
+    const pathname = usePathname();
+    const postId = pathname.split('/').pop();
+
+    const post = fetchPost(postId); 
+
+    useEffect(() => {
+        if (post) {
+            console.log('post:', post);
+        }
+    })
+
+>>>>>>> 4c30418 (feat: 커뮤니티 수정)
     const [ defView, setDefView ] = useState(true);
 
     const toggleDefView = () => {

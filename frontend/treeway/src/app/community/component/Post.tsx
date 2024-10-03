@@ -27,11 +27,11 @@ export default function Post({ post, onClick }: PostProps) {
         <div className={styles.postInfo}>
           <p>Author: {post.author}</p>
           <p>Date: {post.date}</p>
-          <p>Views: {post.viewCnt}</p>
+          <p>Views: {post.viewCount}</p>
         </div>
       </div>
       <div className={styles.postEnd}>
-        <img className={styles.postImg} src={post.imgSrc} alt={post.title} />
+        {post.imgSrc ? (<img className={styles.postImg} src={post.imgSrc} alt={post.title} />) : null }
         <div className={styles.postStats}>
           <div className={styles.count}>
             <span>

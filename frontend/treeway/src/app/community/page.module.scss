@@ -131,6 +131,7 @@
         .post {
             background-color: white;
             width: 80%;
+            height: 10vh;
             padding: 1%;
             display: flex;
             justify-content: space-between;
@@ -165,6 +166,10 @@
             display: flex;
             justify-content: space-between;
             gap: 10px;
+
+            *:only-child {
+                margin-left: auto;
+            }
 
             .postImg {
                 height: 10vh;

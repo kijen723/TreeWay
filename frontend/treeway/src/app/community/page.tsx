@@ -1,14 +1,31 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagenation from './component/Pagenation';
 import PostList from './component/PostList';
 import UpperNav from './component/UpperNav';
 import styles from './page.module.scss';
+import { useQuery } from '@tanstack/react-query';
+
+const fetchPosts = async () => {
+    const res = await fetch('https://j11b107.p.ssafy.io/api/article');
+    if (!res.ok) {
+        throw new Error('Failed to fetch posts');
+    }
+    return res.json();
+};
 
 export default function Community() {
     const [currentPage, setCurrentPage] = useState(1); 
-    const postsPerPage = 4; 
+    const postsPerPage = 4; // 페이지당 4개 보여주기
+
+    const { data: testList, isLoading, isError, error } = useQuery(['testList'], fetchPosts);
+    
+    useEffect(() => {
+        if (testList) {
+            console.log('testList:', testList); // 데이터를 로드한 후 확인
+        }
+    }, [testList]);
 
     const postList = [
         {
@@ -16,8 +33,6 @@ export default function Community() {
             title: "title1",
             author: "author",
             date: "date",
-            viewCnt: 0,
-            imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
             isScrap: false,
@@ -27,7 +42,6 @@ export default function Community() {
             title: "title2",
             author: "author",
             date: "date",
-            viewCnt: 0,
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
@@ -38,7 +52,6 @@ export default function Community() {
             title: "title3",
             author: "author",
             date: "date",
-            viewCnt: 0,
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
@@ -49,7 +62,6 @@ export default function Community() {
             title: "title4",
             author: "author",
             date: "date",
-            viewCnt: 0,
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
@@ -60,7 +72,6 @@ export default function Community() {
             title: "title5",
             author: "author",
             date: "date",
-            viewCnt: 0,
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
@@ -71,7 +82,6 @@ export default function Community() {
             title: "title6",
             author: "author",
             date: "date",
-            viewCnt: 0,
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
