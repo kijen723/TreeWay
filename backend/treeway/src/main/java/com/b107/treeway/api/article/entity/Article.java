@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    @JsonBackReference  // 순환 참조 방지
     private Member member;
 
     @Column(name = "title", length = 255)
@@ -40,5 +42,4 @@ public class Article {
 
     @Column(name = "view_count")
     private Integer viewCount;
-
 }
