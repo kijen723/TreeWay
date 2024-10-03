@@ -24,12 +24,11 @@ interface PolicyListProps {
 }
 
 export default function PolicyList({ policyData }: PolicyListProps) {
-    // 스크랩 수와 스크랩 여부를 상태로 관리
     const [scrapCounts, setScrapCounts] = useState(
         policyData.map(policy => policy.ScrapCount)
     );
     const [isScraped, setIsScraped] = useState(
-        policyData.map(policy => policy.isScrap) // 초기값으로 각 정책의 스크랩 상태 설정
+        policyData.map(policy => policy.isScrap)
     );
 
     const toggleScrap = (index: number) => {
@@ -50,17 +49,16 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                 <div key={index} className={styles.policy}>
                     <div className={styles.policyBody}>
                         <div className={styles.policyInfo}>
-                            <span>{policy.Region}</span>
+                            <span>{policy.Region} | {policy.Field}</span>
                             <span>기간: {policy.Start_date} ~ {policy.End_date}</span>
                         </div>
-                        <a className={styles.policyTitle} href={policy.URL} target="_blank">
-                            <h3>{policy.Project}</h3>
-                        </a>
+                        <div className={styles.policyTitle}>
+                            <h3>{policy.Affiliation}</h3>
+                            <a href={policy.URL} target="_blank">
+                                <h3>{policy.Project}</h3>
+                            </a>
+                        </div>
                         <div className={styles.policyContent}>
-                            <div className={styles.content}>
-                                <p>지원분야: {policy.Field}</p>
-                                <p>기관명: {policy.Affiliation}</p>
-                            </div>
                             <div className={styles.content}>
                                 <p>대상: {policy.Target}</p>
                                 <p>사업 자격: {policy.Business_eligibility}</p>

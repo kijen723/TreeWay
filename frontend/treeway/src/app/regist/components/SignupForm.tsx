@@ -108,12 +108,14 @@ export default function SignupForm() {
                 </div>
             )}
             {showSubmitButton && (
-                <Button 
-                    content='회원가입'
-                    size='large'
-                    colorType='blue'
-                    onClick={handleSubmit}
-                    type='button' />
+                <div className={styles.submitBtn}>
+                    <Button 
+                        content='회원가입'
+                        size='large'
+                        colorType='blue'
+                        onClick={handleSubmit}
+                        type='button' />
+                </div>
             )}
         </form>
     );
