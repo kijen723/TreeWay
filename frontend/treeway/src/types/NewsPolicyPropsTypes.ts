@@ -1,4 +1,16 @@
-export type NewsType = {
+export type NewsListProps = {
+  newsData: NewsItem[];
+};
+
+export type NewsItem = {
+  NewsClass: string;
+  Title: string;
+  Content: string;
+  Time: string;
+  URL: string;
+  ViewCount: number;
+  ScrapCount: number;
+  isScrap: boolean;
 
   // 서버에서 넘어오는 예상 데이터
   // id: number;
@@ -13,7 +25,23 @@ export type NewsType = {
   // isScrap: boolean;
 };
 
-export type PolicyType = {
+export type PolicyListProps = {
+  policyData: PolicyItem[];
+}
+
+export type PolicyItem = {
+  Project: string;
+  Region: string;
+  Field: string;
+  Affiliation: string;
+  Business_eligibility: string;
+  Target: string;
+  Start_date: string;
+  End_date: string;
+  URL: string;
+  ViewCount: number;
+  ScrapCount: number;
+  isScrap: boolean;
 
   // 서버에서 넘어오는 예상 데이터
   // id: number;
@@ -28,4 +56,3 @@ export type PolicyType = {
   // scrapCount: number;
   // isScrap: boolean;
 };
-

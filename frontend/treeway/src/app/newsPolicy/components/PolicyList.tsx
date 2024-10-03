@@ -3,25 +3,7 @@ import { LuEye } from 'react-icons/lu'; // 조회수 아이콘
 import { MdBookmarks } from 'react-icons/md'; // 스크랩 수 아이콘
 import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5'; // 스크랩 버튼 아이콘
 import { useState } from 'react';
-
-interface PolicyItem {
-    Project: string;
-    Region: string;
-    Field: string;
-    Affiliation: string;
-    Business_eligibility: string;
-    Target: string;
-    Start_date: string;
-    End_date: string;
-    URL: string;
-    ViewCount: number;
-    ScrapCount: number;
-    isScrap: boolean;
-}
-
-interface PolicyListProps {
-    policyData: PolicyItem[];
-}
+import { PolicyListProps } from '@/types/NewsPolicyPropsTypes';
 
 export default function PolicyList({ policyData }: PolicyListProps) {
     const [scrapCounts, setScrapCounts] = useState(

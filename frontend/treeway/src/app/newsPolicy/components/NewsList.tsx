@@ -3,21 +3,7 @@ import { LuEye } from "react-icons/lu";
 import { MdBookmarks } from "react-icons/md";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useState } from 'react';
-
-interface NewsItem {
-    NewsClass: string;
-    Title: string;
-    Content: string;
-    Time: string;
-    URL: string;
-    ViewCount: number;
-    ScrapCount: number;
-    isScrap: boolean; 
-}
-
-interface NewsListProps {
-    newsData: NewsItem[];
-}
+import { NewsListProps } from "@/types/NewsPolicyPropsTypes";
 
 export default function NewsList({ newsData }: NewsListProps) {
     // 스크랩 수 상태 관리
