@@ -3,14 +3,17 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .block {
+    position: absolute;
+    top: 12%;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 50vw;
-    height: 90vh;
+    height: 83vh;
     background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(2px);
     padding: 10px;
@@ -47,6 +50,7 @@
     position: relative;
     display: flex;
     align-Items: center;
+    width: 100%;
     gap: 10px;
 
     button {
@@ -71,8 +75,8 @@
 }
 
 .imgContainer {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background-color: #f1f1f1;
     display: flex;
@@ -89,4 +93,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.submitBtn {
+    margin: 20px 0;
 }

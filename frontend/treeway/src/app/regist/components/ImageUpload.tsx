@@ -3,19 +3,26 @@
 import { useState } from 'react';
 import styles from '../page.module.scss';
 
-export default function ImageUpload() {
-    const [imagePreview, setImagePreview] = useState<string | null>(null); 
+interface ImageUploadProps {
+    onFileSelect: (file: File | null) => void;
+}
+
+export default function ImageUpload({ onFileSelect }: ImageUploadProps) {
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
+            onFileSelect(file);
             const reader = new FileReader();
 
             reader.onloadend = () => {
-                setImagePreview(reader.result as string); 
+                setImagePreview(reader.result as string);
             };
 
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
+        } else {
+            onFileSelect(null);
         }
     };
 
@@ -27,10 +34,10 @@ export default function ImageUpload() {
     };
 
     return (
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <div style={{ textAlign: 'center' }}>
             <div
                 className={styles.imgContainer}
-                onClick={handleImageClick} // 클릭 이벤트 핸들러
+                onClick={handleImageClick}
             >
                 {imagePreview ? (
                     <img
@@ -47,7 +54,7 @@ export default function ImageUpload() {
                 accept="image/*"
                 onChange={handleImageChange}
                 id="imageInput"
-                style={{ display: 'none' }} // input을 숨김
+                style={{ display: 'none' }}
             />
         </div>
     );
