@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CitySiService {
+public class RegionService {
 
     private final RegionRepository RegionRepository;
 

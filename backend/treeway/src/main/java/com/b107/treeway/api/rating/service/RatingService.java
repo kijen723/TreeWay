@@ -2,6 +2,7 @@ package com.b107.treeway.api.rating.service;
 
 import com.b107.treeway.api.rating.entity.Rating;
 import com.b107.treeway.api.rating.repository.RatingRepository;
+import com.b107.treeway.api.rating.response.IndustryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RecommendService {
+public class RatingService {
 
     private final RatingRepository ratingRepository;
 
-    public List<Rating> findAll() {
-        System.out.println("1");
-        List<Rating> list = ratingRepository.findAll();
-        System.out.println(Arrays.toString(list.toArray()));
-        return list;
+    public List<IndustryResponse> getIndustryRating() {
+        return ratingRepository.getRatingIndustry();
     }
 }
