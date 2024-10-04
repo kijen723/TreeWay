@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import styles from "./SideDetailItems.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -14,7 +14,7 @@ export default function SideDetailItem({ data }: { data: Store }) {
   const dispatch = useDispatch();
   const targetRef = useRef<HTMLDivElement | null>(null);
   const nullRef = useRef<HTMLDivElement | null>(null);
-
+  const params = useParams();
   useEffect(() => {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({
@@ -30,6 +30,9 @@ export default function SideDetailItem({ data }: { data: Store }) {
       style={shopIdx === data.id ? { background: "#ECF4DD" } : {}}
       onClick={() => {
         dispatch(changeShopIndex(data.id));
+        if(params.id){
+          router.push(`/main/${data.id}`)
+        }
       }}
     >
       {shopIdx === data.id ? (

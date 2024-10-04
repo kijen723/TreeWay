@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   const imgList = [
-    "192.png",
-    "backBtn.png",
-    "background2.jpg",
-    "backgroundTest1.jpg",
-    "blueMarker.png",
-    "cat.jpg",
-    "192.png",
-    "backBtn.png",
-    "background2.jpg",
-    "backgroundTest1.jpg",
-    "blueMarker.png",
-    "cat.jpg",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
+    "next.png",
   ];
 
   const [items, setItems] = useState<string[]>(imgList);

@@ -9,6 +9,7 @@ import { changeDumData } from "@/redux/slice/dumdataSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 import { useQuery } from "@tanstack/react-query";
+import SearchBtn from "@/app/main/components/SearchBtn";
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -29,6 +30,22 @@ export default function KakaoMap() {
       return await fetch("https://j11b107.p.ssafy.io/api/temp").then((res) => res.json());
     },
   });
+
+  const getInfo = () => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const bounds = map.getBounds();
+    const swLatLng = bounds.getSouthWest();
+    const neLatLng = bounds.getNorthEast();
+
+    const data = {
+      sw: { lat: swLatLng.getLat(), lng: swLatLng.getLng() },
+      ne: { lat: neLatLng.getLat(), lng: neLatLng.getLng() },
+    };
+
+    console.log(data);
+  };
 
   // 대전 데이터만 로드
   useEffect(() => {
@@ -76,7 +93,8 @@ export default function KakaoMap() {
           isPanto={true}
           ref={mapRef}
         >
-          <MarkerClusterer averageCenter={true} minLevel={4}>
+          <SearchBtn getInfo={getInfo} />
+          <MarkerClusterer averageCenter={true} minLevel={3}>
             {data &&
               data.map((value, index) => {
                 return (

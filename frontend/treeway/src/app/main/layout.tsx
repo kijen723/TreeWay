@@ -5,6 +5,7 @@ import SideDetailItems from './components/SideDetailItems';
 // import SideDetailBox from './components/SideDetailBox';
 
 export default function MainLayout({
+<<<<<<< HEAD
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -18,3 +19,17 @@ export default function MainLayout({
     </>
   );
 }
+=======
+    children,
+  }: Readonly<{
+    children: React.ReactNode;
+  }>){
+    return(
+        <>
+            <KakaoMap></KakaoMap>
+            <SideDetail items={<SideDetailItems/>} />
+            {children}
+        </>
+    )
+}
+>>>>>>> 77c8547 (feat : modify promotion page)
