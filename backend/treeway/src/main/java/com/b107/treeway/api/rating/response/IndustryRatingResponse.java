@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class IndustryRatingResponse {
     private String regionName;
-    private String regionDetail;
     private String industryDetailName;
-    private int cost;
+    private double ratingScore;
 }

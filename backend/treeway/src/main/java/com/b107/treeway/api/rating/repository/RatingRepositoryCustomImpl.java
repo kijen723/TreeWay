@@ -2,6 +2,7 @@ package com.b107.treeway.api.rating.repository;
 
 import com.b107.treeway.api.rating.entity.*;
 import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.rating.response.RatingResponse;
 import com.b107.treeway.api.rating.response.RegionRatingResponse;
 import com.b107.treeway.api.sales.entity.QSalesItem;
@@ -22,10 +23,9 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @Override
     @Transactional
-    public List<RatingResponse> getRating(RatingRequest ratingRequest) {
+    public List<IndustryRatingResponse> getIndustryRating(RatingRequest ratingRequest) {
         int businessTime = ratingRequest.getBusinessTime();
         int region = ratingRequest.getRegion();
-        region = 30;
         int cost = ratingRequest.getCost();
 
         QRating rt = QRating.rating;
@@ -34,14 +34,14 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         QExpectedCost ec = QExpectedCost.expectedCost;
         QBusinessHour bh = QBusinessHour.businessHour;
 
-        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
+        JPAQuery<IndustryRatingResponse> query = new JPAQuery<>(entityManager)
                 .select(Projections.constructor(
-                        RatingResponse.class,
+                        IndustryRatingResponse.class,
                         rg.regionName,
-                        ec.regionDetail,
                         idl.industryDetailName,
-                        ec.cost
+                        rt.ratingScore
                 ))
+                .distinct()
                 .from(rt)
                 .join(rt.region, rg)
                 .join(rt.industryDetail, idl)
@@ -56,7 +56,6 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         }
 
         if (region != 0) {
-//            conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
             conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
         }
 
@@ -64,14 +63,9 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
             conditions = conditions.and(ec.cost.loe(cost));
         }
 
-        query.where(conditions);
-        query.limit(9)
+        query.where(conditions)
+                .limit(9)
                 .orderBy(rt.ratingScore.desc());
-
-
-        List<RatingResponse> results = query.fetch();
-        System.out.println("조회된 결과 개수: " + results.size());
-
 
         return query.fetch();
     }
@@ -145,9 +139,9 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
             conditions = conditions.and(ec.cost.loe(cost));
         }
 
-        query.where(conditions);
-        query.limit(9);
-        query.orderBy(rt.ratingScore.desc());
+        query.where(conditions)
+                .limit(9)
+                .orderBy(rt.ratingScore.desc());
 
 
         return query.fetch();
