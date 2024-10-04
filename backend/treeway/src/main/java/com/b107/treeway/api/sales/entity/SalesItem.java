@@ -12,8 +12,8 @@ import lombok.Setter;
 public class SalesItem {
 
     @Id
-    @Column(name = "sales_item_id", nullable = false)
-    private Long id;
+    @Column(name = "sales_item_id")
+    private Integer id;
 
     @Column(name = "major_business")
     private String majorBusiness;
@@ -22,71 +22,71 @@ public class SalesItem {
     @JoinColumn(name = "industry_detail_id", nullable = false)
     private IndustryDetail industryDetail;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "monthly_sales", nullable = false)
-    private Integer monthly_sales;
+    @Column(name = "monthly_sales")
+    private Integer monthlySales;
 
-    @Column(name = "monthly_earnings", nullable = false)
-    private Integer monthly_earnings;
+    @Column(name = "monthly_earnings")
+    private Integer monthlyEarnings;
 
-    @Column(name = "host_name", nullable = false)
-    private String host_name;
+    @Column(name = "host_name")
+    private String hostName;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "tradename", nullable = false)
-    private String tradename;
+    @Column(name = "trade_name")
+    private String tradeName;
 
-    @Column(name = "floor_class", nullable = false, columnDefinition = "TEXT")
-    private String floor_class;
+    @Column(name = "floor_class")
+    private String floorClass;
 
-    @Column(name = "current_floor", nullable = false)
-    private Integer current_floor;
+    @Column(name = "current_floor")
+    private Integer currentFloor;
 
-    @Column(name = "total_floors", nullable = false)
-    private Integer total_floors;
+    @Column(name = "total_floors")
+    private Integer totalFloors;
 
-    @Column(name = "square_meter", nullable = false)
-    private Integer square_meter;
+    @Column(name = "square_meter")
+    private Integer squareMeter;
 
-    @Column(name = "available_parking", nullable = false)
-    private Integer available_parking;
+    @Column(name = "available_parking")
+    private Integer availableParking;
 
-    @Column(name = "total_parking", nullable = false)
-    private Integer total_parking;
+    @Column(name = "total_parking")
+    private Integer totalParking;
 
-    @Column(name = "premium", nullable = false)
+    @Column(name = "premium")
     private Integer premium;
 
-    @Column(name = "deposit", nullable = false)
+    @Column(name = "deposit")
     private Integer deposit;
 
-    @Column(name = "monthly_rent", nullable = false)
-    private Integer monthly_rent;
+    @Column(name = "monthly_rent")
+    private Integer monthlyRent;
 
-    @Column(name = "administration_cost", nullable = false)
-    private Integer administration_cost;
+    @Column(name = "administration_cost")
+    private Integer administrationCost;
 
-    @Column(name = "material_cost", nullable = false)
-    private Integer material_cost;
+    @Column(name = "material_cost")
+    private Integer materialCost;
 
-    @Column(name = "personnel_expense", nullable = false)
-    private Integer personnel_expense;
+    @Column(name = "personnel_expense")
+    private Integer personnelExpense;
 
-    @Column(name = "utility_bill", nullable = false)
-    private Integer utility_bill;
+    @Column(name = "utility_bill")
+    private Integer utilityBill;
 
-    @Column(name = "other_expenses", nullable = false)
-    private Integer other_expenses;
+    @Column(name = "other_expenses")
+    private Integer otherExpenses;
 
     @Column(name = "additional_information", columnDefinition = "TEXT")
-    private String additional_information;
+    private String additionalInformation;
 
-    @Column(name = "itemnum", nullable = false)
-    private Integer itemnum;
+    @Column(name = "itemnum")
+    private Integer itemNum;
 
     @Column(name = "latitude", columnDefinition = "TEXT")
     private String latitude;

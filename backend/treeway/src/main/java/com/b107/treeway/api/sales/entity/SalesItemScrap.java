@@ -16,9 +16,9 @@ public class SalesItemScrap {
     @Column(name = "Sales_item_scrap_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sales_item", nullable = false)
-    private SalesItem salesItem;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "sales_item", nullable = false)
+//    private SalesItem salesItem;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", nullable = false)

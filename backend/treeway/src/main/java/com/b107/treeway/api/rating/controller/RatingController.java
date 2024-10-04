@@ -53,10 +53,10 @@ public class RatingController {
         RatingRequest ratingRequest = new RatingRequest(businessTime, region, cost);
 
         List<RegionRatingResponse> regionRating = ratingService.getRatingRegion(ratingRequest);
-        for (RegionRatingResponse regionRatingResponse : regionRating) {
-            System.out.println(regionRatingResponse.getRegionName()
-                    + " " + regionRatingResponse.getRegionDetail() + "\n");
-        }
+//        for (RegionRatingResponse regionRatingResponse : regionRating) {
+//            System.out.println(regionRatingResponse.getRegionName()
+//                    + " " + regionRatingResponse.getRegionDetail() + "\n");
+//        }
 
         return ResponseEntity.ok().body(regionRating);
     }
