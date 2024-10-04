@@ -4,22 +4,26 @@ import styles from '@/app/mypage/page.module.scss';
 import RoundBtnGroup from "@/app/common/RoundBtnGroup";
 import { IoReader, IoBookmarks, IoHeart } from "react-icons/io5";
 
-export default function ContentBtn() {
+interface StatusBarProps {
+    setConType: (type: string) => void;
+}
+
+export default function ContentBtn({ setConType }: StatusBarProps) {
     const handlePostClick = () => {
-        console.log("manage post")
+        setConType('post');
     };
     const handleScrapClick = () => {
-        console.log("manage scrap")
+        setConType('scrap');
     };
     const handleLikeClick = () => {
-        console.log("manage like")
+        setConType('like');
     };
 
     const postButton = [
         { icon: IoReader, alt: 'Post', onClick: handlePostClick },
     ];
     const scrapButton = [
-        { icon: IoBookmarks, alt: 'Post', onClick: handleScrapClick },
+        { icon: IoBookmarks, alt: 'Scrap', onClick: handleScrapClick },
     ];
     const likeButton = [
         { icon: IoHeart, alt: 'Like', onClick: handleLikeClick },

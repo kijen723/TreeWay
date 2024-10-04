@@ -11,10 +11,10 @@ export default function ContentList({ contentType } : ContentListProps) {
                 <div>
                     게시글 목록
                 </div>
-            ) : contentType === 'news' ? (
-                <div>뉴스/정책 목록</div>
+            ) : contentType === 'scrap' ? (
+                <div>스크랩 목록</div>
             ) : (
-                <div>매물 목록</div>
+                <div>매물 찜 목록</div>
             )}
         </div>
     );
