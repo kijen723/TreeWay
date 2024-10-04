@@ -4,7 +4,8 @@ export const config = {
   matcher: ["/((?!fonts|components|$).*)"],
 };
 
-const protectedRoutes = ["/regist", /^\/community(?:\/|$)/, "/createStoreImage"]; // 로그인 유저만 접근할 수 있는 페이지
+// const protectedRoutes = ["/regist", /^\/community(?:\/|$)/, "/createStoreImage"];
+const protectedRoutes = ["/regist"]; // 로그인 유저만 접근할 수 있는 페이지
 const publicRoutes = ["/login"]; // 로그인 유저는 접근할 수 없는 페이지
 
 export function middleware(request: NextRequest) {
