@@ -12,9 +12,11 @@ import lombok.Setter;
 public class SalesItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sales_item_id", nullable = false)
     private Long id;
+
+    @Column(name = "major_business")
+    private String majorBusiness;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_detail_id", nullable = false)
@@ -38,7 +40,7 @@ public class SalesItem {
     @Column(name = "tradename", nullable = false)
     private String tradename;
 
-    @Column(name = "floor_class", nullable = false)
+    @Column(name = "floor_class", nullable = false, columnDefinition = "TEXT")
     private String floor_class;
 
     @Column(name = "current_floor", nullable = false)
@@ -80,15 +82,15 @@ public class SalesItem {
     @Column(name = "other_expenses", nullable = false)
     private Integer other_expenses;
 
-    @Column(name = "additional_information", nullable = false, length = 3000)
+    @Column(name = "additional_information", columnDefinition = "TEXT")
     private String additional_information;
 
     @Column(name = "itemnum", nullable = false)
     private Integer itemnum;
 
-    @Column(name = "latitude", nullable = false)
-    private Double latitude;
+    @Column(name = "latitude", columnDefinition = "TEXT")
+    private String latitude;
 
-    @Column(name = "longitude", nullable = false)
-    private Double longitude;
+    @Column(name = "longitude", columnDefinition = "TEXT")
+    private String longitude;
 }
