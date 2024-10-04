@@ -10,8 +10,6 @@ const publicRoutes = ["/login"]; // 로그인 유저는 접근할 수 없는 페
 export function middleware(request: NextRequest) {
     const isAuth = request.cookies.get('isAuth');
     const currentPath = request.nextUrl.pathname;
-    
-    console.log(isAuth); 
   
     if (!isAuth && protectedRoutes.some(route => currentPath.match(route))) {
       const url = request.nextUrl.clone();

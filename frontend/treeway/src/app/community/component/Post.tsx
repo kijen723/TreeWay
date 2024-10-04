@@ -23,15 +23,19 @@ export default function Post({ post, onClick }: PostProps) {
   return (
     <div className={styles.post} onClick={onClick}>
       <div className={styles.postSummary}>
+        <div className={styles.postInfo}>
+          <p>{post.region} | {post.industryDetail}</p>
+          <p>{post.date}</p>
+        </div>
         <h2>{post.title}</h2>
         <div className={styles.postInfo}>
-          <p>Author: {post.author}</p>
-          <p>Date: {post.date}</p>
-          <p>Views: {post.viewCount}</p>
+          <p>{post.author}</p>
         </div>
       </div>
       <div className={styles.postEnd}>
-        {post.imgSrc ? (<img className={styles.postImg} src={post.imgSrc} alt={post.title} />) : null }
+        {post.imgSrc ? (
+          <img className={styles.postImg} src={post.imgSrc} alt={post.title} />
+        ) : null}
         <div className={styles.postStats}>
           <div className={styles.count}>
             <span>
@@ -41,10 +45,7 @@ export default function Post({ post, onClick }: PostProps) {
               <MdBookmarks /> {scrapCount}
             </span>
           </div>
-          <div
-            className={styles.scrapBtn}
-            onClick={toggleScrap} 
-          >
+          <div className={styles.scrapBtn} onClick={toggleScrap}>
             {isScrap ? (
               <IoBookmark className={styles.colorBookmark} />
             ) : (

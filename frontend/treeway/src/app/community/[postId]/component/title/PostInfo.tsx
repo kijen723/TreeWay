@@ -1,13 +1,31 @@
 import styles from '@/app/community/[postId]/page.module.scss'
+import { PostType } from '@/types/CommunityPropsTypes';
+import { LuEye } from "react-icons/lu";
+import { MdBookmarks } from "react-icons/md";
 
-export default function PostInfo() {
+interface postProp {
+    post: PostType
+}
+
+export default function PostInfo({ post }: postProp) {
     return (
         <div className={styles.postInfo}>
-            <h2>제목</h2>
+            <div className={styles.infoHead}>
+                <p>{post.region} | {post.industryDetail}</p>
+                <div className={styles.count}>
+                    <span>
+                        <LuEye /> {post.viewCount}
+                    </span>
+                    <span>
+                        <MdBookmarks /> {post.scrapCount}
+                    </span>
+                </div>
+            </div>
+            <h2>{post.title}</h2>
             <div className={styles.info}>
-                <p>작성자</p>
-                <p>작성날짜</p>
-                <p>조회수</p>
+                <p>{post.author}</p>
+                <p>{post.date}</p>
+                <p></p>
                 <p>첨부파일</p>
             </div>
         </div>

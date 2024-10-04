@@ -32,7 +32,9 @@ export default function Community() {
             id: 1,
             title: "title1",
             author: "author",
-            date: "date",
+            date: "2024-10-04 00:00:00",
+            industryDetail: "한식",
+            region: "서울",
             viewCount: 3,
             scrapCount: 0,
             isScrap: false,
@@ -42,6 +44,8 @@ export default function Community() {
             title: "title2",
             author: "author",
             date: "date",
+            industryDetail: "한식",
+            region: "서울",
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,
@@ -52,36 +56,8 @@ export default function Community() {
             title: "title3",
             author: "author",
             date: "date",
-            imgSrc: "/image/cat.jpg", // 대표사진
-            viewCount: 3,
-            scrapCount: 0,
-            isScrap: false,
-        },
-        {
-            id: 4,
-            title: "title4",
-            author: "author",
-            date: "date",
-            imgSrc: "/image/cat.jpg", // 대표사진
-            viewCount: 3,
-            scrapCount: 0,
-            isScrap: false,
-        },
-        {
-            id: 5,
-            title: "title5",
-            author: "author",
-            date: "date",
-            imgSrc: "/image/cat.jpg", // 대표사진
-            viewCount: 3,
-            scrapCount: 0,
-            isScrap: false,
-        },
-        {
-            id: 6,
-            title: "title6",
-            author: "author",
-            date: "date",
+            industryDetail: "한식",
+            region: "서울",
             imgSrc: "/image/cat.jpg", // 대표사진
             viewCount: 3,
             scrapCount: 0,

@@ -3,12 +3,23 @@ import CommentForm from "../CommentForm";
 import CommentHeader from "../CommentHeader";
 import CommentList from "./CommentList";
 
-export default function WideComments() {
+interface Comment {
+    id: number;
+    date: string;
+    name: string;
+    content: string;
+}
+
+interface commentsProps {
+    commentList: Comment[];
+}
+
+export default function WideComments({ commentList } : commentsProps) {
     return (
         <div className={styles.wideComments}>
             <div className={styles.commentBlock}>
-                <CommentHeader />
-                <CommentList />
+                <CommentHeader commentCount={commentList.length}/>
+                <CommentList commentList={commentList} />
                 <CommentForm />
             </div>
         </div>

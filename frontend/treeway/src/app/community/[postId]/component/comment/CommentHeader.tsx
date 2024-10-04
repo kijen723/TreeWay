@@ -1,12 +1,15 @@
 import styles from '@/app/community/[postId]/page.module.scss'
 
-export default function CommentHeader() {
-    const commentCnt: number = 5;
+interface commentCntProp {
+    commentCount: number,
+}
+
+export default function CommentHeader({commentCount} : commentCntProp) {
 
     return (
         <div className={styles.commentHeader}>
             <h3>댓글</h3>
-            <p>{commentCnt}</p>
+            <p>{commentCount}</p>
         </div>
     );
 }

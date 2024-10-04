@@ -157,8 +157,10 @@
         }
 
         .postInfo {
+            width: 50vw;
             display: flex;
             flex-direction: row;
+            justify-content: space-between;
         }
 
         .postEnd {

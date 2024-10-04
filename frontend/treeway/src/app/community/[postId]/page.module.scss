@@ -40,10 +40,17 @@
 
     .summImg {
         margin-top: 8%;
+        margin-bottom: 2%;
         width: 90%;
         max-height: 50%;
         object-fit: cover;
         border-radius: 10px;
+    }
+
+    .nonImg {
+        width: 90%;
+        min-height: 50%;
+        object-fit: cover;
     }
 
     .summContent {
@@ -54,6 +61,23 @@
         .postInfo {
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
+
+            .infoHead {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 12px;
+
+                .count {
+                    display: flex;
+                    gap: 10px;
+                }
+            }
+
+            h2 {
+                margin: 10px 0;
+            }
 
             p {
                 margin: 5px 0;
@@ -70,10 +94,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
-            .scrapBtn {
-                margin-top: 25px;
-            }
 
             .bookmark {
                 font-size: 28px;
@@ -125,6 +145,7 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    cursor: pointer;
 
     .commentBlock {
         display: flex;
@@ -203,6 +224,7 @@
     justify-content: start;
     border-radius: 10px;
     margin-bottom: 2vh;
+    cursor: pointer;
 
     .backButton {
         font-size: 28px;
@@ -211,80 +233,103 @@
         left: 3%;
     }
 
-    .summImg {
-        margin-top: 8%;
-        width: 90%;
-        max-height: 50%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .summContent {
-        width: 85%;
+    .summBody {
         display: flex;
         justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        gap: 2%;
 
-        .postInfo {
-            display: flex;
-            flex-direction: column;
-
-            p {
-                margin: 5px 0;
-                font-size: 12px;
-            }
-
-            .info {
-                color: gray;
-            }
+        .summImg {
+            margin-top: 6%;
+            height: 80%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
         }
-
-        .postBtnGroup {
-            text-align: right;
+    
+        .summContent {
+            width: 85%;
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
-
-            .scrapBtn {
-                margin-top: 25px;
-            }
-
-            .bookmark {
-                font-size: 28px;
-            }
-
-            .colorBookmark {
-                font-size: 28px;
-                color: red;
-            }
-
-            .editDeleteBtn {
+    
+            .postInfo {
                 display: flex;
-                gap: 20px;
-                font-size: 12px;
-
+                flex-direction: column;
+                flex-grow: 1;
+    
+                .infoHead {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 12px;
+    
+                    .count {
+                        display: flex;
+                        gap: 10px;
+                    }
+                }
+    
+                h2 {
+                    margin: 10px 0;
+                }
+    
                 p {
-                    margin: 0;
+                    margin: 5px 0;
+                    font-size: 12px;
                 }
-
-                .edit {
-                    cursor: pointer;
+    
+                .info {
+                    color: gray;
                 }
-
-                .edit:hover {
-                    color: rgb(124, 124, 124);
+            }
+    
+            .postBtnGroup {
+                text-align: right;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                cursor: default;
+    
+                .bookmark {
+                    font-size: 28px;
                 }
-
-                .delete {
-                    cursor: pointer;
+    
+                .colorBookmark {
+                    font-size: 28px;
                     color: red;
                 }
-
-                .delete:hover {
-                    color: rgb(170, 0, 0);
+    
+                .editDeleteBtn {
+                    display: flex;
+                    gap: 20px;
+                    font-size: 12px;
+    
+                    p {
+                        margin: 0;
+                    }
+    
+                    .edit {
+                        cursor: pointer;
+                    }
+    
+                    .edit:hover {
+                        color: rgb(124, 124, 124);
+                    }
+    
+                    .delete {
+                        cursor: pointer;
+                        color: red;
+                    }
+    
+                    .delete:hover {
+                        color: rgb(170, 0, 0);
+                    }
                 }
             }
         }
     }
+
 
 }
 
@@ -314,6 +359,40 @@
 
             p {
                 color: gray;
+            }
+        }
+
+        .commentList {
+            height: 60%;
+            overflow-y: auto;
+            margin-bottom: 2%;
+            padding-right: 10px; 
+            scrollbar-width: thin; 
+            scrollbar-color: #888 #f1f1f1; 
+
+            .comment {
+                padding: 2%;
+                border-radius: 10px;
+                box-shadow: 3px 3px rgba(0, 0, 0, 0.1);
+                margin-bottom: 2%;
+                
+                p {
+                    margin: 1%;
+                }
+                
+                .titleArea {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .date {
+                        font-size: 12px;
+                    }
+                }
+
+                .contentArea {
+                    font-size: 14px;
+                }
             }
         }
 
