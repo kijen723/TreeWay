@@ -13,7 +13,7 @@ public class SalesItem {
 
     @Id
     @Column(name = "sales_item_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "major_business")
     private String majorBusiness;

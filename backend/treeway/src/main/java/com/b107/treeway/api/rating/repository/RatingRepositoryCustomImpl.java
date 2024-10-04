@@ -2,6 +2,7 @@ package com.b107.treeway.api.rating.repository;
 
 import com.b107.treeway.api.rating.entity.*;
 import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.rating.response.RatingResponse;
 import com.b107.treeway.api.rating.response.RegionRatingResponse;
@@ -23,10 +24,10 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @Override
     @Transactional
-    public List<IndustryRatingResponse> getIndustryRating(RatingRequest ratingRequest) {
-        int businessTime = ratingRequest.getBusinessTime();
-        int region = ratingRequest.getRegion();
-        int cost = ratingRequest.getCost();
+    public List<IndustryRatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
+        int businessTime = subRatingRequest.getBusinessTime();
+        int region = subRatingRequest.getRegion();
+        int cost = subRatingRequest.getCost();
 
         QRating rt = QRating.rating;
         QRegion rg = QRegion.region;
@@ -72,11 +73,11 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @Override
     @Transactional
-    public List<RegionRatingResponse> getRegionRating(RatingRequest ratingRequest) {
+    public List<RegionRatingResponse> getRegionRating(SubRatingRequest subRatingRequest) {
 
-        int businessTime = ratingRequest.getBusinessTime();
-        int region = ratingRequest.getRegion();
-        int cost = ratingRequest.getCost();
+        int businessTime = subRatingRequest.getBusinessTime();
+        int region = subRatingRequest.getRegion();
+        int cost = subRatingRequest.getCost();
 
         QRating rt = QRating.rating;
         QRegion rg = QRegion.region;
@@ -123,7 +124,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
                         .and(rg.id.eq(ec.region.id)))
                 .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId))
-                .join(si).on(si.industryDetail.industryDetailId.eq(idl.industryDetailId));
+                .join(si).on(si.id.eq(ec.id));
 
         BooleanExpression conditions = Expressions.TRUE;
 
@@ -133,6 +134,180 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
         if (region != 0) {
             conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
+        }
+
+        if (cost != 0) {
+            conditions = conditions.and(ec.cost.loe(cost));
+        }
+
+        query.where(conditions)
+                .limit(9)
+                .orderBy(rt.ratingScore.desc());
+
+
+        return query.fetch();
+
+    }
+
+    /**
+     * sub rating 기능에 대해 리팩토링 진행 예정 
+     */
+    @Override
+    @Transactional
+    public List<?> getSubRating(SubRatingRequest subRatingRequest, boolean isIndustry) {
+        int businessTime = subRatingRequest.getBusinessTime();
+        int region = subRatingRequest.getRegion();
+        int cost = subRatingRequest.getCost();
+
+        QRating rt = QRating.rating;
+        QRegion rg = QRegion.region;
+        QIndustryDetail idl = QIndustryDetail.industryDetail;
+        QExpectedCost ec = QExpectedCost.expectedCost;
+        QBusinessHour bh = QBusinessHour.businessHour;
+        QSalesItem si = QSalesItem.salesItem;
+
+        JPAQuery<?> query = getJpaQuery(isIndustry, rg, idl, rt, si, ec, bh);
+
+        if (!isIndustry) {
+            query.join(si).on(si.id.eq(ec.id));
+        }
+
+        BooleanExpression conditions = Expressions.TRUE;
+
+        if (businessTime != 0) {
+            conditions = conditions.and(bh.businessTime.eq(businessTime));
+        }
+
+        if (region != 0) {
+            conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
+        }
+
+        if (cost != 0) {
+            conditions = conditions.and(ec.cost.loe(cost));
+        }
+
+        query.where(conditions)
+                .limit(9)
+                .orderBy(rt.ratingScore.desc());
+
+        return query.fetch();
+    }
+
+    private JPAQuery<?> getJpaQuery(boolean isIndustry, QRegion rg, QIndustryDetail idl, QRating rt, QSalesItem si, QExpectedCost ec, QBusinessHour bh) {
+        return new JPAQuery<>(entityManager)
+                .select(isIndustry
+                                ? Projections.constructor(
+                                IndustryRatingResponse.class,
+                                rg.regionName,
+                                idl.industryDetailName,
+                                rt.ratingScore
+                        )
+                                : Projections.constructor(
+                                RegionRatingResponse.class,
+                                rt.ratingScore,
+                                si.majorBusiness,
+                                idl.industryDetailName,
+                                si.address,
+                                si.monthlySales,
+                                si.monthlyEarnings,
+                                si.hostName,
+                                si.phone,
+                                si.tradeName,
+                                si.floorClass,
+                                si.currentFloor,
+                                si.totalFloors,
+                                si.squareMeter,
+                                si.availableParking,
+                                si.totalParking,
+                                si.premium,
+                                si.deposit,
+                                si.monthlyRent,
+                                si.administrationCost,
+                                si.materialCost,
+                                si.personnelExpense,
+                                si.utilityBill,
+                                si.otherExpenses,
+                                si.additionalInformation,
+                                si.itemNum,
+                                si.latitude,
+                                si.longitude
+                        )
+                )
+                .distinct()
+                .from(rt)
+                .join(rt.region, rg)
+                .join(rt.industryDetail, idl)
+                .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
+                        .and(rg.id.eq(ec.region.id)))
+                .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId));
+    }
+
+
+    @Override
+    @Transactional
+    public List<RatingResponse> getRating(RatingRequest ratingRequest) {
+        int industryId = ratingRequest.getIndustryId();
+        int industryDetailId = ratingRequest.getIndustryDetailId();
+        int businessTime = ratingRequest.getBusinessTime();
+        int region = ratingRequest.getRegion();
+        int cost = ratingRequest.getCost();
+
+        QRating rt = QRating.rating;
+        QRegion rg = QRegion.region;
+        QIndustry it = QIndustry.industry;
+        QIndustryDetail idl = QIndustryDetail.industryDetail;
+        QExpectedCost ec = QExpectedCost.expectedCost;
+        QBusinessHour bh = QBusinessHour.businessHour;
+        QSalesItem si = QSalesItem.salesItem;
+
+        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
+                .select(Projections.constructor(
+                        RatingResponse.class,
+                        rt.ratingScore,
+                        si.majorBusiness,
+                        idl.industryDetailName,
+                        si.address,
+                        si.monthlySales,
+                        si.monthlyEarnings,
+                        si.hostName,
+                        si.phone,
+                        si.tradeName,
+                        si.floorClass,
+                        si.currentFloor,
+                        si.totalFloors,
+                        si.squareMeter,
+                        si.availableParking,
+                        si.totalParking,
+                        si.premium,
+                        si.deposit,
+                        si.monthlyRent,
+                        si.administrationCost,
+                        si.materialCost,
+                        si.personnelExpense,
+                        si.utilityBill,
+                        si.otherExpenses,
+                        si.additionalInformation,
+                        si.itemNum,
+                        si.latitude,
+                        si.longitude
+                ))
+                .distinct()
+                .from(rt)
+                .join(rt.region, rg)
+                .join(rt.industryDetail, idl)
+                .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
+                        .and(rg.id.eq(ec.region.id)))
+                .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId))
+                .join(si).on(si.id.eq(ec.id))
+                .join(it).on(it.id.eq(idl.industry.id))
+                .where(it.id.eq(Long.valueOf(industryId))
+                        .and(idl.industryDetailId.eq(Long.valueOf(industryDetailId)))
+                        .and(rg.id.eq(Long.valueOf(region))));
+
+        BooleanExpression conditions = Expressions.TRUE;
+
+        if (businessTime != 0) {
+            conditions = conditions.and(bh.businessTime.eq(businessTime));
         }
 
         if (cost != 0) {
