@@ -44,13 +44,13 @@ export default function CreatePost() {
                         <Dropdown
                             label="지역 선택"
                             value={region}
-                            onChange={(e) => setRegion(e.target.value)}
+                            onChange={(e) => setRegion(Number(e.target.value))}
                             options={regionOptions}
                         />
                         <Dropdown
                             label="소업종 선택"
                             value={subCategory}
-                            onChange={(e) => setSubCategory(e.target.value)}
+                            onChange={(e) => setSubCategory(Number(e.target.value))}
                             options={industryDetailOptions}
                         />
                     </div>
