@@ -2,10 +2,14 @@ import SideDetail from "@/app/common/Side/SideDetail";
 import SideDetailItems from "../components/SideDetailItems";
 import DetailBox from "../components/DetailBox";
 
-export default function ItemDetail(){
+export type propsType = {
+    params : {id : string}
+  }
+
+export default function ItemDetail({params} : propsType){
     return(
         <>
-            <DetailBox></DetailBox>
+            <DetailBox params={params}></DetailBox>
         </>
     )
 }

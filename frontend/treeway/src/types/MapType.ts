@@ -43,7 +43,6 @@ export type Polygon2 = {
 };
 
 export type Store = {
-  
     "id": number,
     "majorBusiness": string,
     "minorBusiness": string,
@@ -55,6 +54,12 @@ export type Store = {
     "tradename": string,
     "floorClass": string,
     "currentFloor": number,
+    "totalFloors" : number,
+    "squareMeter": number,
+    "availableParking": number,
+    "totalParking": number,
+    "premium" : number,
+    "deposit" : number,
     "monthlyRent": number,
     "administrationCost": number,
     "materialCost": number,
@@ -62,7 +67,7 @@ export type Store = {
     "utilityBill": number,
     "otherExpenses": number,
     "additionalInformation": string,
-    itemnum: number,
+    "itemnum": number,
     "latitude": number,
     "longitude": number
 }

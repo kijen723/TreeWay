@@ -3,16 +3,25 @@
 import styles from "./Chart.module.scss";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Store } from "@/types/MapType";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function Chart() {
+export default function Chart({ shopData }: { shopData: Store }) {
   const data = {
     labels: ["재료비", "인건비", "관리비", "월세", "공과금", "기타경비", "월수익"],
     datasets: [
       {
         label: "매출 정보",
-        data: [120, 190, 30, 50, 80, 100, 300],
+        data: [
+          shopData.materialCost,
+          shopData.personnelExpense,
+          shopData.administrationCost,
+          shopData.monthlyRent,
+          shopData.utilityBill,
+          shopData.otherExpenses,
+          shopData.monthlyEarnings,
+        ],
         backgroundColor: [
           "rgba(255, 99, 132)",
           "rgba(54, 162, 235)",
@@ -47,7 +56,7 @@ export default function Chart() {
       tooltip: {
         callbacks: {
           label: function (tooltipItem: any) {
-            return `${tooltipItem.label}: ${tooltipItem.raw}만원`;
+            return `${tooltipItem.label}: ${Math.round(tooltipItem.raw / 10000)}만원`;
           },
         },
       },
@@ -59,7 +68,7 @@ export default function Chart() {
         <div className={styles.chart}>
           <Doughnut data={data} options={options} />
           <div className={styles.center}>
-            <span className={styles.total}>600만원</span>
+            <span className={styles.total}>{Math.round(shopData.monthlySales / 10000)}만원</span>
             <span className={styles.monthSale}>월 매출</span>
           </div>
         </div>
@@ -72,8 +81,8 @@ export default function Chart() {
                   style={{ backgroundColor: data.datasets[0].backgroundColor[index] }}
                 ></span>
                 <span className={styles.legendLabel}>{label}</span>
-                <span>25만원</span>
-                <span style={{ color: data.datasets[0].backgroundColor[index] }}>3%</span>
+                <span>{Math.floor(data.datasets[0].data[index] / 10000)}만원</span>
+                <span style={{ color: data.datasets[0].backgroundColor[index] }}>{Math.round(data.datasets[0].data[index] / shopData.monthlySales * 100)}%</span>
               </div>
             ))}
           </div>
@@ -85,8 +94,8 @@ export default function Chart() {
                   style={{ backgroundColor: data.datasets[0].backgroundColor[index + 3] }}
                 ></span>
                 <span className={styles.legendLabel}>{label}</span>
-                <span>1225만원</span>
-                <span style={{ color: data.datasets[0].backgroundColor[index + 3] }}>3%</span>
+                <span>{Math.floor(data.datasets[0].data[index + 3] / 10000)}만원</span>
+                <span style={{ color: data.datasets[0].backgroundColor[index + 3] }}>{Math.round(data.datasets[0].data[index+3] / shopData.monthlySales * 100)}%</span>
               </div>
             ))}
           </div>
@@ -95,8 +104,8 @@ export default function Chart() {
       <div className={styles.dnjftndlr}>
         <span></span>
         <span>월 수익</span>
-        <span>+293만원</span>
-        <span>49%</span>
+        <span>+{Math.round(shopData.monthlyEarnings) / 10000}만원</span>
+        <span>{Math.round(shopData.monthlyEarnings / shopData.monthlySales * 100)}%</span>
       </div>
     </>
   );
