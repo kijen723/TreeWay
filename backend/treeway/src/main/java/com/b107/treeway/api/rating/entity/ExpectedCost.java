@@ -1,5 +1,6 @@
 package com.b107.treeway.api.rating.entity;
 
+import com.b107.treeway.api.sales.entity.SalesItem;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,7 +10,6 @@ import lombok.Data;
 public class ExpectedCost {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expected_cost_id")
     private Long id;
 
@@ -25,4 +25,6 @@ public class ExpectedCost {
 
     @Column(name = "region_detail")
     private String regionDetail;
+
 }
+

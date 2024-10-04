@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndustryResponse {
+public class RegionRatingResponse {
     private String regionName;
     private String regionDetail;
-    private String industryDetailName;
-    private int cost;
 }

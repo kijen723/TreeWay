@@ -1,9 +1,10 @@
 package com.b107.treeway.api.rating.controller;
 
-import com.b107.treeway.api.rating.request.IndustryRequest;
-import com.b107.treeway.api.rating.response.IndustryResponse;
-import com.b107.treeway.api.rating.service.RegionService;
+import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.response.RatingResponse;
+import com.b107.treeway.api.rating.response.RegionRatingResponse;
 import com.b107.treeway.api.rating.service.RatingService;
+import com.b107.treeway.api.rating.service.RegionService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,23 +26,38 @@ public class RatingController {
 //    region : int,
 //    cost : int
 
-    @GetMapping("/industry")
-    @Operation(summary = "업종 추천")
-    public ResponseEntity<List<IndustryResponse>> findRecommend(@RequestParam("businessTime") int businessTime,
-                                                                @RequestParam("region") int region,
-                                                                @RequestParam("cost") int cost){
+    @GetMapping
+    @Operation(summary = "종합 추천")
+    public ResponseEntity<List<RatingResponse>> getRating(@RequestParam("businessTime") int businessTime,
+                                                              @RequestParam("region") int region,
+                                                              @RequestParam("cost") int cost){
 
-        IndustryRequest industryRequest = new IndustryRequest(businessTime, region, cost);
+        RatingRequest ratingRequest = new RatingRequest(businessTime, region, cost);
 
-        System.out.println("선택지가 전부 무관일태 추천 요청");
-        List<IndustryResponse> industryRating = ratingService.getIndustryRating(industryRequest);
-        for (IndustryResponse industryResponse : industryRating) {
-            System.out.println(industryResponse.getRegionDetail()
-                    + " " + industryResponse.getIndustryDetailName()
-                    + " " + industryResponse.getCost()+ "\n");
+        List<RatingResponse> Rating = ratingService.getRating(ratingRequest);
+        for (RatingResponse ratingResponse : Rating) {
+            System.out.println(ratingResponse.getRegionDetail()
+                    + " " + ratingResponse.getIndustryDetailName()
+                    + " " + ratingResponse.getCost()+ "\n");
         }
 
-        return ResponseEntity.ok().body(industryRating);
+        return ResponseEntity.ok().body(Rating);
+    }
 
+    @GetMapping("/region")
+    @Operation(summary = "지역 추천")
+    public ResponseEntity<List<RegionRatingResponse>> getRatingRegion(@RequestParam("businessTime") int businessTime,
+                                                                  @RequestParam("region") int region,
+                                                                  @RequestParam("cost") int cost){
+
+        RatingRequest ratingRequest = new RatingRequest(businessTime, region, cost);
+
+        List<RegionRatingResponse> regionRating = ratingService.getRatingRegion(ratingRequest);
+        for (RegionRatingResponse regionRatingResponse : regionRating) {
+            System.out.println(regionRatingResponse.getRegionName()
+                    + " " + regionRatingResponse.getRegionDetail() + "\n");
+        }
+
+        return ResponseEntity.ok().body(regionRating);
     }
 }

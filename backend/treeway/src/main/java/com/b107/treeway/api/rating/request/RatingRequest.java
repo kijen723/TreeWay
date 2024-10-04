@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IndustryRequest {
+public class RatingRequest {
     private int businessTime;
     private int region;
     private int cost;

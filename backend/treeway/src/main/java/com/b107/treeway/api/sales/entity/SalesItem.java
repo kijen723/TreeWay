@@ -91,5 +91,4 @@ public class SalesItem {
 
     @Column(name = "longitude", nullable = false)
     private Double longitude;
-
 }
