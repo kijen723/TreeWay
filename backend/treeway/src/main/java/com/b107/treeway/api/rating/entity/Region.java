@@ -11,14 +11,13 @@ import lombok.Setter;
 public class Region {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "region_id", nullable = false)
     private Long id;
 
-    @Column(name = "region_name", nullable = false, unique = true, length = 255)
+    @Column(name = "region_name", nullable = false, unique = true)
     private String regionName;
 
-    @Column(name = "region_detail_name", nullable = false, unique = true, length = 255)
+    @Column(name = "region_detail_name", nullable = false, unique = true)
     private String regionDetailName;
 
 }

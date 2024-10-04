@@ -14,13 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("api/article")
 public class ArticleController {
+
     @Autowired
     private ArticleService articleService;
 
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Success"),
-//            @ApiResponse(responseCode = "404", description = "Not Found"),})
-//    @Operation(summary = "게시글 컨트롤러")
     @GetMapping
     public List<Article> getAllArticles() {
         return articleService.getAllArticles();
@@ -31,51 +28,4 @@ public class ArticleController {
         return articleService.getArticleById(id);
     }
 
-//    @PostMapping("{typeItemId}")
-//    public ResponseEntity<?> article2() {
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @PostMapping("scrap")
-//    public ResponseEntity<?> article3(){
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @DeleteMapping("scrap")
-//    public ResponseEntity<?> article4(){
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @PutMapping()
-//    public ResponseEntity<?> article5(){
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @PostMapping()
-//    public ResponseEntity<?> article6(){
-//        return ResponseEntity.ok().build();
-//    }
-//
-//    @DeleteMapping()
-//    public ResponseEntity<?> article7(){
-//        return ResponseEntity.ok().build();
-//    }
-
-///api/article
-///api/article/{type-item-id}
-///api/article/scrap
-///api/article/scrap
-///api/article
-///api/article
-///api/article-comment
-///api/article-comment
-
-//GET
-//GET
-//POST
-//DELETE
-//DELETE
-//PUT
-//POST
-//DELETE
 }

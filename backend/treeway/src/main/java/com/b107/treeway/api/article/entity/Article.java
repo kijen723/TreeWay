@@ -34,7 +34,7 @@ public class Article {
     @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
-    @Column(name = "title", nullable = false, length = 255)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "content", nullable = false, length = 3000)
@@ -44,7 +44,6 @@ public class Article {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @CreationTimestamp
     @UpdateTimestamp
     @Column(name = "modified_at", nullable = false)
     private LocalDateTime modifiedAt;
@@ -52,4 +51,5 @@ public class Article {
     @ColumnDefault("0")
     @Column(name = "view_count", nullable = false)
     private Integer viewCount;
+
 }

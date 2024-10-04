@@ -9,10 +9,12 @@ import java.util.List;
 
 @Service
 public class PolicyService {
+
     @Autowired
     private PolicyRepository policyRepository;
 
-    public List<Policy> getPolicies() {
+    public List<Policy> getAllPolicies() {
         return policyRepository.findAll();
     }
+
 }

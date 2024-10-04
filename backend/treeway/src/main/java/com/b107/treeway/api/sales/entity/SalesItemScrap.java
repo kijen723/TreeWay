@@ -1,7 +1,6 @@
 package com.b107.treeway.api.sales.entity;
 
 import com.b107.treeway.api.member.entity.Member;
-import com.b107.treeway.api.news.entity.NewsArticle;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,19 +9,19 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "sales_scrap")
-public class SalesScrap {
+public class SalesItemScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sales_scrap_id", nullable = false)
+    @Column(name = "Sales_item_scrap_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "sales_item", nullable = false)
+    private SalesItem salesItem;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "news_article_id")
-    private NewsArticle newsArticle;
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
 }

@@ -17,10 +17,11 @@ public class PolicyScrap {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "policy_id", nullable = false)
+    private Policy policy;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "policy_id")
-    private Policy policy;
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
 }

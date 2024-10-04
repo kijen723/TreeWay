@@ -8,19 +8,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "news_article_scrap")
-public class NewsArticleScrap {
+@Table(name = "news_scrap")
+public class NewsScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "news_article_scrap_id", nullable = false)
+    @Column(name = "news_scrap_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "news_id", nullable = false)
+    private News news;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "news_article_id")
-    private NewsArticle newsArticle;
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ArticleService {
+
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -19,4 +20,5 @@ public class ArticleService {
     public Article getArticleById(Long id) {
         return articleRepository.findById(id).orElse(null);
     }
+
 }

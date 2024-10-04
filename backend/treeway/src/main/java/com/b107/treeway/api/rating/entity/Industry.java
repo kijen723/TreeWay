@@ -11,11 +11,10 @@ import lombok.Setter;
 public class Industry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "industry_id", nullable = false)
     private Long id;
 
-    @Column(name = "industry_name", nullable = false, unique = true, length = 255)
+    @Column(name = "industry_name", nullable = false, unique = true)
     private String industryName;
 
 }
