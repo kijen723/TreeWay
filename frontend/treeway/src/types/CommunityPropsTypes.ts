@@ -9,6 +9,8 @@ export type PostType = {
   title: string;
   author: string;
   date: string;
+  industryDetail: string;
+  region: string;
   imgSrc?: string;
   viewCount: number;
   scrapCount: number;
