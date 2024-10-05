@@ -13,7 +13,7 @@ public class SalesItemScrap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Sales_item_scrap_id", nullable = false)
+    @Column(name = "sales_item_scrap_id", nullable = false)
     private Long id;
 
 <<<<<<< HEAD
