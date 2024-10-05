@@ -21,10 +21,10 @@ public class SalesItemRepositoryCustomImpl implements SalesItemRepositoryCustom 
     @Override
     @Transactional
     public List<MapSalesResponse> getMapSales(MapSalesRequest mapSalesRequest) {
-        String swLatitude = mapSalesRequest.getSwLatitude();
-        String swLongitude = mapSalesRequest.getSwLongitude();
-        String neLatitude = mapSalesRequest.getNeLatitude();
-        String neLongitude = mapSalesRequest.getNeLongitude();
+        Double swLatitude = mapSalesRequest.getSwLatitude();
+        Double swLongitude = mapSalesRequest.getSwLongitude();
+        Double neLatitude = mapSalesRequest.getNeLatitude();
+        Double neLongitude = mapSalesRequest.getNeLongitude();
 
 
         QSalesItem si = QSalesItem.salesItem;

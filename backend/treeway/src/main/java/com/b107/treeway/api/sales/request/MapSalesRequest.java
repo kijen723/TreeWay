@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MapSalesRequest {
-    private String swLongitude;
-    private String swLatitude;
-    private String neLongitude;
-    private String neLatitude;
+    private Double swLongitude;
+    private Double swLatitude;
+    private Double neLongitude;
+    private Double neLatitude;
 }

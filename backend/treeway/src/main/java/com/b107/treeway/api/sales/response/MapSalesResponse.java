@@ -35,6 +35,6 @@ public class MapSalesResponse {
     private Integer other_expenses;
     private String additional_information;
     private Integer itemNum;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 }

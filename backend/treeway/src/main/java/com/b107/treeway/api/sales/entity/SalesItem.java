@@ -45,7 +45,7 @@ public class SalesItem {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "trade_name")
+    @Column(name = "tradename")
     private String tradeName;
 
     @Column(name = "floor_class")
@@ -90,15 +90,15 @@ public class SalesItem {
     @Column(name = "other_expenses")
     private Integer otherExpenses;
 
-    @Column(name = "additional_information", columnDefinition = "TEXT")
+    @Column(name = "additional_information", length = 3000)
     private String additionalInformation;
 
     @Column(name = "itemnum")
     private Integer itemNum;
 
-    @Column(name = "latitude", columnDefinition = "TEXT")
-    private String latitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @Column(name = "longitude", columnDefinition = "TEXT")
-    private String longitude;
+    @Column(name = "longitude")
+    private Double longitude;
 }

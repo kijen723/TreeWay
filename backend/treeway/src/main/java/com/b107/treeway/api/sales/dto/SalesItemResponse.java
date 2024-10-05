@@ -31,8 +31,8 @@ public class SalesItemResponse {
     private Integer otherExpenses;
     private String additionalInformation;
     private Integer itemNum;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 
     public SalesItemResponse(Long id, String majorBusiness, Long industryDetailId, String industryDetailName,
                              String address, Integer monthlySales, Integer monthlyEarnings, String hostName,
@@ -40,7 +40,7 @@ public class SalesItemResponse {
                              Integer squareMeter, Integer availableParking, Integer totalParking, Integer premium,
                              Integer deposit, Integer monthlyRent, Integer administrationCost, Integer materialCost,
                              Integer personnelExpense, Integer utilityBill, Integer otherExpenses,
-                             String additionalInformation, Integer itemNum, String latitude, String longitude) {
+                             String additionalInformation, Integer itemNum, Double latitude, Double longitude) {
         this.id = id;
         this.majorBusiness = majorBusiness;
         this.industryDetailId = industryDetailId;
