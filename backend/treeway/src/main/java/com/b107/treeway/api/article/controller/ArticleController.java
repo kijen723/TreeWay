@@ -1,6 +1,7 @@
 package com.b107.treeway.api.article.controller;
 
 import com.b107.treeway.api.article.dto.ArticleDto;
+import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
 import com.b107.treeway.api.article.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,13 +27,15 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<Article> getAllArticles() {
-        return articleService.getAllArticles();
+    public ResponseEntity<List<ArticleResponse>> getAllArticles() {
+        List<ArticleResponse> articles = articleService.getAllArticles();
+        return ResponseEntity.ok(articles);
     }
 
     @GetMapping("/{id}")
-    public Article getArticleById(@PathVariable Long id) {
-        return articleService.getArticleById(id);
+    public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id) {
+        ArticleResponse article = articleService.getArticleById(id);
+        return ResponseEntity.ok(article);
     }
 
 }

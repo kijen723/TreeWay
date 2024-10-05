@@ -1,6 +1,7 @@
 package com.b107.treeway.api.article.service;
 
 import com.b107.treeway.api.article.dto.ArticleDto;
+import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
 import com.b107.treeway.api.article.repository.ArticleRepository;
 import com.b107.treeway.api.member.entity.Member;
@@ -50,12 +51,13 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public List<Article> getAllArticles() {
-        return articleRepository.findAll();
+    public List<ArticleResponse> getAllArticles() {
+        return articleRepository.findAllArticlesWithDetails();
     }
 
-    public Article getArticleById(Long id) {
-        return articleRepository.findById(id).orElse(null);
+    public ArticleResponse getArticleById(Long id) {
+        return articleRepository.findArticleByIdWithDetails(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
     }
 
 }

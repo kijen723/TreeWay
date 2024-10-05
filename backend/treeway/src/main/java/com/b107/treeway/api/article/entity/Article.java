@@ -3,6 +3,7 @@ package com.b107.treeway.api.article.entity;
 import com.b107.treeway.api.rating.entity.IndustryDetail;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.rating.entity.Region;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -24,14 +25,17 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id", nullable = false)
+    @JsonIgnore
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_detail_id", nullable = false)
+    @JsonIgnore
     private IndustryDetail industryDetail;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "region_id", nullable = false)
+    @JsonIgnore
     private Region region;
 
     @Column(name = "title", nullable = false)
