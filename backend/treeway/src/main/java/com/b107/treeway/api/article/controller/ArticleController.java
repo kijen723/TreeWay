@@ -53,4 +53,10 @@ public class ArticleController {
         return ResponseEntity.ok(new ArticleScrapResponse(isScraped));
     }
 
+    @DeleteMapping("/scrap")
+    public ResponseEntity<String> deleteScrap(@RequestBody ArticleScrapRequest request) {
+        articleService.deleteScrap(request.getArticleId(), request.getMemberId());
+        return ResponseEntity.ok("스크랩이 삭제되었습니다.");
+    }
+
 }

@@ -92,4 +92,11 @@ public class ArticleService {
         return articleScrapRepository.existsByArticleIdAndMemberId(articleId, memberId);
     }
 
+    public void deleteScrap(Long articleId, Long memberId) {
+        ArticleScrap articleScrap = articleScrapRepository.findByArticleIdAndMemberId(articleId, memberId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 스크랩을 찾을 수 없습니다."));
+
+        articleScrapRepository.delete(articleScrap);
+    }
+
 }
