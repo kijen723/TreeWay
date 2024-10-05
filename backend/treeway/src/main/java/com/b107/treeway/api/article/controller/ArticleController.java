@@ -1,10 +1,8 @@
 package com.b107.treeway.api.article.controller;
 
-import com.b107.treeway.api.article.dto.ArticleRequest;
-import com.b107.treeway.api.article.dto.ArticleResponse;
-import com.b107.treeway.api.article.dto.ArticleScrapRequest;
-import com.b107.treeway.api.article.dto.ArticleScrapResponse;
+import com.b107.treeway.api.article.dto.*;
 import com.b107.treeway.api.article.entity.Article;
+import com.b107.treeway.api.article.entity.ArticleComment;
 import com.b107.treeway.api.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +74,12 @@ public class ArticleController {
             @RequestParam(required = false) String title) {
         List<ArticleResponse> articles = articleService.searchArticles(regionId, industryDetailId, title);
         return ResponseEntity.ok(articles);
+    }
+
+    @PostMapping("/comment")
+    public ResponseEntity<ArticleComment> registComment(@RequestBody ArticleCommentRequest request) {
+        ArticleComment comment = articleService.registComment(request);
+        return ResponseEntity.ok(comment);
     }
 
 }

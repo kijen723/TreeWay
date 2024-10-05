@@ -1,9 +1,12 @@
 package com.b107.treeway.api.article.service;
 
+import com.b107.treeway.api.article.dto.ArticleCommentRequest;
 import com.b107.treeway.api.article.dto.ArticleRequest;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
+import com.b107.treeway.api.article.entity.ArticleComment;
 import com.b107.treeway.api.article.entity.ArticleScrap;
+import com.b107.treeway.api.article.repository.ArticleCommentRepository;
 import com.b107.treeway.api.article.repository.ArticleRepository;
 import com.b107.treeway.api.article.repository.ArticleScrapRepository;
 import com.b107.treeway.api.member.entity.Member;
@@ -34,6 +37,9 @@ public class ArticleService {
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @Autowired
+    private ArticleCommentRepository articleCommentRepository;
 
     public Article registArticle(ArticleRequest articleRequest) {
         Member member = memberRepository.findById(articleRequest.getMemberId())
@@ -131,8 +137,22 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> searchArticles(Long regionId, Long industryDetailId, String title) {
-        // 해당 조건에 맞는 기사 리스트를 검색
         return articleRepository.searchArticles(regionId, industryDetailId, title);
+    }
+
+    public ArticleComment registComment(ArticleCommentRequest request) {
+        Article article = articleRepository.findById(request.getArticleId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+
+        Member member = memberRepository.findById(request.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
+
+        ArticleComment comment = new ArticleComment();
+        comment.setArticle(article);
+        comment.setMember(member);
+        comment.setContent(request.getContent());
+
+        return articleCommentRepository.save(comment);
     }
 
 }

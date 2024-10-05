@@ -1,6 +1,7 @@
 package com.b107.treeway.api.article.entity;
 
 import com.b107.treeway.api.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -20,10 +21,12 @@ public class ArticleComment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id", nullable = false)
+    @JsonIgnore
     private Article article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
+    @JsonIgnore
     private Member member;
 
     @Column(name = "content", nullable = false, length = 3000)
