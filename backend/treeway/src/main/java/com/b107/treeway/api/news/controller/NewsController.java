@@ -1,6 +1,7 @@
 package com.b107.treeway.api.news.controller;
 
 import com.b107.treeway.api.news.dto.NewsResponse;
+import com.b107.treeway.api.news.dto.NewsScrapRequest;
 import com.b107.treeway.api.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,12 @@ public class NewsController {
     public ResponseEntity<List<NewsResponse>> getAllNews() {
         List<NewsResponse> newsList = newsService.getAllNews();
         return ResponseEntity.ok(newsList);
+    }
+
+    @PostMapping("/scrap")
+    public ResponseEntity<String> scrapNews(@RequestBody NewsScrapRequest request) {
+        String result = newsService.scrapNews(request);
+        return ResponseEntity.ok(result);
     }
 
 }
