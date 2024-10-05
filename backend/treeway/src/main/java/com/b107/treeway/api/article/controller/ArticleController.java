@@ -59,4 +59,10 @@ public class ArticleController {
         return ResponseEntity.ok("스크랩이 삭제되었습니다.");
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteArticle(@PathVariable Long id) {
+        articleService.deleteArticle(id);
+        return ResponseEntity.ok("Article deleted successfully");
+    }
+
 }

@@ -99,4 +99,11 @@ public class ArticleService {
         articleScrapRepository.delete(articleScrap);
     }
 
+    public void deleteArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+
+        articleRepository.delete(article);
+    }
+
 }
