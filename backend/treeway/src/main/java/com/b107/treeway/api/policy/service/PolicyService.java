@@ -54,4 +54,8 @@ public class PolicyService {
         policyScrapRepository.delete(policyScrap);
     }
 
+    public boolean isPolicyScraped(Long memberId, Long policyId) {
+        return policyScrapRepository.existsByPolicyIdAndMemberId(memberId, policyId);
+    }
+
 }
