@@ -65,4 +65,12 @@ public class ArticleController {
         return ResponseEntity.ok("Article deleted successfully");
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Article> updateArticle(
+            @PathVariable Long id,
+            @RequestBody ArticleDto articleDto) {
+        Article updatedArticle = articleService.updateArticle(id, articleDto);
+        return ResponseEntity.ok(updatedArticle);
+    }
+
 }

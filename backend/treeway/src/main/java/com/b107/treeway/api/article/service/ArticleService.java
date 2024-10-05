@@ -106,4 +106,29 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
+    public Article updateArticle(Long articleId, ArticleDto articleDto) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+
+        Member member = memberRepository.findById(articleDto.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
+
+        if (!article.getMember().getId().equals(articleDto.getMemberId())) {
+            throw new IllegalArgumentException("You are not authorized to update this article.");
+        }
+
+        IndustryDetail industryDetail = industryDetailRepository.findById(articleDto.getIndustryDetailId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid industry detail ID"));
+
+        Region region = regionRepository.findById(articleDto.getRegionId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid region ID"));
+
+        article.setTitle(articleDto.getTitle());
+        article.setContent(articleDto.getContent());
+        article.setIndustryDetail(industryDetail);
+        article.setRegion(region);
+
+        return articleRepository.save(article);
+    }
+
 }
