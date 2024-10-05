@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class PolicyResponse {
-    private Long policyId;
+    private Long id;
     private Long regionId;
     private String regionName;
     private String title;
@@ -21,10 +21,10 @@ public class PolicyResponse {
     private LocalDateTime endDate;
     private Integer viewCount;
 
-    public PolicyResponse(Long policyId, Long regionId, String regionName, String title, String category,
+    public PolicyResponse(Long id, Long regionId, String regionName, String title, String category,
                           String host, String eligibility, String target, String url,
                           LocalDateTime startDate, LocalDateTime endDate, Integer viewCount) {
-        this.policyId = policyId;
+        this.id = id;
         this.regionId = regionId;
         this.regionName = regionName;
         this.title = title;
