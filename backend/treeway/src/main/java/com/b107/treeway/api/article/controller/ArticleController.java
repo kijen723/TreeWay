@@ -73,4 +73,13 @@ public class ArticleController {
         return ResponseEntity.ok(updatedArticle);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<ArticleResponse>> searchArticles(
+            @RequestParam(required = false) Long regionId,
+            @RequestParam(required = false) Long industryDetailId,
+            @RequestParam(required = false) String title) {
+        List<ArticleResponse> articles = articleService.searchArticles(regionId, industryDetailId, title);
+        return ResponseEntity.ok(articles);
+    }
+
 }

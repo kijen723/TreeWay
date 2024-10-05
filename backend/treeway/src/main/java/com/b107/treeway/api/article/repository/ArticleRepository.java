@@ -26,4 +26,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "JOIN a.industryDetail id " +
             "JOIN a.region r")
     List<ArticleResponse> findAllArticlesWithDetails();
+
+    @Query("SELECT new com.b107.treeway.api.article.dto.ArticleResponse(a.id, a.member.id, m.memberName, a.industryDetail.id, id.industryDetailName, a.region.id, r.regionName, a.title, a.content, a.createdAt, a.modifiedAt, a.viewCount) " +
+            "FROM Article a " +
+            "JOIN a.member m " +
+            "JOIN a.industryDetail id " +
+            "JOIN a.region r " +
+            "WHERE (:regionId IS NULL OR a.region.id = :regionId) " +
+            "AND (:industryDetailId IS NULL OR a.industryDetail.id = :industryDetailId) " +
+            "AND (:title IS NULL OR a.title LIKE %:title%)")
+    List<ArticleResponse> searchArticles(@Param("regionId") Long regionId, @Param("industryDetailId") Long industryDetailId, @Param("title") String title);
+
 }

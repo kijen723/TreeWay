@@ -131,4 +131,9 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
+    public List<ArticleResponse> searchArticles(Long regionId, Long industryDetailId, String title) {
+        // 해당 조건에 맞는 기사 리스트를 검색
+        return articleRepository.searchArticles(regionId, industryDetailId, title);
+    }
+
 }
