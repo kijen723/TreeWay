@@ -3,6 +3,7 @@ package com.b107.treeway.api.article.controller;
 import com.b107.treeway.api.article.dto.ArticleDto;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.dto.ArticleScrapRequest;
+import com.b107.treeway.api.article.dto.ArticleScrapResponse;
 import com.b107.treeway.api.article.entity.Article;
 import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.service.ArticleService;
@@ -44,6 +45,12 @@ public class ArticleController {
     public ResponseEntity<String> scrapArticle(@RequestBody ArticleScrapRequest request) {
         String result = articleService.scrapArticle(request.getArticleId(), request.getMemberId());
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/scrap/check")
+    public ResponseEntity<ArticleScrapResponse> checkScrapStatus(@RequestBody ArticleScrapRequest scrapRequest) {
+        boolean isScraped = articleService.checkIfScraped(scrapRequest.getMemberId(), scrapRequest.getArticleId());
+        return ResponseEntity.ok(new ArticleScrapResponse(isScraped));
     }
 
 }

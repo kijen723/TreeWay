@@ -88,4 +88,8 @@ public class ArticleService {
         return "스크랩 성공!";
     }
 
+    public boolean checkIfScraped(Long memberId, Long articleId) {
+        return articleScrapRepository.existsByArticleIdAndMemberId(articleId, memberId);
+    }
+
 }
