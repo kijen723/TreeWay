@@ -15,7 +15,7 @@ public class IndustryDetail {
     @Column(name = "industry_detail_id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "industry_id", nullable = false)
     @JsonIgnore
     private Industry industry;
