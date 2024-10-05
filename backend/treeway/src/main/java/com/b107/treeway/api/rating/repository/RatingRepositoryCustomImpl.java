@@ -243,16 +243,16 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .from(rt)
                 .join(rt.region, rg)
                 .join(rt.industryDetail, idl)
-                .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
+                .join(ec).on(ec.industryDetail.id.eq(idl.id)
                         .and(rg.id.eq(ec.region.id)))
-                .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId));
+                .join(bh).on(bh.industryDetail.id.eq(idl.id));
     }
 
 
     @Override
     @Transactional
     public List<RatingResponse> getRating(RatingRequest ratingRequest) {
-        int industryId = ratingRequest.getIndustryId();
+        int industryId = ratingRequest.getId();
         int industryDetailId = ratingRequest.getIndustryDetailId();
         int businessTime = ratingRequest.getBusinessTime();
         int region = ratingRequest.getRegion();
@@ -301,13 +301,13 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .from(rt)
                 .join(rt.region, rg)
                 .join(rt.industryDetail, idl)
-                .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
+                .join(ec).on(ec.industryDetail.id.eq(idl.id)
                         .and(rg.id.eq(ec.region.id)))
-                .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId))
+                .join(bh).on(bh.industryDetail.id.eq(idl.id))
                 .join(si).on(si.id.eq(ec.id))
                 .join(it).on(it.id.eq(idl.industry.id))
                 .where(it.id.eq(Long.valueOf(industryId))
-                        .and(idl.industryDetailId.eq(Long.valueOf(industryDetailId)))
+                        .and(idl.id.eq(Long.valueOf(industryDetailId)))
                         .and(rg.id.eq(Long.valueOf(region))));
 
         BooleanExpression conditions = Expressions.TRUE;

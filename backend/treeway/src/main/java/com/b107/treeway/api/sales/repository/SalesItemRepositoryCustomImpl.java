@@ -61,7 +61,7 @@ public class SalesItemRepositoryCustomImpl implements SalesItemRepositoryCustom 
                         si.longitude
                 ))
                 .from(si)
-                .join(si).on(si.industryDetail.industryDetailId.eq(idl.industryDetail.industryDetailId))
+                .join(si).on(si.industryDetail.id.eq(idl.industryDetail.id))
                 .where(si.latitude.goe(swLatitude)
                         .and(si.latitude.loe(neLatitude))
                         .and(si.longitude.goe(swLongitude))
