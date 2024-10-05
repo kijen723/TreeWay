@@ -1,15 +1,11 @@
 package com.b107.treeway.api.article.controller;
 
-import com.b107.treeway.api.article.dto.ArticleDto;
+import com.b107.treeway.api.article.dto.ArticleRequest;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.dto.ArticleScrapRequest;
 import com.b107.treeway.api.article.dto.ArticleScrapResponse;
 import com.b107.treeway.api.article.entity.Article;
-import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.service.ArticleService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +20,8 @@ public class ArticleController {
     private ArticleService articleService;
 
     @PostMapping
-    public ResponseEntity<Article> registArticle(@RequestBody ArticleDto articleDto) {
-        Article article = articleService.registArticle(articleDto);
+    public ResponseEntity<Article> registArticle(@RequestBody ArticleRequest articleRequest) {
+        Article article = articleService.registArticle(articleRequest);
         return ResponseEntity.ok(article);
     }
 
@@ -68,8 +64,8 @@ public class ArticleController {
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(
             @PathVariable Long id,
-            @RequestBody ArticleDto articleDto) {
-        Article updatedArticle = articleService.updateArticle(id, articleDto);
+            @RequestBody ArticleRequest articleRequest) {
+        Article updatedArticle = articleService.updateArticle(id, articleRequest);
         return ResponseEntity.ok(updatedArticle);
     }
 

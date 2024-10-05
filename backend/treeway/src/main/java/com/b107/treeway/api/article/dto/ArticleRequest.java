@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticleDto {
+public class ArticleRequest {
     private Long memberId;
     private Long industryDetailId;
     private Long regionId;

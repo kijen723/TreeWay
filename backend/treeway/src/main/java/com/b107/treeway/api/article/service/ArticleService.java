@@ -1,8 +1,7 @@
 package com.b107.treeway.api.article.service;
 
-import com.b107.treeway.api.article.dto.ArticleDto;
+import com.b107.treeway.api.article.dto.ArticleRequest;
 import com.b107.treeway.api.article.dto.ArticleResponse;
-import com.b107.treeway.api.article.dto.ArticleScrapRequest;
 import com.b107.treeway.api.article.entity.Article;
 import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.repository.ArticleRepository;
@@ -36,22 +35,22 @@ public class ArticleService {
     @Autowired
     private RegionRepository regionRepository;
 
-    public Article registArticle(ArticleDto articleDto) {
-        Member member = memberRepository.findById(articleDto.getMemberId())
+    public Article registArticle(ArticleRequest articleRequest) {
+        Member member = memberRepository.findById(articleRequest.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
 
-        IndustryDetail industryDetail = industryDetailRepository.findById(articleDto.getIndustryDetailId())
+        IndustryDetail industryDetail = industryDetailRepository.findById(articleRequest.getIndustryDetailId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid industry detail ID"));
 
-        Region region = regionRepository.findById(articleDto.getRegionId())
+        Region region = regionRepository.findById(articleRequest.getRegionId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid region ID"));
 
         Article article = new Article();
         article.setMember(member);
         article.setIndustryDetail(industryDetail);
         article.setRegion(region);
-        article.setTitle(articleDto.getTitle());
-        article.setContent(articleDto.getContent());
+        article.setTitle(articleRequest.getTitle());
+        article.setContent(articleRequest.getContent());
         article.setViewCount(0);
 
         return articleRepository.save(article);
@@ -106,25 +105,25 @@ public class ArticleService {
         articleRepository.delete(article);
     }
 
-    public Article updateArticle(Long articleId, ArticleDto articleDto) {
+    public Article updateArticle(Long articleId, ArticleRequest articleRequest) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
 
-        Member member = memberRepository.findById(articleDto.getMemberId())
+        Member member = memberRepository.findById(articleRequest.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
 
-        if (!article.getMember().getId().equals(articleDto.getMemberId())) {
+        if (!article.getMember().getId().equals(articleRequest.getMemberId())) {
             throw new IllegalArgumentException("You are not authorized to update this article.");
         }
 
-        IndustryDetail industryDetail = industryDetailRepository.findById(articleDto.getIndustryDetailId())
+        IndustryDetail industryDetail = industryDetailRepository.findById(articleRequest.getIndustryDetailId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid industry detail ID"));
 
-        Region region = regionRepository.findById(articleDto.getRegionId())
+        Region region = regionRepository.findById(articleRequest.getRegionId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid region ID"));
 
-        article.setTitle(articleDto.getTitle());
-        article.setContent(articleDto.getContent());
+        article.setTitle(articleRequest.getTitle());
+        article.setContent(articleRequest.getContent());
         article.setIndustryDetail(industryDetail);
         article.setRegion(region);
 
