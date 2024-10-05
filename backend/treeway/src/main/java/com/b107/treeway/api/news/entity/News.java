@@ -28,11 +28,11 @@ public class News {
     @Column(name = "content", nullable = false, length = 500)
     private String content;
 
-    @Column(name = "url", nullable = false)
+    @Column(name = "url", nullable = false, length = 3000)
     private String url;
 
-    @Column(name = "create_at", nullable = false)
-    private LocalDateTime createAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
     @ColumnDefault("0")
     @Column(name = "view_count", nullable = false)

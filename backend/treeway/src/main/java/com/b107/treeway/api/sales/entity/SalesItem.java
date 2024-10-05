@@ -12,7 +12,11 @@ import lombok.Setter;
 public class SalesItem {
 
     @Id
+<<<<<<< HEAD
     @Column(name = "sales_item_id")
+=======
+    @Column(name = "sales_item_id", nullable = false)
+>>>>>>> 4a4b54f (fix: edit entity detail)
     private Long id;
 
     @Column(name = "major_business")
