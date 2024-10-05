@@ -158,4 +158,12 @@ public class ArticleService {
         return articleCommentRepository.findCommentsByArticleId(articleId);
     }
 
+    public void deleteComment(Long commentId) {
+        if (articleCommentRepository.existsById(commentId)) {
+            articleCommentRepository.deleteById(commentId);
+        } else {
+            throw new IllegalArgumentException("댓글이 존재하지 않습니다.");
+        }
+    }
+
 }

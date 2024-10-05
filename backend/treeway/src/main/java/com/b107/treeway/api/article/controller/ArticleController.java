@@ -88,4 +88,10 @@ public class ArticleController {
         return ResponseEntity.ok(comments);
     }
 
+    @DeleteMapping("/comment/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long id) {
+        articleService.deleteComment(id);
+        return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+    }
+
 }
