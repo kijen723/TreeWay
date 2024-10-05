@@ -1,8 +1,9 @@
 package com.b107.treeway.api.news.controller;
 
-import com.b107.treeway.api.news.entity.News;
+import com.b107.treeway.api.news.dto.NewsResponse;
 import com.b107.treeway.api.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,9 @@ public class NewsController {
     private NewsService newsService;
 
     @GetMapping
-    public List<News> getAllNews() {
-        return newsService.getAllNews();
+    public ResponseEntity<List<NewsResponse>> getAllNews() {
+        List<NewsResponse> newsList = newsService.getAllNews();
+        return ResponseEntity.ok(newsList);
     }
 
 }
