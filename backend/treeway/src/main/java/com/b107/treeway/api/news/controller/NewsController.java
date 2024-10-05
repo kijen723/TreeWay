@@ -2,6 +2,7 @@ package com.b107.treeway.api.news.controller;
 
 import com.b107.treeway.api.news.dto.NewsResponse;
 import com.b107.treeway.api.news.dto.NewsScrapRequest;
+import com.b107.treeway.api.news.dto.NewsScrapResponse;
 import com.b107.treeway.api.news.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class NewsController {
     public ResponseEntity<String>cancelNewsScrap(@RequestBody NewsScrapRequest request) {
         newsService.deleteNewsScrap(request.getMemberId(), request.getNewsId());
         return ResponseEntity.ok("스크랩이 삭제되었습니다.");
+    }
+
+    @PostMapping("/scrap/check")
+    public ResponseEntity<NewsScrapResponse> checkNewsScrap(@RequestBody NewsScrapRequest request) {
+        boolean isScraped = newsService.isNewsScraped(request.getMemberId(), request.getNewsId());
+        NewsScrapResponse response = new NewsScrapResponse(isScraped);
+        return ResponseEntity.ok(response);
     }
 
 }

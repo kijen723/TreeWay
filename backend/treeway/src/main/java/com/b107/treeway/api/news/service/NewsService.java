@@ -53,4 +53,8 @@ public class NewsService {
         newsScrapRepository.delete(newsScrap);
     }
 
+    public boolean isNewsScraped(Long memberId, Long newsId) {
+        return newsScrapRepository.existsByMemberIdAndNewsId(memberId, newsId);
+    }
+
 }
