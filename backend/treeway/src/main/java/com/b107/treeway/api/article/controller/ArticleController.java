@@ -2,7 +2,9 @@ package com.b107.treeway.api.article.controller;
 
 import com.b107.treeway.api.article.dto.ArticleDto;
 import com.b107.treeway.api.article.dto.ArticleResponse;
+import com.b107.treeway.api.article.dto.ArticleScrapRequest;
 import com.b107.treeway.api.article.entity.Article;
+import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -36,6 +38,12 @@ public class ArticleController {
     public ResponseEntity<ArticleResponse> getArticleById(@PathVariable Long id) {
         ArticleResponse article = articleService.getArticleById(id);
         return ResponseEntity.ok(article);
+    }
+
+    @PostMapping("/scrap")
+    public ResponseEntity<String> scrapArticle(@RequestBody ArticleScrapRequest request) {
+        String result = articleService.scrapArticle(request.getArticleId(), request.getMemberId());
+        return ResponseEntity.ok(result);
     }
 
 }

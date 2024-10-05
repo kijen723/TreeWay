@@ -2,8 +2,11 @@ package com.b107.treeway.api.article.service;
 
 import com.b107.treeway.api.article.dto.ArticleDto;
 import com.b107.treeway.api.article.dto.ArticleResponse;
+import com.b107.treeway.api.article.dto.ArticleScrapRequest;
 import com.b107.treeway.api.article.entity.Article;
+import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.repository.ArticleRepository;
+import com.b107.treeway.api.article.repository.ArticleScrapRepository;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
 import com.b107.treeway.api.rating.entity.IndustryDetail;
@@ -20,6 +23,9 @@ public class ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private ArticleScrapRepository articleScrapRepository;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -58,6 +64,28 @@ public class ArticleService {
     public ArticleResponse getArticleById(Long id) {
         return articleRepository.findArticleByIdWithDetails(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+    }
+
+    public String scrapArticle(Long articleId, Long memberId) {
+        // 스크랩 중복 여부 체크
+        boolean exists = articleScrapRepository.existsByArticleIdAndMemberId(articleId, memberId);
+        if (exists) {
+            return "이미 스크랩한 게시물입니다.";
+        }
+
+        // 새로운 스크랩 저장
+        ArticleScrap articleScrap = new ArticleScrap();
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
+
+        articleScrap.setArticle(article);
+        articleScrap.setMember(member);
+
+        articleScrapRepository.save(articleScrap);
+        return "스크랩 성공!";
     }
 
 }
