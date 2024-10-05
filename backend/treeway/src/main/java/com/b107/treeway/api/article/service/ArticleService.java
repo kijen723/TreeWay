@@ -1,6 +1,7 @@
 package com.b107.treeway.api.article.service;
 
 import com.b107.treeway.api.article.dto.ArticleCommentRequest;
+import com.b107.treeway.api.article.dto.ArticleCommentResponse;
 import com.b107.treeway.api.article.dto.ArticleRequest;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
@@ -72,13 +73,11 @@ public class ArticleService {
     }
 
     public String scrapArticle(Long articleId, Long memberId) {
-        // 스크랩 중복 여부 체크
         boolean exists = articleScrapRepository.existsByArticleIdAndMemberId(articleId, memberId);
         if (exists) {
             return "이미 스크랩한 게시물입니다.";
         }
 
-        // 새로운 스크랩 저장
         ArticleScrap articleScrap = new ArticleScrap();
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
@@ -153,6 +152,10 @@ public class ArticleService {
         comment.setContent(request.getContent());
 
         return articleCommentRepository.save(comment);
+    }
+
+    public List<ArticleCommentResponse> getCommentsByArticleId(Long articleId) {
+        return articleCommentRepository.findCommentsByArticleId(articleId);
     }
 
 }

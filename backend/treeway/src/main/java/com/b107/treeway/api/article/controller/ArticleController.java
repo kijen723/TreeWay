@@ -82,4 +82,10 @@ public class ArticleController {
         return ResponseEntity.ok(comment);
     }
 
+    @GetMapping("/comment/{id}")
+    public ResponseEntity<List<ArticleCommentResponse>> getCommentsByArticleId(@PathVariable Long id) {
+        List<ArticleCommentResponse> comments = articleService.getCommentsByArticleId(id);
+        return ResponseEntity.ok(comments);
+    }
+
 }
