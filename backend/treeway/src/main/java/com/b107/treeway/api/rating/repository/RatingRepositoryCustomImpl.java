@@ -46,9 +46,9 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .from(rt)
                 .join(rt.region, rg)
                 .join(rt.industryDetail, idl)
-                .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
+                .join(ec).on(ec.industryDetail.id.eq(idl.id)
                         .and(rg.id.eq(ec.region.id)))
-                .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId));
+                .join(bh).on(bh.industryDetail.id.eq(idl.id));
 
         BooleanExpression conditions = Expressions.TRUE;
 
@@ -121,10 +121,16 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .from(rt)
                 .join(rt.region, rg)
                 .join(rt.industryDetail, idl)
+<<<<<<< HEAD
                 .join(ec).on(ec.industryDetail.industryDetailId.eq(idl.industryDetailId)
                         .and(rg.id.eq(ec.region.id)))
                 .join(bh).on(bh.industryDetail.industryDetailId.eq(idl.industryDetailId))
                 .join(si).on(si.id.eq(ec.id));
+=======
+                .join(ec).on(ec.industryDetail.id.eq(idl.id)
+                            .and(rg.id.eq(ec.region.id)))
+                .join(bh).on(bh.industryDetail.id.eq(idl.id));
+>>>>>>> 53c6f7c (feat: get industry_detail list)
 
         BooleanExpression conditions = Expressions.TRUE;
 

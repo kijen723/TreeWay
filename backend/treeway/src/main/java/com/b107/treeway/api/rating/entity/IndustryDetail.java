@@ -1,10 +1,9 @@
 package com.b107.treeway.api.rating.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,10 +13,11 @@ public class IndustryDetail {
 
     @Id
     @Column(name = "industry_detail_id", nullable = false)
-    private Long industryDetailId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "industry_id", nullable = false)
+    @JsonIgnore
     private Industry industry;
 
     @Column(name = "industry_detail_name", nullable = false)
