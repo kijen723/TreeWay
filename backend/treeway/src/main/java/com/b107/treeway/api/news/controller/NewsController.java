@@ -28,4 +28,10 @@ public class NewsController {
         return ResponseEntity.ok(result);
     }
 
+    @DeleteMapping("/scrap")
+    public ResponseEntity<String>cancelNewsScrap(@RequestBody NewsScrapRequest request) {
+        newsService.deleteNewsScrap(request.getMemberId(), request.getNewsId());
+        return ResponseEntity.ok("스크랩이 삭제되었습니다.");
+    }
+
 }

@@ -47,4 +47,10 @@ public class NewsService {
         return "뉴스 스크랩이 완료되었습니다.";
     }
 
+    public void deleteNewsScrap(Long memberId, Long newsId) {
+        NewsScrap newsScrap = newsScrapRepository.findByMemberIdAndNewsId(memberId, newsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 스크랩이 존재하지 않습니다."));
+        newsScrapRepository.delete(newsScrap);
+    }
+
 }
