@@ -20,3 +20,12 @@ export type PostType = {
   viewCount: number;
   isScrap?: boolean;
 };
+
+export type CommentType = {
+  id: number;
+  memberId: number;
+  memberName: string;
+  articleId: number;
+  content: string;
+  createdAt: string;
+};

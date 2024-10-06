@@ -2,16 +2,10 @@ import styles from '@/app/community/[postId]/page.module.scss'
 import CommentForm from "../CommentForm";
 import CommentHeader from "../CommentHeader";
 import CommentList from "./CommentList";
-
-interface Comment {
-    id: number;
-    date: string;
-    name: string;
-    content: string;
-}
+import { CommentType } from '@/types/CommunityPropsTypes';
 
 interface commentsProps {
-    commentList: Comment[];
+    commentList: CommentType[];
 }
 
 export default function WideComments({ commentList } : commentsProps) {

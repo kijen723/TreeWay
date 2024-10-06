@@ -17,6 +17,14 @@ const fetchPost = async (postId: string | undefined) => {
     return res.json();
 };
 
+const fetchComments = async (postId: string | undefined) => {
+    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/comment/${postId}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch comments');
+    }
+    return res.json();
+};
+
 export default function CommunityDetail() {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -28,55 +36,29 @@ export default function CommunityDetail() {
     const postId = pathname.split('/').pop();
 
     const [post, setPost] = useState<any>(null); 
+    const [comments, setComments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
-
-    const commentList = [
-        {
-            id: 1,
-            date: '2024-10-04 00:00:00',
-            name: '작성자',
-            content: '댓글 내용1'
-        },
-        {
-            id: 2,
-            date: '2024-10-04 00:00:00',
-            name: '작성자',
-            content: '댓글 내용2'
-        },
-        {
-            id: 3,
-            date: '2024-10-04 00:00:00',
-            name: '작성자',
-            content: '댓글 내용3'
-        },
-        {
-            id: 4,
-            date: '2024-10-04 00:00:00',
-            name: '작성자',
-            content: '댓글 내용4'
-        },
-        {
-            id: 5,
-            date: '2024-10-04 00:00:00',
-            name: '작성자',
-            content: '댓글 내용5'
-        },
-    ];
+    const [loadingComments, setLoadingComments] = useState<boolean>(true);
 
     useEffect(() => {
-        const loadPost = async () => {
+        const loadPostAndComments = async () => {
             try {
-                const fetchedPost = await fetchPost(postId);
+                const [fetchedPost, fetchedComments] = await Promise.all([
+                    fetchPost(postId),
+                    fetchComments(postId),
+                ]);
                 setPost(fetchedPost);
+                setComments(fetchedComments); // 댓글 데이터 설정
             } catch (error) {
-                console.error('Failed to fetch post:', error);
+                console.error('Failed to fetch post or comments:', error);
             } finally {
-                setLoading(false); // 로딩 완료
+                setLoading(false);
+                setLoadingComments(false); // 댓글 로딩 완료
             }
         };
 
         if (postId) {
-            loadPost();
+            loadPostAndComments();
         }
     }, [postId]);
 
@@ -108,12 +90,12 @@ export default function CommunityDetail() {
                     {defView ? (
                         <>
                             {post && <PostSummary post={post} />}
-                            <Comments commentList={commentList} onClick={toggleDefView} />
+                            <Comments commentList={comments} onClick={toggleDefView} />
                         </>
                     ) : (
                         <>
                             <NarrowPostSummary post={post} onClick={toggleDefView} />
-                            <WideComments commentList={commentList}/>
+                            <WideComments commentList={comments}/>
                         </>
                     )}
                 </div>

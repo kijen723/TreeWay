@@ -19,7 +19,8 @@ export default function NarrowPostSummary({ post, onClick } : postProp) {
                 <BackButton />
             </div>
             <div className={styles.summBody}>
-                <img className={styles.summImg} src='/image/cat.jpg' />
+                {/* <img className={styles.summImg} src='/image/cat.jpg' /> */}
+                <div className={styles.nonImgNarrow}></div>
                 <div className={styles.summContent}>
                     <PostInfo post={post}/>
                     <div className={styles.postBtnGroup} onClick={(e) => {e.stopPropagation()}}>
