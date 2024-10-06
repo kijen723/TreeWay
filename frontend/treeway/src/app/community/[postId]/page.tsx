@@ -80,7 +80,14 @@ export default function CommunityDetail() {
         loadComments();
     };
 
+<<<<<<< HEAD
 >>>>>>> a235e72 (feat: 댓글 입력 후 컴포넌트 재랜더링)
+=======
+    const handleCommentDelete = (commentId: number) => {
+        setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
+    };
+
+>>>>>>> cb3190e (feat: 댓글 삭제 api 연결)
     const [defView, setDefView] = useState(true);
 >>>>>>> 29b1edb (feat: 커뮤니티 게시글 상세 페이지 댓글 컴포넌트 수정)
 
@@ -115,7 +122,12 @@ export default function CommunityDetail() {
                     ) : (
                         <>
                             <NarrowPostSummary post={post} onClick={toggleDefView} />
-                            <WideComments postId={postId} commentList={comments} onCommentSubmit={handleCommentSubmit}/>
+                            <WideComments 
+                                postId={postId} 
+                                commentList={comments} 
+                                onCommentSubmit={handleCommentSubmit}
+                                onCommentDelete={handleCommentDelete}
+                            />
                         </>
                     )}
                 </div>

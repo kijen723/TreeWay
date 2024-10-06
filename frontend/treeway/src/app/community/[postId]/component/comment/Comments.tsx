@@ -4,16 +4,11 @@ import { useState } from 'react';
 import styles from '@/app/community/[postId]/page.module.scss';
 import CommentHeader from './CommentHeader';
 import CommentForm from './CommentForm';
-
-interface Comment {
-    id: number;
-    name: string;
-    content: string;
-}
+import { CommentType } from '@/types/CommunityPropsTypes';
 
 interface commentsProps {
     postId: number;
-    commentList: Comment[];
+    commentList: CommentType[];
     onClick: React.MouseEventHandler<HTMLDivElement>;
     onCommentSubmit?: () => void;
 }
