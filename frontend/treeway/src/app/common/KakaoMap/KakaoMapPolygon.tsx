@@ -1,63 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  CustomOverlayMap,
-  Map,
-  MapMarker,
-  Polygon,
-} from "react-kakao-maps-sdk";
+import { CustomOverlayMap, Map, MapMarker, Polygon } from "react-kakao-maps-sdk";
 import styles from "./KakaoMapPolygon.module.scss";
 import { LatLng, Polygon1, Polygon2 } from "@/types/MapType";
 import hole, { areaInfo } from "./data";
 import { IoArrowBackSharp } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { convertCoordinates } from "@/util/ConvertCoordinate";
 
 const KakaoMapPolygon = () => {
-  const convertCoordinates = (polygonData: Polygon1): Polygon2 => {
-    return {
-      type: polygonData.type,
-      features: polygonData.features.map((feature) => ({
-        isMouseOver: false,
-        type: feature.type,
-        geometry: {
-          type: feature.geometry.type,
-          coordinates:
-            feature.geometry.type === "Polygon"
-              ? // Polygon일 때 처리
-                (feature.geometry.coordinates as number[][][]).map((array) =>
-                  array.map((coord) => ({
-                    lat: parseFloat(coord[1].toString()), // 경도와 위도를 교체
-                    lng: parseFloat(coord[0].toString()),
-                  }))
-                )
-              : // MultiPolygon일 때 처리
-                (feature.geometry.coordinates as number[][][][]).map(
-                  (polygon) => {
-                    let newArray: LatLng[] = [];
-                    polygon.map((array) => {
-                      array.forEach((coord) => {
-                        newArray.push({
-                          lat: parseFloat(coord[1].toString()), // 경도와 위도를 교체
-                          lng: parseFloat(coord[0].toString()),
-                        });
-                      });
-                    });
-                    return newArray;
-                  }
-                ),
-        },
-        properties: {
-          CTPRVN_CD: feature.properties.CTPRVN_CD,
-          CTP_ENG_NM: feature.properties.CTP_ENG_NM,
-          CTP_KOR_NM: feature.properties.CTP_KOR_NM,
-          SIGRVN_CD: feature.properties.SIGRVN_CD,
-          SIG_ENG_NM: feature.properties.SIG_ENG_NM,
-          SIG_KOR_NM: feature.properties.SIG_KOR_NM,
-        },
-      })),
-    };
-  };
   const [nowPosition, setNowPosition] = useState<LatLng>({
     lat: 36.628297,
     lng: 127.492533,
@@ -70,6 +22,9 @@ const KakaoMapPolygon = () => {
   });
   const [areaIndex, setAreaIndex] = useState<number>(-1);
   const router = useRouter();
+  const pathName = usePathname();
+
+  // 폴리곤 데이터 불러오기
   useEffect(() => {
     const loadJson = async () => {
       let data;
@@ -84,6 +39,7 @@ const KakaoMapPolygon = () => {
     loadJson();
   }, [areaIndex]);
 
+  // 카카오맵 로드
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement("script");
     script.async = true;
@@ -102,33 +58,28 @@ const KakaoMapPolygon = () => {
         });
       });
     }
-    // setPolygonData(convertCoordinates(data));
   }, []);
-
-  // useEffect(()=>{
-  //   setPolygonData(convertCoordinates(data));
-  // }, [data])
 
   return (
     <div className={styles.box}>
       {areaIndex !== -1 ? (
-        <div className={styles.back} onClick={()=>{
-          setAreaIndex(-1);
-        }}>
+        <div
+          className={styles.back}
+          onClick={() => {
+            setAreaIndex(-1);
+          }}
+        >
           <IoArrowBackSharp />
         </div>
       ) : null}
       {scriptLoad ? (
         <Map
-          center={
-            areaIndex === -1
-              ? { lat: nowPosition.lat, lng: nowPosition.lng }
-              : areaInfo[areaIndex].position
-          }
+          center={areaIndex === -1 ? { lat: nowPosition.lat, lng: nowPosition.lng } : areaInfo[areaIndex].position}
           style={{ width: "100vw", height: "100vh" }}
           level={areaIndex === -1 ? 12 : areaInfo[areaIndex].level}
           zoomable={false}
           disableDoubleClickZoom={true}
+          draggable={pathName === "/trend" ? true : false}
           onMouseMove={(_map, mouseEvent) => {
             setMousePosition({
               lat: mouseEvent.latLng.getLat(),
@@ -136,20 +87,6 @@ const KakaoMapPolygon = () => {
             });
           }}
         >
-          {/* <MapMarker
-            position={{
-              lat: 36.35485742248066,
-              lng: 127.29835443980944,
-            }}
-            title="연수원"
-          ></MapMarker>
-          <MapMarker
-            position={{
-              lat: 36.350941775577425,
-              lng: 127.30107307434082,
-            }}
-            title="밭대"
-          ></MapMarker> */}
           {polygonData &&
             polygonData.features.map((data, index) => {
               return (
@@ -178,23 +115,19 @@ const KakaoMapPolygon = () => {
                   onClick={() => {
                     if (areaIndex === -1) {
                       setAreaIndex(index);
+                    }else{
+                      router.push(`/trend/${data.properties.SIG_CD}?location=${encodeURIComponent(data.properties.SIG_KOR_NM as string)}`);
                     }
                   }}
                 ></Polygon>
               );
             })}
           {polygonData?.features.findIndex((v) => v.isMouseOver) !== -1 && (
-            <CustomOverlayMap
-              position={mousePosition}
-              xAnchor={0.5}
-              yAnchor={1.5}
-            >
+            <CustomOverlayMap position={mousePosition} xAnchor={0.5} yAnchor={1.5}>
               <div className={styles.overlay}>
                 {areaIndex === -1
-                  ? polygonData?.features.find((v) => v.isMouseOver)?.properties
-                      .CTP_KOR_NM
-                  : polygonData?.features.find((v) => v.isMouseOver)?.properties
-                      .SIG_KOR_NM}
+                  ? polygonData?.features.find((v) => v.isMouseOver)?.properties.CTP_KOR_NM
+                  : polygonData?.features.find((v) => v.isMouseOver)?.properties.SIG_KOR_NM}
               </div>
             </CustomOverlayMap>
           )}

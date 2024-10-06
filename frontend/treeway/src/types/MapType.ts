@@ -14,7 +14,7 @@ export type Polygon1 = {
       CTPRVN_CD?: string;
       CTP_ENG_NM?: string;
       CTP_KOR_NM?: string;
-      SIGRVN_CD?: string;
+      SIG_CD?: string;
       SIG_ENG_NM?: string;
       SIG_KOR_NM?: string;
     };
@@ -34,7 +34,7 @@ export type Polygon2 = {
       CTPRVN_CD?: string;
       CTP_ENG_NM?: string;
       CTP_KOR_NM?: string;
-      SIGRVN_CD?: string;
+      SIG_CD?: string;
       SIG_ENG_NM?: string;
       SIG_KOR_NM?: string;
     };
@@ -70,4 +70,11 @@ export type Store = {
     "itemnum": number,
     "latitude": number,
     "longitude": number
+}
+
+export type locationData = {
+  swLatitude: number,
+  swLongitude: number,
+  neLatitude: number,
+  neLongitude: number,
 }

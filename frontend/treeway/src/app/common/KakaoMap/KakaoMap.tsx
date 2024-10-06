@@ -3,19 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
-import { LatLng, Store } from "@/types/MapType";
+import { LatLng, locationData, Store } from "@/types/MapType";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDumData } from "@/redux/slice/dumdataSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import SearchBtn from "@/app/main/components/SearchBtn";
+import { usePathname } from "next/navigation";
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
+  const pathName = usePathname();
   // const data = useSelector((state: RootState) => state.dumdata.value);
-  const [load, setLoad] = useState<boolean>(false);
   const mapRef = useRef<kakao.maps.Map | null>(null);
+  const [data, setData] = useState<Store[] | null>(null);
   const [level, setLevel] = useState<number>(4);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [nowPosition, setNowPosition] = useState<LatLng>({
@@ -23,12 +25,20 @@ export default function KakaoMap() {
     lng: 127.492533,
   });
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
-  // 리액트 쿼리 사용하여 대전 데이터 가져오기
-  const { isLoading, error, data }: { isLoading: boolean; error: any; data: Store[] | undefined } = useQuery({
-    queryKey: ["dumdata"],
-    queryFn: async () => {
-      return await fetch("https://j11b107.p.ssafy.io/api/temp").then((res) => res.json());
-    },
+
+  const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
+    const response = await fetch("https://j11b107.p.ssafy.io/api/sales/map", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(locationData),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to send location data");
+    }
+
+    return response.json();
   });
 
   const getInfo = () => {
@@ -39,21 +49,23 @@ export default function KakaoMap() {
     const swLatLng = bounds.getSouthWest();
     const neLatLng = bounds.getNorthEast();
 
-    const data = {
-      sw: { lat: swLatLng.getLat(), lng: swLatLng.getLng() },
-      ne: { lat: neLatLng.getLat(), lng: neLatLng.getLng() },
+    const locationData = {
+      swLatitude: swLatLng.getLat(),
+      swLongitude: swLatLng.getLng(),
+      neLatitude: neLatLng.getLat(),
+      neLongitude: neLatLng.getLng(),
     };
 
-    console.log(data);
+    mutation.mutate(locationData);
   };
 
-  // 대전 데이터만 로드
   useEffect(() => {
-    if (data) {
-      const dumdata = data;
-      dispatch(changeDumData(dumdata));
+    if (mutation.data) {
+      setData(mutation.data);
+      console.log(mutation.data);
+      dispatch(changeDumData(mutation.data));
     }
-  }, [data]);
+  }, [mutation.data]);
 
   useEffect(() => {
     if (data && shopIdx !== 0) {
@@ -72,6 +84,7 @@ export default function KakaoMap() {
     document.head.appendChild(script);
     script.addEventListener("load", () => {
       setScriptLoad(true);
+      dispatch(changeDumData(null));
     });
 
     if (navigator.geolocation) {
@@ -92,6 +105,8 @@ export default function KakaoMap() {
           level={level}
           isPanto={true}
           ref={mapRef}
+          draggable={pathName === "/main" ? true : false}
+          zoomable={pathName === "/main" ? true : false}
         >
           <SearchBtn getInfo={getInfo} />
           <MarkerClusterer averageCenter={true} minLevel={3}>
