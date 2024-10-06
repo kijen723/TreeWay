@@ -71,8 +71,9 @@ public class ArticleController {
     public ResponseEntity<List<ArticleResponse>> searchArticles(
             @RequestParam(required = false) Long regionId,
             @RequestParam(required = false) Long industryDetailId,
+            @RequestParam(required = false) Long memberId,
             @RequestParam(required = false) String title) {
-        List<ArticleResponse> articles = articleService.searchArticles(regionId, industryDetailId, title);
+        List<ArticleResponse> articles = articleService.searchArticles(regionId, industryDetailId, memberId, title);
         return ResponseEntity.ok(articles);
     }
 

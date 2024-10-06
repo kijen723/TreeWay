@@ -135,8 +135,8 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    public List<ArticleResponse> searchArticles(Long regionId, Long industryDetailId, String title) {
-        return articleRepository.searchArticles(regionId, industryDetailId, title);
+    public List<ArticleResponse> searchArticles(Long regionId, Long industryDetailId, Long memberId, String title) {
+        return articleRepository.searchArticles(regionId, industryDetailId, memberId, title);
     }
 
     public ArticleComment registComment(ArticleCommentRequest request) {

@@ -34,7 +34,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "JOIN a.region r " +
             "WHERE (:regionId IS NULL OR a.region.id = :regionId) " +
             "AND (:industryDetailId IS NULL OR a.industryDetail.id = :industryDetailId) " +
+            "AND (:memberId IS NULL OR a.member.id = :memberId) " +
             "AND (:title IS NULL OR a.title LIKE %:title%)")
-    List<ArticleResponse> searchArticles(@Param("regionId") Long regionId, @Param("industryDetailId") Long industryDetailId, @Param("title") String title);
+    List<ArticleResponse> searchArticles(@Param("regionId") Long regionId, @Param("industryDetailId") Long industryDetailId, @Param("memberId") Long memberId, @Param("title") String title);
 
 }
