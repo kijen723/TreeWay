@@ -58,4 +58,8 @@ public class PolicyService {
         return policyScrapRepository.existsByPolicyIdAndMemberId(memberId, policyId);
     }
 
+    public List<PolicyResponse> getScrappedPoliciesByMember(Long memberId) {
+        return policyRepository.findScrappedPoliciesByMember(memberId);
+    }
+
 }

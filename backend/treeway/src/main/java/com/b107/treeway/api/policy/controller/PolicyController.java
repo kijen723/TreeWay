@@ -1,11 +1,8 @@
 package com.b107.treeway.api.policy.controller;
 
-import com.b107.treeway.api.news.dto.NewsScrapRequest;
-import com.b107.treeway.api.news.dto.NewsScrapResponse;
 import com.b107.treeway.api.policy.dto.PolicyResponse;
 import com.b107.treeway.api.policy.dto.PolicyScrapRequest;
 import com.b107.treeway.api.policy.dto.PolicyScrapResponse;
-import com.b107.treeway.api.policy.entity.Policy;
 import com.b107.treeway.api.policy.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +40,13 @@ public class PolicyController {
         boolean isScraped = policyService.isPolicyScraped(request.getMemberId(), request.getPolicyId());
         PolicyScrapResponse response = new PolicyScrapResponse(isScraped);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/scrap/{memberId}")
+    public ResponseEntity<List<PolicyResponse>> getScrappedPoliciesByMember(
+            @PathVariable("memberId") Long memberId) {
+        List<PolicyResponse> scrappedPolicies = policyService.getScrappedPoliciesByMember(memberId);
+        return ResponseEntity.ok(scrappedPolicies);
     }
 
 }

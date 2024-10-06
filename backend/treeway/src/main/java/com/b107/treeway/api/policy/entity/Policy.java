@@ -42,10 +42,10 @@ public class Policy {
     private String url;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime start_date;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime end_date;
+    private LocalDateTime endDate;
 
     @ColumnDefault("0")
     @Column(name = "view_count", nullable = false)
