@@ -1,10 +1,14 @@
 import styles from '@/app/community/[postId]/page.module.scss'
 
-export default function PostDetail() {
+interface postContentProp {
+    postContent: string; 
+}
+
+export default function PostDetail({postContent} : postContentProp) {
     return (
         <div className={styles.postDetail}>
             <div className={styles.postBlock}>
-                게시글 본문
+                {postContent}
             </div>
         </div>
     );

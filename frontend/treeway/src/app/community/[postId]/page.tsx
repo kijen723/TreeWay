@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Comments from './component/comment/Comments';
 import PostDetail from './component/detail/PostDetail';
@@ -8,6 +8,14 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import WideComments from './component/comment/wideComment/WideComments';
 import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSummary';
+
+const fetchPost = async (postId: string | undefined) => {
+    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/${postId}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch post');
+    }
+    return res.json();
+};
 
 export default function CommunityDetail() {
 <<<<<<< HEAD
@@ -19,28 +27,8 @@ export default function CommunityDetail() {
     const pathname = usePathname();
     const postId = pathname.split('/').pop();
 
-    const fetchPost = async (postId: string | undefined) => {
-        const res = await fetch(`https://j11b107.p.ssafy.io/api/article/${postId}`);
-        if (!res.ok) {
-            throw new Error('Failed to fetch post');
-        }
-        return res.json();
-    };
-
-    // const post = fetchPost(postId); 
-    const post = {
-        id: 1,
-        title: "TITLETITLETITLE",
-        content: "본문 내용",
-        author: "author",
-        date: "2024-10-04 00:00:00",
-        imgSrc: "/image/cat.jpg",
-        industryDetail: "한식",
-        region: "서울",
-        viewCount: 3,
-        scrapCount: 0,
-        isScrap: false,
-    }
+    const [post, setPost] = useState<any>(null); 
+    const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
 
     const commentList = [
         {
@@ -73,13 +61,24 @@ export default function CommunityDetail() {
             name: '작성자',
             content: '댓글 내용5'
         },
-    ]
+    ];
 
     useEffect(() => {
-        if (post) {
-            console.log('post:', post);
+        const loadPost = async () => {
+            try {
+                const fetchedPost = await fetchPost(postId);
+                setPost(fetchedPost);
+            } catch (error) {
+                console.error('Failed to fetch post:', error);
+            } finally {
+                setLoading(false); // 로딩 완료
+            }
+        };
+
+        if (postId) {
+            loadPost();
         }
-    })
+    }, [postId]);
 
 <<<<<<< HEAD
 >>>>>>> 4c30418 (feat: 커뮤니티 수정)
@@ -93,10 +92,15 @@ export default function CommunityDetail() {
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a452d35 (feat : modify main page list)
 =======
 >>>>>>> 19073e0 (fix: merge 에러 수정)
+=======
+    if (loading) return <div>Loading...</div>; 
+
+>>>>>>> 998e6ca (feat: 게시글 상세 조회 api 연결)
     return (
         <div className={styles.background}>
             <div className={styles.contentsArea}>
@@ -114,7 +118,7 @@ export default function CommunityDetail() {
                     )}
                 </div>
                 <div>
-                    <PostDetail />
+                    {post && <PostDetail postContent={post.content} />}
                 </div>
             </div>
         </div>

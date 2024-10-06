@@ -13,11 +13,12 @@ export default function PostSummary({ post }: postProp) {
     return (
         <div className={styles.postSummary}>
             <BackButton />
-            {
+            {/* {
                 post.imgSrc ?
                     <img className={styles.summImg} src={post.imgSrc} alt={post.title} /> :
                     <div className={styles.nonImg}></div>
-            }
+            } */}
+            <div className={styles.nonImg}></div>
             <div className={styles.summContent}>
                 <PostInfo post={post} />
                 <div className={styles.postBtnGroup}>
