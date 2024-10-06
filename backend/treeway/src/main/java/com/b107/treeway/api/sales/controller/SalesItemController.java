@@ -52,4 +52,10 @@ public class SalesItemController {
         SalesItemScrapResponse response = new SalesItemScrapResponse(isScraped);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/scrap/{memberId}")
+    public ResponseEntity<List<SalesItemResponse>> getScrappedSalesByMember(@PathVariable("memberId") Long memberId) {
+        List<SalesItemResponse> scrappedSalesItems = salesItemService.getScrappedSalesByMember(memberId);
+        return ResponseEntity.ok(scrappedSalesItems);
+    }
 }
