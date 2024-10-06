@@ -32,6 +32,7 @@ public class SalesItemRepositoryCustomImpl implements SalesItemRepositoryCustom 
         JPAQuery<MapSalesResponse> query = new JPAQuery<>(entityManager)
                 .select(Projections.constructor(
                         MapSalesResponse.class,
+                        si.id,
                         si.majorBusiness,
                         idl.industryDetailName,
                         si.address,

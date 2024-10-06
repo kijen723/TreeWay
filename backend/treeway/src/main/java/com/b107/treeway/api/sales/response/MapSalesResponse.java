@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MapSalesResponse {
+    private Long salesId;
     private String majorBusiness;
     private String industryDetail;
     private String address;
