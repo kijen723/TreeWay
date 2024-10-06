@@ -14,9 +14,10 @@ export default function LoginBlock() {
   const googleLogin = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_SOCIAL_LOGIN_URI}google`;
     // 서버측 반환값에 따라 정상적으로 수행되었는지 확인 필요
-    // + 유저 이름, 이메일 등 들고다닐것도 반환 필요
+    // + memberId, 유저 이름, 이메일 등 들고다닐것도 반환 필요
     if (true) {
       dispatch(logIn({
+        memberId: 1, 
         username: "GoogleUser",
         email: "googleuser@example.com"
       }));
