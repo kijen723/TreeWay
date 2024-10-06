@@ -40,20 +40,27 @@ export default function CommunityDetail() {
     const [loading, setLoading] = useState<boolean>(true); // 로딩 상태 추가
     const [loadingComments, setLoadingComments] = useState<boolean>(true);
 
+    const loadComments = async () => {
+        try {
+            const fetchedComments = await fetchComments(postId);
+            setComments(fetchedComments);
+        } catch (error) {
+            console.error('Failed to fetch comments:', error);
+        } finally {
+            setLoadingComments(false);
+        }
+    };
+
     useEffect(() => {
         const loadPostAndComments = async () => {
             try {
-                const [fetchedPost, fetchedComments] = await Promise.all([
-                    fetchPost(postId),
-                    fetchComments(postId),
-                ]);
+                const fetchedPost = await fetchPost(postId);
                 setPost(fetchedPost);
-                setComments(fetchedComments); // 댓글 데이터 설정
+                await loadComments();
             } catch (error) {
                 console.error('Failed to fetch post or comments:', error);
             } finally {
                 setLoading(false);
-                setLoadingComments(false); // 댓글 로딩 완료
             }
         };
 
@@ -63,9 +70,17 @@ export default function CommunityDetail() {
     }, [postId]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4c30418 (feat: 커뮤니티 수정)
     const [ defView, setDefView ] = useState(true);
 =======
+=======
+    const handleCommentSubmit = () => {
+        setLoadingComments(true);
+        loadComments();
+    };
+
+>>>>>>> a235e72 (feat: 댓글 입력 후 컴포넌트 재랜더링)
     const [defView, setDefView] = useState(true);
 >>>>>>> 29b1edb (feat: 커뮤니티 게시글 상세 페이지 댓글 컴포넌트 수정)
 
@@ -90,12 +105,17 @@ export default function CommunityDetail() {
                     {defView ? (
                         <>
                             {post && <PostSummary post={post} />}
-                            <Comments postId={postId} commentList={comments} onClick={toggleDefView} />
+                            <Comments
+                                postId={postId}
+                                commentList={comments}
+                                onClick={toggleDefView}
+                                onCommentSubmit={handleCommentSubmit}
+                            />
                         </>
                     ) : (
                         <>
                             <NarrowPostSummary post={post} onClick={toggleDefView} />
-                            <WideComments postId={postId} commentList={comments}/>
+                            <WideComments postId={postId} commentList={comments} onCommentSubmit={handleCommentSubmit}/>
                         </>
                     )}
                 </div>

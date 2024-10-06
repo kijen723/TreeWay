@@ -1,17 +1,16 @@
-'use client'
+'use client';
 
 import Button from '@/app/common/Button';
 import styles from '@/app/community/[postId]/page.module.scss';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 
 interface ClickEventProps {
     postId: number;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onCommentSubmit?: () => void; // 댓글 제출 후 콜백 추가
 }
 
-export default function CommentForm({ postId, onClick }: ClickEventProps) {
+export default function CommentForm({ postId, onClick, onCommentSubmit }: ClickEventProps) {
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false); 
 
@@ -24,8 +23,6 @@ export default function CommentForm({ postId, onClick }: ClickEventProps) {
 
     const handleCommentSubmit = async () => {
         if (!comment) return; 
-
-        console.log(memberId, postId, comment);
 
         setLoading(true); 
 
@@ -46,10 +43,12 @@ export default function CommentForm({ postId, onClick }: ClickEventProps) {
                 throw new Error('Failed to submit comment');
             }
 
-            const result = await response.json();
-            console.log('Comment submitted:', result);
-
             setComment(''); 
+
+            if (onCommentSubmit) {
+                onCommentSubmit();
+            }
+
         } catch (error) {
             console.error('Error submitting comment:', error);
         } finally {
