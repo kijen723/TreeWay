@@ -42,4 +42,10 @@ public class NewsController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/scrap/{memberId}")
+    public ResponseEntity<List<NewsResponse>> getScrappedNewsByMember(@PathVariable("memberId") Long memberId) {
+        List<NewsResponse> scrappedNews = newsService.getScrappedNewsByMember(memberId);
+        return ResponseEntity.ok(scrappedNews);
+    }
+
 }

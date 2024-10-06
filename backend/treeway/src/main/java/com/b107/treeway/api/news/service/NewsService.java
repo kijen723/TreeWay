@@ -57,4 +57,8 @@ public class NewsService {
         return newsScrapRepository.existsByMemberIdAndNewsId(memberId, newsId);
     }
 
+    public List<NewsResponse> getScrappedNewsByMember(Long memberId) {
+        return newsRepository.findScrappedNewsByMember(memberId);
+    }
+
 }
