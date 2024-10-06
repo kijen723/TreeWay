@@ -1,0 +1,76 @@
+.chartContainer {
+  position: relative;
+  width: 95%;
+}
+
+.unitLabel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.chartSize {
+  width: 800px;
+  height: 400px;
+}
+
+.tableContainer {
+  position: relative;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+
+  th,
+  td {
+    padding: 5px;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: darkgreen;
+    color: white;
+  }
+
+  td {
+    background-color: #fff;
+  }
+
+  .region {
+    background-color: sandybrown;
+  }
+  .category {
+    background-color: bisque;
+  }
+}
+.hr {
+  margin: 30px;
+}
+
+.analysisBox {
+  border: 2px solid orange;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 95%;
+  margin: 20px auto;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: orange;
+  }
+
+  .content {
+    font-size: 16px;
+    line-height: 1;
+    color: #333;
+  }
+}

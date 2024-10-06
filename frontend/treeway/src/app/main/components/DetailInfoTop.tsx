@@ -1,13 +1,15 @@
-import { FaLocationDot, FaWonSign } from "react-icons/fa6";
-import styles from "./DetailInfoBox.module.scss";
-import { Store } from "@/types/MapType";
+import { FaLocationDot, FaWonSign } from 'react-icons/fa6';
+import styles from './DetailInfoBox.module.scss';
+import { Store } from '@/types/MapType';
 
-export default function DetailInfoTop({data}: {data : Store}) {
+export default function DetailInfoTop({ data }: { data: Store }) {
   return (
     <>
       <div className={styles.Info1}>
         <div className={styles.category}>
-          <span>{data.majorBusiness} | {data.minorBusiness}</span>
+          <span>
+            {data.majorBusiness} | {data.minorBusiness}
+          </span>
         </div>
         <div className={styles.premium}>
           <FaWonSign />

@@ -21,6 +21,7 @@ export default function MenuItem({ icon, label, index }: MenuItemProps) {
         } else if (index === 4) {
           router.push('/trend');
         } else if (index === 5) {
+          router.push('/analyze');
         }
       }}
     >

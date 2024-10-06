@@ -1,0 +1,77 @@
+.DetailBox {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: 6vw;
+  top: 10vh;
+  width: 67.5vw;
+  height: 89vh;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+
+  .WhiteBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    height: 80%;
+    max-height: 90%; /* 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px; /* 패딩 추가하여 내부 여백 조정 */
+  }
+}
+
+.background {
+  height: 100vh;
+  align-items: center;
+  gap: 20px;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.category {
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.category:hover {
+  color: sienna; /* 갈색 선과 맞춘 색상 */
+}
+
+.line {
+  height: 1px;
+  margin-top: 1px;
+  background-color: sienna;
+  width: 95%;
+}
+.active::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: sienna;
+  transition: width 0.3s ease;
+  width: 70%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.active {
+  color: sienna;
+  font-weight: bold;
+}

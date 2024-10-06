@@ -1,5 +1,6 @@
-"use client";
+'use client';
 
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
@@ -11,6 +12,18 @@ import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SearchBtn from "@/app/main/components/SearchBtn";
 import { usePathname } from "next/navigation";
+=======
+import { useEffect, useRef, useState } from 'react';
+import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
+import styles from './KakaoMap.module.scss';
+import { LatLng, Store } from '@/types/MapType';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDumData } from '@/redux/slice/dumdataSlice';
+import { AppDispatch, RootState } from '@/redux/store';
+import { changeShopIndex } from '@/redux/slice/shopIndexSlice';
+import { useQuery } from '@tanstack/react-query';
+import SearchBtn from '@/app/main/components/SearchBtn';
+>>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -24,6 +37,7 @@ export default function KakaoMap() {
     lat: 36.628297,
     lng: 127.492533,
   });
+<<<<<<< HEAD
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
 
   const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
@@ -39,6 +53,23 @@ export default function KakaoMap() {
     }
 
     return response.json();
+=======
+  const shopIdx: number = useSelector(
+    (state: RootState) => state.shopIndex.value
+  );
+  // 리액트 쿼리 사용하여 대전 데이터 가져오기
+  const {
+    isLoading,
+    error,
+    data,
+  }: { isLoading: boolean; error: any; data: Store[] | undefined } = useQuery({
+    queryKey: ['dumdata'],
+    queryFn: async () => {
+      return await fetch('https://j11b107.p.ssafy.io/api/temp').then((res) =>
+        res.json()
+      );
+    },
+>>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
   });
 
   const getInfo = () => {
@@ -78,11 +109,11 @@ export default function KakaoMap() {
 
   // 카카오 맵 로드 및 현재 접속 위치 확인
   useEffect(() => {
-    const script: HTMLScriptElement = document.createElement("script");
+    const script: HTMLScriptElement = document.createElement('script');
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false&libraries=services,clusterer,drawing`;
     document.head.appendChild(script);
-    script.addEventListener("load", () => {
+    script.addEventListener('load', () => {
       setScriptLoad(true);
       dispatch(changeDumData(null));
     });
@@ -101,7 +132,7 @@ export default function KakaoMap() {
       {scriptLoad ? (
         <Map
           center={{ lat: nowPosition.lat, lng: nowPosition.lng }}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: '100%', height: '100%' }}
           level={level}
           isPanto={true}
           ref={mapRef}
@@ -122,14 +153,14 @@ export default function KakaoMap() {
                     image={
                       value.id === shopIdx
                         ? {
-                            src: "/image/greenMarker.png",
+                            src: '/image/greenMarker.png',
                             size: {
                               width: 50,
                               height: 50,
                             },
                           }
                         : {
-                            src: "/image/blueMarker.png",
+                            src: '/image/blueMarker.png',
                             size: {
                               width: 40,
                               height: 40,
