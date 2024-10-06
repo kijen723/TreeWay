@@ -38,4 +38,13 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "AND (:title IS NULL OR a.title LIKE %:title%)")
     List<ArticleResponse> searchArticles(@Param("regionId") Long regionId, @Param("industryDetailId") Long industryDetailId, @Param("memberId") Long memberId, @Param("title") String title);
 
+    @Query("SELECT new com.b107.treeway.api.article.dto.ArticleResponse(a.id, a.member.id, m.memberName, a.industryDetail.id, id.industryDetailName, a.region.id, r.regionName, a.title, a.content, a.createdAt, a.modifiedAt, a.viewCount) " +
+            "FROM Article a " +
+            "JOIN a.member m " +
+            "JOIN a.industryDetail id " +
+            "JOIN a.region r " +
+            "JOIN ArticleScrap s ON s.article.id = a.id " +
+            "WHERE s.member.id = :memberId")
+    List<ArticleResponse> findScrappedArticlesByMember(@Param("memberId") Long memberId);
+
 }

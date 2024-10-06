@@ -95,4 +95,11 @@ public class ArticleController {
         return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
     }
 
+    @GetMapping("/scrap/{memberId}")
+    public ResponseEntity<List<ArticleResponse>> getScrappedArticlesByMember(
+            @PathVariable("memberId") Long memberId) {
+        List<ArticleResponse> articles = articleService.getScrappedArticlesByMember(memberId);
+        return ResponseEntity.ok(articles);
+    }
+
 }

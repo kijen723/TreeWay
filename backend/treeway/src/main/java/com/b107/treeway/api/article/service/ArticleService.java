@@ -166,4 +166,8 @@ public class ArticleService {
         }
     }
 
+    public List<ArticleResponse> getScrappedArticlesByMember(Long memberId) {
+        return articleRepository.findScrappedArticlesByMember(memberId);
+    }
+
 }
