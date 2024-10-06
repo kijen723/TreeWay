@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 import WideComments from './component/comment/wideComment/WideComments';
 import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSummary';
 
-const fetchPost = async (postId: string | undefined) => {
+const fetchPost = async (postId: number | undefined) => {
     const res = await fetch(`https://j11b107.p.ssafy.io/api/article/${postId}`);
     if (!res.ok) {
         throw new Error('Failed to fetch post');
@@ -17,7 +17,7 @@ const fetchPost = async (postId: string | undefined) => {
     return res.json();
 };
 
-const fetchComments = async (postId: string | undefined) => {
+const fetchComments = async (postId: number | undefined) => {
     const res = await fetch(`https://j11b107.p.ssafy.io/api/article/comment/${postId}`);
     if (!res.ok) {
         throw new Error('Failed to fetch comments');
@@ -33,7 +33,7 @@ export default function CommunityDetail() {
 >>>>>>> 19073e0 (fix: merge 에러 수정)
 =======
     const pathname = usePathname();
-    const postId = pathname.split('/').pop();
+    const postId = Number(pathname.split('/').pop());
 
     const [post, setPost] = useState<any>(null); 
     const [comments, setComments] = useState<any[]>([]);
@@ -90,12 +90,12 @@ export default function CommunityDetail() {
                     {defView ? (
                         <>
                             {post && <PostSummary post={post} />}
-                            <Comments commentList={comments} onClick={toggleDefView} />
+                            <Comments postId={postId} commentList={comments} onClick={toggleDefView} />
                         </>
                     ) : (
                         <>
                             <NarrowPostSummary post={post} onClick={toggleDefView} />
-                            <WideComments commentList={comments}/>
+                            <WideComments postId={postId} commentList={comments}/>
                         </>
                     )}
                 </div>

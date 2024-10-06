@@ -9,11 +9,12 @@ interface Comment {
 }
 
 interface commentsProps {
+    postId: number;
     commentList: Comment[];
     onClick: React.MouseEventHandler<HTMLDivElement>
 }
 
-export default function Comments({ commentList, onClick } : commentsProps) {
+export default function Comments({ postId, commentList, onClick } : commentsProps) {
     // 댓글 입력창 클릭 이벤트 막기
     const blockClickEvent = (e : React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation(); 
@@ -23,7 +24,7 @@ export default function Comments({ commentList, onClick } : commentsProps) {
         <div className={styles.comments} onClick={onClick}>
             <div className={styles.commentBlock}>
                 <CommentHeader commentCount={commentList.length}/>
-                <CommentForm onClick={blockClickEvent}/>
+                <CommentForm postId={postId} onClick={blockClickEvent}/>
             </div>
         </div>
     );
