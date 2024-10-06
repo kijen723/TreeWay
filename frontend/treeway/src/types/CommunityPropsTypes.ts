@@ -5,28 +5,18 @@ export type PostListProps = {
 };
 
 export type PostType = {
+  // 서버에서 넘어오는 데이터
   id: number;
+  memberId: number;
+  memberName: string;
+  industryDetailId: number;
+  industryDetailName: string;
+  regionId: number;
+  regionName: string;
   title: string;
-  author: string;
-  date: string;
-  industryDetail: string;
-  region: string;
-  imgSrc?: string;
+  content: string;
+  createdAt: string;
+  modifiedAt: string;
   viewCount: number;
-  scrapCount: number;
-  isScrap: boolean;
-
-  // 서버에서 넘어오는 예상 데이터
-  // id: number;
-  // title: string;
-  // author: string;
-  // createdAt: string;
-  // industryDetail: string;
-  // region: string;
-  // viewCount: number;
-  // scrapCount: number;
-  // isScrap: boolean;
-  // imgSrc: [
-  //   string
-  // ]
+  isScrap?: boolean;
 };
