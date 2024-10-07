@@ -115,8 +115,6 @@ export default function KakaoMap() {
     const map = mapRef.current;
     if (!map) return;
 
-    console.log(map);
-
     const bounds = map.getBounds();
     const swLatLng = bounds.getSouthWest();
     const neLatLng = bounds.getNorthEast();
@@ -127,33 +125,32 @@ export default function KakaoMap() {
       neLatitude: neLatLng.getLat(),
       neLongitude: neLatLng.getLng(),
     };
-
-    console.log(locationData);
-    
     mutation.mutate(locationData);
   };
 
   useEffect(() => {
     if (mutation.data && Array.isArray(mutation.data) && mutation.data.length !== 0) {
       dispatch(changeDumData(mutation.data));
+      console.log(mutation.data);
     }
   }, [mutation.data]);
 
   useEffect(() => {
     if (Array.isArray(data) && shopIdx !== 0) {
+      console.log(shopIdx);
       setNowPosition({
-        lat: data.find((a: Store) => a.id == shopIdx)!.latitude,
-        lng: data.find((a: Store) => a.id == shopIdx)!.longitude,
+        lat: data.find((a: Store) => a.salesId === shopIdx)!.latitude,
+        lng: data.find((a: Store) => a.salesId === shopIdx)!.longitude,
       });
     }
   }, [shopIdx]);
 
   useEffect(() => {
     if (scriptLoad) {
-      setTimeout(()=> {
+      setTimeout(() => {
         getInfo();
       }, 100);
-      setTimeout(()=> {
+      setTimeout(() => {
         getInfo();
       }, 200);
     }
@@ -202,7 +199,7 @@ export default function KakaoMap() {
                       lng: value.longitude,
                     }}
                     image={
-                      value.id === shopIdx
+                      value.salesId === shopIdx
                         ? {
                             src: "/image/greenMarker.png",
                             size: {
@@ -219,7 +216,7 @@ export default function KakaoMap() {
                           }
                     }
                     onClick={() => {
-                      dispatch(changeShopIndex(value.id));
+                      dispatch(changeShopIndex(value.salesId));
                     }}
                   />
                 );

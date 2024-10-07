@@ -8,7 +8,7 @@ export default function DetailInfoLast({data}: {data : Store}) {
         <span>매물 설명</span>
       </div>
       <div className={styles.description}>
-      {data.additionalInformation}
+      {data.additional_information}
       </div>
     </div>
   );

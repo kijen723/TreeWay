@@ -19,11 +19,11 @@ export default function DetailInfoBottom({ data }: { data: Store }) {
         </div>
         <div>
           <span>월세</span>
-          <span>{Math.round(data.monthlyRent / 10000)}만원</span>
+          <span>{Math.round(data.monthly_rent / 10000)}만원</span>
         </div>
         <div>
           <span>관리비</span>
-          <span>{Math.round(data.administrationCost / 10000)}</span>
+          <span>{Math.round(data.administration_cost / 10000)}</span>
         </div>
       </div>
       <div className={styles.sellTitle}>

@@ -8,7 +8,7 @@ export default function DetailInfoTop({ data }: { data: Store }) {
       <div className={styles.Info1}>
         <div className={styles.category}>
           <span>
-            {data.majorBusiness} | {data.minorBusiness}
+            {data.majorBusiness} | {data.industryDetail}
           </span>
         </div>
         <div className={styles.premium}>
@@ -31,7 +31,7 @@ export default function DetailInfoTop({ data }: { data: Store }) {
           </div>
           <div className={styles.monthRevenue}>
             <span>월 수익</span>
-            <span>{Math.round(data.monthlyEarnings / 10000)}만원</span>
+            <span>{Math.round(data.monthly_earnings / 10000)}만원</span>
           </div>
         </div>
         <div className={styles.seller}>
@@ -40,7 +40,7 @@ export default function DetailInfoTop({ data }: { data: Store }) {
           </div>
           <div className={styles.name}>
             <span>이름</span>
-            <span>{data.name}</span>
+            <span>{data.host_name}</span>
           </div>
           <div className={styles.phone}>
             <span>번호</span>

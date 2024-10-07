@@ -17,12 +17,14 @@ export default function DetailBackBtn() {
   const router = useRouter();
   const dispatch = useDispatch();
   const param = useParams();
+
+  const shopId = param?.id ? Number(param.id) : 0;
   return (
     <div className={styles.backBox}>
       <IoMdCloseCircleOutline
         className={styles.backBtn}
         onClick={() => {
-          dispatch(changeShopIndex(Number(param.id)));
+          dispatch(changeShopIndex(shopId));
           router.push("/main");
         }}
       />

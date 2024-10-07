@@ -14,13 +14,13 @@ export default function Chart({ shopData }: { shopData: Store }) {
       {
         label: "매출 정보",
         data: [
-          shopData.materialCost,
-          shopData.personnelExpense,
-          shopData.administrationCost,
-          shopData.monthlyRent,
-          shopData.utilityBill,
-          shopData.otherExpenses,
-          shopData.monthlyEarnings,
+          shopData.material_cost,
+          shopData.personnel_expense,
+          shopData.administration_cost,
+          shopData.monthly_rent,
+          shopData.utility_bill,
+          shopData.other_expenses,
+          shopData.monthly_earnings,
         ],
         backgroundColor: [
           "rgba(255, 99, 132)",
@@ -104,8 +104,8 @@ export default function Chart({ shopData }: { shopData: Store }) {
       <div className={styles.dnjftndlr}>
         <span></span>
         <span>월 수익</span>
-        <span>+{Math.round(shopData.monthlyEarnings) / 10000}만원</span>
-        <span>{Math.round(shopData.monthlyEarnings / shopData.monthlySales * 100)}%</span>
+        <span>+{Math.round(shopData.monthly_earnings) / 10000}만원</span>
+        <span>{Math.round(shopData.monthly_earnings / shopData.monthlySales * 100)}%</span>
       </div>
     </>
   );
