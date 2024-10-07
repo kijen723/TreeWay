@@ -20,10 +20,11 @@ public class PolicyResponse {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer viewCount;
+    private Long scrapCount;
 
     public PolicyResponse(Long id, Long regionId, String regionName, String title, String category,
                           String host, String eligibility, String target, String url,
-                          LocalDateTime startDate, LocalDateTime endDate, Integer viewCount) {
+                          LocalDateTime startDate, LocalDateTime endDate, Integer viewCount, Long scrapCount) {
         this.id = id;
         this.regionId = regionId;
         this.regionName = regionName;
@@ -36,5 +37,6 @@ public class PolicyResponse {
         this.startDate = startDate;
         this.endDate = endDate;
         this.viewCount = viewCount;
+        this.scrapCount = scrapCount;
     }
 }
