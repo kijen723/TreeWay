@@ -136,7 +136,7 @@ export default function KakaoMap() {
   }, [mutation.data]);
 
   useEffect(() => {
-    if (data && shopIdx !== 0) {
+    if (Array.isArray(data) && shopIdx !== 0) {
       setNowPosition({
         lat: data.find((a: Store) => a.id == shopIdx)!.latitude,
         lng: data.find((a: Store) => a.id == shopIdx)!.longitude,
