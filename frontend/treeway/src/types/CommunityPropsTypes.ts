@@ -20,6 +20,7 @@ export type PostType = {
   viewCount: number;
   scrapCount: number;
   isScrap?: boolean;
+  imgSrc?: string;
 };
 
 export type CommentType = {

@@ -51,7 +51,11 @@ export default function PostSummary({ post }: postProp) {
     return (
         <div className={styles.postSummary}>
             <BackButton />
-            <div className={styles.nonImg}></div>
+            {post.imgSrc ? (
+                <img className={styles.summImg} src={post.imgSrc} alt="Post image" />
+            ) : (
+                <img className={styles.summImg} src="/image/default_img.png" alt="Default image" />
+            )}
             <div className={styles.summContent}>
                 <PostInfo post={{ ...post, scrapCount }} />
                 <div className={styles.postBtnGroup}>

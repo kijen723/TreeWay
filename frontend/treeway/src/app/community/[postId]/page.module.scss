@@ -45,6 +45,7 @@
         max-height: 50%;
         object-fit: cover;
         border-radius: 10px;
+        border: 1px solid #999999;
     }
 
     .nonImg {
@@ -246,9 +247,11 @@
             aspect-ratio: 1 / 1;
             object-fit: cover;
             border-radius: 10px;
+            border: 1px solid #999999;
         }
     
         .summContent {
+            margin-top: 6%;
             width: 85%;
             display: flex;
             justify-content: space-between;
