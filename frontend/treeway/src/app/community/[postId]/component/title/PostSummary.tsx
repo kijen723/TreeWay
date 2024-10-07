@@ -61,7 +61,7 @@ export default function PostSummary({ post }: postProp) {
                         memberId={memberId}
                         onToggle={handleScrapToggle}
                     />
-                    {true ? <EditDeleteBtn postId={post.id}/> : null}
+                    {memberId === post.memberId ? <EditDeleteBtn postId={post.id}/> : null}
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ export default function EditDeleteBtn({ postId }: EditDeleteBtnProps) {
     const router = useRouter();
 
     const handleEditClick = () => {
-        console.log("EDIT");
+        router.push(`/community/${postId}/update`);
     };
 
     const handleDeleteClick = async () => {
