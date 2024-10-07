@@ -156,6 +156,10 @@ export default function KakaoMap() {
     }
   }, [scriptLoad]);
 
+  useEffect(()=>{
+    dispatch(changeShopIndex(0));
+  }, [])
+
   // 카카오 맵 로드 및 현재 접속 위치 확인
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement("script");
