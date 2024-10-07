@@ -1,12 +1,14 @@
 import styles from "../page.module.scss";
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
+import { useRouter } from 'next/navigation';
 
 export default function SearchBtn() {
     const [isOpen, setIsOpen] = useState(false);
     const [searchText, setSearchText] = useState("");
     const [searchCriteria, setSearchCriteria] = useState("title");
-
+    const router = useRouter();
+    
     const toggleSearchBar = () => {
         setIsOpen(!isOpen); 
     };
@@ -19,9 +21,13 @@ export default function SearchBtn() {
         setSearchText(e.target.value);
     };
 
-    const handleSearch = () => {
-        console.log("검색어:", searchText, "검색 기준:", searchCriteria);
-        // 여기에 검색 처리 로직 추가
+    const handleSearch = async () => {
+        const queryParam =
+            searchCriteria === "title"
+                ? `title=${encodeURIComponent(searchText)}`
+                : `memberName=${encodeURIComponent(searchText)}`;
+
+        router.push(`/community/search?${queryParam}`);
     };
 
     return (
