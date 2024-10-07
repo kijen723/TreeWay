@@ -43,7 +43,7 @@ export default function KakaoMap() {
   const pathName = usePathname();
   // const data = useSelector((state: RootState) => state.dumdata.value);
   const mapRef = useRef<kakao.maps.Map | null>(null);
-  const data = useSelector((state : RootState) => state.dumdata.value);
+  const data = useSelector((state: RootState) => state.dumdata.value);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [nowPosition, setNowPosition] = useState<LatLng>({
     lat: 36.628297,
@@ -118,6 +118,7 @@ export default function KakaoMap() {
 
   useEffect(() => {
     if (mutation.data && Array.isArray(mutation.data) && mutation.data.length) {
+      console.log(11111111111111111111111111111111111111)
       dispatch(changeDumData(mutation.data));
     }
   }, [mutation.data]);
@@ -131,6 +132,17 @@ export default function KakaoMap() {
     }
   }, [shopIdx]);
 
+  useEffect(() => {
+    if (scriptLoad) {
+      setTimeout(()=> {
+        getInfo();
+      }, 100);
+      setTimeout(()=> {
+        getInfo();
+      }, 200);
+    }
+  }, [scriptLoad]);
+
   // 카카오 맵 로드 및 현재 접속 위치 확인
   useEffect(() => {
     const script: HTMLScriptElement = document.createElement("script");
@@ -139,8 +151,6 @@ export default function KakaoMap() {
     document.head.appendChild(script);
     script.addEventListener("load", () => {
       setScriptLoad(true);
-      getInfo();
-      // dispatch(changeDumData(null));
     });
 
     if (navigator.geolocation) {
@@ -152,28 +162,6 @@ export default function KakaoMap() {
       });
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (data === null && scriptLoad) {
-  //     console.log("test");
-
-  //     const map = mapRef.current;
-  //     if (!map) return;
-
-  //     const bounds = map.getBounds();
-  //     const swLatLng = bounds.getSouthWest();
-  //     const neLatLng = bounds.getNorthEast();
-
-  //     const locationData = {
-  //       swLatitude: swLatLng.getLat(),
-  //       swLongitude: swLatLng.getLng(),
-  //       neLatitude: neLatLng.getLat(),
-  //       neLongitude: neLatLng.getLng(),
-  //     };
-
-  //     mutation.mutate(locationData);
-  //   }
-  // }, [scriptLoad]);
   return (
     <div className={styles.map}>
       {scriptLoad ? (

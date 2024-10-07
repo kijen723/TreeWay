@@ -20,7 +20,7 @@ export default function SideList({
     <nav className={styles.navbar} style={!sideState ? {height : "7vh"} : {}}>
       {pathname === "/trend" ? null : <button onClick={() => {
           dispatch(changeSideControl());
-          }}>지도 안보이면 눌러라</button>}
+          }}>{!sideState ? "펼치기" : "숨기기"}</button>}
       <div className={styles.menuItems}>
         {/* <MenuItem icon={<FaHome />} label="HOME"/>
                 <MenuItem icon={<FaHome />} label="HOME"/>
