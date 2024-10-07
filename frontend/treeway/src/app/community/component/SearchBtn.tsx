@@ -25,7 +25,7 @@ export default function SearchBtn() {
         const queryParam =
             searchCriteria === "title"
                 ? `title=${encodeURIComponent(searchText)}`
-                : `memberName=${encodeURIComponent(searchText)}`;
+                : `memberId=${encodeURIComponent(searchText)}`;
 
         router.push(`/community/search?${queryParam}`);
     };

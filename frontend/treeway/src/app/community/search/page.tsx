@@ -12,7 +12,7 @@ const fetchSearchResults = async (searchCriteria: string, searchText: string): P
         ? `title=${encodeURIComponent(searchText)}`
         : `memberName=${encodeURIComponent(searchText)}`;
 
-    const res = await fetch(`/api/article/search?${queryParam}`);
+    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/search?${queryParam}`);
     if (!res.ok) {
         throw new Error('Failed to fetch search results');
     }
@@ -31,7 +31,12 @@ export default function SearchResults() {
     useEffect(() => {
         if (searchText) {
             fetchSearchResults(searchCriteria, searchText)
-                .then((data) => setSearchResults(data))
+                .then((data) => {
+                    const sortedData = data.sort(
+                        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                    );
+                    setSearchResults(sortedData);
+                })
                 .catch((err) => console.error('Error fetching search results:', err));
         }
     }, [searchCriteria, searchText]);
@@ -49,12 +54,20 @@ export default function SearchResults() {
             <div className={styles.block}>
                 {searchResults.length > 0 ? (
                     <>
-                        <PostList currentPage={currentPage} postsPerPage={postsPerPage} postList={currentPosts} />
-                        <Pagenation
-                            postCnt={searchResults.length}
-                            postsPerPage={postsPerPage}
-                            onPageChange={handlePageChange}
-                        />
+                        <div className={styles.postBlock}>
+                            <PostList 
+                                currentPage={currentPage} 
+                                postsPerPage={postsPerPage} 
+                                postList={currentPosts || []} 
+                            />
+                        </div>
+                        <div>
+                            <Pagenation
+                                postCnt={searchResults.length || 0}
+                                postsPerPage={postsPerPage}
+                                onPageChange={handlePageChange}
+                            />
+                        </div>
                     </>
                 ) : (
                     <p>검색 결과가 없습니다.</p>
