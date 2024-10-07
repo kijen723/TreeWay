@@ -33,6 +33,7 @@ public class SalesItemResponse {
     private Integer itemNum;
     private Double latitude;
     private Double longitude;
+    private Long scrapCount;
 
     public SalesItemResponse(Long id, String majorBusiness, Long industryDetailId, String industryDetailName,
                              String address, Integer monthlySales, Integer monthlyEarnings, String hostName,
@@ -40,7 +41,7 @@ public class SalesItemResponse {
                              Integer squareMeter, Integer availableParking, Integer totalParking, Integer premium,
                              Integer deposit, Integer monthlyRent, Integer administrationCost, Integer materialCost,
                              Integer personnelExpense, Integer utilityBill, Integer otherExpenses,
-                             String additionalInformation, Integer itemNum, Double latitude, Double longitude) {
+                             String additionalInformation, Integer itemNum, Double latitude, Double longitude, Long scrapCount) {
         this.id = id;
         this.majorBusiness = majorBusiness;
         this.industryDetailId = industryDetailId;
@@ -68,5 +69,6 @@ public class SalesItemResponse {
         this.itemNum = itemNum;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.scrapCount = scrapCount;
     }
 }
