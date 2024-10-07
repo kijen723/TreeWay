@@ -20,11 +20,11 @@ public class ArticleResponse {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private Integer viewCount;
+    private Long scrapCount;
 
-    // 생성자
     public ArticleResponse(Long id, Long memberId, String memberName, Long industryDetailId, String industryDetailName,
                            Long regionId, String regionName, String title, String content, LocalDateTime createdAt,
-                           LocalDateTime modifiedAt, Integer viewCount) {
+                           LocalDateTime modifiedAt, Integer viewCount, Long scrapCount) {
         this.id = id;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -37,5 +37,6 @@ public class ArticleResponse {
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
         this.viewCount = viewCount;
+        this.scrapCount = scrapCount;
     }
 }
