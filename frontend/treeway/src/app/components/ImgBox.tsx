@@ -5,6 +5,9 @@ import styles from "./ImgBox.module.scss";
 import { FaAnglesDown } from "react-icons/fa6";
 import { delay, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 
 export default function ImgBox() {
   // 제목 타이핑 효과.. 생각보다 별로
@@ -31,7 +34,11 @@ export default function ImgBox() {
   //         clearInterval(typingInterval);
   //     }
   // })
+  const dispatch = useDispatch();
   const router = useRouter();
+  useEffect(()=>{
+    dispatch(changeShopIndex(0));
+  }, [])
   return (
     <div className={styles.imgBox}>
       <motion.span
