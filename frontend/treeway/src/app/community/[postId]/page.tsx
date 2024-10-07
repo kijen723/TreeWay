@@ -5,7 +5,7 @@ import PostDetail from './component/detail/PostDetail';
 import PostSummary from './component/title/PostSummary';
 import styles from './page.module.scss';
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import WideComments from './component/comment/wideComment/WideComments';
 import NarrowPostSummary from './component/title/narrowPostSummary/NarrowPostSummary';
 
@@ -29,11 +29,16 @@ export default function CommunityDetail() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 19073e0 (fix: merge 에러 수정)
 =======
     const pathname = usePathname();
     const postId = Number(pathname.split('/').pop());
+=======
+    const pathname = useParams();
+    const postId = Number(pathname?.postId);
+>>>>>>> 7de1f0e (fix: 빌드 에러 수정)
 
     const [post, setPost] = useState<any>(null); 
     const [comments, setComments] = useState<any[]>([]);

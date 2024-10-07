@@ -30,7 +30,7 @@ export default function SideDetailItem({ data }: { data: Store }) {
       style={shopIdx === data.salesId ? { background: "#ECF4DD" } : {}}
       onClick={() => {
         dispatch(changeShopIndex(data.salesId));
-        if(params.id){
+        if(params?.id){
           router.push(`/main/${data.salesId}`)
         }
       }}
