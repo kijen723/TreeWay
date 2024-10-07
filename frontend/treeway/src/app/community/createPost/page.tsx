@@ -6,25 +6,53 @@ import Button from '@/app/common/Button';
 import FormField from '@/app/regist/components/FormField';
 import Dropdown from './component/Dropdown';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { regionOptions } from '@/../public/data/region';
 import { industryDetailOptions } from '@/../public/data/industry_detail';
 
 export default function CreatePost() {
+    const router = useRouter();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [region, setRegion] = useState(0); 
     const [subCategory, setSubCategory] = useState(0); 
 
+    const memberId = 1; // 수정 필요
+
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
 
-    const handlePostSubmit = () => {
-        console.log("Title: ", title);
-        console.log("Content: ", content);
-        console.log("Region: ", region); 
-        console.log("SubCategory: ", subCategory); 
+    const handlePostSubmit = async () => {
+        const postData = {
+            regionId: region,
+            memberId: memberId,
+            industryDetailId: subCategory,
+            title: title,
+            content: content
+        };
+
+        try {
+            const response = await fetch('https://j11b107.p.ssafy.io/api/article', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit post');
+            }
+
+            const result = await response.json();
+            console.log('Post submitted successfully:', result);
+
+            router.push('/community');
+        } catch (error) {
+            console.error('Error submitting post:', error);
+        }
     };
 
     return (
