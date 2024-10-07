@@ -117,7 +117,7 @@ export default function KakaoMap() {
   };
 
   useEffect(() => {
-    if (mutation.data) {
+    if (mutation.data && Array.isArray(mutation.data) && mutation.data.length) {
       dispatch(changeDumData(mutation.data));
     }
   }, [mutation.data]);
