@@ -4,6 +4,7 @@ import com.b107.treeway.api.sales.dto.SalesItemResponse;
 import com.b107.treeway.api.sales.dto.SalesItemScrapRequest;
 import com.b107.treeway.api.sales.dto.SalesItemScrapResponse;
 import com.b107.treeway.api.sales.request.MapSalesRequest;
+import com.b107.treeway.api.sales.request.SalesItemRequest;
 import com.b107.treeway.api.sales.response.MapSalesResponse;
 import com.b107.treeway.api.sales.service.SalesItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,12 @@ public class SalesItemController {
     public ResponseEntity<List<MapSalesResponse>> getMapSales(@RequestBody MapSalesRequest mapSalesRequest){
         List<MapSalesResponse> mapSales = salesItemService.getMapSales(mapSalesRequest);
         return ResponseEntity.ok().body(mapSales);
+    }
+
+    @PostMapping("/detail")
+    public ResponseEntity<SalesItemResponse> getSalesItem(@RequestBody SalesItemRequest salesItemRequest) {
+        SalesItemResponse salesItem = salesItemService.getSalesItem(salesItemRequest);
+        return ResponseEntity.ok(salesItem);
     }
 
     @PostMapping("/scrap")

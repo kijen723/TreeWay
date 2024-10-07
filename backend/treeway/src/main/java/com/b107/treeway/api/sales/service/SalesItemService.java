@@ -9,11 +9,13 @@ import com.b107.treeway.api.sales.entity.SalesItemScrap;
 import com.b107.treeway.api.sales.repository.SalesItemRepository;
 import com.b107.treeway.api.sales.repository.SalesItemScrapRepository;
 import com.b107.treeway.api.sales.request.MapSalesRequest;
+import com.b107.treeway.api.sales.request.SalesItemRequest;
 import com.b107.treeway.api.sales.response.MapSalesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,11 @@ public class SalesItemService {
 
     public List<MapSalesResponse> getMapSales(MapSalesRequest mapSalesRequest) {
         return salesItemRepository.getMapSales(mapSalesRequest);
+    }
+
+    public SalesItemResponse getSalesItem(SalesItemRequest salesItemRequest) {
+        Optional<SalesItem> salesItem = salesItemRepository.findById(salesItemRequest.getSalesItemId());
+        return salesItem.map(SalesItemResponse::new).orElse(null);
     }
 
     public List<SalesItemResponse> getAllSalesItems() {
