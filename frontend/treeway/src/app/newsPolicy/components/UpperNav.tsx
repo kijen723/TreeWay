@@ -1,16 +1,14 @@
 import styles from '../page.module.scss';
 import SearchBtn from './SearchBtn';
 import SortBox from './SortBox';
-import { useRouter } from 'next/navigation';
 
 interface UpperNavProps {
   isNews: boolean;
   toggleNewsStatus: () => void;
+  setSortCriteria: (criteria: string) => void;
 }
 
-export default function UpperNav({ isNews, toggleNewsStatus }: UpperNavProps) {
-  const router = useRouter();
-
+export default function UpperNav({ isNews, toggleNewsStatus, setSortCriteria }: UpperNavProps) {
   return (
     <div className={styles.upperNav}>
       <div className={styles.leftBlock}>
@@ -28,7 +26,7 @@ export default function UpperNav({ isNews, toggleNewsStatus }: UpperNavProps) {
         </button>
       </div>
       <div className={styles.rightBlock}>
-        <SortBox />
+        <SortBox setSortCriteria={setSortCriteria} />
         <SearchBtn />
       </div>
     </div>

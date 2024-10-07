@@ -10,9 +10,11 @@ import PolicyList from './components/PolicyList';
 export default function NewsPolicy() {
     const [isNews, setIsNews] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [newsData, setNewsData] = useState([]); // newsData를 state로 관리
+    const [newsData, setNewsData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const itemsPerPage = 4; // 한 페이지에 보여줄 아이템 수
+    const [sortCriteria, setSortCriteria] = useState('Latest');
+
+    const itemsPerPage = 4;
 
     const toggleNewsStatus = () => {
         setIsNews(!isNews);
@@ -38,6 +40,15 @@ export default function NewsPolicy() {
 
         fetchNewsData();
     }, []);
+
+    const sortNewsData = (data: any[], criteria: string) => {
+        if (criteria === 'Latest') {
+            return data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        } else if (criteria === 'ScrapCount') {
+            return data.sort((a, b) => b.scrapCount - a.scrapCount);
+        }
+        return data;
+    };
 
     const policyData = [
         { 
@@ -105,15 +116,17 @@ export default function NewsPolicy() {
         return data.slice(startIndex, endIndex);
     };
 
+    const sortedNewsData = sortNewsData([...newsData], sortCriteria);
+
     if (loading) return <div>Loading...</div>;
 
     return (
         <div className={styles.background}>
             <div className={styles.block}>
                 <div className={styles.postBlock}>
-                    <UpperNav isNews={isNews} toggleNewsStatus={toggleNewsStatus}/>
+                    <UpperNav isNews={isNews} toggleNewsStatus={toggleNewsStatus} setSortCriteria={setSortCriteria}/>
                     {isNews ? (
-                        <NewsList newsData={getCurrentPageData(newsData)} />
+                        <NewsList newsData={getCurrentPageData(sortedNewsData)} />
                     ) : (
                         <PolicyList policyData={getCurrentPageData(policyData)} />
                     )}
