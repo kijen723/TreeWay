@@ -23,7 +23,7 @@ export default function PostSummary({ post }: postProp) {
                 <PostInfo post={post} />
                 <div className={styles.postBtnGroup}>
                     <ScrapBtn />
-                    {true ? <EditDeleteBtn /> : null}
+                    {true ? <EditDeleteBtn postId={post.id}/> : null}
                 </div>
             </div>
         </div>
