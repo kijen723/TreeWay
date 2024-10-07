@@ -37,6 +37,6 @@ public class RegionRatingResponse {
     private Integer other_expenses;
     private String additional_information;
     private Integer itemNum;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 }
