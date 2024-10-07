@@ -21,7 +21,7 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${front-url}")
+    @Value("${custom.redirect-url}")
     private String frontUrl;
 
     private final CustomOAuth2UserService customOAuth2UserService;
