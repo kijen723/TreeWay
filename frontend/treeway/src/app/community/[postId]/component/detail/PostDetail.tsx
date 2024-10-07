@@ -5,12 +5,6 @@ interface postContentProp {
 }
 
 export default function PostDetail({ postContent }: postContentProp) {
-    function extractTextFromHTML(html: string) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        return doc.body.textContent || '';
-    }
-
     return (
         <div className={styles.postDetail}>
             <div className={styles.postBlock}>
