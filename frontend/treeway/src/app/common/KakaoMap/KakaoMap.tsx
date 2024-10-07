@@ -118,7 +118,7 @@ export default function KakaoMap() {
 
   useEffect(() => {
     if (mutation.data && Array.isArray(mutation.data) && mutation.data.length) {
-      console.log(11111111111111111111111111111111111111)
+      console.log(mutation.data);
       dispatch(changeDumData(mutation.data));
     }
   }, [mutation.data]);
@@ -176,7 +176,7 @@ export default function KakaoMap() {
         >
           <SearchBtn getInfo={getInfo} />
           <MarkerClusterer averageCenter={true} minLevel={3}>
-            {data &&
+            {Array.isArray(data) && data.length !== 0 &&
               data.map((value, index) => {
                 return (
                   <MapMarker

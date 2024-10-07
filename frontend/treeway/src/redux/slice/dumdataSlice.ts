@@ -3,12 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // State 타입 정의
 export interface DumData {
-  value: Store[] | null;
+  value: Store[];
 }
 
 // 초기 상태 정의
 const initialState: DumData = {
-  value: null,
+  value: [],
 };
 
 const dumdataSlice = createSlice({
