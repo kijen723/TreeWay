@@ -131,13 +131,13 @@ export default function KakaoMap() {
   useEffect(() => {
     if (mutation.data && Array.isArray(mutation.data) && mutation.data.length !== 0) {
       dispatch(changeDumData(mutation.data));
-      console.log(mutation.data);
     }
   }, [mutation.data]);
 
   useEffect(() => {
-    if (Array.isArray(data) && shopIdx !== 0) {
+    if (Array.isArray(data) && data.length > 0 && shopIdx !== 0) {
       console.log(shopIdx);
+      console.log(data);
       setNowPosition({
         lat: data.find((a: Store) => a.salesId === shopIdx)!.latitude,
         lng: data.find((a: Store) => a.salesId === shopIdx)!.longitude,
@@ -164,6 +164,7 @@ export default function KakaoMap() {
     document.head.appendChild(script);
     script.addEventListener("load", () => {
       setScriptLoad(true);
+      
     });
 
     if (navigator.geolocation) {
