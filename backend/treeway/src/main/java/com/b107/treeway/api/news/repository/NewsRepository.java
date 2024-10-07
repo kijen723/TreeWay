@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-    @Query("SELECT new com.b107.treeway.api.news.dto.NewsResponse(n.id, r.id, r.regionName, n.title, n.content, n.createdAt, n.url, n.viewCount) " +
+    @Query("SELECT new com.b107.treeway.api.news.dto.NewsResponse(n.id, r.id, r.regionName, n.title, n.content, n.createdAt, n.url, n.viewCount, (SELECT COUNT(ns) FROM NewsScrap ns WHERE ns.news.id = n.id)) " +
             "FROM News n JOIN n.region r")
     List<NewsResponse> findAllNewsWithRegion();
 
-    @Query("SELECT new com.b107.treeway.api.news.dto.NewsResponse(n.id, r.id, r.regionName, n.title, n.content, n.createdAt, n.url, n.viewCount) " +
+    @Query("SELECT new com.b107.treeway.api.news.dto.NewsResponse(n.id, r.id, r.regionName, n.title, n.content, n.createdAt, n.url, n.viewCount, (SELECT COUNT(ns) FROM NewsScrap ns WHERE ns.news.id = n.id)) " +
             "FROM News n " +
             "JOIN NewsScrap ns ON ns.news.id = n.id " +
             "JOIN Region r ON n.region.id = r.id " +

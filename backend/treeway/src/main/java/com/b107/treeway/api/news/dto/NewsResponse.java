@@ -16,8 +16,9 @@ public class NewsResponse {
     private LocalDateTime createdAt;
     private String url;
     private Integer viewCount;
+    private Long scrapCount;
 
-    public NewsResponse(Long id, Long regionId, String regionName, String title, String content, LocalDateTime createdAt, String url, Integer viewCount) {
+    public NewsResponse(Long id, Long regionId, String regionName, String title, String content, LocalDateTime createdAt, String url, Integer viewCount, Long scrapCount) {
         this.id = id;
         this.regionId = regionId;
         this.regionName = regionName;
@@ -26,5 +27,6 @@ public class NewsResponse {
         this.createdAt = createdAt;
         this.url = url;
         this.viewCount = viewCount;
+        this.scrapCount = scrapCount;
     }
 }
