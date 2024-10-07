@@ -27,8 +27,12 @@ public class CorsMvcConfig implements WebMvcConfigurer {
 >>>>>>> 89a094a (fix : 설정 변경)
 =======
                 .allowedOrigins("http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io")
+<<<<<<< HEAD
 >>>>>>> cde53ae (fix : 경로 추가)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+=======
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+>>>>>>> b92e190 (fix : 설정변경)
                 .allowedHeaders("*")
                 .allowCredentials(true);
 >>>>>>> a569950 (fix : 설정 변경)
