@@ -17,6 +17,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
         corsRegistry.addMapping("/**")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .exposedHeaders("Set-Cookie")
                 .allowedOrigins(redirectUrl);
 =======
@@ -24,6 +25,9 @@ public class CorsMvcConfig implements WebMvcConfigurer {
 =======
                 .allowedOrigins("http://localhost:3001", "https://j11b107.p.ssafy.io")
 >>>>>>> 89a094a (fix : 설정 변경)
+=======
+                .allowedOrigins("http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io")
+>>>>>>> cde53ae (fix : 경로 추가)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

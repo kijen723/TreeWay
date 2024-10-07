@@ -44,10 +44,14 @@ public class SecurityConfig {
                     CorsConfiguration configuration = new CorsConfiguration();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     configuration.setAllowedOrigins(Collections.singletonList(frontUrl));
 =======
                     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3001", "https://j11b107.p.ssafy.io"));
 >>>>>>> 89a094a (fix : 설정 변경)
+=======
+                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io"));
+>>>>>>> cde53ae (fix : 경로 추가)
                     configuration.setAllowedMethods(Collections.singletonList("*"));
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedHeaders(Collections.singletonList("*"));
