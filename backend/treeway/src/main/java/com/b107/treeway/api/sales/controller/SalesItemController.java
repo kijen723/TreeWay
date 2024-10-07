@@ -1,7 +1,5 @@
 package com.b107.treeway.api.sales.controller;
 
-import com.b107.treeway.api.rating.request.SubRatingRequest;
-import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.sales.dto.SalesItemResponse;
 import com.b107.treeway.api.sales.dto.SalesItemScrapRequest;
 import com.b107.treeway.api.sales.dto.SalesItemScrapResponse;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io"})
 @RestController
 @RequestMapping("api/sales")
 @RequiredArgsConstructor
