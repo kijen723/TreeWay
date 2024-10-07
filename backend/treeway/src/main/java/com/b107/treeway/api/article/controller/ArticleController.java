@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io"})
 @RestController
 @RequestMapping("api/article")
 public class ArticleController {
