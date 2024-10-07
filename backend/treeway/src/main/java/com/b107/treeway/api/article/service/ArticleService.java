@@ -68,7 +68,9 @@ public class ArticleService {
         return articleRepository.findAllArticlesWithDetails();
     }
 
+    @Transactional
     public ArticleResponse getArticleById(Long id) {
+        increaseViewCount(id);
         return articleRepository.findArticleByIdWithDetails(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
     }
