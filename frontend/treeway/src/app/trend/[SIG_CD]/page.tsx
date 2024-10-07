@@ -3,14 +3,22 @@ import KeyWordNews from "./components/KeyWordNews";
 import OutBtn from "./components/OutBtn";
 import styles from "./page.module.scss";
 
-export default function TrendDetail({searchParams} : {searchParams : {location : string}}) {
+export default function TrendDetail({
+  searchParams,
+  params,
+}: {
+  searchParams: { location: string };
+  params: { SIG_CD: number };
+}) {
   const location = searchParams.location;
-
+  const SIG_CD = Number(params.SIG_CD);
   return (
     <>
       <div className={styles.detailBox}>
-        <OutBtn/>
-        <KeyWordNews location={location}/>
+        <OutBtn />
+        <div className={styles.InfoBox}>
+          <KeyWordNews location={location} SIG_CD={SIG_CD} />
+        </div>
       </div>
     </>
   );

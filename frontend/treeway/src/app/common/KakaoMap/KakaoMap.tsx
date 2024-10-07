@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -43,8 +43,7 @@ export default function KakaoMap() {
   const pathName = usePathname();
   // const data = useSelector((state: RootState) => state.dumdata.value);
   const mapRef = useRef<kakao.maps.Map | null>(null);
-  const [data, setData] = useState<Store[] | null>(null);
-  const [level, setLevel] = useState<number>(4);
+  const data = useSelector((state : RootState) => state.dumdata.value);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
   const [nowPosition, setNowPosition] = useState<LatLng>({
     lat: 36.628297,
@@ -119,8 +118,6 @@ export default function KakaoMap() {
 
   useEffect(() => {
     if (mutation.data) {
-      setData(mutation.data);
-      console.log(mutation.data);
       dispatch(changeDumData(mutation.data));
     }
   }, [mutation.data]);
@@ -136,13 +133,14 @@ export default function KakaoMap() {
 
   // 카카오 맵 로드 및 현재 접속 위치 확인
   useEffect(() => {
-    const script: HTMLScriptElement = document.createElement('script');
+    const script: HTMLScriptElement = document.createElement("script");
     script.async = true;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false&libraries=services,clusterer,drawing`;
     document.head.appendChild(script);
-    script.addEventListener('load', () => {
+    script.addEventListener("load", () => {
       setScriptLoad(true);
-      dispatch(changeDumData(null));
+      getInfo();
+      // dispatch(changeDumData(null));
     });
 
     if (navigator.geolocation) {
@@ -154,13 +152,35 @@ export default function KakaoMap() {
       });
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (data === null && scriptLoad) {
+  //     console.log("test");
+
+  //     const map = mapRef.current;
+  //     if (!map) return;
+
+  //     const bounds = map.getBounds();
+  //     const swLatLng = bounds.getSouthWest();
+  //     const neLatLng = bounds.getNorthEast();
+
+  //     const locationData = {
+  //       swLatitude: swLatLng.getLat(),
+  //       swLongitude: swLatLng.getLng(),
+  //       neLatitude: neLatLng.getLat(),
+  //       neLongitude: neLatLng.getLng(),
+  //     };
+
+  //     mutation.mutate(locationData);
+  //   }
+  // }, [scriptLoad]);
   return (
     <div className={styles.map}>
       {scriptLoad ? (
         <Map
           center={{ lat: nowPosition.lat, lng: nowPosition.lng }}
-          style={{ width: '100%', height: '100%' }}
-          level={level}
+          style={{ width: "100%", height: "100%" }}
+          level={4}
           isPanto={true}
           ref={mapRef}
           draggable={pathName === '/main' ? true : false}
@@ -180,14 +200,14 @@ export default function KakaoMap() {
                     image={
                       value.id === shopIdx
                         ? {
-                            src: '/image/greenMarker.png',
+                            src: "/image/greenMarker.png",
                             size: {
                               width: 50,
                               height: 50,
                             },
                           }
                         : {
-                            src: '/image/blueMarker.png',
+                            src: "/image/blueMarker.png",
                             size: {
                               width: 40,
                               height: 40,
