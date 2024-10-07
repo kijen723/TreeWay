@@ -14,14 +14,14 @@ const AnalyzePage = () => {
     setSelectedCategory(category);
   };
   useEffect(() => {
-    setSelectedCategory('요약');
+    setSelectedCategory('업종분석');
   }, []);
 
   return (
     <div className={styles.DetailBox}>
       <DetailBackBtn />
       <div className={styles.navContainer}>
-        {['요약', '업종분석', '매출분석', '인구분석', '지역현황'].map(
+        {['업종분석', '매출분석', '인구분석', '지역현황'].map(
           (category, index) => (
             <div
               key={index}
@@ -39,7 +39,6 @@ const AnalyzePage = () => {
 
       <div className={styles.WhiteBox}>
         <div>
-          {selectedCategory === '요약' && <div>요약 컴포넌트</div>}
           {selectedCategory === '업종분석' && (
             <div>
               <IndustryAnalyze />

@@ -1,21 +1,45 @@
 'use client';
 import { useState } from 'react';
 import categories from '@/app/common/categories';
+<<<<<<< HEAD
+=======
+import styles from './SelectRating.module.scss';
+import { useRecommandRegion } from '@/hooks/useRecommand';
+import AnalyzeBox from './AnalyzeBox';
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 
-interface allCategories {
-  [key: string]: string[];
+interface CategoryItem {
+  label: string;
+  value: number;
+}
+
+interface AllCategories {
+  [key: string]: CategoryItem[];
 }
 
 export default function SelectRegion() {
   const [budget, setBudget] = useState('');
-  const [businessHours, setBusinessHours] = useState('');
+  const [businessHours, setBusinessHours] = useState<number>(0);
   const [showBudgetError, setShowBudgetError] = useState(false);
   const [showBusinessHoursError, setShowBusinessHoursError] = useState(false);
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
+  const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
+  const updatePetIntroduction = useRecommandRegion({
+    onSuccess: () => {
+      console.log('성공적');
+    },
+    onError: () => {
+      console.error('Error11:');
+    },
+  });
 
-  const allCategory: allCategories = { 전체: ['전체'], ...categories };
+  const allCategory: AllCategories = {
+    전체: [{ label: '전체', value: 1 }],
+    ...categories,
+  };
+
   const [selectedMainCategory, setSelectedMainCategory] = useState('전체'); // 대업종 디폴트값
-  const [selectedSubCategory, setSelectedSubCategory] = useState(
+  const [selectedSubCategory, setSelectedSubCategory] = useState<CategoryItem>(
     allCategory['전체'][0]
   ); // 소업종 디폴트값
 
@@ -26,26 +50,25 @@ export default function SelectRegion() {
   };
 
   // 소업종 변경
-  const handleSubCategoryChange = (subCategory: string) => {
+  const handleSubCategoryChange = (subCategory: CategoryItem) => {
     setSelectedSubCategory(subCategory);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); // 모달 닫기
   };
 
   const handleSubmit = () => {
     let valid = true;
 
     // budget : 가능 예산
-    if (budget !== '무관' && (!budget || isNaN(Number(budget)))) {
-      if (!budget) {
-        setShowBudgetError(true);
-        setShowInvalidBudgetError(false);
-      } else {
-        setShowInvalidBudgetError(true);
-        setShowBudgetError(false);
-      }
+    if (budget !== '' && isNaN(Number(budget))) {
+      setShowInvalidBudgetError(true);
+      setShowBudgetError(false);
       valid = false;
     } else {
-      setShowBudgetError(false);
       setShowInvalidBudgetError(false);
+      setShowBudgetError(false);
     }
 
     // businessHours : 영업시간
@@ -57,12 +80,68 @@ export default function SelectRegion() {
     }
 
     if (valid) {
-      console.log('선택 업종:', selectedSubCategory);
+      console.log('선택 업종 value:', selectedSubCategory.value); // value 출력
       console.log('선택한 영업시간:', businessHours);
-      console.log('입력한 예산:', budget);
-      // 종합 추천 결과 처리 로직
+      console.log('입력한 예산:', budget ? Number(budget) : 0); // 예산이 빈 문자열이면 null로 처리
+      updatePetIntroduction.mutate({
+        businessHours,
+        selectedSubCategory: selectedSubCategory.value, // value를 전달
+        budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
+      });
+
+      setShowModal(true);
     }
   };
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ더미데이터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  const score = 85;
+  const explanation =
+    '이 점수는 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
+  const propertyList = [
+    {
+      industry: '업종',
+      name: '호식이두마리치킨',
+      address: '대전 유성구 궁동 409-1',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+    {
+      industry: '업종',
+      name: '닉pc방',
+      address: '대전 유성구 문화원로 77',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+    {
+      industry: '업종',
+      name: '꼬꼬레스토랑',
+      address: '대전 유성구 문화원로 89',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+    {
+      industry: '업종',
+      name: '메롱',
+      address: '대전 유성구 문화원로 89',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+    {
+      industry: '업종',
+      name: '바보',
+      address: '대전 유성구 문화원로 89',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+    {
+      industry: '업종',
+      name: '멍청이',
+      address: '대전 서구 갈마동 263-45',
+      monthlySales: 7000000,
+      monthlyEarnings: 1000000,
+    },
+  ];
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   return (
     <div>
@@ -97,6 +176,7 @@ export default function SelectRegion() {
         </div>
 
         {/* 소업종 리스트 */}
+<<<<<<< HEAD
         <div>
           <label htmlFor='sub-category'>소업종 선택</label>
           <div
@@ -122,6 +202,21 @@ export default function SelectRegion() {
                 </ul>
               ))}
             </ul>
+=======
+        <div className={styles.selectBox}>
+          <div className={styles.selectText}>
+            {allCategory[selectedMainCategory].map((subCategory, index) => (
+              <li
+                className={`${
+                  selectedSubCategory === subCategory ? styles.selected : ''
+                }`}
+                key={index}
+                onClick={() => handleSubCategoryChange(subCategory)}
+              >
+                {subCategory.label}
+              </li>
+            ))}
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
           </div>
         </div>
       </div>
@@ -129,7 +224,7 @@ export default function SelectRegion() {
       <select
         id='business-hours'
         value={businessHours}
-        onChange={(e) => setBusinessHours(e.target.value)}
+        onChange={(e) => setBusinessHours(Number(e.target.value))}
       >
         <option value=''>--영업시간 선택--</option>
         <option value='0'>무관</option>
@@ -147,19 +242,38 @@ export default function SelectRegion() {
           type='text'
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
-          placeholder='무관 시 무관 입력'
+          placeholder='미입력시 무관'
         />
         만원
       </div>
+<<<<<<< HEAD
       {/* 예산 미입력시 에러 메시지 */}
       {showBudgetError && (
         <p style={{ color: 'red' }}>예산을 입력해야 합니다.</p>
       )}
+=======
+
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
       {/* 예산이 숫자가 아닐 때 에러 메시지 */}
       {showInvalidBudgetError && (
         <p style={{ color: 'red' }}>숫자를 입력해야 합니다.</p>
       )}
+<<<<<<< HEAD
       <button onClick={handleSubmit}>업종 추천 받기</button>
+=======
+      <button className={styles.submitButton} onClick={handleSubmit}>
+        지역 추천 받기
+      </button>
+
+      {showModal && (
+        <AnalyzeBox
+          score={score}
+          explanation={explanation}
+          propertyList={propertyList}
+          onClose={handleCloseModal}
+        />
+      )}
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
     </div>
   );
 }

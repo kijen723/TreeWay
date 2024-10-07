@@ -1,6 +1,7 @@
 'use client';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
@@ -17,13 +18,25 @@ import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
 import styles from './KakaoMap.module.scss';
 import { LatLng, Store } from '@/types/MapType';
+=======
+import { useEffect, useRef, useState } from 'react';
+import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
+import styles from './KakaoMap.module.scss';
+import { LatLng, locationData, Store } from '@/types/MapType';
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { changeShopIndex } from '@/redux/slice/shopIndexSlice';
+<<<<<<< HEAD
 import { useQuery } from '@tanstack/react-query';
 import SearchBtn from '@/app/main/components/SearchBtn';
 >>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
+=======
+import { useMutation, useQuery } from '@tanstack/react-query';
+import SearchBtn from '@/app/main/components/SearchBtn';
+import { usePathname } from 'next/navigation';
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -38,19 +51,30 @@ export default function KakaoMap() {
     lng: 127.492533,
   });
 <<<<<<< HEAD
+<<<<<<< HEAD
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
+=======
+  const shopIdx: number = useSelector(
+    (state: RootState) => state.shopIndex.value
+  );
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 
-  const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
-    const response = await fetch("https://j11b107.p.ssafy.io/api/sales/map", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(locationData),
-    });
-    if (!response.ok) {
-      throw new Error("Failed to send location data");
+  const mutation = useMutation<Store[], Error, locationData>(
+    async (locationData) => {
+      const response = await fetch('https://j11b107.p.ssafy.io/api/sales/map', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(locationData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to send location data');
+      }
+
+      return response.json();
     }
+<<<<<<< HEAD
 
     return response.json();
 =======
@@ -71,6 +95,9 @@ export default function KakaoMap() {
     },
 >>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
   });
+=======
+  );
+>>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 
   const getInfo = () => {
     const map = mapRef.current;
@@ -136,8 +163,8 @@ export default function KakaoMap() {
           level={level}
           isPanto={true}
           ref={mapRef}
-          draggable={pathName === "/main" ? true : false}
-          zoomable={pathName === "/main" ? true : false}
+          draggable={pathName === '/main' ? true : false}
+          zoomable={pathName === '/main' ? true : false}
         >
           <SearchBtn getInfo={getInfo} />
           <MarkerClusterer averageCenter={true} minLevel={3}>
