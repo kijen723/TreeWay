@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.b107.treeway.dto.CustomOAuth2User;
 import com.b107.treeway.jwt.JWTUtil;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -56,7 +57,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.addCookie(createCookie("Authorization", token));
             response.sendRedirect(redirectUrl);
         } else {
-            response.sendRedirect(redirectUrl + "/register");
+            HttpSession session = request.getSession();
+            session.setAttribute("customUserDetails", customUserDetails);
+            response.sendRedirect(redirectUrl + "/regist");
         }
     }
 

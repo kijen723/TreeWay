@@ -32,6 +32,7 @@ public class MemberController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),})
     @PostMapping("logout")
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response){
+        System.out.println("로그아웃 관련 처리");
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -51,7 +52,7 @@ public class MemberController {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Not Found"),})
     @Operation(summary = "맴버관련 컨트롤러")
-    @GetMapping
+    @PostMapping("sign-up-info")
     public ResponseEntity<?> member() {
         return ResponseEntity.ok().build();
     }
