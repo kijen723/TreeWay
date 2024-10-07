@@ -67,7 +67,7 @@ export default function UpdatePost() {
         };
 
         try {
-            const response = await fetch(`https://j11b107.p.ssafy.io/api/article/${articleId}`, {
+            const response = await fetch(`https://j11b107.p.ssafy.io/api/article/${postId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
