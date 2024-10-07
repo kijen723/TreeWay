@@ -3,26 +3,16 @@ export type NewsListProps = {
 };
 
 export type NewsItem = {
-  NewsClass: string;
-  Title: string;
-  Content: string;
-  Time: string;
-  URL: string;
-  ViewCount: number;
-  ScrapCount: number;
-  isScrap: boolean;
-
-  // 서버에서 넘어오는 예상 데이터
-  // id: number;
-  // title: string;
-  // createdAt: string;
-  // content: string;
-  // industryDetailId: string;
-  // region: string;
-  // linkUrl: string;
-  // viewCount: number;
-  // scrapCount: number;
-  // isScrap: boolean;
+  id: number;
+  regionId: number;
+  regionName: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  url: string;
+  viewCount: number;
+  scrapCount: number;
+  isScrap?: boolean;
 };
 
 export type PolicyListProps = {

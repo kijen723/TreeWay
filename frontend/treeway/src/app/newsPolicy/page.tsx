@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Pagenation from './components/Pagenation';
 import UpperNav from './components/UpperNav';
 import styles from './page.module.scss';
@@ -10,6 +10,8 @@ import PolicyList from './components/PolicyList';
 export default function NewsPolicy() {
     const [isNews, setIsNews] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [newsData, setNewsData] = useState([]); // newsData를 state로 관리
+    const [loading, setLoading] = useState(false);
     const itemsPerPage = 4; // 한 페이지에 보여줄 아이템 수
 
     const toggleNewsStatus = () => {
@@ -17,68 +19,25 @@ export default function NewsPolicy() {
         setCurrentPage(1); 
     };
 
-    const newsData = [
-        {
-            NewsClass: '청년창업',
-            Title: '"기업과 시민이 함께 ESG"...롯데카드, 서울시와 \'띵크어스 데이\' 개최',
-            Content: '이 행사는 롯데카드 ESG 캠페인 \'띵크어스\'나 서울특별시 지역 연계형 청년 창업 지원사업 \'넥스트로컬\'에 참여해, 지역 자원 활용과 지역민 고용 등 지역 경제 활성화에 기여하는 ESG 기업이 자사 브랜드와 상품을...',
-            Time: '2024-09-30  2:32:00 PM',
-            URL: 'https://www.hansbiz.co.kr/news/articleView.html?idxno=713748',
-            ViewCount: 3,
-            ScrapCount: 1,
-            isScrap: true,
-        },
-        {
-            NewsClass: '스타트업',
-            Title: '“방과 후 수업 늘리는 대신 부모 근로 시간 줄여야죠” 육아하는 아빠...',
-            Content: '당시 다녔던 스타트업에서도 육아휴직에 대해 우호적인 분위기였고요. 하지만 복직을 해보니 순탄치 않더라고요. 당시 회사에는 결혼하거나 아이를 키우는 직원이 거의 없었어요. 일과 육아를 병행하는 저를 보곤...',
-            Time: '2024-10-01  10:02:00 AM',
-            URL: 'https://woman.donga.com/life/article/all/12/5194375/1',
-            ViewCount: 3,
-            ScrapCount: 0,
-            isScrap: false,
-        },
-        {
-            NewsClass: '청년창업',
-            Title: '"기업과 시민이 함께 ESG"...롯데카드, 서울시와 \'띵크어스 데이\' 개최',
-            Content: '이 행사는 롯데카드 ESG 캠페인 \'띵크어스\'나 서울특별시 지역 연계형 청년 창업 지원사업 \'넥스트로컬\'에 참여해, 지역 자원 활용과 지역민 고용 등 지역 경제 활성화에 기여하는 ESG 기업이 자사 브랜드와 상품을...',
-            Time: '2024-09-30  2:32:00 PM',
-            URL: 'https://www.hansbiz.co.kr/news/articleView.html?idxno=713748',
-            ViewCount: 3,
-            ScrapCount: 0,
-            isScrap: false,
-        },
-        {
-            NewsClass: '스타트업',
-            Title: '“방과 후 수업 늘리는 대신 부모 근로 시간 줄여야죠” 육아하는 아빠...',
-            Content: '당시 다녔던 스타트업에서도 육아휴직에 대해 우호적인 분위기였고요. 하지만 복직을 해보니 순탄치 않더라고요. 당시 회사에는 결혼하거나 아이를 키우는 직원이 거의 없었어요. 일과 육아를 병행하는 저를 보곤...',
-            Time: '2024-10-01  10:02:00 AM',
-            URL: 'https://woman.donga.com/life/article/all/12/5194375/1',
-            ViewCount: 3,
-            ScrapCount: 2,
-            isScrap: true,
-        },
-        {
-            NewsClass: '청년창업',
-            Title: '"기업과 시민이 함께 ESG"...롯데카드, 서울시와 \'띵크어스 데이\' 개최',
-            Content: '이 행사는 롯데카드 ESG 캠페인 \'띵크어스\'나 서울특별시 지역 연계형 청년 창업 지원사업 \'넥스트로컬\'에 참여해, 지역 자원 활용과 지역민 고용 등 지역 경제 활성화에 기여하는 ESG 기업이 자사 브랜드와 상품을...',
-            Time: '2024-09-30  2:32:00 PM',
-            URL: 'https://www.hansbiz.co.kr/news/articleView.html?idxno=713748',
-            ViewCount: 3,
-            ScrapCount: 0,
-            isScrap: false,
-        },
-        {
-            NewsClass: '스타트업',
-            Title: '“방과 후 수업 늘리는 대신 부모 근로 시간 줄여야죠” 육아하는 아빠...',
-            Content: '당시 다녔던 스타트업에서도 육아휴직에 대해 우호적인 분위기였고요. 하지만 복직을 해보니 순탄치 않더라고요. 당시 회사에는 결혼하거나 아이를 키우는 직원이 거의 없었어요. 일과 육아를 병행하는 저를 보곤...',
-            Time: '2024-10-01  10:02:00 AM',
-            URL: 'https://woman.donga.com/life/article/all/12/5194375/1',
-            ViewCount: 3,
-            ScrapCount: 2,
-            isScrap: true,
-        },
-    ];
+    useEffect(() => {
+        const fetchNewsData = async () => {
+            setLoading(true); 
+            try {
+                const response = await fetch('https://j11b107.p.ssafy.io/api/news');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch news data');
+                }
+                const data = await response.json();
+                setNewsData(data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchNewsData();
+    }, []);
 
     const policyData = [
         { 
@@ -146,6 +105,8 @@ export default function NewsPolicy() {
         return data.slice(startIndex, endIndex);
     };
 
+    if (loading) return <div>Loading...</div>;
+
     return (
         <div className={styles.background}>
             <div className={styles.block}>
@@ -174,5 +135,5 @@ export default function NewsPolicy() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

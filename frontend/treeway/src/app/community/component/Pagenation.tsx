@@ -4,8 +4,8 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 interface PagenationProps {
     postCnt: number;
-    postsPerPage: number;
-    onPageChange: (page: number) => void;
+    itemsPerPage: number;
+    onPageChange: (pageNumber: number) => void;
 }
 
 export default function Pagenation({ postCnt, postsPerPage, onPageChange }: PagenationProps) {

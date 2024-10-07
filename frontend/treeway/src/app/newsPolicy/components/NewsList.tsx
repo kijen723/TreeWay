@@ -4,10 +4,11 @@ import { MdBookmarks } from "react-icons/md";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useState } from 'react';
 import { NewsListProps } from "@/types/NewsPolicyPropsTypes";
+import { formatDateTime } from '@/util/formatDateTime';
 
 export default function NewsList({ newsData }: NewsListProps) {
     // 스크랩 수 상태 관리
-    const [scrapCounts, setScrapCounts] = useState(newsData.map(news => news.ScrapCount));
+    const [scrapCounts, setScrapCounts] = useState(newsData.map(news => news.scrapCount));
     const [scrapStatus, setScrapStatus] = useState(newsData.map(news => news.isScrap)); // 스크랩 여부를 초기화
 
     const toggleScrap = (index: number) => {
@@ -24,31 +25,35 @@ export default function NewsList({ newsData }: NewsListProps) {
 
     return (
         <div className={styles.newsList}>
-            {newsData.map((news, index) => (
-                <div key={index} className={styles.news}>
-                    <div className={styles.newsBody}>
-                        <div className={styles.newsInfo}>
-                            <span>{news.NewsClass}</span>
-                            <span>{news.Time}</span>
+            {newsData.map((news, index) => {
+                const { date, time } = formatDateTime(news.createdAt);
+
+                return (
+                    <div key={index} className={styles.news}>
+                        <div className={styles.newsBody}>
+                            <div className={styles.newsInfo}>
+                                {/* <span>{news.NewsClass}</span> */}
+                                <span>{date} {time}</span>
+                            </div>
+                            <a className={styles.newsTitle} href={news.url} target="_blank">
+                                <h3>{news.title}</h3>
+                            </a>
+                            <p className={styles.newsContent}>{news.content}</p>
                         </div>
-                        <a className={styles.newsTitle} href={news.URL} target="_blank">
-                            <h3>{news.Title}</h3>
-                        </a>
-                        <p className={styles.newsContent}>{news.Content}</p>
+                        <div className={styles.newsStats}>
+                            <div className={styles.count}>
+                                <span><LuEye /> {news.viewCount}</span>
+                                <span><MdBookmarks /> {scrapCounts[index]}</span>
+                            </div>
+                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
+                                {scrapStatus[index] ?
+                                    <IoBookmark className={styles.colorBookmark} /> :
+                                    <IoBookmarkOutline className={styles.bookmark} />}
+                            </div>
+                        </div>
                     </div>
-                    <div className={styles.newsStats}>
-                        <div className={styles.count}>
-                            <span><LuEye /> {news.ViewCount}</span>
-                            <span><MdBookmarks /> {scrapCounts[index]}</span>
-                        </div>
-                        <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
-                            {scrapStatus[index] ?
-                                <IoBookmark className={styles.colorBookmark} /> :
-                                <IoBookmarkOutline className={styles.bookmark} />}
-                        </div>
-                    </div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     );
 }
