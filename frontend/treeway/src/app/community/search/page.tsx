@@ -7,12 +7,29 @@ import Pagenation from '../component/Pagenation';
 import styles from '../page.module.scss';
 import { PostType } from '@/types/CommunityPropsTypes';
 
-const fetchSearchResults = async (searchCriteria: string, searchText: string): Promise<PostType[]> => {
-    const queryParam = searchCriteria === 'title'
-        ? `title=${encodeURIComponent(searchText)}`
-        : `memberName=${encodeURIComponent(searchText)}`;
+const fetchSearchResults = async (searchParams: URLSearchParams): Promise<PostType[]> => {
+    const queryParams = [];
 
-    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/search?${queryParam}`);
+    const title = searchParams.get('title');
+    const memberName = searchParams.get('memberName');
+    const regionId = searchParams.get('regionId');
+    const industryDetailId = searchParams.get('industryDetailId');
+
+    if (title) {
+        queryParams.push(`title=${encodeURIComponent(title)}`);
+    }
+    if (memberName) {
+        queryParams.push(`memberName=${encodeURIComponent(memberName)}`);
+    }
+    if (regionId) {
+        queryParams.push(`regionId=${encodeURIComponent(regionId)}`);
+    }
+    if (industryDetailId) {
+        queryParams.push(`industryDetailId=${encodeURIComponent(industryDetailId)}`);
+    }
+
+    const queryString = queryParams.join('&');
+    const res = await fetch(`https://j11b107.p.ssafy.io/api/article/search?${queryString}`);
     if (!res.ok) {
         throw new Error('Failed to fetch search results');
     }
@@ -25,12 +42,9 @@ export default function SearchResults() {
     const postsPerPage = 4;
     const searchParams = useSearchParams();
 
-    const searchCriteria = searchParams?.get('title') ? 'title' : 'memberName';
-    const searchText = searchParams?.get(searchCriteria) || '';
-
     useEffect(() => {
-        if (searchText) {
-            fetchSearchResults(searchCriteria, searchText)
+        if (searchParams?.toString()) {
+            fetchSearchResults(searchParams)
                 .then((data) => {
                     const sortedData = data.sort(
                         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -39,7 +53,7 @@ export default function SearchResults() {
                 })
                 .catch((err) => console.error('Error fetching search results:', err));
         }
-    }, [searchCriteria, searchText]);
+    }, [searchParams]);
 
     const startIndex = (currentPage - 1) * postsPerPage;
     const currentPosts = searchResults.slice(startIndex, startIndex + postsPerPage);
