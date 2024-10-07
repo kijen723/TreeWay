@@ -52,6 +52,7 @@ export default function KakaoMap() {
 <<<<<<< HEAD
 <<<<<<< HEAD
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
+<<<<<<< HEAD
 =======
   const shopIdx: number = useSelector(
     (state: RootState) => state.shopIndex.value
@@ -72,6 +73,18 @@ export default function KakaoMap() {
       }
 
       return response.json();
+=======
+  const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
+    const response = await fetch("https://j11b107.p.ssafy.io/api/sales/map", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(locationData),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to send location data");
+>>>>>>> dc46a3e (feat : modify kakaoMap)
     }
 <<<<<<< HEAD
 
@@ -117,8 +130,7 @@ export default function KakaoMap() {
   };
 
   useEffect(() => {
-    if (mutation.data && Array.isArray(mutation.data) && mutation.data.length) {
-      console.log(mutation.data);
+    if (mutation.data && Array.isArray(mutation.data) && mutation.data.length !== 0) {
       dispatch(changeDumData(mutation.data));
     }
   }, [mutation.data]);
@@ -176,11 +188,11 @@ export default function KakaoMap() {
         >
           <SearchBtn getInfo={getInfo} />
           <MarkerClusterer averageCenter={true} minLevel={3}>
-            {Array.isArray(data) && data.length !== 0 &&
+            {Array.isArray(data) &&
               data.map((value, index) => {
                 return (
                   <MapMarker
-                    key={value.id}
+                    key={index}
                     position={{
                       lat: value.latitude,
                       lng: value.longitude,

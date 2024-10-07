@@ -27,9 +27,9 @@ export default function SideDetailItems() {
     default:
       Component = (
         <div className={styles.items}>
-          {dumdata.length !== 0 &&
+          {Array.isArray(dumdata) && dumdata.length !== 0 &&
             dumdata.map((value, index) => {
-              return <SideDetailItem data={value}></SideDetailItem>;
+              return <SideDetailItem key={index} data={value}></SideDetailItem>;
             })}
         </div>
       );
