@@ -4,6 +4,7 @@ package com.b107.treeway.api.article.repository;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -52,5 +53,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "WHERE s.member.id = :memberId")
     List<ArticleResponse> findScrappedArticlesByMember(@Param("memberId") Long memberId);
 
-
+    @Modifying
+    @Query("UPDATE Article a SET a.viewCount = a.viewCount + 1 WHERE a.id = :articleId")
+    void incrementViewCount(@Param("articleId") Long articleId);
 }

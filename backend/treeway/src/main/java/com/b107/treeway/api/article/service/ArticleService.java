@@ -18,6 +18,7 @@ import com.b107.treeway.api.rating.repository.IndustryDetailRepository;
 import com.b107.treeway.api.rating.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -168,6 +169,11 @@ public class ArticleService {
 
     public List<ArticleResponse> getScrappedArticlesByMember(Long memberId) {
         return articleRepository.findScrappedArticlesByMember(memberId);
+    }
+
+    @Transactional
+    public void increaseViewCount(Long articleId) {
+        articleRepository.incrementViewCount(articleId);
     }
 
 }

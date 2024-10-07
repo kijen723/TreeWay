@@ -102,4 +102,10 @@ public class ArticleController {
         return ResponseEntity.ok(articles);
     }
 
+    @PostMapping("/viewUp/{articleId}")
+    public ResponseEntity<String> increaseViewCount(@PathVariable Long articleId) {
+        articleService.increaseViewCount(articleId);
+        return ResponseEntity.ok("View count increased successfully");
+    }
+
 }
