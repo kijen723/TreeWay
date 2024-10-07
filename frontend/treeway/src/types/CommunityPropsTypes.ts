@@ -18,6 +18,7 @@ export type PostType = {
   createdAt: string;
   modifiedAt: string;
   viewCount: number;
+  scrapCount: number;
   isScrap?: boolean;
 };
 

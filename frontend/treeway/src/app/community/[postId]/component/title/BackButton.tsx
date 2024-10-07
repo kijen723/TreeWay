@@ -2,10 +2,13 @@
 
 import styles from '@/app/community/[postId]/page.module.scss'
 import { IoArrowBackSharp } from "react-icons/io5";
+import { useRouter } from 'next/navigation';
 
 export default function BackButton() {
+    const router = useRouter();
+
     const handleBackClick = () => {
-        window.history.back();
+        router.push('/community');
     }
 
     return (

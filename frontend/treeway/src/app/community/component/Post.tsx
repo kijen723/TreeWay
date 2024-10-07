@@ -1,8 +1,8 @@
+import { useState } from "react";
 import styles from "../page.module.scss";
 import { LuEye } from "react-icons/lu";
 import { MdBookmarks } from "react-icons/md";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { useState } from "react";
 import { PostType } from "@/types/CommunityPropsTypes";
 import { formatDateTime } from '@/util/formatDateTime';
 
@@ -12,16 +12,61 @@ interface PostProps {
 }
 
 export default function Post({ post, onClick }: PostProps) {
-  const [isScrap, setIsScrap] = useState(post.isScrap); 
-  // const [scrapCount, setScrapCount] = useState(post.scrapCount); // 반환값 추가 필요
-  const [scrapCount, setScrapCount] = useState(0);
   const { date, time } = formatDateTime(post.createdAt);
+  const [isScrap, setIsScrap] = useState(post.isScrap); 
+  const [scrapCount, setScrapCount] = useState(post.scrapCount); 
 
-  const toggleScrap = (e: React.MouseEvent) => {
+  const memberId = 1; // 수정 필요
+
+  const toggleScrap = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsScrap((prev) => !prev);
-    // setScrapCount((prev) => (isScrap ? prev - 1 : prev + 1)); // 스크랩 카운트 업데이트
-  };
+
+    try {
+      if (isScrap) {
+        const response = await fetch(`https://j11b107.p.ssafy.io/api/article/scrap`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            memberId: memberId, 
+            articleId: post.id 
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to cancel scrap');
+        }
+
+        setIsScrap(false);
+        setScrapCount(scrapCount - 1); 
+      } else {
+        const response = await fetch(`https://j11b107.p.ssafy.io/api/article/scrap`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            memberId: memberId,
+            articleId: post.id
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to scrap');
+        }
+
+        setIsScrap(true);
+        setScrapCount(scrapCount + 1);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else {
+        console.error('An unknown error occurred');
+      }
+    }
+  }; 
 
   return (
     <div className={styles.post} onClick={onClick}>
@@ -36,9 +81,6 @@ export default function Post({ post, onClick }: PostProps) {
         </div>
       </div>
       <div className={styles.postEnd}>
-        {/* {post.imgSrc ? (
-          <img className={styles.postImg} src={post.imgSrc} alt={post.title} />
-        ) : null} */}
         <div className={styles.postStats}>
           <div className={styles.count}>
             <span>

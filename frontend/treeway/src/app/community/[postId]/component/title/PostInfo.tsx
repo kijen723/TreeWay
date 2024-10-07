@@ -9,7 +9,6 @@ interface postProp {
 }
 
 export default function PostInfo({ post }: postProp) {
-    const scrapCount = 0; // 반환값 필요
     const { date, time } = formatDateTime(post.createdAt);
 
     return (
@@ -21,7 +20,7 @@ export default function PostInfo({ post }: postProp) {
                         <LuEye /> {post.viewCount}
                     </span>
                     <span>
-                        <MdBookmarks /> {scrapCount}
+                        <MdBookmarks /> {post.scrapCount}
                     </span>
                 </div>
             </div>
