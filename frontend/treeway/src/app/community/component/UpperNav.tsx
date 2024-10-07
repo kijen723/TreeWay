@@ -2,10 +2,13 @@ import Button from '@/app/common/Button';
 import styles from '../page.module.scss'
 import SearchBtn from './SearchBtn';
 import SortBox from './SortBox';
-
 import { useRouter } from 'next/navigation';
 
-export default function UpperNav() {
+interface UpperNavProps {
+    setSortBy: (value: 'Latest' | 'ViewCount' | 'ScrapCount') => void; 
+}
+
+export default function UpperNav({ setSortBy }: UpperNavProps) {
     const router = useRouter();
 
     const handleCreatePost = () => {
@@ -18,7 +21,7 @@ export default function UpperNav() {
                 <Button content="글쓰기" size="medium" colorType="yellow" onClick={handleCreatePost}/>
             </div>
             <div className={styles.rightBlock}>
-                <SortBox />
+                <SortBox setSortBy={setSortBy} />
                 <SearchBtn />
             </div>
         </div>

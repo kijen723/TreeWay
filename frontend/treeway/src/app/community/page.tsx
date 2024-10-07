@@ -30,6 +30,8 @@ export default function Community() {
     const postsPerPage = 4; // 페이지당 4개 보여주기
     const memberId = 1; // 스토어에서 가져오기
 
+    const [sortBy, setSortBy] = useState<'Latest' | 'ViewCount' | 'ScrapCount'>('Latest');
+
     // 전체 게시글 불러오기
     const { data: postList } = useQuery(['postList'], fetchPosts);
 
@@ -42,11 +44,25 @@ export default function Community() {
         return { ...post, isScrap };
     });
 
-    useEffect(() => {
-        if (enrichedPostList) {
-            console.log('Enriched PostList:', enrichedPostList);
+    // 정렬
+    const sortedPostList = enrichedPostList?.slice().sort((a, b) => {
+        if (sortBy === 'Latest') {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         }
-    }, [enrichedPostList]);
+        if (sortBy === 'ViewCount') {
+            return b.viewCount - a.viewCount;
+        }
+        if (sortBy === 'ScrapCount') {
+            return b.scrapCount - a.scrapCount;
+        }
+        return 0;
+    });
+
+    useEffect(() => {
+        if (sortedPostList) {
+            console.log('Sorted PostList:', sortedPostList);
+        }
+    }, [sortedPostList]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -56,11 +72,11 @@ export default function Community() {
         <div className={styles.background}>
             <div className={styles.block}>
                 <div className={styles.postBlock}>
-                    <UpperNav />
+                    <UpperNav setSortBy={setSortBy} />
                     <PostList
                         currentPage={currentPage}
                         postsPerPage={postsPerPage}
-                        postList={enrichedPostList || []}
+                        postList={sortedPostList || []}
                     />
                 </div>
                 <div>
