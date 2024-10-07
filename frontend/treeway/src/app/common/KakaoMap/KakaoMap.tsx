@@ -115,6 +115,8 @@ export default function KakaoMap() {
     const map = mapRef.current;
     if (!map) return;
 
+    console.log(map);
+
     const bounds = map.getBounds();
     const swLatLng = bounds.getSouthWest();
     const neLatLng = bounds.getNorthEast();
@@ -126,6 +128,8 @@ export default function KakaoMap() {
       neLongitude: neLatLng.getLng(),
     };
 
+    console.log(locationData);
+    
     mutation.mutate(locationData);
   };
 
