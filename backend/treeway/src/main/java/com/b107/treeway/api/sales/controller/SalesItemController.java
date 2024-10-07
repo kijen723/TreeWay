@@ -33,9 +33,9 @@ public class SalesItemController {
         return ResponseEntity.ok().body(mapSales);
     }
 
-    @PostMapping("/detail")
-    public ResponseEntity<SalesItemResponse> getSalesItem(@RequestBody SalesItemRequest salesItemRequest) {
-        SalesItemResponse salesItem = salesItemService.getSalesItem(salesItemRequest);
+    @GetMapping("/{salesItemId}")
+    public ResponseEntity<MapSalesResponse> getSalesItem(@PathVariable Long salesItemId) {
+        MapSalesResponse salesItem = salesItemService.getSalesItem(salesItemId);
         return ResponseEntity.ok(salesItem);
     }
 

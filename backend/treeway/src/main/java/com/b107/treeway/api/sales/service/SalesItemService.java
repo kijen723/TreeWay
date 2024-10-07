@@ -28,9 +28,9 @@ public class SalesItemService {
         return salesItemRepository.getMapSales(mapSalesRequest);
     }
 
-    public SalesItemResponse getSalesItem(SalesItemRequest salesItemRequest) {
-        Optional<SalesItem> salesItem = salesItemRepository.findById(salesItemRequest.getSalesItemId());
-        return salesItem.map(SalesItemResponse::new).orElse(null);
+    public MapSalesResponse getSalesItem(Long salesItemId) {
+        Optional<SalesItem> salesItem = salesItemRepository.findById(salesItemId);
+        return salesItem.map(MapSalesResponse::new).orElse(null);
     }
 
     public List<SalesItemResponse> getAllSalesItems() {
