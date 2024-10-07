@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -42,7 +43,11 @@ public class SecurityConfig {
 
                     CorsConfiguration configuration = new CorsConfiguration();
 
+<<<<<<< HEAD
                     configuration.setAllowedOrigins(Collections.singletonList(frontUrl));
+=======
+                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3001", "https://j11b107.p.ssafy.io"));
+>>>>>>> 89a094a (fix : 설정 변경)
                     configuration.setAllowedMethods(Collections.singletonList("*"));
                     configuration.setAllowCredentials(true);
                     configuration.setAllowedHeaders(Collections.singletonList("*"));
