@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public interface RatingRepositoryCustom {
-        List<IndustryRatingResponse> getIndustryRating(SubRatingRequest subRatingRequest);
+        List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest);
         List<RegionRatingResponse> getRegionRating(SubRatingRequest subRatingRequest);
         List<?> getSubRating(SubRatingRequest subRatingRequest, boolean isIndustry);
         List<RatingResponse> getRating(RatingRequest ratingRequest);

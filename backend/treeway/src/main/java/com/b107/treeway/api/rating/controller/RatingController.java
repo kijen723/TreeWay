@@ -27,8 +27,8 @@ public class RatingController {
 
     @PostMapping("/industry")
     @Operation(summary = "업종 추천")
-    public ResponseEntity<List<IndustryRatingResponse>> getIndustryRating(@RequestBody SubRatingRequest subRatingRequest){
-        List<IndustryRatingResponse> Rating = ratingService.getIndustryRating(subRatingRequest);
+    public ResponseEntity<List<RatingResponse>> getIndustryRating(@RequestBody SubRatingRequest subRatingRequest){
+        List<RatingResponse> Rating = ratingService.getIndustryRating(subRatingRequest);
         return ResponseEntity.ok().body(Rating);
     }
 

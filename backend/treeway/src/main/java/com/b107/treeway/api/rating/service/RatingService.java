@@ -18,7 +18,7 @@ public class RatingService {
 
     private final RatingRepository ratingRepository;
 
-    public List<IndustryRatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
+    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
         return ratingRepository.getIndustryRating(subRatingRequest);
     }
 

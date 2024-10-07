@@ -24,7 +24,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @Override
     @Transactional
-    public List<IndustryRatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
+    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
         int businessTime = subRatingRequest.getBusinessTime();
         int region = subRatingRequest.getRegion();
         int cost = subRatingRequest.getCost();
@@ -34,13 +34,38 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         QIndustryDetail idl = QIndustryDetail.industryDetail;
         QExpectedCost ec = QExpectedCost.expectedCost;
         QBusinessHour bh = QBusinessHour.businessHour;
+        QSalesItem si = QSalesItem.salesItem;
 
-        JPAQuery<IndustryRatingResponse> query = new JPAQuery<>(entityManager)
+        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
                 .select(Projections.constructor(
-                        IndustryRatingResponse.class,
-                        rg.regionName,
+                        RatingResponse.class,
+                        rt.ratingScore,
+                        si.majorBusiness,
                         idl.industryDetailName,
-                        rt.ratingScore
+                        si.address,
+                        si.monthlySales,
+                        si.monthlyEarnings,
+                        si.hostName,
+                        si.phone,
+                        si.tradeName,
+                        si.floorClass,
+                        si.currentFloor,
+                        si.totalFloors,
+                        si.squareMeter,
+                        si.availableParking,
+                        si.totalParking,
+                        si.premium,
+                        si.deposit,
+                        si.monthlyRent,
+                        si.administrationCost,
+                        si.materialCost,
+                        si.personnelExpense,
+                        si.utilityBill,
+                        si.otherExpenses,
+                        si.additionalInformation,
+                        si.itemNum,
+                        si.latitude,
+                        si.longitude
                 ))
                 .distinct()
                 .from(rt)
@@ -48,6 +73,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .join(rt.industryDetail, idl)
                 .join(ec).on(ec.industryDetail.id.eq(idl.id)
                         .and(rg.id.eq(ec.region.id)))
+                .join(si).on(si.id.eq(ec.id))
                 .join(bh).on(bh.industryDetail.id.eq(idl.id));
 
         BooleanExpression conditions = Expressions.TRUE;
@@ -129,6 +155,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 =======
                 .join(ec).on(ec.industryDetail.id.eq(idl.id)
                             .and(rg.id.eq(ec.region.id)))
+                .join(si).on(si.id.eq(ec.id))
                 .join(bh).on(bh.industryDetail.id.eq(idl.id));
 >>>>>>> 53c6f7c (feat: get industry_detail list)
 
@@ -252,7 +279,6 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
     @Override
     @Transactional
     public List<RatingResponse> getRating(RatingRequest ratingRequest) {
-        int industryId = ratingRequest.getId();
         int industryDetailId = ratingRequest.getIndustryDetailId();
         int businessTime = ratingRequest.getBusinessTime();
         int region = ratingRequest.getRegion();
@@ -306,8 +332,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .join(bh).on(bh.industryDetail.id.eq(idl.id))
                 .join(si).on(si.id.eq(ec.id))
                 .join(it).on(it.id.eq(idl.industry.id))
-                .where(it.id.eq(Long.valueOf(industryId))
-                        .and(idl.id.eq(Long.valueOf(industryDetailId)))
+                .where(idl.id.eq(Long.valueOf(industryDetailId))
                         .and(rg.id.eq(Long.valueOf(region))));
 
         BooleanExpression conditions = Expressions.TRUE;
