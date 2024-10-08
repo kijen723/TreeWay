@@ -46,7 +46,7 @@ export default function SideDetailItem({ data }: { data: Store }) {
     <div
       className={styles.item}
       onClick={() => {
-        alert("찜을 취소하시겠습니까?")
+        console.log("상세 컴포넌트 띄우기 or 찜 취소")
       }}
     >
       <div className={styles.Info}>
