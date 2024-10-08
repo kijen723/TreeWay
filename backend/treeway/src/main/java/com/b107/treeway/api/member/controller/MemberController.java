@@ -1,7 +1,6 @@
 package com.b107.treeway.api.member.controller;
 
 import com.b107.treeway.api.member.entity.Member;
-import com.b107.treeway.api.member.repository.MemberRepository;
 import com.b107.treeway.api.member.request.AnalyzeRequest;
 import com.b107.treeway.api.member.response.AnalyzeResponse;
 import com.b107.treeway.api.member.service.MemberService;
@@ -12,13 +11,10 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.ResponseExtractor;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/member")
@@ -51,7 +47,7 @@ public class MemberController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "404", description = "Not Found"),})
-    @Operation(summary = "맴버관련 컨트롤러")
+    @Operation(summary = "맴버 추가 정보 입력")
     @PostMapping("sign-up-info")
     public ResponseEntity<?> member() {
         return ResponseEntity.ok().build();

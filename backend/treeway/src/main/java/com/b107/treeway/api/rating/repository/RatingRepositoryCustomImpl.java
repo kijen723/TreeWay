@@ -14,14 +14,98 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+//    @Override
+//    @Transactional
+//    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
+//        int businessTime = subRatingRequest.getBusinessTime();
+//        int region = subRatingRequest.getRegion();
+//        int cost = subRatingRequest.getCost();
+//
+//        QRating rt = QRating.rating;
+//        QRegion rg = QRegion.region;
+//        QIndustryDetail idl = QIndustryDetail.industryDetail;
+//        QExpectedCost ec = QExpectedCost.expectedCost;
+//        QBusinessHour bh = QBusinessHour.businessHour;
+//        QSalesItem si = QSalesItem.salesItem;
+//
+//        JPAQuery<Tuple> subQuery = new JPAQuery<>(entityManager)
+//                .select(rt.industryDetail.id, rt.ratingScore.max())
+//                .from(rt)
+//                .join(rt.region, rg)
+//                .join(rt.industryDetail, idl)
+//                .join(ec).on(ec.industryDetail.id.eq(idl.id)
+//                        .and(rg.id.eq(ec.region.id)))
+//                .join(bh).on(bh.industryDetail.id.eq(idl.id))
+//                .where(bh.businessTime.eq(businessTime)
+//                        .and(rg.id.eq(Long.valueOf(region)))
+//                        .and(ec.cost.loe(cost)))
+//                .groupBy(rt.industryDetail.id);
+//
+//        // 메인 쿼리
+//        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
+//                .select(Projections.constructor(
+//                        RatingResponse.class,
+//                        rt.ratingScore,
+//                        si.majorBusiness,
+//                        idl.industryDetailName,
+//                        si.address,
+//                        si.monthlySales,
+//                        si.monthlyEarnings,
+//                        si.hostName,
+//                        si.phone,
+//                        si.tradeName,
+//                        si.floorClass,
+//                        si.currentFloor,
+//                        si.totalFloors,
+//                        si.squareMeter,
+//                        si.availableParking,
+//                        si.totalParking,
+//                        si.premium,
+//                        si.deposit,
+//                        si.monthlyRent,
+//                        si.administrationCost,
+//                        si.materialCost,
+//                        si.personnelExpense,
+//                        si.utilityBill,
+//                        si.otherExpenses,
+//                        si.additionalInformation,
+//                        si.itemNum,
+//                        si.latitude,
+//                        si.longitude
+//                ))
+//                .from(rt)
+//                .join(rt.region, rg)
+//                .join(rt.industryDetail, idl)
+//                .join(ec).on(ec.industryDetail.id.eq(idl.id)
+//                        .and(rg.id.eq(ec.region.id)))
+//                .join(si).on(si.id.eq(ec.id))
+//                .join(bh).on(bh.industryDetail.id.eq(idl.id))
+//                .where(bh.businessTime.eq(businessTime)
+//                        .and(rg.id.eq(Long.valueOf(region)))
+//                        .and(ec.cost.loe(cost))
+//                        .and(rt.industryDetail.id.in(
+//                                JPAExpressions.select(subQuery.select(rt.industryDetail.id))
+//                        ))
+//                )
+//                .orderBy(rt.ratingScore.desc())
+//                .limit(9);
+//
+//        return query.fetch();
+//    }
+
+
+
 
     @Override
     @Transactional
@@ -30,73 +114,118 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         int region = subRatingRequest.getRegion();
         int cost = subRatingRequest.getCost();
 
-        QRating rt = QRating.rating;
-        QRegion rg = QRegion.region;
-        QIndustryDetail idl = QIndustryDetail.industryDetail;
-        QExpectedCost ec = QExpectedCost.expectedCost;
-        QBusinessHour bh = QBusinessHour.businessHour;
-        QSalesItem si = QSalesItem.salesItem;
+        StringBuilder sb = new StringBuilder();
 
-        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
-                .select(Projections.constructor(
-                        RatingResponse.class,
-                        rt.ratingScore,
-                        si.majorBusiness,
-                        idl.industryDetailName,
-                        si.address,
-                        si.monthlySales,
-                        si.monthlyEarnings,
-                        si.hostName,
-                        si.phone,
-                        si.tradeName,
-                        si.floorClass,
-                        si.currentFloor,
-                        si.totalFloors,
-                        si.squareMeter,
-                        si.availableParking,
-                        si.totalParking,
-                        si.premium,
-                        si.deposit,
-                        si.monthlyRent,
-                        si.administrationCost,
-                        si.materialCost,
-                        si.personnelExpense,
-                        si.utilityBill,
-                        si.otherExpenses,
-                        si.additionalInformation,
-                        si.itemNum,
-                        si.latitude,
-                        si.longitude
-                ))
-                .distinct()
-                .from(rt)
-                .join(rt.region, rg)
-                .join(rt.industryDetail, idl)
-                .join(ec).on(ec.industryDetail.id.eq(idl.id)
-                        .and(rg.id.eq(ec.region.id)))
-                .join(si).on(si.id.eq(ec.id))
-                .join(bh).on(bh.industryDetail.id.eq(idl.id));
-
-        BooleanExpression conditions = Expressions.TRUE;
+        sb.append("WITH RankedRatings AS ( SELECT r1.rating_score, ")
+                .append("si1.major_business, ")
+                .append("id1.industry_detail_name, ")
+                .append("si1.address, ")
+                .append("si1.monthly_sales, ")
+                .append("si1.monthly_earnings, ")
+                .append("si1.host_name, ")
+                .append("si1.phone, ")
+                .append("si1.tradename, ")
+                .append("si1.floor_class, ")
+                .append("si1.current_floor, ")
+                .append("si1.total_floors, ")
+                .append("si1.square_meter, ")
+                .append("si1.available_parking, ")
+                .append("si1.total_parking, ")
+                .append("si1.premium, ")
+                .append("si1.deposit, ")
+                .append("si1.monthly_rent, ")
+                .append("si1.administration_cost, ")
+                .append("si1.material_cost, ")
+                .append("si1.personnel_expense, ")
+                .append("si1.utility_bill, ")
+                .append("si1.other_expenses, ")
+                .append("si1.additional_information, ")
+                .append("si1.itemnum, ")
+                .append("si1.latitude, ")
+                .append("si1.longitude, ")
+                .append("    ROW_NUMBER() OVER (PARTITION BY id1.industry_detail_name ORDER BY r1.rating_score DESC) AS rn ")
+                .append("    FROM rating r1 ")
+                .append("    JOIN region r2 ON r2.region_id = r1.region_id ")
+                .append("    JOIN industry_detail id1 ON id1.industry_detail_id = r1.industry_detail_id ")
+                .append("    JOIN expected_cost ec1 ON ec1.industry_detail_id = r1.industry_detail_id AND r1.region_id = ec1.region_id ")
+                .append("    JOIN sales_item si1 ON si1.sales_item_id = ec1.expected_cost_id ")
+                .append("    JOIN business_hour bh1 ON bh1.industry_detail_id = r1.industry_detail_id ")
+                .append("    WHERE 1=1 ");
 
         if (businessTime != 0) {
-            conditions = conditions.and(bh.businessTime.eq(businessTime));
+            sb.append("AND bh1.business_time = :businessTime ");
         }
 
         if (region != 0) {
-            conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
+            sb.append("AND r1.region_id = :region ");
         }
 
         if (cost != 0) {
-            conditions = conditions.and(ec.cost.loe(cost));
+            sb.append("AND ec1.cost <= :cost ");
         }
 
-        query.where(conditions)
-                .limit(9)
-                .orderBy(rt.ratingScore.desc());
+        sb.append(")")
+                .append("SELECT * FROM RankedRatings WHERE rn = 1 ORDER BY rating_score DESC LIMIT 9");
 
-        return query.fetch();
+        Query query = entityManager.createNativeQuery(sb.toString());
+
+        if (businessTime != 0) {
+            query.setParameter("businessTime", businessTime);
+        }
+
+        if (region != 0) {
+            query.setParameter("region", region);
+        }
+
+        if (cost != 0) {
+            query.setParameter("cost", cost);
+        }
+
+        List resultList = query.getResultList();
+
+        List<RatingResponse> responses = new ArrayList<>();
+
+        for (Object obj : resultList) {
+            if (obj instanceof Object[]) {
+                Object[] row = (Object[]) obj;
+
+                RatingResponse response = new RatingResponse();
+                response.setRatingScore((Double) row[0]);
+                response.setMajorBusiness((String) row[1]);
+                response.setIndustryDetail((String) row[2]);
+                response.setAddress((String) row[3]);
+                response.setMonthlySales((Integer) row[4]);
+                response.setMonthlyEarnings((Integer) row[5]);
+                response.setHostName((String) row[6]);
+                response.setPhone((String) row[7]);
+                response.setTradeName((String) row[8]);
+                response.setFloorClass((String) row[9]);
+                response.setCurrentFloor((Integer) row[10]);
+                response.setTotalFloors((Integer) row[11]);
+                response.setSquareMeter((Integer) row[12]);
+                response.setAvailableParking((Integer) row[13]);
+                response.setTotalParking((Integer) row[14]);
+                response.setPremium((Integer) row[15]);
+                response.setDeposit((Integer) row[16]);
+                response.setMonthlyRent((Integer) row[17]);
+                response.setAdministrationCost((Integer) row[18]);
+                response.setMaterialCost((Integer) row[19]);
+                response.setPersonnelExpense((Integer) row[20]);
+                response.setUtilityBill((Integer) row[21]);
+                response.setOtherExpenses((Integer) row[22]);
+                response.setAdditionalInformation((String) row[23]);
+                response.setItemNum((Integer) row[24]);
+                response.setLatitude((Double) row[25]);
+                response.setLongitude((Double) row[26]);
+
+                responses.add(response);
+            }
+        }
+
+        return responses;
     }
+
+
 
     @Override
     @Transactional
@@ -155,7 +284,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .join(si).on(si.id.eq(ec.id));
 =======
                 .join(ec).on(ec.industryDetail.id.eq(idl.id)
-                            .and(rg.id.eq(ec.region.id)))
+                        .and(rg.id.eq(ec.region.id)))
                 .join(si).on(si.id.eq(ec.id))
                 .join(bh).on(bh.industryDetail.id.eq(idl.id));
 >>>>>>> 53c6f7c (feat: get industry_detail list)
@@ -184,7 +313,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
     }
 
     /**
-     * sub rating 기능에 대해 리팩토링 진행 예정 
+     * sub rating 기능에 대해 리팩토링 진행 예정
      */
     @Override
     @Transactional

@@ -69,7 +69,11 @@ dependencies {
 
     //oauth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+<<<<<<< HEAD
 >>>>>>> 3058c5f (feat : 엔티티 추가)
+=======
+
+>>>>>>> 8a49eac (fix : 업종 추천 수정)
 }
 
 tasks.named('test') {
