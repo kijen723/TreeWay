@@ -4,13 +4,17 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 interface PagenationProps {
     postCnt: number;
-    itemsPerPage: number;
+    postsPerPage: number;
     onPageChange: (pageNumber: number) => void;
 }
 
 export default function Pagenation({ postCnt, postsPerPage, onPageChange }: PagenationProps) {
     const totalPages = Math.ceil(postCnt / postsPerPage);
     const [currentPage, setCurrentPage] = useState(1);
+    const pagesPerBlock = 5;
+
+    const getStartPage = () => Math.floor((currentPage - 1) / pagesPerBlock) * pagesPerBlock + 1;
+    const getEndPage = () => Math.min(getStartPage() + pagesPerBlock - 1, totalPages);
 
     const handleNext = () => {
         if (currentPage < totalPages) {
@@ -37,15 +41,15 @@ export default function Pagenation({ postCnt, postsPerPage, onPageChange }: Page
                 <FaArrowUp className={styles.arrowIcon} />
             </div>
             <div className={styles.numberList}>
-                {[...Array(totalPages)].map((_, index) => {
-                    const pageNum = index + 1;
+                {[...Array(getEndPage() - getStartPage() + 1)].map((_, index) => {
+                    const pageNum = getStartPage() + index;
                     return (
                         <div
                             key={pageNum}
                             className={`${styles.number} ${currentPage === pageNum ? styles.highlight : ''}`}
                             onClick={() => handlePageClick(pageNum)}
                         >
-                            {pageNum.toString().padStart(2, '0')}
+                            {pageNum}
                         </div>
                     );
                 })}
