@@ -25,6 +25,11 @@ export default function UpperNav({ setSortBy }: UpperNavProps) {
     };
 
     const handleSearch = () => {
+        if (selectedRegion === 0 && selectedIndustry === 0) {
+            alert('지역 또는 업종을 선택해주세요.');
+            return;
+        }
+
         const queryParams = new URLSearchParams();
 
         if (selectedRegion !== null && selectedRegion !== 0) {

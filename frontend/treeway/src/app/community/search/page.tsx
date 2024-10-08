@@ -6,6 +6,7 @@ import PostList from '../component/PostList';
 import Pagenation from '../component/Pagenation';
 import styles from '../page.module.scss';
 import { PostType } from '@/types/CommunityPropsTypes';
+import UpperNav from '../component/UpperNav';
 
 const fetchSearchResults = async (searchParams: URLSearchParams): Promise<PostType[]> => {
     const queryParams = [];
@@ -42,21 +43,27 @@ export default function SearchResults() {
     const postsPerPage = 4;
     const searchParams = useSearchParams();
 
+    const [sortBy, setSortBy] = useState<'Latest' | 'ViewCount' | 'ScrapCount'>('Latest');
+
     useEffect(() => {
         if (searchParams?.toString()) {
             fetchSearchResults(searchParams)
                 .then((data) => {
-                    const sortedData = data.sort(
-                        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    );
+                    const sortedData = [...data].sort((a, b) => {
+                        if (sortBy === 'Latest') {
+                            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                        } else if (sortBy === 'ViewCount') {
+                            return b.viewCount - a.viewCount;
+                        } else if (sortBy === 'ScrapCount') {
+                            return b.scrapCount - a.scrapCount;
+                        }
+                        return 0;
+                    });
                     setSearchResults(sortedData);
                 })
                 .catch((err) => console.error('Error fetching search results:', err));
         }
-    }, [searchParams]);
-
-    const startIndex = (currentPage - 1) * postsPerPage;
-    const currentPosts = searchResults.slice(startIndex, startIndex + postsPerPage);
+    }, [searchParams, sortBy]);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -64,15 +71,15 @@ export default function SearchResults() {
 
     return (
         <div className={styles.background}>
-            <h1>검색 결과</h1>
             <div className={styles.block}>
                 {searchResults.length > 0 ? (
                     <>
                         <div className={styles.postBlock}>
+                            <UpperNav setSortBy={setSortBy} />
                             <PostList 
                                 currentPage={currentPage} 
                                 postsPerPage={postsPerPage} 
-                                postList={currentPosts || []} 
+                                postList={searchResults || []} 
                             />
                         </div>
                         <div>
