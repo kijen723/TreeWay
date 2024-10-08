@@ -4,10 +4,11 @@ import { MdBookmarks } from 'react-icons/md'; // 스크랩 수 아이콘
 import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5'; // 스크랩 버튼 아이콘
 import { useState } from 'react';
 import { PolicyListProps } from '@/types/NewsPolicyPropsTypes';
+import { formatDateTime } from '@/util/formatDateTime';
 
 export default function PolicyList({ policyData }: PolicyListProps) {
     const [scrapCounts, setScrapCounts] = useState(
-        policyData.map(policy => policy.ScrapCount)
+        policyData.map(policy => policy.scrapCount)
     );
     const [isScraped, setIsScraped] = useState(
         policyData.map(policy => policy.isScrap)
@@ -27,41 +28,46 @@ export default function PolicyList({ policyData }: PolicyListProps) {
 
     return (
         <div className={styles.policyList}>
-            {policyData.map((policy, index) => (
-                <div key={index} className={styles.policy}>
-                    <div className={styles.policyBody}>
-                        <div className={styles.policyInfo}>
-                            <span>{policy.Region} | {policy.Field}</span>
-                            <span>기간: {policy.Start_date} ~ {policy.End_date}</span>
+            {policyData.map((policy, index) => {
+                const { date: startDate, time: startTime } = formatDateTime(policy.startDate);
+                const { date: endDate, time: endTime } = formatDateTime(policy.endDate);
+
+                return (
+                    <div key={index} className={styles.policy}>
+                        <div className={styles.policyBody}>
+                            <div className={styles.policyInfo}>
+                                <span>{policy.regionName} | {policy.category}</span>
+                                <span>기간: {startDate} ~ {endDate}</span>
+                            </div>
+                            <div className={styles.policyTitle}>
+                                <h3>{policy.host}</h3>
+                                <a href={policy.url} target="_blank">
+                                    <h3>{policy.title}</h3>
+                                </a>
+                            </div>
+                            <div className={styles.policyContent}>
+                                <div className={styles.content}>
+                                    <p>대상: {policy.target}</p>
+                                    <p>사업 자격: {policy.eligibility}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div className={styles.policyTitle}>
-                            <h3>{policy.Affiliation}</h3>
-                            <a href={policy.URL} target="_blank">
-                                <h3>{policy.Project}</h3>
-                            </a>
-                        </div>
-                        <div className={styles.policyContent}>
-                            <div className={styles.content}>
-                                <p>대상: {policy.Target}</p>
-                                <p>사업 자격: {policy.Business_eligibility}</p>
+                        <div className={styles.policyStats}>
+                            <div className={styles.count}>
+                                <span><LuEye /> {policy.viewCount}</span>
+                                <span><MdBookmarks /> {policy.scrapCount}</span>
+                            </div>
+                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
+                                {isScraped[index] ? (
+                                    <IoBookmark className={styles.colorBookmark} />
+                                ) : (
+                                    <IoBookmarkOutline className={styles.bookmark} />
+                                )}
                             </div>
                         </div>
                     </div>
-                    <div className={styles.policyStats}>
-                        <div className={styles.count}>
-                            <span><LuEye /> {policy.ViewCount}</span>
-                            <span><MdBookmarks /> {scrapCounts[index]}</span>
-                        </div>
-                        <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
-                            {isScraped[index] ? (
-                                <IoBookmark className={styles.colorBookmark} />
-                            ) : (
-                                <IoBookmarkOutline className={styles.bookmark} />
-                            )}
-                        </div>
-                    </div>
-                </div>
-            ))}
+                )
+            })}
         </div>
     );
 }
