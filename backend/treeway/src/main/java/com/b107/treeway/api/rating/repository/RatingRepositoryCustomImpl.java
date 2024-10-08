@@ -116,7 +116,8 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("WITH RankedRatings AS ( SELECT r1.rating_score, ")
+        sb.append("WITH RankedRatings AS ( SELECT " +
+                        "si1.sales_item_id, r1.rating_score, ")
                 .append("si1.major_business, ")
                 .append("id1.industry_detail_name, ")
                 .append("si1.address, ")
@@ -190,33 +191,34 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 Object[] row = (Object[]) obj;
 
                 RatingResponse response = new RatingResponse();
-                response.setRatingScore((Double) row[0]);
-                response.setMajorBusiness((String) row[1]);
-                response.setIndustryDetail((String) row[2]);
-                response.setAddress((String) row[3]);
-                response.setMonthlySales((Integer) row[4]);
-                response.setMonthlyEarnings((Integer) row[5]);
-                response.setHostName((String) row[6]);
-                response.setPhone((String) row[7]);
-                response.setTradeName((String) row[8]);
-                response.setFloorClass((String) row[9]);
-                response.setCurrentFloor((Integer) row[10]);
-                response.setTotalFloors((Integer) row[11]);
-                response.setSquareMeter((Integer) row[12]);
-                response.setAvailableParking((Integer) row[13]);
-                response.setTotalParking((Integer) row[14]);
-                response.setPremium((Integer) row[15]);
-                response.setDeposit((Integer) row[16]);
-                response.setMonthlyRent((Integer) row[17]);
-                response.setAdministrationCost((Integer) row[18]);
-                response.setMaterialCost((Integer) row[19]);
-                response.setPersonnelExpense((Integer) row[20]);
-                response.setUtilityBill((Integer) row[21]);
-                response.setOtherExpenses((Integer) row[22]);
-                response.setAdditionalInformation((String) row[23]);
-                response.setItemNum((Integer) row[24]);
-                response.setLatitude((Double) row[25]);
-                response.setLongitude((Double) row[26]);
+                response.setId((Long) row[0]);
+                response.setRatingScore((Double) row[1]);
+                response.setMajorBusiness((String) row[2]);
+                response.setIndustryDetail((String) row[3]);
+                response.setAddress((String) row[4]);
+                response.setMonthlySales((Integer) row[5]);
+                response.setMonthlyEarnings((Integer) row[6]);
+                response.setHostName((String) row[7]);
+                response.setPhone((String) row[8]);
+                response.setTradeName((String) row[9]);
+                response.setFloorClass((String) row[10]);
+                response.setCurrentFloor((Integer) row[11]);
+                response.setTotalFloors((Integer) row[12]);
+                response.setSquareMeter((Integer) row[13]);
+                response.setAvailableParking((Integer) row[14]);
+                response.setTotalParking((Integer) row[15]);
+                response.setPremium((Integer) row[16]);
+                response.setDeposit((Integer) row[17]);
+                response.setMonthlyRent((Integer) row[18]);
+                response.setAdministrationCost((Integer) row[19]);
+                response.setMaterialCost((Integer) row[20]);
+                response.setPersonnelExpense((Integer) row[21]);
+                response.setUtilityBill((Integer) row[22]);
+                response.setOtherExpenses((Integer) row[23]);
+                response.setAdditionalInformation((String) row[24]);
+                response.setItemNum((Integer) row[25]);
+                response.setLatitude((Double) row[26]);
+                response.setLongitude((Double) row[27]);
 
                 responses.add(response);
             }

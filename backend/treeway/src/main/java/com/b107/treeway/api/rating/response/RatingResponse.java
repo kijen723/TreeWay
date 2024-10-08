@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RatingResponse {
+    private Long id;
     private double ratingScore;
     private String majorBusiness;
     private String industryDetail;
