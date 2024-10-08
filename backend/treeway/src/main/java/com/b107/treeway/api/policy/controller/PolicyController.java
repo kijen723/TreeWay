@@ -37,7 +37,7 @@ public class PolicyController {
 
     @PostMapping("/scrap/check")
     public ResponseEntity<PolicyScrapResponse> checkNewsScrap(@RequestBody PolicyScrapRequest request) {
-        boolean isScraped = policyService.isPolicyScraped(request.getMemberId(), request.getPolicyId());
+        boolean isScraped = policyService.isPolicyScraped(request.getPolicyId(), request.getMemberId());
         PolicyScrapResponse response = new PolicyScrapResponse(isScraped);
         return ResponseEntity.ok(response);
     }

@@ -54,8 +54,8 @@ public class PolicyService {
         policyScrapRepository.delete(policyScrap);
     }
 
-    public boolean isPolicyScraped(Long memberId, Long policyId) {
-        return policyScrapRepository.existsByPolicyIdAndMemberId(memberId, policyId);
+    public boolean isPolicyScraped(Long policyId, Long memberId) {
+        return policyScrapRepository.existsByPolicyIdAndMemberId(policyId, memberId);
     }
 
     public List<PolicyResponse> getScrappedPoliciesByMember(Long memberId) {
