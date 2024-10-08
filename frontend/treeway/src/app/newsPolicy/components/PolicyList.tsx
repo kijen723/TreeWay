@@ -2,33 +2,95 @@ import styles from '../page.module.scss';
 import { LuEye } from 'react-icons/lu'; // 조회수 아이콘
 import { MdBookmarks } from 'react-icons/md'; // 스크랩 수 아이콘
 import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5'; // 스크랩 버튼 아이콘
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PolicyListProps } from '@/types/NewsPolicyPropsTypes';
 import { formatDateTime } from '@/util/formatDateTime';
 
 export default function PolicyList({ policyData }: PolicyListProps) {
-    const [scrapCounts, setScrapCounts] = useState(
-        policyData.map(policy => policy.scrapCount)
-    );
-    const [isScraped, setIsScraped] = useState(
-        policyData.map(policy => policy.isScrap)
-    );
+    const [policyList, setPolicyList] = useState(policyData || []);
+    const [loading, setLoading] = useState(true);
+    const memberId = 1; // 수정 필요
 
-    const toggleScrap = (index: number) => {
-        const updatedScrapStatus = [...isScraped];
-        updatedScrapStatus[index] = !updatedScrapStatus[index];
-        setIsScraped(updatedScrapStatus);
+    const fetchScrapStatus = async (policyId: number) => {
+        try {
+            const response = await fetch('https://j11b107.p.ssafy.io/api/policy/scrap/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: memberId,
+                    policyId: policyId,
+                }),
+            });
 
-        const updatedScrapCounts = [...scrapCounts];
-        updatedScrapCounts[index] = updatedScrapStatus[index]
-            ? updatedScrapCounts[index] + 1
-            : updatedScrapCounts[index] - 1;
-        setScrapCounts(updatedScrapCounts);
+            if (!response.ok) {
+                throw new Error('Failed to fetch scrap status');
+            }
+
+            const data = await response.json();
+            return data.isScraped;
+        } catch (error) {
+            console.error('Error fetching scrap status:', error);
+            return false;
+        }
     };
+
+    useEffect(() => {
+        const updateScrapStatusForAllPolicies = async () => {
+            const updatedPolicyList = await Promise.all(
+                policyData.map(async (policy) => {
+                    const isScrap = await fetchScrapStatus(policy.id);
+                    return { ...policy, isScrap };
+                })
+            );
+            setPolicyList(updatedPolicyList);
+            setLoading(false);
+        };
+
+        if (policyData.length > 0) {
+            updateScrapStatusForAllPolicies();
+        }
+    }, [policyData]);
+
+    const toggleScrap = async (index: number, policyId: number) => {
+        const updatedPolicyList = [...policyList];
+        const newScrapStatus = !updatedPolicyList[index].isScrap;
+
+        try {
+            const response = await fetch(`https://j11b107.p.ssafy.io/api/policy/scrap`, {
+                method: newScrapStatus ? 'POST' : 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: memberId,
+                    policyId: policyId,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update scrap status');
+            }
+
+            updatedPolicyList[index].isScrap = newScrapStatus;
+            updatedPolicyList[index].scrapCount = newScrapStatus
+                ? updatedPolicyList[index].scrapCount + 1
+                : updatedPolicyList[index].scrapCount - 1;
+
+            setPolicyList(updatedPolicyList);
+        } catch (error) {
+            console.error('Error updating scrap status:', error);
+        }
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className={styles.policyList}>
-            {policyData.map((policy, index) => {
+            {policyList.map((policy, index) => {
                 const { date: startDate, time: startTime } = formatDateTime(policy.startDate);
                 const { date: endDate, time: endTime } = formatDateTime(policy.endDate);
 
@@ -57,8 +119,8 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                                 <span><LuEye /> {policy.viewCount}</span>
                                 <span><MdBookmarks /> {policy.scrapCount}</span>
                             </div>
-                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index)}>
-                                {isScraped[index] ? (
+                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index, policy.id)}>
+                                {policy.isScrap ? (
                                     <IoBookmark className={styles.colorBookmark} />
                                 ) : (
                                     <IoBookmarkOutline className={styles.bookmark} />
@@ -66,7 +128,7 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                             </div>
                         </div>
                     </div>
-                )
+                );
             })}
         </div>
     );
