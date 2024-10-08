@@ -1,14 +1,39 @@
 'use client'
 
+import { useEffect, useState } from 'react';
 import styles from '@/app/mypage/page.module.scss';
 import RoundBtnGroup from "@/app/common/RoundBtnGroup";
 import { IoReader, IoBookmarks, IoHeart } from "react-icons/io5";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface StatusBarProps {
     setConType: (type: string) => void;
 }
 
 export default function ContentBtn({ setConType }: StatusBarProps) {
+    const [postCnt, setPostCnt] = useState<number>(0);
+    const scrapCnt = 0;
+    const likeCnt = 0;
+    const memberId = useSelector((state: RootState) => state.auth.memberId);
+
+    const fetchPostCount = async () => {
+        try {
+            const response = await fetch(`https://j11b107.p.ssafy.io/api/article/search?memberId=${memberId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch post count');
+            }
+            const data = await response.json();
+            setPostCnt(data.length);
+        } catch (error) {
+            console.error('Error fetching post count:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPostCount();
+    }, []);
+
     const handlePostClick = () => {
         setConType('post');
     };
@@ -28,10 +53,6 @@ export default function ContentBtn({ setConType }: StatusBarProps) {
     const likeButton = [
         { icon: IoHeart, alt: 'Like', onClick: handleLikeClick },
     ];
-
-    const postCnt = 0;
-    const scrapCnt = 0;
-    const likeCnt = 0;
 
     return (
         <>

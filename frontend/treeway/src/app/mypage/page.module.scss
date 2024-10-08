@@ -64,4 +64,87 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.postList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .post {
+        background-color: white;
+        width: 100%;
+        height: 15vh;
+        padding: 1%;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .postSummary {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h2 {
+            margin: 5px 0;
+        }
+
+        p {
+            margin: 0;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    }
+
+    .postInfo {
+        width: 40vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .postEnd {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+
+        *:only-child {
+            margin-left: auto;
+        }
+
+        .postImg {
+            height: 10vh;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .postStats {
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: space-between;
+
+            .count {
+                display: flex;
+                gap: 5px;
+            }
+        }
+
+    }
+}
+
+.loader {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #666;
 }
