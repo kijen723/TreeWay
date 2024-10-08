@@ -10,9 +10,11 @@ import java.util.List;
 public class TrendAnalysisResponse {
     private List<TrendAnalysisDTO> trendAnalysis;
     private List<KeywordAnalysisDTO> keywordAnalysis;
+    private List<NewsAnalysisDTO> newsAnalysis;
 
-    public TrendAnalysisResponse(List<TrendAnalysisDTO> trendAnalysis, List<KeywordAnalysisDTO> keywordAnalysis) {
+    public TrendAnalysisResponse(List<TrendAnalysisDTO> trendAnalysis, List<KeywordAnalysisDTO> keywordAnalysis, List<NewsAnalysisDTO> newsAnalysis) {
         this.trendAnalysis = trendAnalysis;
         this.keywordAnalysis = keywordAnalysis;
+        this.newsAnalysis = newsAnalysis;
     }
 }
