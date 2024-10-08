@@ -14,10 +14,10 @@ export default function Home() {
       <Progress />
       <div className={styles.home}>
         <ImgBox />
-        <Intro/>
-        <Why/>
-        <Final/>
-        <Footer/>
+        <Intro />
+        <Why />
+        <Final />
+        <Footer />
         {/* <FirstBox /> */}
         {/* <SecondBox /> */}
       </div>

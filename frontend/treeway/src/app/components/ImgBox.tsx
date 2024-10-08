@@ -36,9 +36,9 @@ export default function ImgBox() {
   // })
   const dispatch = useDispatch();
   const router = useRouter();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(changeShopIndex(0));
-  }, [])
+  }, []);
   return (
     <div className={styles.imgBox}>
       <motion.span
@@ -62,8 +62,8 @@ export default function ImgBox() {
         initial={{ opacity: 0, translateY: "-5px" }}
         animate={{ opacity: 1, translateY: "5px" }}
         transition={{ delay: 1.5, duration: 0.7 }}
-        onClick={()=>{
-            router.push("/main")
+        onClick={() => {
+          router.push("/main");
         }}
       >
         시작하기
@@ -72,12 +72,12 @@ export default function ImgBox() {
         className={styles.bottom}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, translateY: [5, 0, 5, 0, 5] }}
-        transition={{ delay: 2, duration: 2, repeat : Infinity }}
-        onClick={()=>{
-            window.scrollBy({
-                top : window.innerHeight,
-                behavior : 'smooth',
-            })
+        transition={{ delay: 2, duration: 2, repeat: Infinity }}
+        onClick={() => {
+          window.scrollBy({
+            top: window.innerHeight,
+            behavior: "smooth",
+          });
         }}
       >
         <FaAnglesDown />
