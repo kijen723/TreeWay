@@ -39,37 +39,16 @@ interface Store {
 }
 
 export default function SideDetailItem({ data }: { data: Store }) {
-  const router = useRouter();
-  const shopIdx = useSelector((state: RootState) => state.shopIndex.value);
   const dispatch = useDispatch();
   const targetRef = useRef<HTMLDivElement | null>(null);
   const nullRef = useRef<HTMLDivElement | null>(null);
-  const params = useParams();
-  useEffect(() => {
-    if (targetRef.current) {
-      targetRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-  }, [shopIdx]);
   return (
     <div
       className={styles.item}
-      ref={shopIdx === data.id ? targetRef : nullRef}
-      style={shopIdx === data.id ? { background: "#ECF4DD" } : {}}
       onClick={() => {
-        dispatch(changeShopIndex(data.id));
-        if (params?.id) {
-          router.push(`/main/${data.id}`)
-        }
+        alert("찜을 취소하시겠습니까?")
       }}
     >
-      {shopIdx === data.id ? (
-        <SlArrowRightCircle className={styles.back} onClick={() => {
-          router.push(`/main/${data.id}`)
-        }} />
-      ) : null}
       <div className={styles.Info}>
         <div className={styles.top}>
           <span className={styles.category}>{data.majorBusiness}</span>
