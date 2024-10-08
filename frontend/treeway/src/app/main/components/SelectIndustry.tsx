@@ -8,8 +8,13 @@ export default function SelectIndustry() {
 =======
 import styles from './SelectIndustry.module.scss';
 import AnalyzeBox from './AnalyzeBox';
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
+=======
+import { useRecommandIndustry } from '@/hooks/useRecommand';
+
+>>>>>>> 454cf81 (feat:종합, 지역, 종합 api 연결)
 export default function SelectIndustry() {
   const [budget, setBudget] = useState('');
   const [businessHours, setBusinessHours] = useState<number>(0);
@@ -22,12 +27,21 @@ export default function SelectIndustry() {
   const [selectedMainLocation, setSelectedMainLocation] = useState('전국'); // 대지역 디폴트값
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
 
+  const RecomandIndustry = useRecommandIndustry({
+    onSuccess: () => {
+      console.log('성공적');
+    },
+    onError: () => {
+      console.error('Error:');
+    },
+  });
+
   // "전국"을 포함한 새로운 allLocations 생성
   const allLocations = [
-    { label: '전국', value: '1', districts: [] },
+    { label: '전국', value: 1, districts: [] },
     ...locations,
   ];
-  const [regionCode, setRegionCode] = useState(
+  const [regionCode, setRegionCode] = useState<number>(
     allLocations.find((location) => location.label === '전국')?.value || 1
   ); // 시군구 코드
 
@@ -125,6 +139,13 @@ export default function SelectIndustry() {
       console.log('입력한 예산:', budget ? Number(budget) : 0);
       // 종합 추천 결과 처리 로직
 
+      RecomandIndustry.mutate({
+        businessHours,
+        regionCode,
+        budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
+      });
+
+      console.log(RecomandIndustry);
       setShowModal(true);
     }
   };

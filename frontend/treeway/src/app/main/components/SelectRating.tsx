@@ -8,8 +8,12 @@ import locations from '@/app/common/locations';
 import locations from '@/app/common/locations'; // LocationItem 타입 기반
 import styles from './SelectRating.module.scss';
 import AnalyzeBox from './AnalyzeBox';
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
+=======
+import { useRecommandOverall } from '@/hooks/useRecommand';
+>>>>>>> 454cf81 (feat:종합, 지역, 종합 api 연결)
 
 interface CategoryItem {
   label: string;
@@ -19,7 +23,7 @@ interface CategoryItem {
 
 export default function SelectRating() {
   const [budget, setBudget] = useState('');
-  const [businessHours, setBusinessHours] = useState('');
+  const [businessHours, setBusinessHours] = useState(0);
   const [showBudgetError, setShowBudgetError] = useState(false);
   const [showBusinessHoursError, setShowBusinessHoursError] = useState(false);
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
@@ -29,10 +33,18 @@ export default function SelectRating() {
     locations.find((location) => location.label === '서울특별시')
       ?.districts[0] || ''
   ); // 시군구 디폴트값
-
-  const [regionCode, setRegionCode] = useState(
+  const [regionCode, setRegionCode] = useState<number>(
     locations.find((location) => location.label === '서울특별시')?.value || 0
   );
+
+  const RecomandOverall = useRecommandOverall({
+    onSuccess: () => {
+      console.log('성공적');
+    },
+    onError: () => {
+      console.error('Error:');
+    },
+  });
 
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
 
@@ -103,9 +115,18 @@ export default function SelectRating() {
       console.log('선택한 시군구:', selectedDistrict);
       console.log('시 코드: ', regionCode);
       console.log('선택한 소업종:', selectedSubCategory.label);
+      console.log('선택한 소업종 코드:', selectedSubCategory.value);
       console.log('선택한 영업시간:', businessHours);
       console.log('입력한 예산:', budget);
       // 종합 추천 결과 처리 로직\
+
+      RecomandOverall.mutate({
+        businessHours,
+        regionCode,
+        budget: budget ? Number(budget) : 0,
+        industry_id: 1,
+        industry_detail_id: selectedSubCategory.value,
+      });
 
       setShowModal(true);
     }
@@ -355,7 +376,7 @@ export default function SelectRating() {
       <select
         id='business-hours'
         value={businessHours}
-        onChange={(e) => setBusinessHours(e.target.value)}
+        onChange={(e) => setBusinessHours(Number(e.target.value))}
       >
         <option value=''>--영업시간 선택--</option>
         <option value='1'>09시~18시</option>

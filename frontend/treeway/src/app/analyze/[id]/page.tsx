@@ -12,7 +12,12 @@ const AnalyzePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
+    const scrollableDiv = document.querySelector(`.${styles.WhiteBox}`);
+    if (scrollableDiv) {
+      scrollableDiv.scrollTo({ top: 0, behavior: 'smooth' }); // 스크롤 맨 위로 이동
+    }
   };
+
   useEffect(() => {
     setSelectedCategory('업종분석');
   }, []);

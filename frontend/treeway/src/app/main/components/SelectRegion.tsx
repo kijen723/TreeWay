@@ -29,12 +29,12 @@ export default function SelectRegion() {
   const [showBusinessHoursError, setShowBusinessHoursError] = useState(false);
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
-  const updatePetIntroduction = useRecommandRegion({
+  const RecomandRegion = useRecommandRegion({
     onSuccess: () => {
       console.log('성공적');
     },
     onError: () => {
-      console.error('Error11:');
+      console.error('Error:');
     },
   });
 
@@ -88,7 +88,7 @@ export default function SelectRegion() {
       console.log('선택 업종 value:', selectedSubCategory.value); // value 출력
       console.log('선택한 영업시간:', businessHours);
       console.log('입력한 예산:', budget ? Number(budget) : 0); // 예산이 빈 문자열이면 null로 처리
-      updatePetIntroduction.mutate({
+      RecomandRegion.mutate({
         businessHours,
         selectedSubCategory: selectedSubCategory.value, // value를 전달
         budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
