@@ -1,5 +1,5 @@
 import MyPostList from "./MyPostList";
-import styles from "../../page.module.scss"
+import MySalesItemList from "./MySalesItemList";
 
 interface ContentListProps {
     contentType: string;
@@ -16,7 +16,9 @@ export default function ContentList({ contentType } : ContentListProps) {
             ) : contentType === 'scrap' ? (
                 <div>스크랩 목록</div>
             ) : (
-                <div>매물 찜 목록</div>
+                <div>
+                    <MySalesItemList />
+                </div>
             )}
         </div>
     );
