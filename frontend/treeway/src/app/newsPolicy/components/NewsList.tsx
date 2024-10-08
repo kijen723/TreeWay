@@ -109,7 +109,6 @@ export default function NewsList({ newsData }: NewsListProps) {
                         </div>
                         <div className={styles.newsStats}>
                             <div className={styles.count}>
-                                <span><LuEye /> {news.viewCount}</span>
                                 <span><MdBookmarks /> {news.scrapCount}</span>
                             </div>
                             <div className={styles.scrapBtn} onClick={() => toggleScrap(index, news.id)}>

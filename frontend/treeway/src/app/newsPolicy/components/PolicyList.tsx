@@ -118,7 +118,6 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                         </div>
                         <div className={styles.policyStats}>
                             <div className={styles.count}>
-                                <span><LuEye /> {policy.viewCount}</span>
                                 <span><MdBookmarks /> {policy.scrapCount}</span>
                             </div>
                             <div className={styles.scrapBtn} onClick={() => toggleScrap(index, policy.id)}>
