@@ -2,13 +2,11 @@ package com.b107.treeway.api.analysis.controller;
 
 import com.b107.treeway.api.analysis.dto.AnalysisResponse;
 import com.b107.treeway.api.analysis.dto.IndustryAnalysisResponse;
+import com.b107.treeway.api.analysis.dto.TrendAnalysisResponse;
 import com.b107.treeway.api.analysis.service.AnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,12 @@ public class AnalysisController {
         AnalysisResponse analysisResponse = analysisService.getAnalysisData(regionId, industryDetailId);
 
         return ResponseEntity.ok(analysisResponse);
+    }
+
+    @GetMapping("/trend/{SIG_CD}")
+    public ResponseEntity<TrendAnalysisResponse> getTrendAndKeywordAnalysis(@PathVariable("SIG_CD") Integer SIG_CD) {
+        TrendAnalysisResponse trendAnalysisResponse = analysisService.getTrendAndKeywordAnalysis(SIG_CD);
+
+        return ResponseEntity.ok(trendAnalysisResponse);
     }
 }
