@@ -99,6 +99,7 @@ export default function NewsList({ newsData }: NewsListProps) {
                     <div key={index} className={styles.news}>
                         <div className={styles.newsBody}>
                             <div className={styles.newsInfo}>
+                                <span>{news.regionName}</span>
                                 <span>{date} {time}</span>
                             </div>
                             <a className={styles.newsTitle} href={news.url} target="_blank">
