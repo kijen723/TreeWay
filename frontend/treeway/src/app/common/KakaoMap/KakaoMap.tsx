@@ -2,6 +2,9 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
@@ -13,6 +16,7 @@ import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SearchBtn from "@/app/main/components/SearchBtn";
 import { usePathname } from "next/navigation";
+<<<<<<< HEAD
 =======
 import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
@@ -37,6 +41,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import SearchBtn from '@/app/main/components/SearchBtn';
 import { usePathname } from 'next/navigation';
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
+=======
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -45,10 +51,12 @@ export default function KakaoMap() {
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const data = useSelector((state: RootState) => state.dumdata.value);
   const [scriptLoad, setScriptLoad] = useState<boolean>(false);
+  const [zoomLevel, setZoomLevel] = useState<number>(4);
   const [nowPosition, setNowPosition] = useState<LatLng>({
     lat: 36.628297,
     lng: 127.492533,
   });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
@@ -74,6 +82,9 @@ export default function KakaoMap() {
 
       return response.json();
 =======
+=======
+  const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
   const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
     const response = await fetch("https://j11b107.p.ssafy.io/api/sales/map", {
       method: "POST",
@@ -84,6 +95,7 @@ export default function KakaoMap() {
     });
     if (!response.ok) {
       throw new Error("Failed to send location data");
+<<<<<<< HEAD
 >>>>>>> dc46a3e (feat : modify kakaoMap)
     }
 <<<<<<< HEAD
@@ -110,6 +122,12 @@ export default function KakaoMap() {
 =======
   );
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
+=======
+    }
+
+    return response.json();
+  });
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
 
   const getInfo = () => {
     const map = mapRef.current;
@@ -184,13 +202,19 @@ export default function KakaoMap() {
         <Map
           center={{ lat: nowPosition.lat, lng: nowPosition.lng }}
           style={{ width: "100%", height: "100%" }}
+<<<<<<< HEAD
           level={4}
+=======
+          level={zoomLevel}
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
           isPanto={true}
           ref={mapRef}
-          draggable={pathName === '/main' ? true : false}
-          zoomable={pathName === '/main' ? true : false}
+          onZoomChanged={(map) => {
+            const newZoomLevel = map.getLevel();
+            setZoomLevel(newZoomLevel);
+          }}
         >
-          <SearchBtn getInfo={getInfo} />
+          {pathName === "/main" && <SearchBtn zoomLevel={zoomLevel} getInfo={getInfo} />}
           <MarkerClusterer averageCenter={true} minLevel={3}>
             {Array.isArray(data) &&
               data.map((value, index) => {
@@ -220,6 +244,7 @@ export default function KakaoMap() {
                     }
                     onClick={() => {
                       dispatch(changeShopIndex(value.salesId));
+                      setZoomLevel(2);
                     }}
                   />
                 );

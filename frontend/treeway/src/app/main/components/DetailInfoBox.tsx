@@ -11,7 +11,6 @@ type propsType = {
 export default async function DetailInfoBox({ params }: propsType) {
   const res = await fetch(`https://j11b107.p.ssafy.io/api/sales/${params.id}`)
   const data = await res.json();
-  console.log(data);
   return (
     <>
       <div className={styles.main}>

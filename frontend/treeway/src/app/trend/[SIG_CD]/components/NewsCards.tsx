@@ -1,6 +1,7 @@
+import { trendData } from "@/types/TrendDataType";
 import styles from "./NewsCards.module.scss";
 
-const data = [
+const data1 = [
   {
     title: "김경 문화체육위원장, '학교체육시설 개방 활성화 방안 마련 토론회'개...",
     content:
@@ -38,13 +39,13 @@ const data = [
   },
 ];
 
-export default async function NewsCards({ SIG_CD }: { SIG_CD: number }) {
+export default async function NewsCards({ data }: { data: trendData }) {
   // const res = await fetch('https://j11b107.p.ssafy.io/api/??');
   // const data = await res.json();
 
   return (
     <div className={styles.NewsCards}>
-      {data.map((value, index) => {
+      {data1.map((value, index) => {
         return (
           <a className={styles.Card} href={value.url} target="_blank">
             <span className={styles.date}>{value.data}</span>

@@ -1,6 +1,6 @@
-import { FaLocationDot, FaWonSign } from 'react-icons/fa6';
-import styles from './DetailInfoBox.module.scss';
-import { Store } from '@/types/MapType';
+import { FaHeart, FaLocationDot, FaRegHeart, FaWonSign } from "react-icons/fa6";
+import styles from "./DetailInfoBox.module.scss";
+import { Store } from "@/types/MapType";
 
 export default function DetailInfoTop({ data }: { data: Store }) {
   return (
@@ -12,8 +12,15 @@ export default function DetailInfoTop({ data }: { data: Store }) {
           </span>
         </div>
         <div className={styles.premium}>
-          <FaWonSign />
-          <span> 권리금 : {Math.round(data.premium / 10000)}만원</span>
+          <div>
+            <FaWonSign />
+            <span> 권리금 : {Math.round(data.premium / 10000)}만원</span>
+          </div>
+          <div>
+            {/* 둘 중 하나만 나오게 만들어야함 */}
+            <FaRegHeart className={styles.heart} />
+            <FaHeart />
+          </div>
         </div>
         <div className={styles.address}>
           <FaLocationDot />

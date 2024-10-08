@@ -6,10 +6,29 @@
     height : 6vh;
     position : fixed;
     bottom : 2vh;
-    left : 47vw;
+    left : 45vw;
     z-index: 10;
-    background-color: rgb(255, 255, 255, 0.3);
+    color : white;
+    font-weight : bold;
+    background-color: #FFB704;
     backdrop-filter: blur(20px);
     border-radius: 10px;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.3);
+    cursor : pointer;
+    transition : all 0.1s;
+
+    &:hover{
+        transform : scale(1.05);
+        background-color: #f5af00;
+    }
+}
+
+.script{
+    position : fixed;
+    bottom : 2vh;
+    left : 27vw;
+    z-index: 10;
+    font-size : 2vw;
+    font-weight : bold;
+    color : red;
 }

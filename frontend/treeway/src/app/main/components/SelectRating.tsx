@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import categories from '@/app/common/categories';
 <<<<<<< HEAD
@@ -8,6 +8,8 @@ import locations from '@/app/common/locations';
 import locations from '@/app/common/locations'; // LocationItem 타입 기반
 import styles from './SelectRating.module.scss';
 import AnalyzeBox from './AnalyzeBox';
+import { useDispatch } from 'react-redux';
+import { changeDumData } from '@/redux/slice/dumdataSlice';
 
 interface CategoryItem {
   label: string;
@@ -108,6 +110,10 @@ export default function SelectRating() {
       setShowModal(true);
     }
   };
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changeDumData([]));
+  }, [])
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ더미데이터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const score = 85;

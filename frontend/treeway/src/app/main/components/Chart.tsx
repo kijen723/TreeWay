@@ -16,8 +16,8 @@ export default function Chart({ shopData }: { shopData: Store }) {
         data: [
           shopData.materialCost,
           shopData.personnelExpense,
-          shopData.administrationCost,
           shopData.monthlyRent,
+          shopData.administrationCost,
           shopData.utilityBill,
           shopData.otherExpenses,
           shopData.monthlyEarnings,

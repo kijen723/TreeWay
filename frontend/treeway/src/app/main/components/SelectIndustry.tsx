@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import locations from '@/app/common/locations';
 <<<<<<< HEAD
 
@@ -8,6 +8,8 @@ export default function SelectIndustry() {
 =======
 import styles from './SelectIndustry.module.scss';
 import AnalyzeBox from './AnalyzeBox';
+import { useDispatch } from 'react-redux';
+import { changeDumData } from '@/redux/slice/dumdataSlice';
 export default function SelectIndustry() {
   const [budget, setBudget] = useState('');
   const [businessHours, setBusinessHours] = useState<number>(0);
@@ -126,6 +128,11 @@ export default function SelectIndustry() {
       setShowModal(true);
     }
   };
+
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changeDumData([]));
+  }, [])
 
   return (
     <div>

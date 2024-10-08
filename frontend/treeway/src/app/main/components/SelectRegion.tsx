@@ -1,12 +1,17 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import categories from '@/app/common/categories';
 <<<<<<< HEAD
 =======
 import styles from './SelectRating.module.scss';
 import { useRecommandRegion } from '@/hooks/useRecommand';
 import AnalyzeBox from './AnalyzeBox';
+<<<<<<< HEAD
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
+=======
+import { useDispatch } from 'react-redux';
+import { changeDumData } from '@/redux/slice/dumdataSlice';
+>>>>>>> 8a88ecf (feat : modify trend page and main page)
 
 interface CategoryItem {
   label: string;
@@ -141,6 +146,11 @@ export default function SelectRegion() {
       monthlyEarnings: 1000000,
     },
   ];
+
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changeDumData([]));
+  }, [])
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   return (

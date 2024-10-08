@@ -28,11 +28,11 @@ export default function DetailInfoMid({ data }: { data: Store }) {
         </div>
         <div className={styles.parking}>
           <span>주차</span>
-          {data.totalParking === -1 ? (
+          {data.totalParking === -1 || data.totalParking === 0 ? (
             <span>주차불가</span>
           ) : (
             <span>
-              {data.totalParking}대 / {data.availableParking}대
+              {data.availableParking}대 / {data.totalParking}대
             </span>
           )}
         </div>

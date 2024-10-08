@@ -53,7 +53,7 @@ export default function SideDetailItem({ data }: { data: Store }) {
           <span>보증금 {Math.floor(data.administrationCost / 10000)}만원</span>
         </div>
         <span className={styles.mid2}>
-          월세 {Math.floor(data.monthlyRent / 10000)}만원
+          월세 {Math.floor(data.administrationCost / 10000)}만원
         </span>
         <div className={styles.bottom}>
           <FaWonSign className={styles.icon} />
