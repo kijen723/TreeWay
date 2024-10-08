@@ -3,6 +3,7 @@ package com.b107.treeway.api.rating.service;
 import com.b107.treeway.api.rating.repository.BusinessHourRepository;
 import com.b107.treeway.api.rating.repository.RatingRepository;
 import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.request.RegionRatingRequest;
 import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.rating.response.RatingResponse;
@@ -22,8 +23,8 @@ public class RatingService {
         return ratingRepository.getIndustryRating(subRatingRequest);
     }
 
-    public List<RegionRatingResponse> getRatingRegion(SubRatingRequest subRatingRequest) {
-        return ratingRepository.getRegionRating(subRatingRequest);
+    public List<RegionRatingResponse> getRatingRegion(RegionRatingRequest regionRatingRequest) {
+        return ratingRepository.getRegionRating(regionRatingRequest);
     }
 
     public List<RatingResponse> getRating(RatingRequest ratingRequest) {

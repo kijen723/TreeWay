@@ -1,6 +1,7 @@
 package com.b107.treeway.api.rating.controller;
 
 import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.request.RegionRatingRequest;
 import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.rating.response.RatingResponse;
@@ -34,8 +35,8 @@ public class RatingController {
 
     @PostMapping("/region")
     @Operation(summary = "지역 추천")
-    public ResponseEntity<List<RegionRatingResponse>> getRegionRating(@RequestBody SubRatingRequest subRatingRequest){
-        List<RegionRatingResponse> regionRating = ratingService.getRatingRegion(subRatingRequest);
+    public ResponseEntity<List<RegionRatingResponse>> getRegionRating(@RequestBody RegionRatingRequest regionRatingRequest){
+        List<RegionRatingResponse> regionRating = ratingService.getRatingRegion(regionRatingRequest);
         return ResponseEntity.ok().body(regionRating);
     }
 

@@ -2,6 +2,7 @@ package com.b107.treeway.api.rating.repository;
 
 import com.b107.treeway.api.rating.entity.*;
 import com.b107.treeway.api.rating.request.RatingRequest;
+import com.b107.treeway.api.rating.request.RegionRatingRequest;
 import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
 import com.b107.treeway.api.rating.response.RatingResponse;
@@ -99,11 +100,11 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @Override
     @Transactional
-    public List<RegionRatingResponse> getRegionRating(SubRatingRequest subRatingRequest) {
+    public List<RegionRatingResponse> getRegionRating(RegionRatingRequest regionRatingRequest) {
 
-        int businessTime = subRatingRequest.getBusinessTime();
-        int region = subRatingRequest.getRegion();
-        int cost = subRatingRequest.getCost();
+        int businessTime = regionRatingRequest.getBusinessTime();
+        int industryItemId = regionRatingRequest.getIndustryItemId();
+        int cost = regionRatingRequest.getCost();
 
         QRating rt = QRating.rating;
         QRegion rg = QRegion.region;
@@ -165,8 +166,8 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
             conditions = conditions.and(bh.businessTime.eq(businessTime));
         }
 
-        if (region != 0) {
-            conditions = conditions.and(rg.id.eq(Long.valueOf(region)));
+        if (industryItemId != 0) {
+            conditions = conditions.and(idl.id.eq(Long.valueOf(industryItemId)));
         }
 
         if (cost != 0) {
