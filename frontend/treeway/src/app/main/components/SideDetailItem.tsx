@@ -49,16 +49,16 @@ export default function SideDetailItem({ data }: { data: Store }) {
           <FaLocationDot /> {data.address}
         </span>
         <div className={styles.mid}>
-          <span>권리금 {Math.floor(data.personnel_expense / 10000)}만원 /</span>
-          <span>보증금 {Math.floor(data.administration_cost / 10000)}만원</span>
+          <span>권리금 {Math.floor(data.personnelExpense / 10000)}만원 /</span>
+          <span>보증금 {Math.floor(data.administrationCost / 10000)}만원</span>
         </div>
         <span className={styles.mid2}>
-          월세 {Math.floor(data.monthly_rent / 10000)}만원
+          월세 {Math.floor(data.monthlyRent / 10000)}만원
         </span>
         <div className={styles.bottom}>
           <FaWonSign className={styles.icon} />
           <span>월매출 {Math.floor(data.monthlySales / 10000)}만원 /</span>
-          <span>월수익 {Math.floor(data.monthly_earnings / 10000)}만원</span>
+          <span>월수익 {Math.floor(data.monthlyEarnings / 10000)}만원</span>
         </div>
       </div>
     </div>

@@ -19,20 +19,20 @@ export default function DetailInfoMid({ data }: { data: Store }) {
         <div className={styles.floor}>
           <span>층수</span>
           <span>
-            지상 {data.current_floor}/{data.total_floors}층
+            지상 {data.currentFloor}/{data.totalFloors}층
           </span>
         </div>
         <div className={styles.squreMeter}>
           <span>평수</span>
-          <span>실면적 {data.square_meter / 10000}평</span>
+          <span>실면적 {data.squareMeter / 10000}평</span>
         </div>
         <div className={styles.parking}>
           <span>주차</span>
-          {data.total_parking === -1 ? (
+          {data.totalParking === -1 ? (
             <span>주차불가</span>
           ) : (
             <span>
-              {data.total_parking}대 / {data.available_parking}대
+              {data.totalParking}대 / {data.availableParking}대
             </span>
           )}
         </div>

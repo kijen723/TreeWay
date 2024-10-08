@@ -136,8 +136,6 @@ export default function KakaoMap() {
 
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0 && shopIdx !== 0) {
-      console.log(shopIdx);
-      console.log(data);
       setNowPosition({
         lat: data.find((a: Store) => a.salesId === shopIdx)!.latitude,
         lng: data.find((a: Store) => a.salesId === shopIdx)!.longitude,
