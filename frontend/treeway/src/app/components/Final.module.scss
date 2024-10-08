@@ -23,15 +23,35 @@
 
         .second{
             font-size : 5vw;
-            color : #E94A21;
             opacity: 0;
             transition : opacity 0.5s linear;
+            color : #ec9b30;
         }
 
         .last{
             font-size : 17vw;
             color : #588157;
             text-shadow: 10px 10px black;
+        }
+
+        .start{
+            display :flex;
+            justify-content: center;
+            align-items: center;
+            width : 300px;
+            height : 100px;
+            border-radius: 20px;
+            font-size : 3vw;
+            color : white;
+            background-color: #FFB704;
+            box-shadow: 4px 4px 4px #bc8702;
+            transition : 0.3s all;
+
+            &:hover{
+                cursor : pointer;
+                background-color : #d19601;
+            }
+            
         }
     }
 }

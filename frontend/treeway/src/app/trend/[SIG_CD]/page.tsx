@@ -15,10 +15,9 @@ export default async function TrendDetail({
   const location = searchParams.location;
   const SIG_CD = Number(params.SIG_CD);
 
-  const res = await fetch(`https://j11b107.p.ssafy.io/api/analysis/trend/${SIG_CD}`)
+  const res = await fetch(`https://j11b107.p.ssafy.io/api/analysis/trend/${SIG_CD}`, {cache : "no-store"})
   const data:trendData = await res.json();
 
-  console.log(data);
   return (
     <>
       <div className={styles.detailBox}>

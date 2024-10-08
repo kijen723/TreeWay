@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Final.module.scss";
 import { motion, useAnimation } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function Final() {
   const height = window.innerHeight;
@@ -12,7 +13,6 @@ export default function Final() {
 
   const scrollhandle = () => {
     const scrollY = window.scrollY;
-    console.log(scrollY);
 
     if (scrollY <= 3100 + height) {
       setState(0);
@@ -41,6 +41,8 @@ export default function Final() {
       window.removeEventListener("scroll", scrollhandle);
     };
   }, []);
+
+  const router = useRouter();
 
   const textVariants = {
     initial: { opacity: 0, y: 20 },
@@ -80,13 +82,33 @@ export default function Final() {
           <div className={styles.second}>error</div>
         )}
         {state === 5 ? (
-          <motion.div 
-          className={styles.last}
-          style={{translateY : "-70px"}}
-          initial = {{scale : 5}}
-          animate = {{scale : 1}}
-          transition = {{duration : 0.3}}
-          >TREEWAY</motion.div>
+          <>
+            <motion.div
+              className={styles.last}
+              style={{ translateY: "-70px" }}
+              initial={{ scale: 5 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              TREEWAY
+            </motion.div>
+            <motion.span
+              className={styles.start}
+              initial={{ opacity: 0 }}
+              whileInView={{
+                opacity : 1,
+                transition: {
+                  delay: 2,
+                  duration: 0.5,
+                },
+              }}
+              onClick={()=>{
+                router.push("/main")
+            }}
+            >
+              시작하기
+            </motion.span>
+          </>
         ) : null}
       </div>
     </div>

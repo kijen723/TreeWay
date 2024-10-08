@@ -59,7 +59,7 @@ export default function Intro() {
     }
   }, []);
 
-  const [imgSrc, setImgSrc] = useState<string>("/image/cat.jpg");
+  const [imgSrc, setImgSrc] = useState<string>("/image/intro1.jpg");
   const [nowCard, setNowCard] = useState<number>(0);
 
   useEffect(() => {
