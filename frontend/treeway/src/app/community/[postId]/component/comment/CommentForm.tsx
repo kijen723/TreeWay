@@ -3,6 +3,8 @@
 import Button from '@/app/common/Button';
 import styles from '@/app/community/[postId]/page.module.scss';
 import { useState } from 'react';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface ClickEventProps {
     postId: number;
@@ -14,8 +16,7 @@ export default function CommentForm({ postId, onClick, onCommentSubmit }: ClickE
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false); 
 
-    // const memberId = useSelector((state: RootState) => state.auth.memberId); // persist 고치기 ㅜㅜ
-    const memberId = 1;
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setComment(event.target.value);

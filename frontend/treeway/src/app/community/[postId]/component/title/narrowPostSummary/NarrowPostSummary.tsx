@@ -5,6 +5,8 @@ import PostInfo from '../PostInfo';
 import EditDeleteBtn from '../EditDeleteBtn';
 import { PostType } from '@/types/CommunityPropsTypes';
 import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface postProp {
     post: PostType,
@@ -14,7 +16,7 @@ interface postProp {
 export default function NarrowPostSummary({ post, onClick }: postProp) {
     const [isScraped, setIsScraped] = useState<boolean>(false);
     const [scrapCount, setScrapCount] = useState<number>(post.scrapCount ?? 0);
-    const memberId = 1;  // 수정 필요
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     useEffect(() => {
         const checkScrapStatus = async () => {
@@ -69,7 +71,7 @@ export default function NarrowPostSummary({ post, onClick }: postProp) {
                             memberId={memberId}
                             onToggle={handleScrapToggle}
                         />
-                        {true ? <EditDeleteBtn postId={post.id}/> : null}
+                        {memberId === post.memberId ? <EditDeleteBtn postId={post.id}/> : null}
                     </div>
                 </div>
             </div>

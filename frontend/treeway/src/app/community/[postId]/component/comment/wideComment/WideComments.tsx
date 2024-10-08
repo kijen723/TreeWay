@@ -14,8 +14,7 @@ interface commentsProps {
 }
 
 export default function WideComments({ postId, commentList, onCommentSubmit, onCommentDelete } : commentsProps) {
-    // const memberId = useSelector((state: RootState) => state.auth.memberId);
-    const memberId = 1;
+    const memberId = useSelector((state: RootState) => state.auth.memberId);
 
     return (
         <div className={styles.wideComments}>

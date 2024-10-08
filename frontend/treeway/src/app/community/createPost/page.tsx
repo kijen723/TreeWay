@@ -7,6 +7,8 @@ import FormField from '@/app/regist/components/FormField';
 import Dropdown from './component/Dropdown';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 import { regionOptions } from '@/../public/data/region';
 import { industryDetailOptions } from '@/../public/data/industry_detail';
@@ -18,7 +20,7 @@ export default function CreatePost() {
     const [region, setRegion] = useState(0); 
     const [subCategory, setSubCategory] = useState(0); 
 
-    const memberId = 1; // 수정 필요
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);

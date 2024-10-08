@@ -3,17 +3,17 @@ import { setCookie, deleteCookie } from 'cookies-next';
 
 interface AuthState {
   isAuth: boolean; 
-  memberId: number | null;
-  username: string | null; 
-  email: string | null;
+  memberId: number;
+  username: string; 
+  email: string;
 };
 
 // 초기 상태
 const initialState: AuthState = {
   isAuth: false,
-  memberId: null, 
-  username: null,
-  email: null,
+  memberId: 0, 
+  username: "",
+  email: "",
 };
 
 export const authSlice = createSlice({
@@ -29,9 +29,9 @@ export const authSlice = createSlice({
     },
     logOut: (state) => {
       state.isAuth = false;
-      state.memberId = null;
-      state.username = null;
-      state.email = null;
+      state.memberId = 0;
+      state.username = "";
+      state.email = "";
       deleteCookie('isAuth');
     },
   },

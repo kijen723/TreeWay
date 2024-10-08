@@ -5,6 +5,8 @@ import { MdBookmarks } from "react-icons/md";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { PostType } from "@/types/CommunityPropsTypes";
 import { formatDateTime } from '@/util/formatDateTime';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface PostProps {
   post: PostType;
@@ -14,7 +16,7 @@ interface PostProps {
 export default function Post({ post, onClick }: PostProps) {
   const { date, time } = formatDateTime(post.createdAt);
 
-  const memberId = 1; // 수정 필요
+  const memberId = useSelector((state :RootState) => state.auth.memberId);
 
   return (
     <div className={styles.post} onClick={onClick}>

@@ -5,11 +5,13 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { NewsListProps } from "@/types/NewsPolicyPropsTypes";
 import { formatDateTime } from '@/util/formatDateTime';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function NewsList({ newsData }: NewsListProps) {
     const [newsList, setNewsList] = useState(newsData || []);
     const [loading, setLoading] = useState(true);
-    const memberId = 1; // 수정 필요
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const fetchScrapStatus = async (newsId: number) => {
         try {

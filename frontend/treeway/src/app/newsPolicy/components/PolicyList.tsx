@@ -5,11 +5,13 @@ import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5'; // 스크랩 �
 import { useState, useEffect } from 'react';
 import { PolicyListProps } from '@/types/NewsPolicyPropsTypes';
 import { formatDateTime } from '@/util/formatDateTime';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function PolicyList({ policyData }: PolicyListProps) {
     const [policyList, setPolicyList] = useState(policyData || []);
     const [loading, setLoading] = useState(true);
-    const memberId = 1; // 수정 필요
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const fetchScrapStatus = async (policyId: number) => {
         try {

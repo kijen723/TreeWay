@@ -7,6 +7,8 @@ import UpperNav from './component/UpperNav';
 import styles from './page.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import { PostType } from '@/types/CommunityPropsTypes';
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 // 전체 게시글
 const fetchPosts = async (): Promise<PostType[]> => {
@@ -28,24 +30,15 @@ const fetchScrappedPosts = async (memberId: number): Promise<PostType[]> => {
 export default function Community() {
     const [currentPage, setCurrentPage] = useState(1); 
     const postsPerPage = 4; // 페이지당 4개 보여주기
-    const memberId = 1; // 스토어에서 가져오기
+    const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const [sortBy, setSortBy] = useState<'Latest' | 'ViewCount' | 'ScrapCount'>('Latest');
 
     // 전체 게시글 불러오기
     const { data: postList } = useQuery(['postList'], fetchPosts);
 
-    // 스크랩한 게시글 불러오기
-    const { data: scrappedPosts } = useQuery(['scrappedPosts', memberId], () => fetchScrappedPosts(memberId));
-    
-    // 스크랩된 게시글이 있는지 확인하여 isScrap 추가
-    const enrichedPostList = postList?.map((post: PostType) => {
-        const isScrap = scrappedPosts?.some((scrapPost: PostType) => scrapPost.id === post.id) || false;
-        return { ...post, isScrap };
-    });
-
     // 정렬
-    const sortedPostList = enrichedPostList?.slice().sort((a, b) => {
+    const sortedPostList = postList?.slice().sort((a, b) => {
         if (sortBy === 'Latest') {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         }
@@ -81,7 +74,7 @@ export default function Community() {
                 </div>
                 <div>
                     <Pagenation
-                        postCnt={enrichedPostList?.length || 0}
+                        postCnt={sortedPostList?.length || 0}
                         postsPerPage={postsPerPage}
                         onPageChange={handlePageChange}
                     />
