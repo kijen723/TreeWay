@@ -46,7 +46,9 @@ export default function ImageUpload({ onFileSelect }: ImageUploadProps) {
                         alt="미리보기"
                     />
                 ) : (
-                    '이미지를 첨부하세요'
+                    <div>
+                        이미지를 <br /> 첨부하세요
+                    </div>
                 )}
             </div>
             <input

@@ -13,9 +13,6 @@ export default function SignupForm() {
     const [name, setName] = useState('정다운');
     const [birthDate, setBirthDate] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [showVerificationField, setShowVerificationField] = useState(false);
-    const [verificationNumber, setVerificationNumber] = useState('');
-    const [showSubmitButton, setShowSubmitButton] = useState(false); 
 
     const handleBirthDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setBirthDate(e.target.value);
@@ -25,27 +22,12 @@ export default function SignupForm() {
         setPhoneNumber(e.target.value);
     };
 
-    const handleShowVerificationField = () => {
-        // 인증번호 발송 로직 추가 필요
-        setShowVerificationField(true);
-    };
-
-    const handleVerificationNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setVerificationNumber(e.target.value);
-    };
-
-    const handleShowSubmitButton = () => {
-        // 인증번호 확인 로직 추가 필요, 정상 처리시 회원가입 버튼 보이기
-        setShowSubmitButton(true);
-    }
-
     const handleSubmit = () => {
-        const signupData = new FormData(); 
+        const signupData = new FormData();
         signupData.append('email', email);
         signupData.append('name', name);
         signupData.append('birthDate', birthDate);
         signupData.append('phoneNumber', phoneNumber);
-        signupData.append('verificationNumber', verificationNumber);
 
         if (imageFile) {
             signupData.append('profileImage', imageFile);
@@ -57,7 +39,7 @@ export default function SignupForm() {
 
     return (
         <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-            <ImageUpload onFileSelect={setImageFile}/>
+            <ImageUpload onFileSelect={setImageFile} />
             <FormField
                 label="이메일"
                 htmlFor="email"
@@ -88,35 +70,15 @@ export default function SignupForm() {
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
                 />
-                <Button content='인증' size='small' colorType='yellow' onClick={handleShowVerificationField} />
             </div>
-            {showVerificationField && (
-                <div className={styles.formAndButton}>
-                    <FormField
-                        label="인증번호"
-                        htmlFor="valNum"
-                        type="text"
-                        value={verificationNumber}
-                        onChange={handleVerificationNumberChange}
-                    />
-                    <Button
-                        content='확인'
-                        size='small'
-                        colorType='green'
-                        onClick={handleShowSubmitButton}
-                        type="button" />
-                </div>
-            )}
-            {showSubmitButton && (
-                <div className={styles.submitBtn}>
-                    <Button 
-                        content='회원가입'
-                        size='large'
-                        colorType='blue'
-                        onClick={handleSubmit}
-                        type='button' />
-                </div>
-            )}
+            <div className={styles.submitBtn}>
+                <Button
+                    content='회원가입'
+                    size='large'
+                    colorType='blue'
+                    onClick={handleSubmit}
+                    type='button' />
+            </div>
         </form>
     );
 }
