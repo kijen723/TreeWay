@@ -2,6 +2,7 @@ package com.b107.treeway.api.member.controller;
 
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.request.AnalyzeRequest;
+import com.b107.treeway.api.member.request.MemberInfoRequest;
 import com.b107.treeway.api.member.response.AnalyzeResponse;
 import com.b107.treeway.api.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +51,16 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "Not Found"),})
     @Operation(summary = "맴버 추가 정보 입력")
     @PostMapping("sign-up-info")
-    public ResponseEntity<?> member() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> member(@RequestBody MemberInfoRequest memberInfoRequest, HttpSession session) {
+//      세션에 있는 멤버 정보를 받아와서 요청값으로 받음
+//        해당 멤버를 찾아서 save 처리만 해주면 될듯
+        boolean flag = memberService.signUpInfo(memberInfoRequest, session);
+
+        if(flag){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.status(400).build();
+        }
     }
 
     @PatchMapping("{memberId}")

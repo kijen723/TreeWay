@@ -1,8 +1,8 @@
-package com.b107.treeway.service;
+package com.b107.treeway.oauth2.service;
 
-import com.b107.treeway.dto.*;
-import com.b107.treeway.db.entity.UserEntity;
+import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.db.repository.UserRepository;
+import com.b107.treeway.oauth2.dto.*;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -60,21 +60,21 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             name = oAuth2Response.getName();
         }
 
-        String username = provider +" "+ providerId;
-        UserEntity existData = userRepository.findByUsername(username);
+        String memberName = name;
+        Member existData = userRepository.findByMemberName(memberName);
 
         if (existData == null) {
 
-            UserEntity userEntity = new UserEntity();
-            userEntity.setUsername(username);
-            userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setName(name);
-            userEntity.setRole("ROLE_USER");
+            Member member = new Member();
+            member.setMemberName(memberName);
+            member.setEmail(oAuth2Response.getEmail());
+            member.setName(name);
+            member.setRole("ROLE_USER");
 
-            userRepository.save(userEntity);
+            userRepository.save(member);
 
             UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(username);
+            userDTO.setUsername(memberName);
             userDTO.setName(name);
             userDTO.setRole("ROLE_USER");
 
@@ -90,7 +90,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userRepository.save(existData);
 
             UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(existData.getUsername());
+            userDTO.setUsername(existData.getMemberName());
             userDTO.setName(name);
             userDTO.setRole(existData.getRole());
 

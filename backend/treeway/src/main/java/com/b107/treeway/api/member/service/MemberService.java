@@ -4,13 +4,19 @@ import com.b107.treeway.api.analysis.repository.AnalyzeRepository;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
 import com.b107.treeway.api.member.request.AnalyzeRequest;
+import com.b107.treeway.api.member.request.MemberInfoRequest;
 import com.b107.treeway.api.member.response.AnalyzeResponse;
 import com.b107.treeway.api.rating.repository.RatingRepository;
 import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +53,29 @@ public class MemberService {
 
     public AnalyzeResponse getMemberAnalyzeDetail(AnalyzeRequest analyzeRequest) {
         return memberRepository.findMemberAnalyzeDetail(analyzeRequest.getMemberId(), analyzeRequest.getAnalysisId());
+    }
+
+    public boolean signUpInfo(MemberInfoRequest memberInfoRequest, HttpSession session) {
+        Member member = findMember(memberInfoRequest.getMemberId());
+        if(member != null) {
+            String birthDateString = memberInfoRequest.getBirthDate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate birthDate;
+
+            birthDate = LocalDate.parse(birthDateString, formatter);
+            LocalDate currentDate = LocalDate.now();
+
+            int age = Period.between(birthDate, currentDate).getYears();
+
+            member.setAge(age);
+            member.setPhoneNumber(memberInfoRequest.getPhoneNumber());
+            memberRepository.save(member);
+
+            session.removeAttribute("member");
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

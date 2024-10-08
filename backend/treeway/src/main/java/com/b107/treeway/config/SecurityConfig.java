@@ -2,9 +2,14 @@ package com.b107.treeway.config;
 
 import com.b107.treeway.jwt.JWTFilter;
 import com.b107.treeway.jwt.JWTUtil;
+<<<<<<< HEAD
 import com.b107.treeway.oauth2.CustomSuccessHandler;
 import com.b107.treeway.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Value;
+=======
+import com.b107.treeway.oauth2.hadler.CustomSuccessHandler;
+import com.b107.treeway.oauth2.service.CustomOAuth2UserService;
+>>>>>>> 30661c1 (feat : 멤버 추가 정보 입력 기능 추가)
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

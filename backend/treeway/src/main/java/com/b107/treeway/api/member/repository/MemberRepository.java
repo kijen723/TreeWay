@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    boolean existsByMemberName(String memberName);
+    Member findByMemberName(String memberName);
 
     @Query("SELECT a FROM AnalysisResume a WHERE a.member.id = :memberId")
     List<AnalyzeResponse> findMemberAnalyze(@Param("memberId") Long memberId);

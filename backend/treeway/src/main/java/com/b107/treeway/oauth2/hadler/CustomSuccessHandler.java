@@ -1,11 +1,12 @@
-package com.b107.treeway.oauth2;
+package com.b107.treeway.oauth2.hadler;
 
+import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.b107.treeway.dto.CustomOAuth2User;
+import com.b107.treeway.oauth2.dto.CustomOAuth2User;
 import com.b107.treeway.jwt.JWTUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,19 +45,21 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String name = customUserDetails.getName();
         System.out.println("memberName: " + memberName);
 
-        boolean isExistingUser = memberRepository.existsByMemberName(memberName);
+        Member isExistingUser = memberRepository.findByMemberName(memberName);
 
-        if (isExistingUser) {
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
-            GrantedAuthority auth = iterator.next();
-            String role = auth.getAuthority();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        GrantedAuthority auth = iterator.next();
+        String role = auth.getAuthority();
 
-            String token = jwtUtil.createJwt(memberName,name, role, 60*60*60L);
+        String token = jwtUtil.createJwt(memberName,name, role, 60*60*60L);
 
-            response.addCookie(createCookie("Authorization", token));
+        response.addCookie(createCookie("Authorization", token));
+        System.out.println(isExistingUser.toString());
+        if (isExistingUser.getPhoneNumber() != null) {
             response.sendRedirect(redirectUrl);
         } else {
+            System.out.println("1234");
             HttpSession session = request.getSession();
             session.setAttribute("customUserDetails", customUserDetails);
             response.sendRedirect(redirectUrl + "/regist");
