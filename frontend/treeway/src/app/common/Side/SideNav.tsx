@@ -47,14 +47,30 @@ export default function SideNav() {
     },
   ];
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('https://j11b107.p.ssafy.io/api/member/logout', {
+        method: 'POST',
+        credentials: 'include', 
+      });
+
+      if (!response.ok) {
+        throw new Error('로그아웃 요청 실패');
+      }
+
+      dispatch(logOut());
+      router.push("/");
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      alert('로그아웃에 실패했습니다.');
+    }
+  };
+
   const lowerButtons = [
     {
       icon: MdLogout,
-      alt: "Alarm Button",
-      onClick: () => {
-        dispatch(logOut());
-        router.push("/");
-      },
+      alt: "Logout Button",
+      onClick: handleLogout,
     },
   ];
 
