@@ -8,23 +8,25 @@ import Button from '@/app/common/Button';
 import FormField from "./FormField";
 import DateField from './DateField';
 import ImageUpload from './ImageUpload';
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { logIn } from "@/redux/slice/authSlice";
 
 export default function SignupForm() {
+    const [memberId, setMemberId] = useState(0);
     const [imageFileName, setImageFileName] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const memberId = useSelector((state: RootState) => state.auth.memberId);
+    const dispatch = useDispatch();
     const router = useRouter();
 
     useEffect(() => {
         const userDetails = getCookie('customUserDetails');
 
         if (userDetails) {
-            const { email: userEmail, name: userName } = JSON.parse(userDetails as string);
+            const { id: memberId, email: userEmail, name: userName } = JSON.parse(userDetails as string);
+            setMemberId(memberId);
             setEmail(userEmail);
             setName(userName);
         }
@@ -47,13 +49,14 @@ export default function SignupForm() {
         }
 
         const signupData = {
-            memberId: memberId,  // Redux에서 가져온 memberId
+            memberId: memberId,  // 쿠키에서 가져온 memberId
             profileImg: imageFileName, // 파일명(string)
             birthDate: birthDate,      // 생년월일(string)
             phoneNumber: phoneNumber   // 전화번호(string)
         };
     
         try {
+            console.log(signupData)
             const response = await fetch('https://j11b107.p.ssafy.io/api/member/sign-up-info', {
                 method: 'POST',
                 headers: {
@@ -67,7 +70,12 @@ export default function SignupForm() {
                 throw new Error(`회원가입 요청 실패: ${errorText}`);
             }
     
-            // 회원가입 후 main으로 이동
+            dispatch(logIn({
+                memberId: memberId,
+                username: name,
+                email: email,
+            }));
+
             router.push('/main');
     
         } catch (error) {
