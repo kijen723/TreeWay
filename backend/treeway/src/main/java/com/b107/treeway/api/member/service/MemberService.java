@@ -86,10 +86,6 @@ public class MemberService {
             member.setPhoneNumber(memberInfoRequest.getPhoneNumber());
             memberRepository.save(member);
 
-            Cookie userCookie = new Cookie("customUserDetails", null);
-            userCookie.setMaxAge(0);
-            userCookie.setPath("/");
-            response.addCookie(userCookie);
             return true;
         }else{
             return false;

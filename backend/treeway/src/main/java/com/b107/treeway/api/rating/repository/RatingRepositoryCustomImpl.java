@@ -505,8 +505,8 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 String industryName = industryDetail.get().getIndustryDetailName();
                 LocalDate currentDate = LocalDate.now();
                 Timestamp currentTime = Timestamp.valueOf(currentDate.atStartOfDay());
-
-                AnalysisResume analysisResume = new AnalysisResume(memberId, currentTime, industryName, (long) industryDetailId, regionDetailName, (long)region, cost);
+                Double ratingScore = result.get(0).getRatingScore();
+                AnalysisResume analysisResume = new AnalysisResume(memberId, currentTime, industryName, (long) industryDetailId, regionDetailName, (long)region, cost, ratingScore);
                 analysisResumeRepository.save(analysisResume);
             }
         }

@@ -60,7 +60,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         response.addCookie(createCookie("Authorization", token));
         if (isExistingUser.getPhoneNumber() != null) {
-            response.sendRedirect(redirectUrl + "/main");
+            response.sendRedirect(redirectUrl + "/loginCheck");
         } else {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());

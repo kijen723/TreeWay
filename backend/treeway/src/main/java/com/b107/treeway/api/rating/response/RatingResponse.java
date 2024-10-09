@@ -2,15 +2,13 @@ package com.b107.treeway.api.rating.response;
 
 import com.b107.treeway.api.rating.entity.IndustryDetail;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class RatingResponse {
     private Long id;
     private double ratingScore;

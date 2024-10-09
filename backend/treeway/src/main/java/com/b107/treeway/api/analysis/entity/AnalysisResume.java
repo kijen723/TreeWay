@@ -43,7 +43,9 @@ public class AnalysisResume {
 
     private int cost;
 
-    public AnalysisResume(Long memberId, Timestamp analysisDate, String industryDetail, Long industryDetailId, String region, Long regionId, int cost) {
+    private Double ratingScore;
+
+    public AnalysisResume(Long memberId, Timestamp analysisDate, String industryDetail, Long industryDetailId, String region, Long regionId, int cost, Double ratingScore) {
         this.memberId = memberId;
         this.analysisDate = analysisDate;
         this.industryDetail = industryDetail;
@@ -51,5 +53,6 @@ public class AnalysisResume {
         this.region = region;
         this.regionId = regionId;
         this.cost = cost;
+        this.ratingScore = ratingScore;
     }
 }
