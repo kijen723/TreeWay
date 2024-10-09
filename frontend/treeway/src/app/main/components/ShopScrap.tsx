@@ -13,8 +13,8 @@ export default function ShopScrap({ salesId }: { salesId: number }) {
 
   useEffect(() => {
     const checkScrap = async () => {
-        const result = await scrapCheck(memberId, salesId);
-        setIsScrap(result.isScraped);
+      const result = await scrapCheck(memberId, salesId);
+      setIsScrap(result.isScraped);
     };
     checkScrap();
   }, []);
@@ -24,15 +24,19 @@ export default function ShopScrap({ salesId }: { salesId: number }) {
       {isScrap ? (
         <FaHeart
           onClick={async () => {
-            setIsScrap(false);
-            const result = await scrapCancel(memberId, salesId);
+            if (memberId !== 0) {
+              setIsScrap(false);
+              const result = await scrapCancel(memberId, salesId);
+            }
           }}
         />
       ) : (
         <FaRegHeart
           onClick={async () => {
-            setIsScrap(true);
-            const result = await scrap(memberId, salesId);
+            if (memberId !== 0) {
+              setIsScrap(true);
+              const result = await scrap(memberId, salesId);
+            }
           }}
         />
       )}

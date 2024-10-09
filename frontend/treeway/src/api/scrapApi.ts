@@ -11,7 +11,7 @@ export const scrapCheck = async (memberId: number, salesItemId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error("스크랩 화인 실패다 새꺄");
+    throw new Error("스크랩 화인 실패");
   }
 
   const result = await response.json();
@@ -31,7 +31,7 @@ export const scrap = async (memberId: number, salesItemId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error("스크랩 실패다 새꺄");
+    throw new Error("스크랩 실패");
   }
 
   const result = await response.json();
@@ -51,7 +51,7 @@ export const scrapCancel = async (memberId: number, salesItemId: number) => {
   });
 
   if (!response.ok) {
-    throw new Error("스크랩 취소 실패다 새꺄");
+    throw new Error("스크랩 취소 실패");
   }
 
   const result = await response.json();
