@@ -15,6 +15,7 @@ public class SalesItemResponse {
     private Integer monthlySales;
     private Integer monthlyEarnings;
     private String hostName;
+    private String phone;
     private String tradeName;
     private String floorClass;
     private Integer currentFloor;

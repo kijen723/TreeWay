@@ -34,6 +34,7 @@ public class SalesItemRepositoryCustomImpl implements SalesItemRepositoryCustom 
                         MapSalesResponse.class,
                         si.id,
                         si.majorBusiness,
+                        idl.industry.id,
                         idl.industryDetailName,
                         si.address,
                         si.monthlySales,
