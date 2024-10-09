@@ -1,5 +1,6 @@
 import MyPostList from "./MyPostList";
 import MySalesItemList from "./MySalesItemList";
+import MyScrapList from "./MyScrapList";
 
 interface ContentListProps {
     contentType: string;
@@ -14,7 +15,9 @@ export default function ContentList({ contentType } : ContentListProps) {
                     <MyPostList />
                 </div>
             ) : contentType === 'scrap' ? (
-                <div>스크랩 목록</div>
+                <div>
+                    <MyScrapList />
+                </div>
             ) : (
                 <div>
                     <MySalesItemList />
