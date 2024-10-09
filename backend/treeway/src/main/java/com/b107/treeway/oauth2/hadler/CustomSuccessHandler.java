@@ -3,6 +3,7 @@ package com.b107.treeway.oauth2.hadler;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,7 +61,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isExistingUser.getPhoneNumber() != null) {
             response.sendRedirect(redirectUrl + "/main");
         } else {
-            String customUserDetailsJson = new ObjectMapper().writeValueAsString(isExistingUser);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+            String customUserDetailsJson = objectMapper.writeValueAsString(isExistingUser);
             Cookie userCookie = new Cookie("customUserDetails", URLEncoder.encode(customUserDetailsJson, "UTF-8"));
             userCookie.setMaxAge(60 * 60 * 24);
             userCookie.setPath("/");
