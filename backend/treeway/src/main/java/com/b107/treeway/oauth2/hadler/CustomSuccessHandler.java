@@ -2,13 +2,13 @@ package com.b107.treeway.oauth2.hadler;
 
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.b107.treeway.oauth2.dto.CustomOAuth2User;
 import com.b107.treeway.jwt.JWTUtil;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -58,8 +59,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isExistingUser.getPhoneNumber() != null) {
             response.sendRedirect(redirectUrl + "/main");
         } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("customUserDetails", customUserDetails);
+            String customUserDetailsJson = new ObjectMapper().writeValueAsString(customUserDetails);
+            Cookie userCookie = new Cookie("customUserDetails", URLEncoder.encode(customUserDetailsJson, "UTF-8"));
+            userCookie.setMaxAge(60 * 60 * 24);
+            userCookie.setPath("/");
+            response.addCookie(userCookie);
             response.sendRedirect(redirectUrl + "/regist");
         }
     }
