@@ -3,25 +3,35 @@
 import styles from "../page.module.scss";
 import { useDispatch } from "react-redux";
 import { logIn } from "@/redux/slice/authSlice";
+import { getCookie } from 'cookies-next';
 
 export default function LoginBlock() {
   const dispatch = useDispatch();
 
+  const handleLoginSuccess = () => {
+    const userDetails = getCookie('customUserDetails');
+    
+    if (userDetails) {
+      const { id, email, name } = JSON.parse(userDetails as string);
+
+      dispatch(logIn({
+        memberId: id,
+        username: name,
+        email,
+      }));
+    }
+  };
+
   const kakaoLogin = () => {
     window.location.href = `${process.env.NEXT_PUBLIC_SOCIAL_LOGIN_URI}kakao`;
+
+    handleLoginSuccess();
   };
 
   const googleLogin = () => {
-    // window.location.href = `${process.env.NEXT_PUBLIC_SOCIAL_LOGIN_URI}google`;
-    // 서버측 반환값에 따라 정상적으로 수행되었는지 확인 필요
-    // + memberId, 유저 이름, 이메일 등 들고다닐것도 반환 필요
-    if (true) {
-      dispatch(logIn({
-        memberId: 4, 
-        username: "GoogleUser",
-        email: "googleuser@example.com"
-      }));
-    }
+    window.location.href = `${process.env.NEXT_PUBLIC_SOCIAL_LOGIN_URI}google`;
+    
+    handleLoginSuccess();
   };
 
   return (
