@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -44,6 +46,7 @@ public class Member {
 >>>>>>> 30661c1 (feat : 멤버 추가 정보 입력 기능 추가)
     @Column(name = "profile_img")
     private String profileImg;
+<<<<<<< HEAD
 
     @Column(name = "is_deleted")
     private Integer isDeleted;
@@ -51,3 +54,6 @@ public class Member {
     @Column(name = "registered_time")
     private Timestamp registeredTime;
 }
+=======
+}
+>>>>>>> 3aa451d (fix: fix)
