@@ -26,6 +26,7 @@ public class AnalyzeResponse {
     private String region;
     private Long regionId;
     private int cost;
+    private Double ratingScore;
 
     public static AnalyzeResponse convertToAnalyzeResponse(AnalysisResume analysisResume) {
         return new AnalyzeResponse(
@@ -36,7 +37,8 @@ public class AnalyzeResponse {
                 analysisResume.getIndustryDetailId(),
                 analysisResume.getRegion(),
                 analysisResume.getRegionId(),
-                analysisResume.getCost()
+                analysisResume.getCost(),
+                analysisResume.getRatingScore()
         );
     }
 }
