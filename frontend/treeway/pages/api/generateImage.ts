@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const apiKey = process.env.NEXT_GPT_API_KEY;
+        const apiKey = process.env.NEXT_PUBLIC_GPT_API_KEY;
         console.log("API Key:", apiKey);  // API 키 로그로 확인
 
         const { prompt } = req.body;
