@@ -7,9 +7,12 @@ import SalesAnalyze from '../components/SalesAnalyze';
 import TimeAnalyze from '../components/TimeAnalyze';
 import RegionAnalyze from '../components/RegionAnalyze';
 import PopulationAnalyze from '../components/PopulationAnalyze';
+import { useAnalyzeDetailResullt } from '@/hooks/useAnalyzeHistory';
 
 const AnalyzePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [region, setRegion] = useState('');
+  const [industryDetail, setIndustryDetail] = useState('');
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     const scrollableDiv = document.querySelector(`.${styles.WhiteBox}`);
@@ -18,9 +21,21 @@ const AnalyzePage = () => {
     }
   };
 
+  // const { data: data, isLoading: Loading } = useAnalyzeDetailResullt(
+  //   regionId,
+  //   industryDetailId
+  // );
+
   useEffect(() => {
+    // window.history.state에서 전달된 값을 받아옴
+    const state = window.history.state;
+    if (state) {
+      setRegion(state.regionId);
+      setIndustryDetail(state.industryDetailId);
+      console.log(state);
+    }
     setSelectedCategory('업종분석');
-  }, []);
+  }, [window.history.state]);
 
   return (
     <div className={styles.DetailBox}>

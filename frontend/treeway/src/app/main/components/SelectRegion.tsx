@@ -11,7 +11,11 @@ import AnalyzeBox from './AnalyzeBox';
 =======
 import { useDispatch } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
+<<<<<<< HEAD
 >>>>>>> 8a88ecf (feat : modify trend page and main page)
+=======
+import { FadeLoader } from 'react-spinners';
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 
 interface CategoryItem {
   label: string;
@@ -32,6 +36,7 @@ export default function SelectRegion() {
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
   const [randomDetailData, setRandomDetailData] = useState<any>('');
   const [topProperties, setTopProperties] = useState<any>('');
+  const [loading, setLoading] = useState(false);
 
   const RecomandRegion = useRecommandRegion({
     onSuccess: (data) => {
@@ -96,6 +101,10 @@ export default function SelectRegion() {
       setShowInvalidBudgetError(true);
       setShowBudgetError(false);
       valid = false;
+    } else if (budget !== '' && Number(budget) >= 100000) {
+      setShowBudgetError(true);
+      setShowInvalidBudgetError(false);
+      valid = false;
     } else {
       setShowInvalidBudgetError(false);
       setShowBudgetError(false);
@@ -114,7 +123,11 @@ export default function SelectRegion() {
       console.log('선택한 영업시간:', businessHours);
       console.log('입력한 예산:', budget ? Number(budget) : 0); // 예산이 빈 문자열이면 null로 처리
 
+      setLoading(true);
+
       try {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        setLoading(false);
         // 비동기 호출 대기
         await RecomandRegion.mutateAsync({
           businessHours,
@@ -123,10 +136,12 @@ export default function SelectRegion() {
         });
       } catch (error) {
         console.error('Error:', error);
+        setLoading(false);
       }
     }
   };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ더미데이터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const score = 85;
@@ -182,11 +197,16 @@ export default function SelectRegion() {
     dispatch(changeDumData([]));
   }, [])
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+=======
+  const explanation =
+    '이 점수는 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 
 =======
 >>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
   return (
     <div>
+<<<<<<< HEAD
       <div>
         {/* 대업종 리스트 */}
         <div>
@@ -214,9 +234,39 @@ export default function SelectRegion() {
                 </ul>
               ))}
             </ul>
-          </div>
+=======
+      {loading ? (
+        <div className={styles.spinnerWrapper}>
+          <FadeLoader color='#36d7b7' />
         </div>
+      ) : (
+        <>
+          <div className={styles.textSub}>
+            <label htmlFor='main-category'>대업종 선택</label>
+            <label htmlFor='sub-category'>소업종 선택</label>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
+          </div>
+          <div className={styles.container}>
+            {/* 대업종 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {Object.keys(allCategory).map((mainCategory, index) => (
+                  <li
+                    className={`${
+                      selectedMainCategory === mainCategory
+                        ? styles.selected
+                        : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleMainCategoryChange(mainCategory)}
+                  >
+                    {mainCategory}
+                  </li>
+                ))}
+              </div>
+            </div>
 
+<<<<<<< HEAD
         {/* 소업종 리스트 */}
 <<<<<<< HEAD
         <div>
@@ -312,6 +362,67 @@ export default function SelectRegion() {
       <button className={styles.submitButton} onClick={handleSubmit}>
         지역 추천 받기
       </button>
+=======
+            {/* 소업종 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {allCategory[selectedMainCategory].map((subCategory, index) => (
+                  <li
+                    className={`${
+                      selectedSubCategory === subCategory ? styles.selected : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleSubCategoryChange(subCategory)}
+                  >
+                    {subCategory.label}
+                  </li>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* <div className={styles.textSub}>
+                      <label htmlFor='business-hours'>가능 영업시간 </label>
+                    </div>
+                    <select
+                      className={styles.businessHours}
+                      id='business-hours'
+                      value={businessHours}
+                      onChange={(e) => setBusinessHours(Number(e.target.value))}
+                    >
+                      <option value='0'>무관</option>
+                      <option value='1'>09시~18시</option>
+                      <option value='2'>18시~02시</option>
+                      <option value='3'>02시~09시</option>
+                    </select> */}
+          <div>
+            <div className={styles.textSub}>
+              <label htmlFor='budget'>예산</label>
+            </div>
+            <input
+              className={styles.budget}
+              type='text'
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              placeholder='미입력시 무관'
+            />
+            <span className={styles.budgetLabel}>만원 </span>
+          </div>
+
+          {/* 예산이 숫자가 아닐 때 에러 메시지 */}
+          {showInvalidBudgetError && (
+            <p className={styles.failedText}>숫자를 입력해야 합니다.</p>
+          )}
+          {showBudgetError && (
+            <p className={styles.failedText}>
+              예산 10억 이상의 추천 데이터가 없습니다.
+            </p>
+          )}
+          <button className={styles.submitButton} onClick={handleSubmit}>
+            지역 추천 받기
+          </button>
+        </>
+      )}
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 
       {showModal && (
         <AnalyzeBox

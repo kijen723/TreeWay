@@ -1,6 +1,7 @@
 'use client';
 
 export const recommandOverall = async (
+  memberId: number,
   businessTime: number,
   region: number,
   cost: number,
@@ -9,6 +10,7 @@ export const recommandOverall = async (
   const response = await fetch(`https://j11b107.p.ssafy.io/api/rating`, {
     method: 'POST',
     body: JSON.stringify({
+      memberId: memberId,
       businessTime: businessTime,
       region: region,
       cost: cost,

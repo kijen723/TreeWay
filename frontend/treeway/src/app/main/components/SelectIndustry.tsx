@@ -34,6 +34,7 @@ export default function SelectIndustry() {
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
   const [randomDetailData, setRandomDetailData] = useState<any>('');
   const [topProperties, setTopProperties] = useState<any>('');
+  const [loading, setLoading] = useState(false);
 
   const RecomandIndustry = useRecommandIndustry({
     onSuccess: async (data) => {
@@ -99,6 +100,10 @@ export default function SelectIndustry() {
         setShowBudgetError(false);
       }
       valid = false;
+    } else if (budget !== '' && Number(budget) >= 100000) {
+      setShowBudgetError(true);
+      setShowInvalidBudgetError(false);
+      valid = false;
     } else {
       setShowBudgetError(false);
       setShowInvalidBudgetError(false);
@@ -118,9 +123,12 @@ export default function SelectIndustry() {
       console.log('선택한 영업시간:', businessHours);
       console.log('입력한 예산:', budget ? Number(budget) : 0);
       // 종합 추천 결과 처리 로직
+      setLoading(true);
 
       try {
-        // 비동기 호출 대기
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        setLoading(false);
+
         await RecomandIndustry.mutateAsync({
           businessHours,
           regionCode,
@@ -128,6 +136,7 @@ export default function SelectIndustry() {
         });
       } catch (error) {
         console.error('Error:', error);
+        setLoading(false);
       }
     }
   };
@@ -139,6 +148,7 @@ export default function SelectIndustry() {
 
   return (
     <div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
       {/* {loading && <FadeLoader className={styles.loader} color='#36d7b7' />} */}
@@ -195,9 +205,39 @@ export default function SelectIndustry() {
       <select
 =======
       {/* <div className={styles.textSub}>
+=======
+      {loading ? (
+        <div className={styles.spinnerWrapper}>
+          <FadeLoader color='#36d7b7' />
+        </div>
+      ) : (
+        <>
+          <div className={styles.textSub}>
+            <label htmlFor='main-Location'>시도 선택</label>
+          </div>
+          {/* 시도 리스트 */}
+          <div className={styles.selectBox}>
+            <div className={styles.selectText}>
+              {allLocations.map((location, index) => (
+                <li
+                  className={`${
+                    selectedMainLocation === location.label
+                      ? styles.selected
+                      : ''
+                  }`}
+                  key={index}
+                  onClick={() => handleMainLocationChange(location.label)}
+                >
+                  {location.label}
+                </li>
+              ))}
+            </div>
+          </div>
+          {/* <div className={styles.textSub}>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
         <label htmlFor='business-hours'>가능 영업시간 </label>
       </div> */}
-      {/* <select
+          {/* <select
         className={styles.businessHours}
 >>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
         id='business-hours'
@@ -210,6 +250,7 @@ export default function SelectIndustry() {
         <option value='2'>18시~02시</option>
         <option value='3'>02시~09시</option>
       </select> */}
+<<<<<<< HEAD
       <div>
         {showBusinessHoursError && (
           <p style={{ color: 'red' }}>영업시간을 선택해야 합니다.</p>
@@ -241,6 +282,38 @@ export default function SelectIndustry() {
       <button className={styles.submitButton} onClick={handleSubmit}>
         업종 추천 받기
       </button>
+=======
+          <div>
+            <div className={styles.textSub}>
+              <label htmlFor='budget'>예산</label>
+            </div>
+            <input
+              className={styles.budget}
+              id='budget'
+              type='text'
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              placeholder='미입력시 무관'
+            />
+            <span className={styles.budgetLabel}>만원 </span>
+          </div>
+          {/* 예산이 숫자가 아닐 때 에러 메시지 */}
+          {showInvalidBudgetError && (
+            <p className={styles.failedText}>숫자를 입력해야 합니다.</p>
+          )}
+
+          {showBudgetError && (
+            <p className={styles.failedText}>
+              예산 10억 이상의 추천 데이터가 없습니다.
+            </p>
+          )}
+
+          <button className={styles.submitButton} onClick={handleSubmit}>
+            업종 추천 받기
+          </button>
+        </>
+      )}
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
       {showModal && (
         <AnalyzeBox
           explanation={explanation}

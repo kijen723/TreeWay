@@ -8,16 +8,26 @@ import locations from '@/app/common/locations';
 import locations from '@/app/common/locations'; // LocationItem 타입 기반
 import styles from './SelectRating.module.scss';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import AnalyzeBox from './AnalyzeBox';
 <<<<<<< HEAD
 import { useDispatch } from 'react-redux';
+=======
+import AnalyzeRatingBox from './AnalyzeRatingBox';
+import { useDispatch, useSelector } from 'react-redux';
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 import { changeDumData } from '@/redux/slice/dumdataSlice';
 =======
 =======
 import AnalyzeRatingBox from './AnalyzeRatingBox';
 >>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
 import { useRecommandOverall } from '@/hooks/useRecommand';
+<<<<<<< HEAD
 >>>>>>> 454cf81 (feat:종합, 지역, 종합 api 연결)
+=======
+import { FadeLoader } from 'react-spinners';
+import { RootState } from '@/redux/store';
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 
 interface CategoryItem {
   label: string;
@@ -27,8 +37,9 @@ interface CategoryItem {
 
 export default function SelectRating() {
   const [budget, setBudget] = useState('');
-  const [businessHours, setBusinessHours] = useState(0);
+  const [businessHours, setBusinessHours] = useState(1);
   const [showBudgetError, setShowBudgetError] = useState(false);
+  const [showBudgetOverError, setShowBudgetOverError] = useState(false);
   const [showBusinessHoursError, setShowBusinessHoursError] = useState(false);
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
   const [detailData, setDetailData] = useState<any>('');
@@ -44,6 +55,9 @@ export default function SelectRating() {
   );
   const [randomDetailData, setRandomDetailData] = useState<any>('');
   const [topProperties, setTopProperties] = useState<any>('');
+  const [loading, setLoading] = useState(false);
+
+  const memberId = useSelector((state: RootState) => state.auth.memberId);
 
   const explanation =
     '현재 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
@@ -120,13 +134,21 @@ export default function SelectRating() {
     if (!budget) {
       setShowBudgetError(true);
       setShowInvalidBudgetError(false);
+      setShowBudgetOverError(false);
       valid = false;
     } else if (isNaN(Number(budget))) {
       setShowInvalidBudgetError(true);
+      setShowBudgetOverError(false);
       setShowBudgetError(false);
+      valid = false;
+    } else if (budget !== '' && Number(budget) >= 100000) {
+      setShowBudgetError(false);
+      setShowBudgetOverError(true);
+      setShowInvalidBudgetError(false);
       valid = false;
     } else {
       setShowBudgetError(false);
+      setShowBudgetOverError(false);
       setShowInvalidBudgetError(false);
     }
 
@@ -149,9 +171,14 @@ export default function SelectRating() {
       console.log('입력한 예산:', budget);
       // 종합 추천 결과 처리 로직\
 
+      setLoading(true);
+
       try {
+        await new Promise((resolve) => setTimeout(resolve, 4000));
+        setLoading(false);
         // 비동기 호출 대기
         await RecomandOverall.mutateAsync({
+          memberId,
           businessHours,
           regionCode,
           budget: budget ? Number(budget) * 10000 : 0, // 빈 문자열인 경우 0으로 처리
@@ -169,6 +196,7 @@ export default function SelectRating() {
 
   return (
     <div>
+<<<<<<< HEAD
       <div>
         {/* 대업종 리스트 */}
         <div>
@@ -241,10 +269,39 @@ export default function SelectRating() {
               </li>
             ))}
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-          </div>
+=======
+      {loading ? (
+        <div className={styles.spinnerWrapper}>
+          <FadeLoader color='#36d7b7' />
         </div>
-      </div>
+      ) : (
+        <>
+          <div className={styles.textSub}>
+            <label htmlFor='main-category'>대업종 선택</label>
+            <label htmlFor='sub-category'>소업종 선택</label>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
+          </div>
+          <div className={styles.container}>
+            {/* 대업종 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {Object.keys(categories).map((mainCategory, index) => (
+                  <li
+                    className={`${
+                      selectedMainCategory === mainCategory
+                        ? styles.selected
+                        : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleMainCategoryChange(mainCategory)}
+                  >
+                    {mainCategory}
+                  </li>
+                ))}
+              </div>
+            </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <div>
         {/* 시도 리스트 */}
@@ -296,9 +353,27 @@ export default function SelectRating() {
               </li>
             ))}
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
+=======
+            {/* 소업종 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {categories[selectedMainCategory].map((subCategory, index) => (
+                  <li
+                    className={`${
+                      selectedSubCategory === subCategory ? styles.selected : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleSubCategoryChange(subCategory)}
+                  >
+                    {subCategory.label}
+                  </li>
+                ))}
+              </div>
+            </div>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
           </div>
-        </div>
 
+<<<<<<< HEAD
         {/* 시군구 리스트 */}
 <<<<<<< HEAD
         <div>
@@ -343,14 +418,60 @@ export default function SelectRating() {
                 </li>
               ))}
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
+=======
+          <div className={styles.textSub}>
+            <label htmlFor='main-location'>시도 선택</label>
+            <label htmlFor='district'>시군구 선택</label>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
           </div>
-        </div>
-      </div>
+          <div className={styles.container}>
+            {/* 시도 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {locations.map((mainLocation, index) => (
+                  <li
+                    className={`${
+                      selectedMainLocation === mainLocation.label
+                        ? styles.selected
+                        : ''
+                    }`}
+                    key={index}
+                    onClick={() => handleMainLocationChange(mainLocation.label)}
+                  >
+                    {mainLocation.label}
+                  </li>
+                ))}
+              </div>
+            </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <label htmlFor='business-hours'>가능 영업시간: </label>
 =======
       <div className={styles.textSub}>
+=======
+            {/* 시군구 리스트 */}
+            <div className={styles.selectBox}>
+              <div className={styles.selectText}>
+                {locations
+                  .find((location) => location.label === selectedMainLocation)
+                  ?.districts.map((district, index) => (
+                    <li
+                      className={`${
+                        selectedDistrict === district ? styles.selected : ''
+                      }`}
+                      key={index}
+                      onClick={() => handleDistrictChange(district)}
+                    >
+                      {district}
+                    </li>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          {/* <div className={styles.textSub}>
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
         <label htmlFor='business-hours'>가능 영업시간 </label>
       </div>
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
@@ -363,6 +484,7 @@ export default function SelectRating() {
         <option value='1'>09시~18시</option>
         <option value='2'>18시~02시</option>
         <option value='3'>02시~09시</option>
+<<<<<<< HEAD
       </select>
       <div>
         {showBusinessHoursError && (
@@ -392,6 +514,42 @@ export default function SelectRating() {
       <button className={styles.submitButton} onClick={handleSubmit}>
         종합 추천 받기
       </button>
+=======
+      </select> */}
+
+          <div>
+            <div className={styles.textSub}>
+              <label htmlFor='budget'>예산</label>
+            </div>
+            <input
+              className={styles.budget}
+              type='text'
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              placeholder='예산 입력'
+            />
+            <span className={styles.budgetLabel}>만원 </span>
+          </div>
+          {/* 예산 미입력시 에러 메시지 */}
+          {showBudgetError && (
+            <p className={styles.failedText}>예산을 입력해야 합니다.</p>
+          )}
+          {/* 예산이 숫자가 아닐 때 에러 메시지 */}
+          {showInvalidBudgetError && (
+            <p className={styles.failedText}>숫자를 입력해야 합니다.</p>
+          )}
+          {showBudgetOverError && (
+            <p className={styles.failedText}>
+              예산 10억 이상의 추천 데이터가 없습니다.
+            </p>
+          )}
+          <button className={styles.submitButton} onClick={handleSubmit}>
+            종합 추천 받기
+          </button>
+        </>
+      )}
+
+>>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
       {showModal && (
         <AnalyzeRatingBox
           explanation={explanation}

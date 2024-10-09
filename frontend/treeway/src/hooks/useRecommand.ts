@@ -7,6 +7,7 @@ import {
 } from '../api/recommandApi';
 
 interface overallData {
+  memberId: number;
   businessHours: number;
   regionCode: number;
   budget: number;
@@ -29,8 +30,15 @@ export const useRecommandOverall = (
   options?: UseMutationOptions<unknown, Error, overallData>
 ) => {
   return useMutation<unknown, Error, overallData>({
-    mutationFn: ({ businessHours, regionCode, budget, industryDetailId }) => {
+    mutationFn: ({
+      memberId,
+      businessHours,
+      regionCode,
+      budget,
+      industryDetailId,
+    }) => {
       return recommandOverall(
+        memberId,
         businessHours,
         regionCode,
         budget,

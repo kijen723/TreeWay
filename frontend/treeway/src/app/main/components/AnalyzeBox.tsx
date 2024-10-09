@@ -54,6 +54,7 @@ export default function DetailBox({
       setShowModal(true);
     }
   }, [showValue]); // detailData가 변경될 때마다 실행
+  // console.log('리스트:', propertyList.length);
 
   const handleClick = (data: Property) => {
     console.log(data);
@@ -77,64 +78,75 @@ export default function DetailBox({
           </div>
           <div className={styles.score}>
             <div className={styles.arrang}>
-              {propertyList.map((property, index) => (
-                <div key={index} className={styles.itemm}>
-                  <div className={styles.infoo}>
-                    <div className={styles.topp}>
-                      <span className={styles.categoryy}>{index + 1}위 </span>
-                      <span className={styles.namee}>
-                        {Math.min(Math.floor(property.ratingScore * 10), 100)}/
-                        100점
-                      </span>
-                    </div>
-                    <div className={styles.midd}>
-                      업종: {property.majorBusiness}
-                    </div>
-                    <div className={styles.midd}>
-                      소업종: {property.industryDetail}
+              {propertyList.length > 0 ? (
+                propertyList.map((property, index) => (
+                  <div key={index} className={styles.itemm}>
+                    <div className={styles.infoo}>
+                      <div className={styles.topp}>
+                        <span className={styles.categoryy}>{index + 1}위 </span>
+                        <span className={styles.namee}>
+                          {Math.min(Math.floor(property.ratingScore * 10), 100)}
+                          / 100점
+                        </span>
+                      </div>
+                      <div className={styles.midd}>
+                        업종: {property.majorBusiness}
+                      </div>
+                      <div className={styles.midd}>
+                        소업종: {property.industryDetail}
+                      </div>
                     </div>
                   </div>
+                ))
+              ) : (
+                <div className={styles.noData}>
+                  <h2>해당 선택에 맞는 추천 데이터가 없습니다.</h2>
                 </div>
-              ))}
+              )}
             </div>
+            {propertyList.length > 0 && explanation && <p>{explanation}</p>}
           </div>
-          <p>{explanation}</p>
           <div className={styles.explanation}></div>
           <div className={styles.propertyList}>
             <h3>추천 매물 정보</h3>
-            <ul>
-              {randomList.map((property, index) => (
-                <li
-                  key={index}
-                  className={styles.propertyItem}
-                  onClick={() => handleClick(property)}
-                >
-                  <div className={styles.top}>
-                    <span className={styles.category}>
-                      {property.majorBusiness}
+            {randomList.length > 0 ? (
+              <ul>
+                {randomList.map((property, index) => (
+                  <li
+                    key={index}
+                    className={styles.propertyItem}
+                    onClick={() => handleClick(property)}
+                  >
+                    <div className={styles.top}>
+                      <span className={styles.category}>
+                        {property.majorBusiness}
+                      </span>
+                      <span className={styles.name}>
+                        {property.tradeName.length > 11
+                          ? property.tradeName.slice(0, 11) + '..'
+                          : property.tradeName}
+                      </span>
+                    </div>
+                    <span className={styles.address}>
+                      <FaLocationDot /> {property.address}
                     </span>
-                    <span className={styles.name}>
-                      {property.tradeName.length > 11
-                        ? property.tradeName.slice(0, 11) + '..'
-                        : property.tradeName}
-                    </span>
-                  </div>
-                  <span className={styles.address}>
-                    <FaLocationDot /> {property.address}
-                  </span>
 
-                  <div className={styles.bottom}>
-                    <FaWonSign className={styles.icon} />
-                    <span>
-                      월매출 {Math.floor(property.monthlySales / 10000)}만원 /
-                    </span>
-                    <span>
-                      월수익 {Math.floor(property.monthlyEarnings / 10000)}만원
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    <div className={styles.bottom}>
+                      <FaWonSign className={styles.icon} />
+                      <span>
+                        월매출 {Math.floor(property.monthlySales / 10000)}만원 /{' '}
+                      </span>
+                      <span>
+                        월수익 {Math.floor(property.monthlyEarnings / 10000)}
+                        만원
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <h3>추천 매물 정보가 없습니다.</h3>
+            )}
           </div>
         </div>
       </div>

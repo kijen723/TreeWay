@@ -2,29 +2,40 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import styles from './AnalyzeList.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import {
+  AwaitedReactNode,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { FaLocationDot, FaWonSign } from 'react-icons/fa6';
 import { SlArrowRightCircle } from 'react-icons/sl';
+import { useAnalyzeTotalResullt } from '@/hooks/useAnalyzeHistory';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
-const dummyData = [
-  {
-    id: 1,
-    name: '분석이력결과',
-    date: '2024-12-23',
-    region: '인천 서구',
-    industry: '음식점',
-  },
-  {
-    id: 2,
-    name: '분석이력결과2',
-    date: '2024-12-24',
-    region: '서울 강남구',
-    industry: '카페',
-  },
-];
+interface idData {
+  analysisDate: number;
+  cost: number;
+  id: number;
+  industryDetail: string;
+  industryDetailId: number;
+  memberId: number;
+  region: string;
+  regionId: number;
+}
+
 export default function SideDetailItem() {
   const router = useRouter();
-  const params = useParams();
+
+  const memberId = useSelector((state: RootState) => state.auth.memberId);
+
+  const { data: data, isLoading: Loading } = useAnalyzeTotalResullt(memberId);
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -43,41 +54,41 @@ export default function SideDetailItem() {
 
   return (
     <div className={styles.items}>
-      {dummyData.map((data) => (
+      {data?.map((data: idData, index: number) => (
         <div
-          key={data.id}
+          key={index}
           className={styles.item}
           ref={selectedId === data.id ? targetRef : null}
           style={selectedId === data.id ? { background: '#ECF4DD' } : {}}
           onClick={() => {
             setSelectedId(data.id);
             // 클릭 시 해당 ID에 맞는 페이지로 이동
-            router.push(`/analyze/${data.id}`);
+            history.pushState(
+              {
+                region: data.regionId,
+                industryDetail: data.industryDetailId,
+              },
+              '',
+              `/analyze/${data.id}`
+            );
           }}
         >
-          {selectedId === data.id && (
-            <SlArrowRightCircle
-              className={styles.back}
-              onClick={(e) => {
-                e.stopPropagation(); // 클릭 이벤트 전파 방지
-                router.push(`/analyze/${data.id}`);
-              }}
-            />
-          )}
           <div className={styles.Info}>
             <div className={styles.top}>
-              <span className={styles.category}>{data.id}</span>
-              <span className={styles.name}>{data.name}</span>
+              <span className={styles.category}>{index + 1}</span>
+              <span className={styles.name}>점수/100점</span>
             </div>
             {/* 날짜, 지역, 업종 나열 */}
             <div className={styles.mid}>
-              <div className={styles.date}>날짜: {data.date}</div>
+              <div className={styles.date}>
+                날짜: {new Date(data.analysisDate).toLocaleDateString()}
+              </div>
             </div>
             <div className={styles.mid}>
               <div className={styles.region}>지역: {data.region}</div>
             </div>
             <div className={styles.mid}>
-              <div className={styles.industry}>업종: {data.industry}</div>
+              <div className={styles.industry}>업종: {data.industryDetail}</div>
             </div>
           </div>
         </div>

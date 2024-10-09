@@ -6,11 +6,19 @@
   font-weight: bold;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* 대업종과 소업종 박스 사이 간격 추가 */
+  width: 100%;
+}
+
 .selectBox {
+  flex: 1;
   max-height: 100px;
   padding: 10px;
   overflow-y: auto;
-  max-width: 100%;
+  max-width: 45%;
   border: 1px solid #ccc;
   background-color: #fff; /* 박스 흰색 */
   border-radius: 10px; /* 둥근 모서리 */
