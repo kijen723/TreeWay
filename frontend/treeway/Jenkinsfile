@@ -19,15 +19,15 @@ pipeline {
             }
         }
 
-        // stage('Set .ENV File') {
-        //     steps {
-        //         dir('frontend') {
-        //             withCredentials([file(credentialsId: 'ENV_FILE', variable: 'env_file')]) {
-        //                 sh 'cp $env_file ./.env'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Set .ENV File') {
+            steps {
+                dir('frontend/treeway') {
+                    withCredentials([file(credentialsId: '.ENV.PRODUCTION', variable: '.env.production')]) {
+                        sh '.env.production ./'
+                    }
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
