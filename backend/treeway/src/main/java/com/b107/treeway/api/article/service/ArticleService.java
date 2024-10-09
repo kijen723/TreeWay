@@ -5,8 +5,10 @@ import com.b107.treeway.api.article.dto.ArticleCommentResponse;
 import com.b107.treeway.api.article.dto.ArticleRequest;
 import com.b107.treeway.api.article.dto.ArticleResponse;
 import com.b107.treeway.api.article.entity.Article;
+import com.b107.treeway.api.article.entity.ArticleAttachedFile;
 import com.b107.treeway.api.article.entity.ArticleComment;
 import com.b107.treeway.api.article.entity.ArticleScrap;
+import com.b107.treeway.api.article.repository.ArticleAttachedFileRepository;
 import com.b107.treeway.api.article.repository.ArticleCommentRepository;
 import com.b107.treeway.api.article.repository.ArticleRepository;
 import com.b107.treeway.api.article.repository.ArticleScrapRepository;
@@ -19,7 +21,11 @@ import com.b107.treeway.api.rating.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,6 +49,12 @@ public class ArticleService {
     @Autowired
     private ArticleCommentRepository articleCommentRepository;
 
+    @Autowired
+    private ArticleAttachedFileRepository articleAttachedFileRepository;
+
+    private final String fileBasePath = "src/main/resources/attacted_file/";
+
+    @Transactional
     public Article registArticle(ArticleRequest articleRequest) {
         Member member = memberRepository.findById(articleRequest.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
@@ -61,7 +73,38 @@ public class ArticleService {
         article.setContent(articleRequest.getContent());
         article.setViewCount(0);
 
-        return articleRepository.save(article);
+        Article savedArticle = articleRepository.save(article);
+
+        if (articleRequest.getArticleAttachedFile() != null) {
+            saveAttachedFiles(articleRequest.getArticleAttachedFile(), savedArticle);
+        }
+
+        return savedArticle;
+    }
+
+    private void saveAttachedFiles(List<MultipartFile> files, Article article) {
+        List<ArticleAttachedFile> attachedFiles = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String filePath = fileBasePath + fileName;
+
+            File dest = new File(filePath);
+            try {
+                file.transferTo(dest);  // 파일 저장
+            } catch (IOException e) {
+                throw new RuntimeException("File upload failed", e);
+            }
+
+            ArticleAttachedFile articleAttachedFile = new ArticleAttachedFile();
+            articleAttachedFile.setFileName(fileName);
+            articleAttachedFile.setFilePath(filePath);
+            articleAttachedFile.setArticle(article);
+
+            attachedFiles.add(articleAttachedFile);
+        }
+
+        articleAttachedFileRepository.saveAll(attachedFiles);  // 파일 정보 DB 저장
     }
 
     public List<ArticleResponse> getAllArticles() {
