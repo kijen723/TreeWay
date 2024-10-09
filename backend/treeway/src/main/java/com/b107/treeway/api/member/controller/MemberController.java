@@ -34,6 +34,7 @@ public class MemberController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
+                System.out.println(cookie);
                 if ("customUserDetails".equals(cookie.getName())) {
                     cookie.setValue(null);
                     cookie.setMaxAge(0);

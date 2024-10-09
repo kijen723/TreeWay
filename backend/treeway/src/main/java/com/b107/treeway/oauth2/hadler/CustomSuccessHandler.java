@@ -59,17 +59,18 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String token = jwtUtil.createJwt(memberName,name, role, 60*60*60L);
 
         response.addCookie(createCookie("Authorization", token));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        String customUserDetailsJson = objectMapper.writeValueAsString(isExistingUser);
+        Cookie userCookie = new Cookie("customUserDetails", URLEncoder.encode(customUserDetailsJson, "UTF-8"));
+        userCookie.setMaxAge(60 * 60 * 24);
+        userCookie.setPath("/");
+        response.addCookie(userCookie);
+
         if (isExistingUser.getPhoneNumber() != null) {
             response.sendRedirect(redirectUrl + "/loginCheck");
         } else {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
-
-            String customUserDetailsJson = objectMapper.writeValueAsString(isExistingUser);
-            Cookie userCookie = new Cookie("customUserDetails", URLEncoder.encode(customUserDetailsJson, "UTF-8"));
-            userCookie.setMaxAge(60 * 60 * 24);
-            userCookie.setPath("/");
-            response.addCookie(userCookie);
             response.sendRedirect(redirectUrl + "/regist");
         }
     }
