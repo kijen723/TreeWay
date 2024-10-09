@@ -5,6 +5,8 @@ import com.b107.treeway.api.attachedfile.entity.AttachedFile;
 import com.b107.treeway.api.attachedfile.entity.ProfileImg;
 import com.b107.treeway.api.attachedfile.repository.AttachedFileRepository;
 import com.b107.treeway.api.attachedfile.repository.ProfileImgRepository;
+import com.b107.treeway.api.member.entity.Member;
+import com.b107.treeway.api.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +28,9 @@ public class AttachedFileService {
 
     @Autowired
     private ProfileImgRepository profileImgRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     private final String uploadDir = "src/main/resources/attached_file/";
 
@@ -66,7 +72,7 @@ public class AttachedFileService {
 
     public void saveProfileImage(MultipartFile file, Long memberId) throws IOException {
         // 저장 디렉토리 경로 설정
-        String directoryPath = "src/main/resources/profile_img";
+        String directoryPath = "src/main/resources/static/profile_img";
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdirs(); // 디렉토리가 없으면 생성
@@ -80,12 +86,19 @@ public class AttachedFileService {
         Path path = Paths.get(filePath);
         Files.write(path, file.getBytes());
 
-        // 파일 정보를 DB에 저장
+        // 파일 정보를 ProfileImg 엔티티에 저장
         ProfileImg profileImage = new ProfileImg();
         profileImage.setFileName(fileName);
         profileImage.setFilePath(filePath);
         profileImage.setMemberId(memberId);
-
         profileImgRepository.save(profileImage);
+
+        // Member 엔티티의 profileImg 필드를 업데이트
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            member.setProfileImg(fileName); // 파일 이름만 저장
+            memberRepository.save(member);
+        }
     }
 }
