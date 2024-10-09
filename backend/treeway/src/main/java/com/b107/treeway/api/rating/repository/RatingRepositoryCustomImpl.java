@@ -427,6 +427,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
                 .select(Projections.constructor(
                         RatingResponse.class,
+                        si.id,
                         rt.ratingScore,
                         si.majorBusiness,
                         idl.industryDetailName,
