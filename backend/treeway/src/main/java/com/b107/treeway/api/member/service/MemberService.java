@@ -9,10 +9,13 @@ import com.b107.treeway.api.member.response.AnalyzeResponse;
 import com.b107.treeway.api.rating.repository.RatingRepository;
 import com.b107.treeway.api.rating.request.SubRatingRequest;
 import com.b107.treeway.api.rating.response.IndustryRatingResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +58,7 @@ public class MemberService {
         return memberRepository.findMemberAnalyzeDetail(analyzeRequest.getMemberId(), analyzeRequest.getAnalysisId());
     }
 
-    public boolean signUpInfo(MemberInfoRequest memberInfoRequest, HttpSession session) {
+    public boolean signUpInfo(MemberInfoRequest memberInfoRequest, HttpServletResponse response) {
         Member member = findMember(memberInfoRequest.getMemberId());
         if(member != null) {
             String birthDateString = memberInfoRequest.getBirthDate();
@@ -71,7 +74,10 @@ public class MemberService {
             member.setPhoneNumber(memberInfoRequest.getPhoneNumber());
             memberRepository.save(member);
 
-            session.removeAttribute("member");
+            Cookie userCookie = new Cookie("customUserDetails", null);
+            userCookie.setMaxAge(0);
+            userCookie.setPath("/");
+            response.addCookie(userCookie);
             return true;
         }else{
             return false;

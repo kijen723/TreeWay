@@ -51,10 +51,10 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "Not Found"),})
     @Operation(summary = "맴버 추가 정보 입력")
     @PostMapping("sign-up-info")
-    public ResponseEntity<?> member(@RequestBody MemberInfoRequest memberInfoRequest, HttpSession session) {
+    public ResponseEntity<?> member(@RequestBody MemberInfoRequest memberInfoRequest, HttpServletResponse response) {
 //      세션에 있는 멤버 정보를 받아와서 요청값으로 받음
 //        해당 멤버를 찾아서 save 처리만 해주면 될듯
-        boolean flag = memberService.signUpInfo(memberInfoRequest, session);
+        boolean flag = memberService.signUpInfo(memberInfoRequest, response);
 
         if(flag){
             return ResponseEntity.ok().build();
