@@ -63,6 +63,10 @@ export default function KakaoMap() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  const [isCentered, setIsCentered] = useState<boolean>(false);
+>>>>>>> e4bd95b (feat : add hover box)
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
 <<<<<<< HEAD
 =======
@@ -217,8 +221,11 @@ export default function KakaoMap() {
             const newZoomLevel = map.getLevel();
             setZoomLevel(newZoomLevel);
           }}
+          onCenterChanged={()=>{
+            setIsCentered(false)
+          }}
         >
-          {pathName === "/main" && <SearchBtn zoomLevel={zoomLevel} getInfo={getInfo} />}
+          {pathName === "/main" && <SearchBtn zoomLevel={zoomLevel} getInfo={getInfo} isCentered={isCentered} setIsCentered={setIsCentered} />}
           <MarkerClusterer averageCenter={true} minLevel={3}>
             {Array.isArray(data) &&
               data.map((value, index) => {

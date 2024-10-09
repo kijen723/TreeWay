@@ -5,11 +5,12 @@ export type RoundButton = {
     alt: string
     imgSrc?: string
     onClick?: () => void
+    left? : string
 }
 
 export type RoundBtnGroupProps = {
     buttons: RoundButton[]
-    direction: 'row' | 'column' | 'single'
+    direction: 'row' | 'column' | 'single',
 }
 
 export type MenuItemProps = {

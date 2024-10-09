@@ -1,7 +1,7 @@
-import styles from './RoundBtnGroup.module.scss';
+import styles from './RoundBtnGroup2.module.scss';
 import { RoundBtnGroupProps } from '@/types/CommonPropsTypes';
 
-export default function RoundBtnGroup({ buttons, direction }: RoundBtnGroupProps) {
+export default function RoundBtnGroup2({ buttons, direction }: RoundBtnGroupProps) {
   return (
     <div className={`${styles.btnGroupContainer} ${direction === 'column' ? styles.column : (direction === 'row' ? styles.row : styles.single)}`}>
       {buttons.map((button, index) => (

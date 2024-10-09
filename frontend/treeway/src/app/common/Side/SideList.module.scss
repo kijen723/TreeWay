@@ -18,17 +18,45 @@
   border-radius: 10px;
   box-sizing: border-box;
   min-width: 150px;
-  z-index : 4;
+  z-index : 2;
 
   .btn{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    position : absolute;
+    top : 15px;
+    right : 20px;
     text-align: end;
-    padding-top : 5px;
-    padding-right : 5px;
 
     cursor : pointer;
 
     &:hover{
       color : #FFB704;
+
+      &::before{
+        position : absolute;
+        display : flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0, 0, 0, 0.8);
+        color : white;
+        font-weight : bold;
+        left : 30px;
+        width : 70px;
+        height : 30px;
+        border : 1px solid black;
+        border-radius: 10px;
+        content : attr(data-content);
+      }
+      &::after{
+          position : absolute;
+          content : '';
+          left : 15.8px;
+          border-width : 7px;
+          border-style : solid;
+          border-color : transparent rgba(0, 0, 0, 0.8) transparent transparent; 
+      }
     }
   }
 }

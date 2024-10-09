@@ -21,7 +21,7 @@ export default function SideList({
     <nav className={styles.navbar} style={!sideState ? {height : "7vh"} : {}}>
       {pathname === "/trend" ? null : <div className={styles.btn} onClick={() => {
           dispatch(changeSideControl(!sideState));
-          }}>{!sideState ? <FaCirclePlus /> : <FaMinusCircle />}</div>}
+          }} data-content={!sideState ? "펼치기" : "접기"}>{!sideState ? <FaCirclePlus /> : <FaMinusCircle />}</div>}
       <div className={styles.menuItems}>
         {/* <MenuItem icon={<FaHome />} label="HOME"/>
                 <MenuItem icon={<FaHome />} label="HOME"/>

@@ -20,27 +20,27 @@ export default function SideNav() {
   const upperButtons = [
     {
       icon: FcGlobe,
-      alt: "Alarm Button",
+      alt: "메인",
       onClick: () => {
         router.push("/main");
       },
     },
     { icon: FcReading, 
-      alt: "Alarm Button",
+      alt: "뉴스 / 정책",
       onClick: () => {
         router.push("/newsPolicy");
       },
     },
     {
       icon: FcCollaboration,
-      alt: "Alarm Button",
+      alt: "커뮤니티",
       onClick: () => {
         router.push("/community");
       },
     },
     {
       icon: FcAndroidOs,
-      alt: "Alarm Button",
+      alt: "AI 이미지 생성",
       onClick: () => {
         router.push("/createStoreImage");
       },
@@ -69,8 +69,17 @@ export default function SideNav() {
   const lowerButtons = [
     {
       icon: MdLogout,
+<<<<<<< HEAD
       alt: "Logout Button",
       onClick: handleLogout,
+=======
+      alt: "로그아웃",
+      onClick: () => {
+        dispatch(logOut());
+        router.push("/");
+      },
+      left : "50px",
+>>>>>>> e4bd95b (feat : add hover box)
     },
   ];
 

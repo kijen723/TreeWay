@@ -42,22 +42,23 @@
             color : white;
             font-weight : bold;
             z-index : 999;
-            left : 60px;
+            left : -170px;
             width : 150px;
             height : 50px;
+            border : 1px solid black;
             border-radius: 10px;
             content : attr(data-content);
         }
-
         &::after{
             position : absolute;
             content : '';
-            left : 41px;
-            border-width : 9.5px;
+            left : -17.8px;
+            border-width : 9.4px;
             border-style : solid;
-            border-color : transparent rgba(0, 0, 0, 0.8) transparent transparent;
+            border-color : transparent transparent transparent rgba(0, 0, 0, 0.8); 
         }
     }
+
 }
 
 .profileImg {

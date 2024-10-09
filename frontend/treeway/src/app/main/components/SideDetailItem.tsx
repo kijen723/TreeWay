@@ -30,15 +30,19 @@ export default function SideDetailItem({ data }: { data: Store }) {
       style={shopIdx === data.salesId ? { background: "#ECF4DD" } : {}}
       onClick={() => {
         dispatch(changeShopIndex(data.salesId));
-        if(params?.id){
-          router.push(`/main/${data.salesId}`)
+        if (params?.id) {
+          router.push(`/main/${data.salesId}`);
         }
       }}
     >
       {shopIdx === data.salesId ? (
-        <SlArrowRightCircle className={styles.back} onClick={()=>{
-          router.push(`/main/${data.salesId}`)
-        }} />
+        <div className={styles.back}>
+          <SlArrowRightCircle
+            onClick={() => {
+              router.push(`/main/${data.salesId}`);
+            }}
+          />
+        </div>
       ) : null}
       <div className={styles.Info}>
         <div className={styles.top}>
@@ -52,9 +56,7 @@ export default function SideDetailItem({ data }: { data: Store }) {
           <span>권리금 {Math.floor(data.personnelExpense / 10000)}만원 /</span>
           <span>보증금 {Math.floor(data.administrationCost / 10000)}만원</span>
         </div>
-        <span className={styles.mid2}>
-          월세 {Math.floor(data.administrationCost / 10000)}만원
-        </span>
+        <span className={styles.mid2}>월세 {Math.floor(data.administrationCost / 10000)}만원</span>
         <div className={styles.bottom}>
           <FaWonSign className={styles.icon} />
           <span>월매출 {Math.floor(data.monthlySales / 10000)}만원 /</span>

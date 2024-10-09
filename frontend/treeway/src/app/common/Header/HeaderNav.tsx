@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useEffect, useState } from "react";
 import { getCookie } from 'cookies-next';
+import RoundBtnGroup2 from "../RoundBtnGroup2";
 
 export default function HeaderNav() {
   const isLogin = useSelector((state: RootState) => state.auth.isAuth);
@@ -32,7 +33,7 @@ export default function HeaderNav() {
   const buttons = [
     {
       icon: isLogin ? undefined : MdLogin,
-      alt: isLogin ? "Profile Image" : "Login Button",
+      alt: isLogin ? "마이페이지" : "로그인",
       imgSrc: isLogin ? profileImageUrl : undefined,
       onClick: isLogin
         ? () => {
@@ -50,7 +51,7 @@ export default function HeaderNav() {
         <nav className={styles.navbar}>
           <Logo />
           <SearchBar />
-          <RoundBtnGroup buttons={buttons} direction="row" />
+          <RoundBtnGroup2 buttons={buttons} direction="row" />
         </nav>
       ) : null}
     </>
