@@ -2,9 +2,10 @@ package com.b107.treeway.api.attachedfile.service;
 
 import com.b107.treeway.api.attachedfile.dto.AttachedFileResponse;
 import com.b107.treeway.api.attachedfile.entity.AttachedFile;
+import com.b107.treeway.api.attachedfile.entity.ProfileImg;
 import com.b107.treeway.api.attachedfile.repository.AttachedFileRepository;
+import com.b107.treeway.api.attachedfile.repository.ProfileImgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,9 @@ public class AttachedFileService {
 
     @Autowired
     private AttachedFileRepository attachedFileRepository;
+
+    @Autowired
+    private ProfileImgRepository profileImgRepository;
 
     private final String uploadDir = "src/main/resources/attached_file/";
 
@@ -58,5 +62,30 @@ public class AttachedFileService {
                 .stream()
                 .map(file -> new AttachedFileResponse(file.getId(), file.getFilePath(), file.getFileName()))
                 .collect(Collectors.toList());
+    }
+
+    public void saveProfileImage(MultipartFile file, Long memberId) throws IOException {
+        // 저장 디렉토리 경로 설정
+        String directoryPath = "src/main/resources/profile_img";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs(); // 디렉토리가 없으면 생성
+        }
+
+        // 저장할 파일의 전체 경로 생성
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String filePath = directoryPath + "/" + fileName;
+
+        // 파일 저장
+        Path path = Paths.get(filePath);
+        Files.write(path, file.getBytes());
+
+        // 파일 정보를 DB에 저장
+        ProfileImg profileImage = new ProfileImg();
+        profileImage.setFileName(fileName);
+        profileImage.setFilePath(filePath);
+        profileImage.setMemberId(memberId);
+
+        profileImgRepository.save(profileImage);
     }
 }

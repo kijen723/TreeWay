@@ -28,6 +28,7 @@ out/
 .yml
 application.yml
 src/main/resources/attacted_file
+src/main/resources/profile_img
 
 ### NetBeans ###
 /nbproject/private/
