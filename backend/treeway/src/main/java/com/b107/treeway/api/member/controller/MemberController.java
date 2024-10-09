@@ -34,7 +34,7 @@ public class MemberController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("Authorization".equals(cookie.getName())) {
+                if ("customUserDetails".equals(cookie.getName())) {
                     cookie.setValue(null);
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
