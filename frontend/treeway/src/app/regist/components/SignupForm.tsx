@@ -13,7 +13,7 @@ import { logIn } from "@/redux/slice/authSlice";
 
 export default function SignupForm() {
     const [memberId, setMemberId] = useState(0);
-    const [imageFileName, setImageFileName] = useState('');
+    const [imageFile, setImageFile] = useState<File | null>(null);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [birthDate, setBirthDate] = useState('');
@@ -42,6 +42,32 @@ export default function SignupForm() {
         }
     };
 
+    const uploadImage = async () => {
+        if (!imageFile) return null;
+
+        const formData = new FormData();
+        formData.append('memberId', memberId.toString());
+        formData.append('profileImg', imageFile);
+
+        try {
+            const response = await fetch('https://j11b107.p.ssafy.io/api/files/profile', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const imageUrl = await response.text();
+                return imageUrl;
+            } else {
+                console.error('이미지 업로드 실패');
+                return null;
+            }
+        } catch (error) {
+            console.error('이미지 업로드 중 오류 발생:', error);
+            return null;
+        }
+    };
+
     const handleSubmit = async () => {
         if (!birthDate || !phoneNumber) {
             alert('생년월일과 전화번호를 입력해주세요.');
@@ -50,13 +76,12 @@ export default function SignupForm() {
 
         const signupData = {
             memberId: memberId,  // 쿠키에서 가져온 memberId
-            profileImg: imageFileName, // 파일명(string)
+            profileImg: "", 
             birthDate: birthDate,      // 생년월일(string)
             phoneNumber: phoneNumber   // 전화번호(string)
         };
     
         try {
-            console.log(signupData)
             const response = await fetch('https://j11b107.p.ssafy.io/api/member/sign-up-info', {
                 method: 'POST',
                 headers: {
@@ -69,7 +94,13 @@ export default function SignupForm() {
                 const errorText = await response.text();
                 throw new Error(`회원가입 요청 실패: ${errorText}`);
             }
-    
+
+            // 회원가입 성공 후 이미지 업로드
+            const imageUrl = await uploadImage();
+            if (imageUrl) {
+                console.log('이미지 업로드 성공:', imageUrl);
+            }
+
             dispatch(logIn({
                 memberId: memberId,
                 username: name,
@@ -85,7 +116,7 @@ export default function SignupForm() {
 
     return (
         <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-            <ImageUpload onFileSelect={(file) => setImageFileName(file?.name || '')} />
+            <ImageUpload onFileSelect={(file) => setImageFile(file)} />
             <FormField
                 label="이메일"
                 htmlFor="email"
