@@ -35,10 +35,17 @@ export default function SignupForm() {
     };
 
     const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoneNumber(e.target.value);
+        if (/^\d*$/.test(e.target.value)) {
+            setPhoneNumber(e.target.value);
+        }
     };
 
     const handleSubmit = async () => {
+        if (!birthDate || !phoneNumber) {
+            alert('생년월일과 전화번호를 입력해주세요.');
+            return;
+        }
+
         const signupData = {
             memberId: memberId,  // Redux에서 가져온 memberId
             profileImg: imageFileName, // 파일명(string)
@@ -98,6 +105,7 @@ export default function SignupForm() {
                     label="휴대전화"
                     htmlFor="phone"
                     type="text"
+                    placeholder='숫자만 입력하세요'
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
                 />
