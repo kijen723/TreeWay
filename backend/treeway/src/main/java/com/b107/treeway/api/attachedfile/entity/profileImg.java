@@ -7,21 +7,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "article_attached_file")
-public class AttachedFile {
+@Table(name = "profile_img")
+public class profileImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_attached_file_id")
+    @Column(name = "profile_img_id")
     private Long id;
 
-    @Column(name = "file_name",  length = 3000)
+    @Column(name = "file_name", length = 3000)
     private String fileName;
 
-    @Column(name = "file_path", length = 3000)
+    @Column(name = "file_path" , length = 3000)
     private String filePath;
 
-    @Column(name = "article_id")
-    private Long articleId;
+    @Column(name = "member_id")
+    private Long memberId;
 
 }

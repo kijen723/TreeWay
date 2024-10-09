@@ -10,6 +10,8 @@ import com.b107.treeway.api.article.entity.ArticleScrap;
 import com.b107.treeway.api.article.repository.ArticleCommentRepository;
 import com.b107.treeway.api.article.repository.ArticleRepository;
 import com.b107.treeway.api.article.repository.ArticleScrapRepository;
+import com.b107.treeway.api.attachedfile.dto.AttachedFileResponse;
+import com.b107.treeway.api.attachedfile.service.AttachedFileService;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
 import com.b107.treeway.api.rating.entity.IndustryDetail;
@@ -43,6 +45,9 @@ public class ArticleService {
     @Autowired
     private ArticleCommentRepository articleCommentRepository;
 
+    @Autowired
+    private AttachedFileService attachedFileService;
+
     public Article registArticle(ArticleRequest articleRequest) {
         Member member = memberRepository.findById(articleRequest.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
@@ -65,14 +70,30 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> getAllArticles() {
-        return articleRepository.findAllArticlesWithDetails();
+        List<ArticleResponse> articles = articleRepository.findAllArticlesWithDetails();
+
+        // 각 ArticleResponse에 대해 파일 정보를 가져와서 설정
+        for (ArticleResponse article : articles) {
+            List<AttachedFileResponse> attachedFiles = attachedFileService.getFilesByArticleId(article.getId());
+            article.setArticleAttachedFile(attachedFiles);
+        }
+
+        return articles;
     }
 
     @Transactional
     public ArticleResponse getArticleById(Long id) {
         increaseViewCount(id);
-        return articleRepository.findArticleByIdWithDetails(id)
+
+        // ArticleResponse를 가져옴
+        ArticleResponse article = articleRepository.findArticleByIdWithDetails(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article ID"));
+
+        // 해당 ArticleResponse에 대한 파일 정보를 가져와서 설정
+        List<AttachedFileResponse> attachedFiles = attachedFileService.getFilesByArticleId(article.getId());
+        article.setArticleAttachedFile(attachedFiles);
+
+        return article;
     }
 
     public String scrapArticle(Long articleId, Long memberId) {
@@ -139,7 +160,16 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> searchArticles(Long regionId, Long industryDetailId, Long memberId, String title) {
-        return articleRepository.searchArticles(regionId, industryDetailId, memberId, title);
+        // 검색된 게시글 목록을 가져옴
+        List<ArticleResponse> articles = articleRepository.searchArticles(regionId, industryDetailId, memberId, title);
+
+        // 각 게시글에 대해 첨부파일 리스트를 추가
+        articles.forEach(article -> {
+            List<AttachedFileResponse> attachedFiles = attachedFileService.getFilesByArticleId(article.getId());
+            article.setArticleAttachedFile(attachedFiles);
+        });
+
+        return articles;
     }
 
     public ArticleComment registComment(ArticleCommentRequest request) {
@@ -170,7 +200,16 @@ public class ArticleService {
     }
 
     public List<ArticleResponse> getScrappedArticlesByMember(Long memberId) {
-        return articleRepository.findScrappedArticlesByMember(memberId);
+        // 스크랩된 게시글 목록을 가져옴
+        List<ArticleResponse> articles = articleRepository.findScrappedArticlesByMember(memberId);
+
+        // 각 게시글에 대해 첨부파일 리스트를 추가
+        articles.forEach(article -> {
+            List<AttachedFileResponse> attachedFiles = attachedFileService.getFilesByArticleId(article.getId());
+            article.setArticleAttachedFile(attachedFiles);
+        });
+
+        return articles;
     }
 
     @Transactional

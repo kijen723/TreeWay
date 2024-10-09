@@ -1,5 +1,6 @@
 package com.b107.treeway.api.attachedfile.service;
 
+import com.b107.treeway.api.attachedfile.dto.AttachedFileResponse;
 import com.b107.treeway.api.attachedfile.entity.AttachedFile;
 import com.b107.treeway.api.attachedfile.repository.AttachedFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AttachedFileService {
@@ -48,5 +51,12 @@ public class AttachedFileService {
         attachedFile.setArticleId(articleId);
 
         attachedFileRepository.save(attachedFile);
+    }
+
+    public List<AttachedFileResponse> getFilesByArticleId(Long articleId) {
+        return attachedFileRepository.findByArticleId(articleId)
+                .stream()
+                .map(file -> new AttachedFileResponse(file.getId(), file.getFilePath(), file.getFileName()))
+                .collect(Collectors.toList());
     }
 }
