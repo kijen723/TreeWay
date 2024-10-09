@@ -20,7 +20,7 @@ export default function SideList({
   return (
     <nav className={styles.navbar} style={!sideState ? {height : "7vh"} : {}}>
       {pathname === "/trend" ? null : <div className={styles.btn} onClick={() => {
-          dispatch(changeSideControl());
+          dispatch(changeSideControl(!sideState));
           }}>{!sideState ? <FaCirclePlus /> : <FaMinusCircle />}</div>}
       <div className={styles.menuItems}>
         {/* <MenuItem icon={<FaHome />} label="HOME"/>

@@ -10,30 +10,6 @@ import { useEffect } from "react";
 import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 
 export default function ImgBox() {
-  // 제목 타이핑 효과.. 생각보다 별로
-  // const [title, setTitle] = useState<string>('');
-  // const [count, setCount] = useState<number>(1);
-  // const completionWord :string = 'TREEWAY';
-
-  // useEffect(()=>{
-  //     const typingInterval = setInterval(()=>{
-  //         setTitle((prevTitleValue) => {
-  //             let result = prevTitleValue ? prevTitleValue + completionWord[count] : completionWord[0];
-  //             setCount(count + 1);
-
-  //             if(count >= completionWord.length){
-  //                 setCount(0);
-  //                 setTitle('');
-  //             }
-
-  //             return result;
-  //         })
-  //     }, 300)
-
-  //     return ()=>{
-  //         clearInterval(typingInterval);
-  //     }
-  // })
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {

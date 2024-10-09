@@ -17,6 +17,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import SearchBtn from "@/app/main/components/SearchBtn";
 import { usePathname } from "next/navigation";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { useEffect, useRef, useState } from 'react';
 import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
@@ -43,6 +44,9 @@ import { usePathname } from 'next/navigation';
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 =======
 >>>>>>> 8a88ecf (feat : modify trend page and main page)
+=======
+import { changeSideControl } from "@/redux/slice/sidecontrolSlice";
+>>>>>>> 6ebe837 (fix : main page)
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -244,6 +248,7 @@ export default function KakaoMap() {
                     }
                     onClick={() => {
                       dispatch(changeShopIndex(value.salesId));
+                      dispatch(changeSideControl(true));
                       setZoomLevel(2);
                     }}
                   />

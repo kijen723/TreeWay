@@ -14,8 +14,8 @@ const sidecontrolSlice = createSlice({
   name: 'sidecontrol',
   initialState,
   reducers: {
-    changeSideControl(state){
-        state.value = !state.value
+    changeSideControl(state, action){
+        state.value = action.payload;
     }
   },
 })
