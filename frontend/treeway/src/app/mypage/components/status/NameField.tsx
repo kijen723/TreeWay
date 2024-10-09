@@ -2,9 +2,11 @@
 
 import styles from '@/app/mypage/page.module.scss';
 import { FaPen } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function NameField() {
-    const userName = "정다운";
+    const userName = useSelector((state :RootState) => state.auth.username);
 
     const handlePenClick = () => {
         console.log("update profile")
