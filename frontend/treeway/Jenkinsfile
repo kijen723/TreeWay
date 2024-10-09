@@ -22,8 +22,8 @@ pipeline {
         stage('Set .ENV File') {
             steps {
                 dir('frontend/treeway') {
-                    withCredentials([file(credentialsId: '.ENV.PRODUCTION', variable: '.env.production')]) {
-                        sh '.env.production ./'
+                    withCredentials([file(credentialsId: '.ENV.PRODUCTION', variable: 'ENV_PRODUCTION')]) {
+                        sh 'export $(cat $ENV_PRODUCTION | xargs)'
                     }
                 }
             }
