@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.b107.treeway.oauth2.dto.CustomOAuth2User;
 import com.b107.treeway.jwt.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +32,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private final JWTUtil jwtUtil;
 
-    public CustomSuccessHandler(JWTUtil jwtUtil, MemberRepository memberRepository) {
+    public CustomSuccessHandler(JWTUtil jwtUtil, MemberRepository memberRepository, ObjectMapper objectMapper) {
 
         this.jwtUtil = jwtUtil;
         this.memberRepository = memberRepository;
