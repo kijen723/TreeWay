@@ -28,15 +28,38 @@ export default function SelectRegion() {
   const [showBudgetError, setShowBudgetError] = useState(false);
   const [showBusinessHoursError, setShowBusinessHoursError] = useState(false);
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
+  const [detailData, setDetailData] = useState<any>('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
+  const [randomDetailData, setRandomDetailData] = useState<any>('');
+  const [topProperties, setTopProperties] = useState<any>('');
+
   const RecomandRegion = useRecommandRegion({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setDetailData(data);
       console.log('성공적');
     },
     onError: () => {
       console.error('Error:');
     },
   });
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  useEffect(() => {
+    if (detailData !== '') {
+      const randomData = detailData.sort(() => Math.random() - 0.5).slice(0, 4);
+      const topPropertiesData = detailData
+        .sort(
+          (a: { ratingScore: number }, b: { ratingScore: number }) =>
+            b.ratingScore - a.ratingScore
+        )
+        .slice(0, 3);
+
+      setRandomDetailData(randomData);
+      setTopProperties(topPropertiesData);
+      setShowModal(true);
+    }
+  }, [detailData]); // detailData가 변경될 때마다 실행
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   const allCategory: AllCategories = {
     전체: [{ label: '전체', value: 1 }],
@@ -63,9 +86,11 @@ export default function SelectRegion() {
     setShowModal(false); // 모달 닫기
   };
 
-  const handleSubmit = () => {
-    let valid = true;
+  const explanation =
+    '이 점수는 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
 
+  const handleSubmit = async () => {
+    let valid = true;
     // budget : 가능 예산
     if (budget !== '' && isNaN(Number(budget))) {
       setShowInvalidBudgetError(true);
@@ -88,16 +113,21 @@ export default function SelectRegion() {
       console.log('선택 업종 value:', selectedSubCategory.value); // value 출력
       console.log('선택한 영업시간:', businessHours);
       console.log('입력한 예산:', budget ? Number(budget) : 0); // 예산이 빈 문자열이면 null로 처리
-      RecomandRegion.mutate({
-        businessHours,
-        selectedSubCategory: selectedSubCategory.value, // value를 전달
-        budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
-      });
 
-      setShowModal(true);
+      try {
+        // 비동기 호출 대기
+        await RecomandRegion.mutateAsync({
+          businessHours,
+          selectedSubCategory: selectedSubCategory.value, // value를 전달
+          budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
+<<<<<<< HEAD
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ더미데이터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const score = 85;
   const explanation =
@@ -153,6 +183,8 @@ export default function SelectRegion() {
   }, [])
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+=======
+>>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
   return (
     <div>
       <div>
@@ -230,7 +262,13 @@ export default function SelectRegion() {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <label htmlFor='business-hours'>가능 영업시간: </label>
+=======
+      {/* <div className={styles.textSub}>
+        <label htmlFor='business-hours'>가능 영업시간 </label>
+      </div>
+>>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
       <select
         id='business-hours'
         value={businessHours}
@@ -241,7 +279,7 @@ export default function SelectRegion() {
         <option value='1'>09시~18시</option>
         <option value='2'>18시~02시</option>
         <option value='3'>02시~09시</option>
-      </select>
+      </select> */}
       <div>
         {showBusinessHoursError && (
           <p style={{ color: 'red' }}>영업시간을 선택해야 합니다.</p>
@@ -277,9 +315,9 @@ export default function SelectRegion() {
 
       {showModal && (
         <AnalyzeBox
-          score={score}
           explanation={explanation}
-          propertyList={propertyList}
+          propertyList={topProperties}
+          randomList={randomDetailData}
           onClose={handleCloseModal}
         />
       )}

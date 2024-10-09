@@ -1,20 +1,18 @@
 'use client';
 
 export const recommandOverall = async (
-  business_time: number,
+  businessTime: number,
   region: number,
   cost: number,
-  industry_id: number,
-  industry_detail_id: number
+  industryDetailId: number
 ) => {
   const response = await fetch(`https://j11b107.p.ssafy.io/api/rating`, {
     method: 'POST',
     body: JSON.stringify({
-      business_time: business_time,
+      businessTime: businessTime,
       region: region,
       cost: cost,
-      industry_id: industry_id,
-      industry_detail_id: industry_detail_id,
+      industryDetailId: industryDetailId,
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -68,7 +66,7 @@ export const recommandIndustry = async (
     {
       method: 'POST',
       body: JSON.stringify({
-        business_time: business_time,
+        businessTime: business_time,
         region: region,
         cost: cost,
       }),

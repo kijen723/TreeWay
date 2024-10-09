@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+'use client';
+>>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
 import { useEffect, useState } from 'react';
 import locations from '@/app/common/locations';
 <<<<<<< HEAD
@@ -13,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
 =======
 import { useRecommandIndustry } from '@/hooks/useRecommand';
+import { FadeLoader } from 'react-spinners';
 
 >>>>>>> 454cf81 (feat:종합, 지역, 종합 api 연결)
 export default function SelectIndustry() {
@@ -25,10 +30,14 @@ export default function SelectIndustry() {
   const [showInvalidBudgetError, setShowInvalidBudgetError] = useState(false);
 
   const [selectedMainLocation, setSelectedMainLocation] = useState('전국'); // 대지역 디폴트값
+  const [detailData, setDetailData] = useState<any>('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
+  const [randomDetailData, setRandomDetailData] = useState<any>('');
+  const [topProperties, setTopProperties] = useState<any>('');
 
   const RecomandIndustry = useRecommandIndustry({
-    onSuccess: () => {
+    onSuccess: async (data) => {
+      setDetailData(data);
       console.log('성공적');
     },
     onError: () => {
@@ -36,19 +45,37 @@ export default function SelectIndustry() {
     },
   });
 
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  useEffect(() => {
+    if (detailData !== '') {
+      const randomData = detailData.sort(() => Math.random() - 0.5).slice(0, 4);
+      const topPropertiesData = detailData
+        .sort(
+          (a: { ratingScore: number }, b: { ratingScore: number }) =>
+            b.ratingScore - a.ratingScore
+        )
+        .slice(0, 3);
+
+      setRandomDetailData(randomData);
+      setTopProperties(topPropertiesData);
+      setShowModal(true);
+    }
+  }, [detailData]); // detailData가 변경될 때마다 실행
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   // "전국"을 포함한 새로운 allLocations 생성
   const allLocations = [
-    { label: '전국', value: 1, districts: [] },
+    { label: '전국', value: 0, districts: [] },
     ...locations,
   ];
   const [regionCode, setRegionCode] = useState<number>(
-    allLocations.find((location) => location.label === '전국')?.value || 1
+    allLocations.find((location) => location.label === '전국')?.value || 0
   ); // 시군구 코드
 
   const handleMainLocationChange = (mainLocation: string) => {
     setRegionCode(
       allLocations.find((location) => location.label === mainLocation)?.value ||
-        1
+        0
     );
     setSelectedMainLocation(mainLocation);
   };
@@ -57,57 +84,10 @@ export default function SelectIndustry() {
     setShowModal(false); // 모달 닫기
   };
 
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ더미데이터ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-  const score = 85;
   const explanation =
-    '이 점수는 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
-  const propertyList = [
-    {
-      industry: '업종',
-      name: '호식이두마리치킨',
-      address: '대전 유성구 궁동 409-1',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-    {
-      industry: '업종',
-      name: '닉pc방',
-      address: '대전 유성구 문화원로 77',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-    {
-      industry: '업종',
-      name: '꼬꼬레스토랑',
-      address: '대전 유성구 문화원로 89',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-    {
-      industry: '업종',
-      name: '메롱',
-      address: '대전 유성구 문화원로 89',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-    {
-      industry: '업종',
-      name: '바보',
-      address: '대전 유성구 문화원로 89',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-    {
-      industry: '업종',
-      name: '멍청이',
-      address: '대전 서구 갈마동 263-45',
-      monthlySales: 7000000,
-      monthlyEarnings: 1000000,
-    },
-  ];
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    '현재 시장의 트렌드와 지역 수요를 기반으로 평가되었습니다.';
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let valid = true;
     // budget : 가능 예산
     if (budget !== '' && isNaN(Number(budget))) {
@@ -139,14 +119,16 @@ export default function SelectIndustry() {
       console.log('입력한 예산:', budget ? Number(budget) : 0);
       // 종합 추천 결과 처리 로직
 
-      RecomandIndustry.mutate({
-        businessHours,
-        regionCode,
-        budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
-      });
-
-      console.log(RecomandIndustry);
-      setShowModal(true);
+      try {
+        // 비동기 호출 대기
+        await RecomandIndustry.mutateAsync({
+          businessHours,
+          regionCode,
+          budget: budget ? Number(budget) * 10000 : 0, // 빈 문자열인 경우 0으로 처리
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
@@ -157,6 +139,13 @@ export default function SelectIndustry() {
 
   return (
     <div>
+<<<<<<< HEAD
+=======
+      {/* {loading && <FadeLoader className={styles.loader} color='#36d7b7' />} */}
+      <div className={styles.textSub}>
+        <label htmlFor='main-Location'>시도 선택</label>
+      </div>
+>>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
       {/* 시도 리스트 */}
 <<<<<<< HEAD
       <div>
@@ -201,8 +190,16 @@ export default function SelectIndustry() {
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
         </div>
       </div>
+<<<<<<< HEAD
       <label htmlFor='business-hours'>가능 영업시간: </label>
       <select
+=======
+      {/* <div className={styles.textSub}>
+        <label htmlFor='business-hours'>가능 영업시간 </label>
+      </div> */}
+      {/* <select
+        className={styles.businessHours}
+>>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
         id='business-hours'
         value={businessHours}
         onChange={(e) => setBusinessHours(Number(e.target.value))}
@@ -212,7 +209,7 @@ export default function SelectIndustry() {
         <option value='1'>09시~18시</option>
         <option value='2'>18시~02시</option>
         <option value='3'>02시~09시</option>
-      </select>
+      </select> */}
       <div>
         {showBusinessHoursError && (
           <p style={{ color: 'red' }}>영업시간을 선택해야 합니다.</p>
@@ -246,9 +243,9 @@ export default function SelectIndustry() {
       </button>
       {showModal && (
         <AnalyzeBox
-          score={score}
           explanation={explanation}
-          propertyList={propertyList}
+          propertyList={topProperties}
+          randomList={randomDetailData}
           onClose={handleCloseModal}
         />
       )}

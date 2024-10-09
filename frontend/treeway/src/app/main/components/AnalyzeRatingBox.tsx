@@ -1,7 +1,7 @@
 'use client';
 
 import { FaLocationDot, FaWonSign } from 'react-icons/fa6';
-import styles from './AnalyzeBox.module.scss';
+import styles from './AnalyzeRatingBox.module.scss';
 import AnalyzeDetailBox from './AnalyzeDetailBox';
 import { useEffect, useState } from 'react';
 
@@ -48,17 +48,16 @@ export default function DetailBox({
 }: AnalyzeBoxProps) {
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태 추가
   const [showData, setShowData] = useState<Property>();
-  const [showValue, setShowValue] = useState(0);
+
   useEffect(() => {
     if (showData !== undefined) {
       setShowModal(true);
     }
-  }, [showValue]); // detailData가 변경될 때마다 실행
+  }, [showData]); // detailData가 변경될 때마다 실행
 
   const handleClick = (data: Property) => {
     console.log(data);
     setShowData(data);
-    showValue === 0 ? setShowValue(1) : setShowValue(0);
   };
 
   const handleCloseModal = () => {
@@ -76,27 +75,10 @@ export default function DetailBox({
             </button>
           </div>
           <div className={styles.score}>
-            <div className={styles.arrang}>
-              {propertyList.map((property, index) => (
-                <div key={index} className={styles.itemm}>
-                  <div className={styles.infoo}>
-                    <div className={styles.topp}>
-                      <span className={styles.categoryy}>{index + 1}위 </span>
-                      <span className={styles.namee}>
-                        {Math.min(Math.floor(property.ratingScore * 10), 100)}/
-                        100점
-                      </span>
-                    </div>
-                    <div className={styles.midd}>
-                      업종: {property.majorBusiness}
-                    </div>
-                    <div className={styles.midd}>
-                      소업종: {property.industryDetail}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <h1>
+              {Math.min(Math.floor(propertyList[0].ratingScore * 10), 100)} /
+              100점
+            </h1>
           </div>
           <p>{explanation}</p>
           <div className={styles.explanation}></div>
@@ -137,6 +119,8 @@ export default function DetailBox({
             </ul>
           </div>
         </div>
+
+        <h2>* 세부 결과는 분석이력결과에 저장됩니다.</h2>
       </div>
       {showModal && showData && (
         <AnalyzeDetailBox onClose={handleCloseModal} data={showData} />

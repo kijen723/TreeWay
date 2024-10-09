@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { IoMdCloseCircleOutline } from "react-icons/io";
-import styles from "./DetailBackBtn.module.scss";
-import { useParams, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
-import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import styles from './DetailBackBtn.module.scss';
+import { useParams, useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { changeShopIndex } from '@/redux/slice/shopIndexSlice';
+import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function DetailBackBtn() {
   // useEffect(() => {
@@ -25,7 +25,7 @@ export default function DetailBackBtn() {
         className={styles.backBtn}
         onClick={() => {
           dispatch(changeShopIndex(shopId));
-          router.push("/main");
+          router.push('/main');
         }}
       />
     </div>

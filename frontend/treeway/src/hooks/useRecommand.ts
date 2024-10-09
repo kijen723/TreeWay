@@ -10,8 +10,7 @@ interface overallData {
   businessHours: number;
   regionCode: number;
   budget: number;
-  industry_id: number;
-  industry_detail_id: number;
+  industryDetailId: number;
 }
 
 interface regionData {
@@ -30,19 +29,12 @@ export const useRecommandOverall = (
   options?: UseMutationOptions<unknown, Error, overallData>
 ) => {
   return useMutation<unknown, Error, overallData>({
-    mutationFn: ({
-      businessHours,
-      regionCode,
-      budget,
-      industry_id,
-      industry_detail_id,
-    }) => {
+    mutationFn: ({ businessHours, regionCode, budget, industryDetailId }) => {
       return recommandOverall(
         businessHours,
         regionCode,
         budget,
-        industry_id,
-        industry_detail_id
+        industryDetailId
       );
     },
     onSuccess: (data, variables, context) => {
@@ -85,9 +77,9 @@ export const useRecommandRegion = (
 };
 
 export const useRecommandIndustry = (
-  options?: UseMutationOptions<unknown, Error, industryData>
+  options?: UseMutationOptions<any, Error, industryData>
 ) => {
-  return useMutation<unknown, Error, industryData>({
+  return useMutation<any, Error, industryData>({
     mutationFn: ({ businessHours, regionCode, budget }) => {
       return recommandIndustry(businessHours, regionCode, budget);
     },
