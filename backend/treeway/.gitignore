@@ -27,6 +27,7 @@ out/
 !**/src/test/**/out/
 .yml
 application.yml
+src/main/resources/attacted_file
 
 ### NetBeans ###
 /nbproject/private/

@@ -4,10 +4,15 @@ import com.b107.treeway.api.article.dto.*;
 import com.b107.treeway.api.article.entity.Article;
 import com.b107.treeway.api.article.entity.ArticleComment;
 import com.b107.treeway.api.article.service.ArticleService;
+import com.b107.treeway.api.attachedfile.service.AttachedFileService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,9 +22,28 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @PostMapping
-    public ResponseEntity<Article> registArticle(@RequestBody ArticleRequest articleRequest) {
+    @Autowired
+    private AttachedFileService attachedFileService;
+
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Article> registArticle(
+            @RequestPart("articleRequest") String articleRequestJson,
+            @RequestPart("files") List<MultipartFile> files) throws IOException {
+
+        // JSON 데이터를 객체로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArticleRequest articleRequest = objectMapper.readValue(articleRequestJson, ArticleRequest.class);
+
+        // Article 저장 로직
         Article article = articleService.registArticle(articleRequest);
+
+        // 파일 저장 로직
+        if (files != null && !files.isEmpty()) {
+            for (MultipartFile file : files) {
+                attachedFileService.saveFile(file, article.getId());
+            }
+        }
+
         return ResponseEntity.ok(article);
     }
 
