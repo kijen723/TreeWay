@@ -40,7 +40,7 @@ export default function SignupForm() {
 
     const handleSubmit = async () => {
         const signupData = {
-            memberId: 4,  // Redux에서 가져온 memberId
+            memberId: memberId,  // Redux에서 가져온 memberId
             profileImg: imageFileName, // 파일명(string)
             birthDate: birthDate,      // 생년월일(string)
             phoneNumber: phoneNumber   // 전화번호(string)
