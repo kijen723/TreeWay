@@ -114,6 +114,7 @@ public class MemberController {
         return ResponseEntity.ok().body(memberAnalyze);
     }
 
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),})

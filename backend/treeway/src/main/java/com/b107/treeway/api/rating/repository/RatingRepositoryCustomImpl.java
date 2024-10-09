@@ -21,8 +21,12 @@ import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
@@ -32,7 +36,9 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     private final AnalysisResumeRepository resumeRepository;
     private final MemberRepository memberRepository;
-    private final IndustryRepository industryRepository;
+    private final IndustryDetailRepository industryDetailRepository;
+    private final RegionRepository regionRepository;
+    private final AnalysisResumeRepository analysisResumeRepository;
 //    @Override
 //    @Transactional
 //    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
@@ -489,14 +495,21 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
 
         List<RatingResponse> result = query.fetch();
-        List<AnalysisResume> resumes = new ArrayList<>();
-        for (RatingResponse ratingResponse : result) {
-            AnalysisResume resume = new AnalysisResume(ratingResponse);
-            resume.setMemberId(ratingRequest.getMemberId());
-            resumes.add(resume);
-        }
 
-        resumeRepository.saveAll(resumes);
+        if (!result.isEmpty()) {
+            Optional<Region> regionDetail = regionRepository.findById((long) region);
+            Optional<IndustryDetail> industryDetail = industryDetailRepository.findById((long) industryDetailId);
+            if (regionDetail.isPresent() && industryDetail.isPresent()) {
+                Long memberId = ratingRequest.getMemberId();
+                String regionDetailName = regionDetail.get().getRegionDetailName();
+                String industryName = industryDetail.get().getIndustryDetailName();
+                LocalDate currentDate = LocalDate.now();
+                Timestamp currentTime = Timestamp.valueOf(currentDate.atStartOfDay());
+
+                AnalysisResume analysisResume = new AnalysisResume(memberId, currentTime, industryName, (long) industryDetailId, regionDetailName, (long)region, cost);
+                analysisResumeRepository.save(analysisResume);
+            }
+        }
 
         return result;
     }
