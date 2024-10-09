@@ -26,16 +26,42 @@ const AnalyzePage = () => {
   //   industryDetailId
   // );
 
+  console.log(1);
+
+  // useEffect(() => {
+  //   // window.history.state에서 전달된 값을 받아옴
+  //   const state = window.history.state;
+  //   if (state) {
+  //     setRegion(state.regionId);
+  //     setIndustryDetail(state.industryDetailId);
+  //     console.log(state);
+  //   }
+  //   setSelectedCategory('업종분석');
+  // })
+
   useEffect(() => {
-    // window.history.state에서 전달된 값을 받아옴
-    const state = window.history.state;
-    if (state) {
-      setRegion(state.regionId);
-      setIndustryDetail(state.industryDetailId);
-      console.log(state);
-    }
-    setSelectedCategory('업종분석');
-  }, [window.history.state]);
+    const handlePopState = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const regionParam = searchParams.get('region');
+      const industryDetailParam = searchParams.get('industryDetail');
+
+      if (regionParam && industryDetailParam) {
+        setRegion(regionParam);
+        setIndustryDetail(industryDetailParam);
+      }
+    };
+
+    // popstate 이벤트 리스너 등록
+    window.addEventListener('popstate', handlePopState);
+
+    // 초기 로드 시 URL에서 파라미터 읽기
+    handlePopState();
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 해제
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   return (
     <div className={styles.DetailBox}>
