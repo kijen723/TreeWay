@@ -61,14 +61,16 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String memberName = name;
-        Member existData = userRepository.findByMemberName(memberName);
-
+        String email = oAuth2Response.getEmail();
+        System.out.println("여기 이메일" + email);
+        Member existData = userRepository.findByEmail(email);
         if (existData == null) {
 
             Member member = new Member();
             member.setMemberName(memberName);
             member.setEmail(oAuth2Response.getEmail());
             member.setName(name);
+            member.setEmail(email);
             member.setRole("ROLE_USER");
 
             userRepository.save(member);
@@ -76,6 +78,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             UserDTO userDTO = new UserDTO();
             userDTO.setUsername(memberName);
             userDTO.setName(name);
+            userDTO.setEmail(email);
             userDTO.setRole("ROLE_USER");
 
             System.out.println(userDTO);
@@ -83,7 +86,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return new CustomOAuth2User(userDTO);
         }
         else {
-
             existData.setEmail(oAuth2Response.getEmail());
             existData.setName(name);
 
@@ -91,6 +93,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             UserDTO userDTO = new UserDTO();
             userDTO.setUsername(existData.getMemberName());
+            userDTO.setEmail(email);
             userDTO.setName(name);
             userDTO.setRole(existData.getRole());
 

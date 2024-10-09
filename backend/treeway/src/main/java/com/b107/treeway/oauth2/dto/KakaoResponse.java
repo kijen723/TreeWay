@@ -8,11 +8,12 @@ import java.util.Map;
 public class KakaoResponse implements OAuth2Response {
 
     private final Map<String, Object> attribute;
+    private final Long kakao;
 
     public KakaoResponse(Map<String, Object> attribute) {
-        System.out.println("1" + attribute);
-        System.out.println("2" + attribute.get("kakao_account"));
+        this.kakao = (Long) attribute.get("id");
         this.attribute = (Map<String, Object>) attribute.get("kakao_account");
+
     }
 
     @Override
@@ -29,7 +30,8 @@ public class KakaoResponse implements OAuth2Response {
     @Override
     public String getEmail() {
 
-        return "KakaoEmail";
+//        return kakao + "email";
+        return "email" + kakao;
     }
 
     @Override

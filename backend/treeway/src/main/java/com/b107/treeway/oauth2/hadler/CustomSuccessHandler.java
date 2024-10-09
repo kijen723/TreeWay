@@ -40,12 +40,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         //OAuth2User
         CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-        System.out.println(customUserDetails);
+        String email = customUserDetails.getEmail();
         String memberName = customUserDetails.getUsername();
         String name = customUserDetails.getName();
-        System.out.println("memberName: " + memberName);
+        System.out.println("email: " + email);
 
-        Member isExistingUser = memberRepository.findByMemberName(memberName);
+        Member isExistingUser = memberRepository.findByEmail(email);
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -55,11 +55,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String token = jwtUtil.createJwt(memberName,name, role, 60*60*60L);
 
         response.addCookie(createCookie("Authorization", token));
-        System.out.println(isExistingUser.toString());
         if (isExistingUser.getPhoneNumber() != null) {
-            response.sendRedirect(redirectUrl);
+            response.sendRedirect(redirectUrl + "/main");
         } else {
-            System.out.println("1234");
             HttpSession session = request.getSession();
             session.setAttribute("customUserDetails", customUserDetails);
             response.sendRedirect(redirectUrl + "/regist");
