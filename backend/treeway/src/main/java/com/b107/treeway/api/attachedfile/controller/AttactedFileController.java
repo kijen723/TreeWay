@@ -6,6 +6,8 @@ import com.b107.treeway.api.attachedfile.entity.ProfileImg;
 import com.b107.treeway.api.attachedfile.repository.AttachedFileRepository;
 import com.b107.treeway.api.attachedfile.repository.ProfileImgRepository;
 import com.b107.treeway.api.attachedfile.service.AttachedFileService;
+import com.b107.treeway.api.member.entity.Member;
+import com.b107.treeway.api.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -38,6 +40,9 @@ public class AttactedFileController {
 
     @Autowired
     private ProfileImgRepository profileImgRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) throws IOException {
@@ -81,9 +86,19 @@ public class AttactedFileController {
         }
     }
 
-    @GetMapping("/profile/{profileImgId}")
-    public ResponseEntity<Resource> getProfileImage(@PathVariable Long profileImgId) throws IOException {
-        // 데이터베이스에서 프로필 이미지 정보 검색
+    @GetMapping("/profile/{memberId}")
+    public ResponseEntity<Resource> getProfileImageByMemberId(@PathVariable Long memberId) throws IOException {
+        // 데이터베이스에서 멤버 정보 검색
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new FileNotFoundException("Member not found with id: " + memberId));
+
+        // 멤버의 profile_img 필드에서 프로필 이미지 ID 가져오기
+        Long profileImgId = member.getProfileImg();
+        if (profileImgId == null) {
+            throw new FileNotFoundException("No profile image found for member with id: " + memberId);
+        }
+
+        // 프로필 이미지 정보 검색
         ProfileImg profileImg = profileImgRepository.findById(profileImgId)
                 .orElseThrow(() -> new FileNotFoundException("File not found with id: " + profileImgId));
 
@@ -96,7 +111,7 @@ public class AttactedFileController {
             throw new FileNotFoundException("File not found: " + profileImg.getFileName());
         }
 
-        // 파일 확장자에 따라 MIME 타입 결정 (여기서는 PNG로 설정)
+        // 파일 확장자에 따라 MIME 타입 결정
         String contentType = Files.probeContentType(filePath);
         if (contentType == null) {
             contentType = "application/octet-stream"; // MIME 타입을 알 수 없는 경우 기본값
