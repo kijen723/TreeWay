@@ -42,6 +42,8 @@ public class AttactedFileController {
         // 파일이 저장된 경로 (절대 경로 사용)
         Path filePath = Paths.get(attachedFile.getFilePath()).normalize();
 
+        System.out.println("Attempting to access file at path: " + filePath.toAbsolutePath());
+
         // 파일 존재 여부 확인 및 리소스 설정
         Resource resource = new UrlResource(filePath.toUri());
         if (!resource.exists()) {
