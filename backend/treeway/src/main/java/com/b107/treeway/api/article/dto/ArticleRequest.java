@@ -3,9 +3,6 @@ package com.b107.treeway.api.article.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,5 +12,4 @@ public class ArticleRequest {
     private Long regionId;
     private String title;
     private String content;
-    private List<MultipartFile> articleAttachedFile;
 }

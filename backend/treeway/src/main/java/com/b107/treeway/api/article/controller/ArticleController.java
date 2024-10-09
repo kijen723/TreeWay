@@ -7,7 +7,6 @@ import com.b107.treeway.api.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,11 +19,9 @@ public class ArticleController {
     private ArticleService articleService;
 
     @PostMapping
-    public ResponseEntity<String> createArticle(@RequestPart ArticleRequest articleRequest,
-                                                @RequestPart(value = "articleAttachedFile", required = false) List<MultipartFile> files) {
-        articleRequest.setArticleAttachedFile(files);
-        articleService.registArticle(articleRequest);
-        return ResponseEntity.ok("Article created successfully");
+    public ResponseEntity<Article> registArticle(@RequestBody ArticleRequest articleRequest) {
+        Article article = articleService.registArticle(articleRequest);
+        return ResponseEntity.ok(article);
     }
 
     @GetMapping

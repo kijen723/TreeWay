@@ -27,12 +27,12 @@ public class Member {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "is_deleted", nullable = false)
+    @Column(name = "is_deleted")
     private Boolean isDeleted = false;
 
     @CreationTimestamp
-    @Column(name = "registed_time", nullable = false)
-    private LocalDateTime registedTime;
+    @Column(name = "registered_time", nullable = false)
+    private LocalDateTime registeredTime;
 
     @Column(name = "profile_img")
     private String profileImg;
