@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MapSalesResponse {
-    private Long id;
+    private Long salesId;
     private String majorBusiness;
     private Long industryDetailId;
     private String industryDetailName;
@@ -41,7 +41,7 @@ public class MapSalesResponse {
     private Double longitude;
 
     public MapSalesResponse(SalesItem salesItem) {
-        this.id = salesItem.getId();
+        this.salesId = salesItem.getId();
         this.majorBusiness = salesItem.getMajorBusiness();
         this.industryDetailId = salesItem.getIndustryDetail().getId();
         this.industryDetailName = salesItem.getIndustryDetail().getIndustryDetailName();

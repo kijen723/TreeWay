@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SalesItemResponse {
-    private Long id;
+    private Long salesId;
     private String majorBusiness;
     private Long industryDetailId;
     private String industryDetailName;
@@ -44,7 +44,7 @@ public class SalesItemResponse {
                              Integer deposit, Integer monthlyRent, Integer administrationCost, Integer materialCost,
                              Integer personnelExpense, Integer utilityBill, Integer otherExpenses,
                              String additionalInformation, Integer itemNum, Double latitude, Double longitude, Long scrapCount) {
-        this.id = id;
+        this.salesId = id;
         this.majorBusiness = majorBusiness;
         this.industryDetailId = industryDetailId;
         this.industryDetailName = industryDetailName;
@@ -75,7 +75,7 @@ public class SalesItemResponse {
     }
 
     public SalesItemResponse(SalesItem salesItem) {
-        this.id = salesItem.getId();
+        this.salesId = salesItem.getId();
         this.majorBusiness = salesItem.getMajorBusiness();
         this.industryDetailId = salesItem.getIndustryDetail().getId();
         this.industryDetailName = salesItem.getIndustryDetail().getIndustryDetailName();

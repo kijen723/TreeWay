@@ -59,8 +59,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isExistingUser.getPhoneNumber() != null) {
             response.sendRedirect(redirectUrl + "/main");
         } else {
-            String customUserDetailsJson = new ObjectMapper().writeValueAsString(customUserDetails);
-            Cookie userCookie = new Cookie("customUserDetails", URLEncoder.encode(customUserDetailsJson, "UTF-8"));
+            String memberJson = new ObjectMapper().writeValueAsString(isExistingUser);
+            Cookie userCookie = new Cookie("member", URLEncoder.encode(memberJson, "UTF-8"));
             userCookie.setMaxAge(60 * 60 * 24);
             userCookie.setPath("/");
             response.addCookie(userCookie);
