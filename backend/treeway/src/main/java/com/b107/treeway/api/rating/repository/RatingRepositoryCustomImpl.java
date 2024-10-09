@@ -1,5 +1,8 @@
 package com.b107.treeway.api.rating.repository;
 
+import com.b107.treeway.api.analysis.entity.AnalysisResume;
+import com.b107.treeway.api.analysis.repository.AnalysisResumeRepository;
+import com.b107.treeway.api.member.repository.MemberRepository;
 import com.b107.treeway.api.rating.entity.*;
 import com.b107.treeway.api.rating.request.RatingRequest;
 import com.b107.treeway.api.rating.request.RegionRatingRequest;
@@ -15,16 +18,21 @@ import com.querydsl.jpa.impl.JPAQuery;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    private final AnalysisResumeRepository resumeRepository;
+    private final MemberRepository memberRepository;
+    private final IndustryRepository industryRepository;
 //    @Override
 //    @Transactional
 //    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
@@ -103,9 +111,6 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
 //
 //        return query.fetch();
 //    }
-
-
-
 
     @Override
     @Transactional
@@ -483,7 +488,16 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
                 .orderBy(rt.ratingScore.desc());
 
 
-        return query.fetch();
+        List<RatingResponse> result = query.fetch();
+        List<AnalysisResume> resumes = new ArrayList<>();
+        for (RatingResponse ratingResponse : result) {
+            AnalysisResume resume = new AnalysisResume(ratingResponse);
+            resume.setMemberId(ratingRequest.getMemberId());
+            resumes.add(resume);
+        }
 
+        resumeRepository.saveAll(resumes);
+
+        return result;
     }
 }

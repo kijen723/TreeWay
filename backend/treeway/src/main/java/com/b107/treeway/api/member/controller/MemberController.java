@@ -121,7 +121,11 @@ public class MemberController {
     @PostMapping("analyze")
     public ResponseEntity<AnalyzeResponse> getMemberAnalyzeDetail(@RequestBody AnalyzeRequest analyzeRequest){
         AnalyzeResponse memberAnalyze = memberService.getMemberAnalyzeDetail(analyzeRequest);
-        return ResponseEntity.ok().body(memberAnalyze);
+        if(memberAnalyze != null){
+            return ResponseEntity.ok().body(memberAnalyze);
+        }else{
+            return ResponseEntity.status(400).build();
+        }
     }
 
     @ApiResponses(value = {

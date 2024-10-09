@@ -1,5 +1,6 @@
 package com.b107.treeway.api.member.service;
 
+import com.b107.treeway.api.analysis.entity.AnalysisResume;
 import com.b107.treeway.api.analysis.repository.AnalyzeRepository;
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.repository.MemberRepository;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +42,7 @@ public class MemberService {
         memberRepository.deleteById(memberId);
     }
 
+    @Transactional
     public boolean deleteAnalyze(AnalyzeRequest analyzeRequest) {
         Member member = findMember(analyzeRequest.getMemberId());
 
@@ -51,11 +55,19 @@ public class MemberService {
     }
 
     public List<AnalyzeResponse> getMemberAnalyze(Long memberId) {
-        return memberRepository.findMemberAnalyze(memberId);
+        List<AnalysisResume> byMemberId = analyzeRepository.findByMemberId(memberId);
+        return byMemberId.stream()
+                .map(AnalyzeResponse::convertToAnalyzeResponse)
+                .collect(Collectors.toList());
     }
 
     public AnalyzeResponse getMemberAnalyzeDetail(AnalyzeRequest analyzeRequest) {
-        return memberRepository.findMemberAnalyzeDetail(analyzeRequest.getMemberId(), analyzeRequest.getAnalysisId());
+        AnalysisResume memberAnalyzeDetail = analyzeRepository.findMemberAnalyzeDetail(analyzeRequest.getMemberId(), analyzeRequest.getAnalysisId());
+        if(memberAnalyzeDetail == null) {
+            return null;
+        }else{
+            return AnalyzeResponse.convertToAnalyzeResponse(memberAnalyzeDetail);
+        }
     }
 
     public boolean signUpInfo(MemberInfoRequest memberInfoRequest, HttpServletResponse response) {

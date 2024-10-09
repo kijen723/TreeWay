@@ -3,7 +3,6 @@ package com.b107.treeway.api.member.repository;
 
 import com.b107.treeway.api.member.entity.Member;
 import com.b107.treeway.api.member.response.AnalyzeResponse;
-import com.b107.treeway.db.entity.AnalysisResume;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,10 +14,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByEmail(String email);
     Member findByPhoneNumber(String phone);
 
-    @Query("SELECT a FROM AnalysisResume a WHERE a.member.id = :memberId")
+    @Query("SELECT a FROM AnalysisResume a WHERE a.memberId = :memberId")
     List<AnalyzeResponse> findMemberAnalyze(@Param("memberId") Long memberId);
 
-    @Query("SELECT a.id, a.member.id " +
-            "FROM AnalysisResume a WHERE a.member.id = :memberId AND a.id = :analysisId")
-    AnalyzeResponse findMemberAnalyzeDetail(@Param("memberId") Long memberId, @Param("analysisId") Long analysisId);
+
 }
