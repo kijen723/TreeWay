@@ -91,13 +91,13 @@ public class AttachedFileService {
         profileImage.setFileName(fileName);
         profileImage.setFilePath(filePath);
         profileImage.setMemberId(memberId);
-        profileImgRepository.save(profileImage);
+        ProfileImg savedProfileImage = profileImgRepository.save(profileImage);
 
-        // Member 엔티티의 profileImg 필드를 업데이트
+        // Member 엔티티의 profileImg 필드를 업데이트 (파일 ID 값을 저장)
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
-            member.setProfileImg(fileName); // 파일 이름만 저장
+            member.setProfileImg(savedProfileImage.getId()); // 파일 ID를 저장
             memberRepository.save(member);
         }
     }

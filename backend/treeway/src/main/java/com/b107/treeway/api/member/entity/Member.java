@@ -45,6 +45,7 @@ public class Member {
 =======
 >>>>>>> 30661c1 (feat : 멤버 추가 정보 입력 기능 추가)
     @Column(name = "profile_img")
+<<<<<<< HEAD
     private String profileImg;
 <<<<<<< HEAD
 
@@ -53,6 +54,9 @@ public class Member {
 
     @Column(name = "registered_time")
     private Timestamp registeredTime;
+=======
+    private Long profileImg;
+>>>>>>> 2d822b5 (feat: image change)
 }
 =======
 }
