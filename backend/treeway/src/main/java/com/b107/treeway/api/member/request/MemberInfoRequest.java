@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberInfoRequest {
     private Long memberId;
+    private String profileImg;
     private String birthDate;
     private String phoneNumber;
 }

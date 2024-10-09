@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface SalesItemScrapRepository extends JpaRepository<SalesItemScrap, Long> {
     Optional<SalesItemScrap> findByMemberIdAndSalesItemId(Long memberId, Long salesItemId);
-    boolean existsBySalesItemIdAndMemberId(Long memberId, Long salesItemId);
+    boolean existsBySalesItemIdAndMemberId(Long salesItemId, Long memberId);
 }

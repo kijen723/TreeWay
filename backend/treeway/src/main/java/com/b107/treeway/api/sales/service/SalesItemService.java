@@ -63,7 +63,7 @@ public class SalesItemService {
     }
 
     public boolean isSalesItemScraped(Long memberId, Long salesItemId) {
-        return salesItemScrapRepository.existsBySalesItemIdAndMemberId(memberId, salesItemId);
+        return salesItemScrapRepository.existsBySalesItemIdAndMemberId(salesItemId, memberId);
     }
 
     public List<SalesItemResponse> getScrappedSalesByMember(Long memberId) {

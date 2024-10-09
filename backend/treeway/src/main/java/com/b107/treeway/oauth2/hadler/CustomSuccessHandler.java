@@ -47,6 +47,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         System.out.println("email: " + email);
 
         Member isExistingUser = memberRepository.findByEmail(email);
+        System.out.println(isExistingUser);
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -56,7 +57,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String token = jwtUtil.createJwt(memberName,name, role, 60*60*60L);
 
         response.addCookie(createCookie("Authorization", token));
-        if (isExistingUser.getPhoneNumber() != null) {
+        if (isExistingUser.getPhoneNumber() == null) {
             response.sendRedirect(redirectUrl + "/main");
         } else {
             String customUserDetailsJson = new ObjectMapper().writeValueAsString(isExistingUser);
