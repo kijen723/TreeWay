@@ -9,26 +9,34 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useEffect, useState } from "react";
-import { getCookie } from 'cookies-next';
 import RoundBtnGroup2 from "../RoundBtnGroup2";
 
 export default function HeaderNav() {
   const isLogin = useSelector((state: RootState) => state.auth.isAuth);
+  const memberId = useSelector((state: RootState) => state.auth.memberId);
   const [profileImageUrl, setProfileImageUrl] = useState<string>("/image/default_user_img.jpg");
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
     if (isLogin) {
-      const userDetails = getCookie('customUserDetails');
-      if (userDetails) {
-        const { profileImg } = JSON.parse(userDetails as string);
-        if (profileImg) {
-          setProfileImageUrl(profileImg);
+      const fetchProfileImage = async () => {
+        try {
+          const response = await fetch(`https://j11b107.p.ssafy.io/api/files/profile/${memberId}`);
+          if (response.ok) {
+            const imageUrl = response.url;
+            setProfileImageUrl(imageUrl);
+          } else {
+            console.error('프로필 이미지를 불러오는 데 실패했습니다.');
+          }
+        } catch (error) {
+          console.error('프로필 이미지를 가져오는 중 오류 발생:', error);
         }
-      }
+      };
+
+      fetchProfileImage();
     }
-  }, [isLogin]);
+  }, [isLogin, memberId]);
 
   const buttons = [
     {

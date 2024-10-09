@@ -5,13 +5,14 @@ import ProfileImg from './ProfileImg';
 
 interface StatusBarProps {
     setConType: (type: string) => void;
+    handleModalOpen: () => void;
 }
 
-export default function StatusBar({ setConType }: StatusBarProps) {
+export default function StatusBar({ setConType, handleModalOpen }: StatusBarProps) {
     return (
         <div className={styles.block}>
             <ProfileImg />
-            <NameField />
+            <NameField handleModalOpen={handleModalOpen} />
             <ContentManage setConType={setConType} />
         </div>
     );
