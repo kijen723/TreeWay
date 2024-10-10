@@ -34,89 +34,10 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final AnalysisResumeRepository resumeRepository;
-    private final MemberRepository memberRepository;
     private final IndustryDetailRepository industryDetailRepository;
     private final RegionRepository regionRepository;
     private final AnalysisResumeRepository analysisResumeRepository;
-//    @Override
-//    @Transactional
-//    public List<RatingResponse> getIndustryRating(SubRatingRequest subRatingRequest) {
-//        int businessTime = subRatingRequest.getBusinessTime();
-//        int region = subRatingRequest.getRegion();
-//        int cost = subRatingRequest.getCost();
-//
-//        QRating rt = QRating.rating;
-//        QRegion rg = QRegion.region;
-//        QIndustryDetail idl = QIndustryDetail.industryDetail;
-//        QExpectedCost ec = QExpectedCost.expectedCost;
-//        QBusinessHour bh = QBusinessHour.businessHour;
-//        QSalesItem si = QSalesItem.salesItem;
-//
-//        JPAQuery<Tuple> subQuery = new JPAQuery<>(entityManager)
-//                .select(rt.industryDetail.id, rt.ratingScore.max())
-//                .from(rt)
-//                .join(rt.region, rg)
-//                .join(rt.industryDetail, idl)
-//                .join(ec).on(ec.industryDetail.id.eq(idl.id)
-//                        .and(rg.id.eq(ec.region.id)))
-//                .join(bh).on(bh.industryDetail.id.eq(idl.id))
-//                .where(bh.businessTime.eq(businessTime)
-//                        .and(rg.id.eq(Long.valueOf(region)))
-//                        .and(ec.cost.loe(cost)))
-//                .groupBy(rt.industryDetail.id);
-//
-//        // 메인 쿼리
-//        JPAQuery<RatingResponse> query = new JPAQuery<>(entityManager)
-//                .select(Projections.constructor(
-//                        RatingResponse.class,
-//                        rt.ratingScore,
-//                        si.majorBusiness,
-//                        idl.industryDetailName,
-//                        si.address,
-//                        si.monthlySales,
-//                        si.monthlyEarnings,
-//                        si.hostName,
-//                        si.phone,
-//                        si.tradeName,
-//                        si.floorClass,
-//                        si.currentFloor,
-//                        si.totalFloors,
-//                        si.squareMeter,
-//                        si.availableParking,
-//                        si.totalParking,
-//                        si.premium,
-//                        si.deposit,
-//                        si.monthlyRent,
-//                        si.administrationCost,
-//                        si.materialCost,
-//                        si.personnelExpense,
-//                        si.utilityBill,
-//                        si.otherExpenses,
-//                        si.additionalInformation,
-//                        si.itemNum,
-//                        si.latitude,
-//                        si.longitude
-//                ))
-//                .from(rt)
-//                .join(rt.region, rg)
-//                .join(rt.industryDetail, idl)
-//                .join(ec).on(ec.industryDetail.id.eq(idl.id)
-//                        .and(rg.id.eq(ec.region.id)))
-//                .join(si).on(si.id.eq(ec.id))
-//                .join(bh).on(bh.industryDetail.id.eq(idl.id))
-//                .where(bh.businessTime.eq(businessTime)
-//                        .and(rg.id.eq(Long.valueOf(region)))
-//                        .and(ec.cost.loe(cost))
-//                        .and(rt.industryDetail.id.in(
-//                                JPAExpressions.select(subQuery.select(rt.industryDetail.id))
-//                        ))
-//                )
-//                .orderBy(rt.ratingScore.desc())
-//                .limit(9);
-//
-//        return query.fetch();
-//    }
+    private final int limitCount = 20;
 
     @Override
     @Transactional
@@ -124,6 +45,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         int businessTime = subRatingRequest.getBusinessTime();
         int region = subRatingRequest.getRegion();
         int cost = subRatingRequest.getCost();
+
 
         StringBuilder sb = new StringBuilder();
 
@@ -317,7 +239,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         }
 
         query.where(conditions)
-                .limit(9)
+                .limit(limitCount)
                 .orderBy(rt.ratingScore.desc());
 
 
@@ -363,7 +285,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         }
 
         query.where(conditions)
-                .limit(9)
+                .limit(limitCount)
                 .orderBy(rt.ratingScore.desc());
 
         return query.fetch();
@@ -490,7 +412,7 @@ public class RatingRepositoryCustomImpl implements RatingRepositoryCustom {
         }
 
         query.where(conditions)
-                .limit(9)
+                .limit(limitCount)
                 .orderBy(rt.ratingScore.desc());
 
 
