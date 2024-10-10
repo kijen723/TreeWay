@@ -514,22 +514,29 @@ export default function InputForm({
 
     try {
       setIsLoading(true);
-      const response = await fetch('/api/generateImage', {
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_GPT_API_KEY}`, // Use environment variable for security
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({
+          model: 'dall-e-3',
+          prompt: prompt,
+          n: 1,
+          size: '1024x1024',
+        }),
       });
+      
       const data = await response.json();
-      console.log('API 응답 데이터:', data); // API 응답 데이터 확인
-      setImageUrl(data.imageUrl); // 이미지 URL 부모 컴포넌트로 전달
-      setErrorMessage(''); // 에러 메시지 초기화
+      console.log('API 응답 데이터:', data);
+      setImageUrl(data.data[0].url); // OpenAI 응답에서 이미지 URL 받기
+      setErrorMessage('');
     } catch (error) {
       console.error('Error occurred during API call:', error);
       setErrorMessage('이미지 생성 중 오류가 발생했습니다.');
     } finally {
-      setIsLoading(false); // 로딩 종료
+      setIsLoading(false);
     }
   };
 
