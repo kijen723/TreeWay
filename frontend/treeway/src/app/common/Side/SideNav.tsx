@@ -76,7 +76,7 @@ export default function SideNav() {
     }
   };
 
-  const lowerButtons = [
+  const lowerButtonsForAuth = [
     {
       icon: MdLogout,
 <<<<<<< HEAD
@@ -93,6 +93,17 @@ export default function SideNav() {
     },
   ];
 
+  const lowerButtonsForUnauth = [
+    {
+      icon: MdLogout,
+      alt: "초기화면",
+      onClick: () => {
+        router.push("/");
+      },
+      left : "50px",
+    },
+  ];
+
   const pathname = usePathname();
 
   return (
@@ -100,7 +111,10 @@ export default function SideNav() {
       {pathname !== "/" ? (
         <nav className={styles.navbar}>
           <RoundBtnGroup buttons={upperButtons} direction="column" />
-          {isAuth && <RoundBtnGroup buttons={lowerButtons} direction="column" />}
+          <RoundBtnGroup
+            buttons={isAuth ? lowerButtonsForAuth : lowerButtonsForUnauth}
+            direction="column"
+          />
         </nav>
       ) : null}
     </>
