@@ -13,6 +13,6 @@ public interface IndustryAnalysisRepository extends JpaRepository<IndustryAnalys
             "FROM IndustryAnalysis ia " +
             "JOIN ia.industryDetail id " +
             "JOIN ia.region r " +
-            "WHERE ia.region.id = :regionId AND ia.industryDetail.id = :industryDetailId")
+            "WHERE (ia.region.id = :regionId OR ia.region.id = 1) AND ia.industryDetail.id = :industryDetailId")
     List<IndustryAnalysisResponse> findByRegionIdAndIndustryDetailIdWithDetails(@Param("regionId") Long regionId, @Param("industryDetailId") Long industryDetailId);
 }

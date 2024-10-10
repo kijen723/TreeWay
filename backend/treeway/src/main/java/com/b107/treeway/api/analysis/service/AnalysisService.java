@@ -33,7 +33,11 @@ public class AnalysisService {
 
     public AnalysisResponse getAnalysisData(Long regionId, Long industryDetailId) {
         List<IndustryAnalysisResponse> industryAnalysisList = industryAnalysisRepository.findByRegionIdAndIndustryDetailIdWithDetails(regionId, industryDetailId);
+        System.out.println("industryAnalysisList" + industryAnalysisList);
+
         List<PopulationAnalysisResponse> populationAnalysisList = populationAnalysisRepository.findByRegionIdWithDetails(regionId);
+        System.out.println("populationAnalysisList" + populationAnalysisList);
+
         List<RegionAnalysisResponse> regionAnalysisList = regionAnalysisRepository.findByRegionIdWithDetails(regionId);
 
         return new AnalysisResponse(industryAnalysisList, populationAnalysisList, regionAnalysisList);
