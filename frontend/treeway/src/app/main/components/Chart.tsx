@@ -29,7 +29,7 @@ export default function Chart({ shopData }: { shopData: Store }) {
           "rgba(75, 192, 192)",
           "rgba(153, 102, 255)",
           "rgba(255, 159, 64)",
-          "rgba(75, 192, 192)",
+          "rgba(3, 204, 3)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
@@ -38,7 +38,7 @@ export default function Chart({ shopData }: { shopData: Store }) {
           "rgba(75, 192, 192, 1)",
           "rgba(153, 102, 255, 1)",
           "rgba(255, 159, 64, 1)",
-          "rgba(75, 192, 192, 1)",
+          "rgba(3, 204, 3, 1)",
         ],
         borderWidth: 1,
         hoverOffset: 4,

@@ -1,5 +1,5 @@
 .main{
-    width : 3600px;
+    width : 7800px;
     height : 200px;
     display : flex;
     overflow : hidden;
@@ -19,7 +19,7 @@
         width : 300px;
         height : 100%;
         box-sizing: border-box;
-        padding : 10px;
+        padding : 30px;
     }
 }
 
@@ -28,6 +28,6 @@
         transform: translateX(0%);
     }
     100%{
-        transform : translateX(-1800px);
+        transform : translateX(-3900px);
     }
 }

@@ -39,10 +39,8 @@ export default function SelectIndustry() {
   const RecomandIndustry = useRecommandIndustry({
     onSuccess: async (data) => {
       setDetailData(data);
-      console.log('성공적');
     },
     onError: () => {
-      console.error('Error:');
     },
   });
 
@@ -118,10 +116,6 @@ export default function SelectIndustry() {
     }
 
     if (valid) {
-      console.log('선택지역:', selectedMainLocation);
-      console.log('선택지역코드:', regionCode);
-      console.log('선택한 영업시간:', businessHours);
-      console.log('입력한 예산:', budget ? Number(budget) : 0);
       // 종합 추천 결과 처리 로직
       setLoading(true);
 
@@ -135,7 +129,6 @@ export default function SelectIndustry() {
           budget: budget ? Number(budget) * 10000 : 0, // 빈 문자열인 경우 0으로 처리
         });
       } catch (error) {
-        console.error('Error:', error);
         setLoading(false);
       }
     }
@@ -233,6 +226,7 @@ export default function SelectIndustry() {
               ))}
             </div>
           </div>
+<<<<<<< HEAD
           {/* <div className={styles.textSub}>
 >>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
         <label htmlFor='business-hours'>가능 영업시간 </label>
@@ -283,6 +277,8 @@ export default function SelectIndustry() {
         업종 추천 받기
       </button>
 =======
+=======
+>>>>>>> a6760a7 (fix : modify css)
           <div>
             <div className={styles.textSub}>
               <label htmlFor='budget'>예산</label>
@@ -297,7 +293,6 @@ export default function SelectIndustry() {
             />
             <span className={styles.budgetLabel}>만원 </span>
           </div>
-          {/* 예산이 숫자가 아닐 때 에러 메시지 */}
           {showInvalidBudgetError && (
             <p className={styles.failedText}>숫자를 입력해야 합니다.</p>
           )}

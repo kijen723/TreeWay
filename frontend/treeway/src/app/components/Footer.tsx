@@ -7,17 +7,31 @@ import { motion } from "framer-motion";
 export default function Footer() {
   const imgList = [
     "next.png",
+    "redux.png",
+    "react-query.png",
+    "pwa.png",
+    "typescript.png",
+    'sass.png',
+    "spring.png",
+    "spring-security.png",
+    "querydsl.png",
+    "mysql.png",
+    "jpa.jpg",
+    "hadoop.jpeg",
+    "spark.png",
     "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
-    "next.png",
+    "redux.png",
+    "react-query.png",
+    "pwa.png",
+    "typescript.png",
+    'sass.png',
+    "spring.png",
+    "spring-security.png",
+    "querydsl.png",
+    "mysql.png",
+    "jpa.jpg",
+    "hadoop.jpeg",
+    "spark.png",
   ];
 
   const [items, setItems] = useState<string[]>(imgList);
@@ -27,7 +41,7 @@ export default function Footer() {
       {items.map((value, index) => {
         return (
           <motion.div className={styles.imgBox}>
-            <img className={styles.img} src={`/image/${value}`} />
+            <img className={styles.img} src={`/image/logo/${value}`} />
           </motion.div>
         );
       })}
