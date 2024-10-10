@@ -121,8 +121,16 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                             </div>
                             <div className={styles.policyContent}>
                                 <div className={styles.content}>
-                                    <p>대상: {policy.target}</p>
-                                    <p>사업 자격: {policy.eligibility}</p>
+                                    <p>대상: {policy.target.split(",").map((word, i)=>{
+                                        return(
+                                            <span className={styles.word}>{word + " "}</span>
+                                        )
+                                    })}</p>
+                                    <p>사업 자격: {policy.eligibility.split(",").map((word, i)=>{
+                                        return(
+                                            <span className={styles.word}>{word + " "}</span>
+                                        )
+                                    })}</p>
                                 </div>
                             </div>
                         </div>

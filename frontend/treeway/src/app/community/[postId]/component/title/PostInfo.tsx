@@ -14,7 +14,7 @@ export default function PostInfo({ post }: postProp) {
     return (
         <div className={styles.postInfo}>
             <div className={styles.infoHead}>
-                <p>{post.regionName} | {post.industryDetailName}</p>
+                <p className={styles.orange}>{post.regionName} | {post.industryDetailName}</p>
                 <div className={styles.count}>
                     <span>
                         <LuEye /> {post.viewCount}
@@ -26,8 +26,8 @@ export default function PostInfo({ post }: postProp) {
             </div>
             <h2>{post.title}</h2>
             <div className={styles.info}>
-                <p>{post.memberName}</p>
-                <p>{date} {time}</p>
+                <span>{post.memberName}</span>
+                <span>{date} {time}</span>
             </div>
         </div>
     );
