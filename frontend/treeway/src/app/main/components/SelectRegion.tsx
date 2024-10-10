@@ -129,6 +129,7 @@ export default function SelectRegion() {
         await new Promise((resolve) => setTimeout(resolve, 3000));
         setLoading(false);
         // 비동기 호출 대기
+        console.log(selectedSubCategory.value);
         await RecomandRegion.mutateAsync({
           businessHours,
           selectedSubCategory: selectedSubCategory.value, // value를 전달

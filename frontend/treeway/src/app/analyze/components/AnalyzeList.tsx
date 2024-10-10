@@ -1,23 +1,12 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import styles from './AnalyzeList.module.scss';
-import {
-  AwaitedReactNode,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { FaLocationDot, FaWonSign } from 'react-icons/fa6';
-import { SlArrowRightCircle } from 'react-icons/sl';
+import { useEffect, useRef, useState } from 'react';
 import { useAnalyzeTotalResullt } from '@/hooks/useAnalyzeHistory';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { setAnalyzeDetail } from '@/redux/slice/analyzeDetailSlice';
 
 interface idData {
   analysisDate: number;
@@ -32,6 +21,7 @@ interface idData {
 
 export default function SideDetailItem() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const memberId = useSelector((state: RootState) => state.auth.memberId);
 
@@ -39,10 +29,8 @@ export default function SideDetailItem() {
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  // 선택된 가게의 ref 설정
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  // 선택된 가게가 있으면 해당 가게로 스크롤
   useEffect(() => {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({
@@ -63,14 +51,14 @@ export default function SideDetailItem() {
           onClick={() => {
             setSelectedId(data.id);
             // 클릭 시 해당 ID에 맞는 페이지로 이동
-            history.pushState(
-              {
-                region: data.regionId,
-                industryDetail: data.industryDetailId,
-              },
-              '',
-              `/analyze/${data.id}`
+            dispatch(
+              setAnalyzeDetail({
+                regionId: data.regionId,
+                industryDetailId: data.industryDetailId,
+              })
             );
+
+            router.push(`/analyze/${data.id}`);
           }}
         >
           <div className={styles.Info}>

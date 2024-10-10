@@ -8,11 +8,11 @@ import TimeAnalyze from '../components/TimeAnalyze';
 import RegionAnalyze from '../components/RegionAnalyze';
 import PopulationAnalyze from '../components/PopulationAnalyze';
 import { useAnalyzeDetailResullt } from '@/hooks/useAnalyzeHistory';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const AnalyzePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [region, setRegion] = useState('');
-  const [industryDetail, setIndustryDetail] = useState('');
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     const scrollableDiv = document.querySelector(`.${styles.WhiteBox}`);
@@ -21,48 +21,26 @@ const AnalyzePage = () => {
     }
   };
 
-  // const { data: data, isLoading: Loading } = useAnalyzeDetailResullt(
-  //   regionId,
-  //   industryDetailId
-  // );
+  const regionId = useSelector(
+    (state: RootState) => state.analyzeDetailSlice.regionId
+  );
+  const industryDetailId = useSelector(
+    (state: RootState) => state.analyzeDetailSlice.industryDetailId
+  );
 
-  console.log(1);
+  const { data: data, isLoading: Loading } = useAnalyzeDetailResullt(
+    regionId,
+    industryDetailId
+  );
 
-  // useEffect(() => {
-  //   // window.history.state에서 전달된 값을 받아옴
-  //   const state = window.history.state;
-  //   if (state) {
-  //     setRegion(state.regionId);
-  //     setIndustryDetail(state.industryDetailId);
-  //     console.log(state);
-  //   }
-  //   setSelectedCategory('업종분석');
-  // })
+  console.log(data);
 
   useEffect(() => {
-    const handlePopState = () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const regionParam = searchParams.get('region');
-      const industryDetailParam = searchParams.get('industryDetail');
-
-      if (regionParam && industryDetailParam) {
-        setRegion(regionParam);
-        setIndustryDetail(industryDetailParam);
-      }
-    };
-
-    // popstate 이벤트 리스너 등록
-    window.addEventListener('popstate', handlePopState);
-
-    // 초기 로드 시 URL에서 파라미터 읽기
-    handlePopState();
-
-    // 컴포넌트 언마운트 시 이벤트 리스너 해제
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
-
+    // 처음 렌더링 시 선택된 카테고리를 리덕스에서 가져온 값으로 설정
+    if (selectedCategory === '') {
+      setSelectedCategory('업종분석'); // 기본값으로 '업종분석'을 설정
+    }
+  }, [selectedCategory]);
   return (
     <div className={styles.DetailBox}>
       <DetailBackBtn />
@@ -98,12 +76,12 @@ const AnalyzePage = () => {
           )}
           {selectedCategory === '인구분석' && (
             <div>
-              <PopulationAnalyze />
+              <PopulationAnalyze populationAnalsis={data.populationAnalysis} />
             </div>
           )}
           {selectedCategory === '지역현황' && (
             <div>
-              <RegionAnalyze />
+              <RegionAnalyze regionAnalysis={data.regionAnalysis} />
             </div>
           )}
         </div>

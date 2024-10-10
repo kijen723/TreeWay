@@ -23,6 +23,18 @@ ChartJS.register(
   Legend
 );
 
+interface PopulationAnalyzeProps {
+  populationAnalsis: {
+    id: number;
+    regionId: number;
+    regionName: string;
+    trendIndex: number;
+    activityStatus: string; //"활동인구"
+    analysisData: string;
+    gender: string;
+  }[];
+}
+
 // API에서 데이터를 받아오는 것처럼 가정한 더미 데이터
 const fetchData = () => {
   return [
@@ -59,7 +71,9 @@ const fetchData = () => {
   ];
 };
 
-export default function SalesAnalyze() {
+export default function PopulationAnalyze({
+  populationAnalsis,
+}: PopulationAnalyzeProps) {
   const data = fetchData();
 
   const months = [

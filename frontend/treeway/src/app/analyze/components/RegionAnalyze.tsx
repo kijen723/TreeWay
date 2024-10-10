@@ -10,6 +10,16 @@ import {
 } from 'chart.js';
 import styles from './SalesAnalyze.module.scss';
 
+interface RegionAnalyzeProps {
+  regionAnalysis: {
+    id: number;
+    regionId: number;
+    regionName: string;
+    facility: string;
+    analysisData: string;
+  }[];
+}
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,31 +29,30 @@ ChartJS.register(
   Legend
 );
 
-// API에서 데이터를 받아오는 것처럼 가정한 데이터
-const fetchData = () => {
-  return [
-    {
-      region: '서울',
-      category: '시설',
-      monthlyData: [9, 13, 4, 6, 13],
-    },
-  ];
-};
+export default function SalesAnalyze({ regionAnalysis }: RegionAnalyzeProps) {
+  const facilities = ['자동차', '의료', '학교', '문화', '체육']; // 시설 리스트
 
-export default function SalesAnalyze() {
+  // 분석 데이터에서 마지막 값을 추출하여 차트 데이터로 사용
+  const monthlyData = facilities.map((facility) => {
+    const item = regionAnalysis.find((r) => r.facility === facility);
+    const analysisData = item?.analysisData
+      .split(',')
+      .map((value) => parseInt(value.trim(), 10));
+    return analysisData ? analysisData[analysisData.length - 1] : 0; // 시설이 없으면 0으로 처리
+  });
+
   const data = {
-    labels: ['자동차', '의료', '학교', '문화', '체육'],
+    labels: facilities, // 시설 라벨
     datasets: [
       {
-        label: '개수',
-        data: fetchData()[0].monthlyData, // 전국 업소수 데이터
+        label: '시설',
+        data: monthlyData, // 마지막 값만으로 데이터를 채움
         borderColor: 'sandybrown',
         backgroundColor: 'sandybrown',
         borderWidth: 1,
       },
     ],
   };
-
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -72,7 +81,7 @@ export default function SalesAnalyze() {
     },
   };
 
-  const tableData = fetchData();
+  const tableData = regionAnalysis;
 
   return (
     <div className={styles.container}>
@@ -84,25 +93,27 @@ export default function SalesAnalyze() {
       </div>
       <div className={styles.tableContainer}>
         <div className={styles.unitLabel}>단위: 개</div>
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <table className={styles.table}>
           <thead>
             <tr>
               <th>지역</th>
               <th>구분</th>
-              {data.labels.map((label) => (
-                <th key={label}>{label}</th>
-              ))}
+              {['2024. 04', '2024. 05', '2024. 06', '2024. 07', '2024. 08'].map(
+                (label) => (
+                  <th key={label}>{label}</th>
+                )
+              )}
             </tr>
           </thead>
           <tbody>
             {tableData.map((row, rowIndex) => (
               <tr key={rowIndex}>
-                <td className={styles.region}>{row.region}</td>
-                <td className={styles.category}>{row.category}</td>
-                {row.monthlyData.map((value, colIndex) => (
-                  <td key={colIndex}>{value}</td>
+                <td className={styles.region}>{row.regionName}</td>
+                <td className={styles.category}>{row.facility}</td>
+                {row.analysisData.split(',').map((value, colIndex) => (
+                  <td key={colIndex}>{value.trim()}</td>
                 ))}
               </tr>
             ))}
