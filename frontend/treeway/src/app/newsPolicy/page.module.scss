@@ -107,6 +107,13 @@
         transition: all 0.5s ease;
         width: fit-content;
         height: 50%;
+
+        .closeText {
+          font-size: 14px;
+          color: gray;
+          position: absolute;
+          left: 30%;
+        }
       }
 
       .searchIcon {
@@ -130,12 +137,46 @@
       }
 
       .searchInput.open {
-        width: 20vw;
+        width: 15vw;
         opacity: 1;
       }
 
       .searchInput:focus {
         border-color: none;
+      }
+
+      .searchCriteria {
+        padding: 5px;
+        border: none;
+        display: inline-block;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        transition: opacity 0.3s ease;
+      }
+
+      .searchOptions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        transition: width 0.5s ease, opacity 0.5s ease;
+      }
+
+      .searchOptions.open {
+        opacity: 1;
+      }
+
+      .searchButton {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .searchButton:hover {
+        background-color: #0056b3;
       }
     }
 

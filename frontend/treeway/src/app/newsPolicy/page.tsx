@@ -15,6 +15,7 @@ export default function NewsPolicy() {
     const [loading, setLoading] = useState(false);
     const [sortCriteria, setSortCriteria] = useState('Latest');
     const [selectedRegion, setSelectedRegion] = useState<number>(0);
+    const [searchQuery, setSearchQuery] = useState("");
     const itemsPerPage = 4;
 
     const toggleNewsStatus = () => {
@@ -75,6 +76,12 @@ export default function NewsPolicy() {
       if (regionId === 0) return data;
       return data.filter(item => item.regionId === regionId);
     };
+    
+    const filterByTitle = (data: any[], query: string) => {
+        if (!query) return data;
+        return data.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+    };
+    
   
     // 현재 페이지에 보여줄 데이터
     const getCurrentPageData = (data: any[]) => {
@@ -85,9 +92,9 @@ export default function NewsPolicy() {
   
     const sortedNewsData = sortData([...newsData], sortCriteria);
     const sortedPolicyData = sortData([...policyData], sortCriteria);
-  
-    const filteredNewsData = filterByRegion(sortedNewsData, selectedRegion);
-    const filteredPolicyData = filterByRegion(sortedPolicyData, selectedRegion);
+
+    const filteredNewsData = filterByTitle(filterByRegion(sortedNewsData, selectedRegion), searchQuery);
+    const filteredPolicyData = filterByTitle(filterByRegion(sortedPolicyData, selectedRegion), searchQuery);
   
     if (loading) return <div>Loading...</div>;
   
@@ -100,6 +107,7 @@ export default function NewsPolicy() {
               toggleNewsStatus={toggleNewsStatus}
               setSortCriteria={setSortCriteria}
               setSelectedRegion={setSelectedRegion}
+              setSearchQuery={setSearchQuery}
             />
             {isNews ? (
               <NewsList newsData={getCurrentPageData(filteredNewsData)} />
@@ -125,5 +133,4 @@ export default function NewsPolicy() {
         </div>
       </div>
     );
-  }
-  
+}

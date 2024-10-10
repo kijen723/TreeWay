@@ -12,9 +12,10 @@ interface UpperNavProps {
   toggleNewsStatus: () => void;
   setSortCriteria: (criteria: string) => void;
   setSelectedRegion: (regionId: number) => void;
+  setSearchQuery: (query: string) => void;
 }
 
-export default function UpperNav({ isNews, toggleNewsStatus, setSortCriteria, setSelectedRegion }: UpperNavProps) {
+export default function UpperNav({ isNews, toggleNewsStatus, setSortCriteria, setSelectedRegion, setSearchQuery }: UpperNavProps) {
   const [selectedRegion, setLocalSelectedRegion] = useState<number>(0);
 
   const handleSearch = () => {
@@ -58,8 +59,9 @@ export default function UpperNav({ isNews, toggleNewsStatus, setSortCriteria, se
       </div>
       <div className={styles.rightBlock}>
         <SortBox setSortCriteria={setSortCriteria} />
-        <SearchBtn />
+        <SearchBtn setSearchQuery={setSearchQuery} />
       </div>
     </div>
   );
 }
+
