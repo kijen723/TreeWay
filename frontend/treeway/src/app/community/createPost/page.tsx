@@ -13,17 +13,52 @@ import { RootState } from "@/redux/store";
 import { regionOptions } from '@/../public/data/region';
 import { industryDetailOptions } from '@/../public/data/industry_detail';
 
+// base64 -> File 변환
+export const b64toFile = (b64Data: string, filename: string) => {
+  const bstr = atob(b64Data);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n > 0) {
+    n -= 1;
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: 'image/png' });
+};
+
+const extractBase64Data = (imgSrc: string) => {
+  const base64Pattern = /^data:image\/(png|jpeg|jpg);base64,/;
+  if (base64Pattern.test(imgSrc)) {
+    return imgSrc.replace(base64Pattern, '');
+  }
+  return null;
+};
+
 export default function CreatePost() {
     const router = useRouter();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [region, setRegion] = useState(0); 
     const [subCategory, setSubCategory] = useState(0); 
+    const [files, setFiles] = useState<File[]>([]);
 
     const memberId = useSelector((state :RootState) => state.auth.memberId);
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
+    };
+
+    const extractImageSources = (htmlContent: string): string[] => {
+        const imgSrcArray: string[] = [];
+        const imgTagRegex = /<img.*?src=["'](.*?)["']/g;
+        let match;
+
+        while ((match = imgTagRegex.exec(htmlContent)) !== null) {
+            imgSrcArray.push(match[1]);
+        }
+
+        return imgSrcArray;
     };
 
     const handlePostSubmit = async () => {
@@ -32,16 +67,38 @@ export default function CreatePost() {
             memberId: memberId,
             industryDetailId: subCategory,
             title: title,
-            content: content
+            content: content,
         };
+
+        const formData = new FormData();
+        formData.append('articleRequest', JSON.stringify(postData));
+
+        const imageSrcArray = extractImageSources(content);
+        const convertedFiles = imageSrcArray.map((src, index) => {
+            const base64Data = extractBase64Data(src);
+            if (base64Data) {
+                return b64toFile(base64Data, `image${index}.png`);
+            }
+            return null;
+        }).filter(file => file !== null) as File[];
+
+        if (convertedFiles.length > 0) {
+            convertedFiles.forEach(file => formData.append('files', file));
+        } else {
+            formData.append('files', new Blob(), 'emptyFile');
+        }
+
+        let updatedContent = content;
+        imageSrcArray.forEach((src, index) => {
+            updatedContent = updatedContent.replace(src, `[image${index}]`);
+        });
+
+        formData.set('articleRequest', JSON.stringify({ ...postData, content: updatedContent }));
 
         try {
             const response = await fetch('https://j11b107.p.ssafy.io/api/article', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postData)
+                body: formData,
             });
 
             if (!response.ok) {
