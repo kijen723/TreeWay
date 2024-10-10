@@ -86,26 +86,6 @@ public class MemberController {
         }
     }
 
-    @GetMapping("article/{memberId}")
-    public ResponseEntity<?> memberArticle(){
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("sales/{memberId}")
-    public ResponseEntity<?> memberSales(){
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("policy/{memberId}")
-    public ResponseEntity<?> memberPolicy(){
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("news/{memberId}")
-    public ResponseEntity<?> memberNews(){
-        return ResponseEntity.ok().build();
-    }
-
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),})
@@ -115,7 +95,6 @@ public class MemberController {
         List<AnalyzeResponse> memberAnalyze = memberService.getMemberAnalyze(memberId);
         return ResponseEntity.ok().body(memberAnalyze);
     }
-
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),

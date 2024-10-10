@@ -22,9 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RatingController {
     private final RatingService ratingService;
-//    business_time : int,
-//    region : int,
-//    cost : int
 
     @PostMapping("/industry")
     @Operation(summary = "업종 추천")

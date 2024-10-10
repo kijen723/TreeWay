@@ -37,4 +37,8 @@ public class CorsMvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
 >>>>>>> a569950 (fix : 설정 변경)
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bbd2b0b (refactor : 불필요한 코드 제거)

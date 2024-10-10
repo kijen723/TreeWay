@@ -46,8 +46,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String email = customUserDetails.getEmail();
         String memberName = customUserDetails.getUsername();
         String name = customUserDetails.getName();
-        System.out.println("email: " + email);
-
         Member isExistingUser = memberRepository.findByEmail(email);
         System.out.println("isExistingUser" + isExistingUser);
 
