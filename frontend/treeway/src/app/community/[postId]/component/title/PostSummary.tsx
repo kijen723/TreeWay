@@ -50,14 +50,14 @@ export default function PostSummary({ post }: postProp) {
     setScrapCount(newScrapStatus ? scrapCount + 1 : scrapCount - 1);
   };
 
+  const imageUrl = post.articleAttachedFile && post.articleAttachedFile.length > 0 
+    ? `https://j11b107.p.ssafy.io/api/files/download/${post.articleAttachedFile[0].id}` 
+    : "/image/default_img.png";
+
   return (
     <div className={styles.postSummary}>
       <BackButton />
-      {post.imgSrc ? (
-        <img className={styles.summImg} src={post.imgSrc} alt="Post image" />
-      ) : (
-        <img className={styles.summImg} src="/image/default_img.png" alt="Default image" />
-      )}
+      <img className={styles.summImg} src={imageUrl} alt="Post image" />
       <div className={styles.summContent}>
         <PostInfo post={{ ...post, scrapCount }} />
         <div className={styles.postBtnGroup}>

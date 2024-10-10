@@ -1,4 +1,4 @@
-import styles from '@/app/community/[postId]/page.module.scss'
+import styles from '@/app/community/[postId]/page.module.scss';
 import BackButton from '../BackButton';
 import ScrapBtn from '../ScrapBtn';
 import PostInfo from '../PostInfo';
@@ -16,7 +16,7 @@ interface postProp {
 export default function NarrowPostSummary({ post, onClick }: postProp) {
     const [isScraped, setIsScraped] = useState<boolean>(false);
     const [scrapCount, setScrapCount] = useState<number>(post.scrapCount ?? 0);
-    const memberId = useSelector((state :RootState) => state.auth.memberId);
+    const memberId = useSelector((state: RootState) => state.auth.memberId);
 
     useEffect(() => {
         const checkScrapStatus = async () => {
@@ -51,17 +51,17 @@ export default function NarrowPostSummary({ post, onClick }: postProp) {
         setScrapCount(newScrapStatus ? scrapCount + 1 : scrapCount - 1);
     };
 
+    const imageUrl = post.articleAttachedFile && post.articleAttachedFile.length > 0 
+        ? `https://j11b107.p.ssafy.io/api/files/download/${post.articleAttachedFile[0].id}` 
+        : "/image/default_img.png";
+
     return (
         <div className={styles.narrowPostSummary} onClick={onClick}>
             <div>
                 <BackButton />
             </div>
             <div className={styles.summBody}>
-                {post.imgSrc ? (
-                    <img className={styles.summImg} src={post.imgSrc} alt="Post image" />
-                ) : (
-                    <img className={styles.summImg} src="/image/default_img.png" alt="Default image" />
-                )}
+                <img className={styles.summImg} src={imageUrl} alt="Post image" />
                 <div className={styles.summContent}>
                     <PostInfo post={post} />
                     <div className={styles.postBtnGroup} onClick={(e) => { e.stopPropagation() }}>
