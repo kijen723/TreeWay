@@ -109,14 +109,13 @@
       }
 
       .info {
-        display: flex;
-        justify-content: center;
+        width : 90%;
         font-size: calc((1vw + 4vh) / 2);
         text-align: center;
         margin-top: 10%;
         color: white;
-        font-weight: bold;
-        word-break : keep-all;
+        font-weight: 600;
+        word-break: keep-all;
       }
     }
   }

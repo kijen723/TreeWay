@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Why() {
   const data = [
-    ["손쉬운", "시장 조사", "지역별로 분포된 경쟁 상황과 고객군을 분석하여 시장 조사 시간을 절약할 수 있습니다."],
+    ["손쉬운", "시장 조사", "지역별로 분포된 경쟁상황과 고객군을 분석하여 시장 조사 시간을 절약할 수 있습니다."],
     ["데이터 기반", "의사결정", "빅데이터를 활용한 분석으로 더욱 객관적이고 효율적인 창업 결정을 내릴 수 있습니다."],
     ["혁신적인", "시간절약", "복잡한 정보를 자동으로 분석하여 빠르게 최적의 창업 정보를 제공합니다."],
     [
@@ -31,6 +31,7 @@ export default function Why() {
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
+  const highlightedWords = ["경쟁상황과 고객군을 분석","시간을 절약", "빅데이터를 활용", "객관적이고 효율적인", "최적의 창업 정보", "시뮬레이션", "개인의 상황에 맞춘", "가능성을 높일 수", "구체적으로"];
   return (
     <div className={styles.main}>
       <motion.div
@@ -75,7 +76,22 @@ export default function Why() {
                 <span className={styles.title}>{value[0]}</span>
                 <span className={styles.title}>{value[1]}</span>
               </div>
-              <div className={styles.info}>{value[2]}</div>
+              <div className={styles.info}>
+                {value[2]
+                  .split(new RegExp(`(${highlightedWords.join("|")})`, "g")) // 여러 단어를 정규식으로 분할
+                  .map((part, i) => (
+                    <span
+                      key={i}
+                      style={
+                        highlightedWords.includes(part) // 강조할 단어 목록에 포함된 경우 스타일 적용
+                          ? { color: "#D6E24F", fontWeight: "bold" }
+                          : {}
+                      }
+                    >
+                      {part}
+                    </span>
+                  ))}
+              </div>
             </motion.div>
           );
         })}

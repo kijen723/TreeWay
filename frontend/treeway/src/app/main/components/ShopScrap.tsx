@@ -16,7 +16,9 @@ export default function ShopScrap({ salesId }: { salesId: number }) {
       const result = await scrapCheck(memberId, salesId);
       setIsScrap(result.isScraped);
     };
-    checkScrap();
+    if(memberId !== 0){
+      checkScrap();
+    }
   }, []);
 
   return (
