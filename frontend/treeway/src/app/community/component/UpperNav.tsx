@@ -1,12 +1,11 @@
 import Button from '@/app/common/Button';
-import styles from '../page.module.scss'
+import styles from '../page.module.scss';
 import SearchBtn from './SearchBtn';
 import SortBox from './SortBox';
 import Dropdown from './Dropdown'; // 새롭게 추가할 드롭다운 컴포넌트
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { MdSearch } from "react-icons/md";
-
+import Swal from 'sweetalert2';
 import { regionOptions } from '@/../public/data/region';
 import { industryDetailOptions } from '@/../public/data/industry_detail';
 
@@ -26,7 +25,12 @@ export default function UpperNav({ setSortBy }: UpperNavProps) {
 
     const handleSearch = () => {
         if (selectedRegion === 0 && selectedIndustry === 0) {
-            alert('지역 또는 업종을 선택해주세요.');
+            Swal.fire({
+                title: '선택이 필요합니다!',
+                text: '지역 또는 업종을 선택해주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인',
+            });
             return;
         }
 

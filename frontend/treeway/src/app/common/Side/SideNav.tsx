@@ -13,6 +13,7 @@ import {
 import { getCookie } from 'cookies-next';
 import { useDispatch } from "react-redux";
 import { logOut } from "@/redux/slice/authSlice";
+import Swal from "sweetalert2";
 
 export default function SideNav() {
   const router = useRouter();
@@ -66,7 +67,12 @@ export default function SideNav() {
       router.push("/");
     } catch (error) {
       console.error('로그아웃 실패:', error);
-      alert('로그아웃에 실패했습니다.');
+      Swal.fire({
+        title: '로그아웃 실패',
+        text: '로그아웃에 실패했습니다. 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonText: '확인',
+      });
     }
   };
 

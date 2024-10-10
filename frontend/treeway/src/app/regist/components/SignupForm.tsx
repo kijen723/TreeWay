@@ -10,6 +10,7 @@ import DateField from './DateField';
 import ImageUpload from './ImageUpload';
 import { useDispatch } from "react-redux";
 import { logIn } from "@/redux/slice/authSlice";
+import Swal from "sweetalert2";
 
 export default function SignupForm() {
     const [memberId, setMemberId] = useState(0);
@@ -70,7 +71,12 @@ export default function SignupForm() {
 
     const handleSubmit = async () => {
         if (!birthDate || !phoneNumber) {
-            alert('생년월일과 전화번호를 입력해주세요.');
+            Swal.fire({
+                title: '필수 항목 누락',
+                text: '생년월일과 전화번호를 입력해주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
             return;
         }
 
@@ -107,10 +113,23 @@ export default function SignupForm() {
                 email: email,
             }));
 
+            Swal.fire({
+                title: '회원가입 성공!',
+                text: '회원가입이 완료되었습니다.',
+                icon: 'success',
+                confirmButtonText: '확인'
+            });
+
             router.push('/main');
     
         } catch (error) {
             console.error('회원가입 실패:', error);
+            Swal.fire({
+                title: '회원가입 실패',
+                text: '회원가입 중 문제가 발생했습니다. 다시 시도해주세요.',
+                icon: 'error',
+                confirmButtonText: '확인'
+            });
         }
     };
 
