@@ -49,6 +49,15 @@ export default function CreatePost() {
     };
 
     const handlePostSubmit = async () => {
+        if (region === 0 || subCategory === 0) {
+            Swal.fire({
+                title: '지역과 업종을 선택하세요!',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
+            return;
+        }
+    
         const imageSrcArray = extractImageSources(content);
     
         let updatedContent = content;
@@ -57,14 +66,13 @@ export default function CreatePost() {
         });
     
         if (updatedContent.length > 3000) {
-          // SweetAlert 경고창을 띄움
-          Swal.fire({
-            title: '본문이 너무 깁니다!',
-            text: '본문 내용을 줄여주세요.',
-            icon: 'warning',
-            confirmButtonText: '확인'
-          });
-          return;
+            Swal.fire({
+                title: '본문이 너무 깁니다!',
+                text: '본문 내용을 줄여주세요.',
+                icon: 'warning',
+                confirmButtonText: '확인'
+            });
+            return;
         }
 
         const postData = {
