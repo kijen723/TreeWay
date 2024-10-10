@@ -34,6 +34,7 @@ export const recommandRegion = async (
   industryDetail_id: number,
   cost: number
 ) => {
+  console.log(cost);
   const response = await fetch(`https://j11b107.p.ssafy.io/api/rating/region`, {
     method: 'POST',
     body: JSON.stringify({

@@ -133,7 +133,7 @@ export default function SelectRegion() {
         await RecomandRegion.mutateAsync({
           businessHours,
           selectedSubCategory: selectedSubCategory.value, // value를 전달
-          budget: budget ? Number(budget) : 0, // 빈 문자열인 경우 null로 처리
+          budget: budget ? Number(budget) * 10000 : 0, // 빈 문자열인 경우 null로 처리
         });
       } catch (error) {
         console.error('Error:', error);
