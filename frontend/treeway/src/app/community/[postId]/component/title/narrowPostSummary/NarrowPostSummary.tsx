@@ -51,7 +51,8 @@ export default function NarrowPostSummary({ post, onClick }: postProp) {
         setScrapCount(newScrapStatus ? scrapCount + 1 : scrapCount - 1);
     };
 
-    const imageUrl = post.articleAttachedFile && post.articleAttachedFile.length > 0 
+    const imageUrl = post.articleAttachedFile && post.articleAttachedFile.length > 0 && 
+        !post.articleAttachedFile[0].fileName.endsWith('emptyFile') 
         ? `https://j11b107.p.ssafy.io/api/files/download/${post.articleAttachedFile[0].id}` 
         : "/image/default_img.png";
 
