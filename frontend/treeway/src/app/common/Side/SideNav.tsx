@@ -10,12 +10,16 @@ import {
   FcGlobe,
   FcReading,
 } from "react-icons/fc";
+import { getCookie } from 'cookies-next';
 import { useDispatch } from "react-redux";
 import { logOut } from "@/redux/slice/authSlice";
 
 export default function SideNav() {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  const userDetails = getCookie('customUserDetails');
+  const isAuth = !!userDetails;
 
   const upperButtons = [
     {
@@ -90,7 +94,7 @@ export default function SideNav() {
       {pathname !== "/" ? (
         <nav className={styles.navbar}>
           <RoundBtnGroup buttons={upperButtons} direction="column" />
-          <RoundBtnGroup buttons={lowerButtons} direction="column" />
+          {isAuth && <RoundBtnGroup buttons={lowerButtons} direction="column" />}
         </nav>
       ) : null}
     </>
