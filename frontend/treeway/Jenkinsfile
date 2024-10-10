@@ -22,6 +22,7 @@ pipeline {
             steps {
                 dir('frontend/treeway') {
 	       sh 'rm -f .env.production'
+                    sh 'rm -f .env.production.swp'
                     withCredentials([file(credentialsId: '.ENV.PRODUCTION', variable: 'ENV_PRODUCTION')]) {
                         sh 'export $(cat $ENV_PRODUCTION | xargs)'
                     }
