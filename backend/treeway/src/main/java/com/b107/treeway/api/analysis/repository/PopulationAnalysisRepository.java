@@ -13,7 +13,7 @@ public interface PopulationAnalysisRepository extends JpaRepository<PopulationAn
     @Query("SELECT new com.b107.treeway.api.analysis.dto.PopulationAnalysisResponse(pa.id, r.id, r.regionName, pa.gender, pa.trend_index, pa.activity_status, pa.analysis_data) " +
             "FROM PopulationAnalysis pa " +
             "JOIN pa.region r " +
-            "WHERE pa.region.id = :regionId")
+            "WHERE pa.region.id = :regionId OR pa.region.id = 1")
     List<PopulationAnalysisResponse> findByRegionIdWithDetails(@Param("regionId") Long regionId);
 
 }
