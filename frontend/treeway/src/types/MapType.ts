@@ -46,7 +46,7 @@ export type Store = {
     "salesId": number,
     "majorBusiness": string,
     "industryDetailId" : number,
-    "industryDetail": string,
+    "industryDetailName": string,
     "address": string,
     "monthlySales": number,
     "monthlyEarnings": number,

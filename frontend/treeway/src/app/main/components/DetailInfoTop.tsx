@@ -4,12 +4,13 @@ import { Store } from "@/types/MapType";
 import ShopScrap from "./ShopScrap";
 
 export default function DetailInfoTop({ data }: { data: Store }) {
+  console.log(data);
   return (
     <>
       <div className={styles.Info1}>
         <div className={styles.category}>
           <span>
-            {data.majorBusiness} | {data.industryDetail}
+            {data.majorBusiness} | {data.industryDetailName}
           </span>
         </div>
         <div className={styles.premium}>
