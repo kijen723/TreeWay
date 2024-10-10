@@ -32,24 +32,21 @@ public class MemberController {
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response){
         System.out.println("로그아웃 관련 처리");
         Cookie[] cookies = request.getCookies();
-        System.out.println(cookies.length);
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                System.out.println(cookie);
-//                if ("customUserDetails".equals(cookie.getName())) {
-//                    cookie.setValue(null);
-//                    cookie.setMaxAge(0);
-//                    cookie.setPath("/");
-//                    response.addCookie(cookie);
-//                    return ResponseEntity.ok("로그아웃 되었습니다");
-//                }
-//            }
-//        }
-        Cookie kc = new Cookie("customUserDetails", null);
-        kc.setMaxAge(0);
-        response.addCookie(kc);
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie);
+                if ("customUserDetails".equals(cookie.getName())) {
+                    cookie.setValue(null);
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                    return ResponseEntity.ok("로그아웃 되었습니다");
+                }
+            }
+        }
         return ResponseEntity.status(400).body("잘못된 접근입니다");
     }
+
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
