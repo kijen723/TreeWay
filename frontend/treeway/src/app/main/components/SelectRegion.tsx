@@ -5,10 +5,14 @@ import categories from '@/app/common/categories';
 =======
 import styles from './SelectRating.module.scss';
 import { useRecommandRegion } from '@/hooks/useRecommand';
+<<<<<<< HEAD
 import AnalyzeBox from './AnalyzeBox';
 <<<<<<< HEAD
 >>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 =======
+=======
+import AnalyzeBox from './AnalyzeRegionBox';
+>>>>>>> c70edf1 (fix:지역추천 수정)
 import { useDispatch } from 'react-redux';
 import { changeDumData } from '@/redux/slice/dumdataSlice';
 <<<<<<< HEAD
