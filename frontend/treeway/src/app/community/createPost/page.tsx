@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.scss'
+import styles from './page.module.scss';
 import TextEditor from './component/TextEditor';
 import Button from '@/app/common/Button';
 import FormField from '@/app/regist/components/FormField';
@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Swal from 'sweetalert2';
 
 import { regionOptions } from '@/../public/data/region';
 import { industryDetailOptions } from '@/../public/data/industry_detail';
@@ -41,7 +42,6 @@ export default function CreatePost() {
     const [content, setContent] = useState('');
     const [region, setRegion] = useState(0); 
     const [subCategory, setSubCategory] = useState(0); 
-    const [files, setFiles] = useState<File[]>([]);
 
     const memberId = useSelector((state :RootState) => state.auth.memberId);
 
@@ -62,18 +62,35 @@ export default function CreatePost() {
     };
 
     const handlePostSubmit = async () => {
+        const imageSrcArray = extractImageSources(content);
+    
+        let updatedContent = content;
+        imageSrcArray.forEach((src, index) => {
+          updatedContent = updatedContent.replace(src, `[image${index}]`);
+        });
+    
+        if (updatedContent.length > 3000) {
+          // SweetAlert 경고창을 띄움
+          Swal.fire({
+            title: '본문이 너무 깁니다!',
+            text: '본문 내용을 줄여주세요.',
+            icon: 'warning',
+            confirmButtonText: '확인'
+          });
+          return;
+        }
+
         const postData = {
             regionId: region,
             memberId: memberId,
             industryDetailId: subCategory,
             title: title,
-            content: content,
+            content: updatedContent,
         };
 
         const formData = new FormData();
         formData.append('articleRequest', JSON.stringify(postData));
 
-        const imageSrcArray = extractImageSources(content);
         const convertedFiles = imageSrcArray.map((src, index) => {
             const base64Data = extractBase64Data(src);
             if (base64Data) {
@@ -87,13 +104,6 @@ export default function CreatePost() {
         } else {
             formData.append('files', new Blob(), 'emptyFile');
         }
-
-        let updatedContent = content;
-        imageSrcArray.forEach((src, index) => {
-            updatedContent = updatedContent.replace(src, `[image${index}]`);
-        });
-
-        formData.set('articleRequest', JSON.stringify({ ...postData, content: updatedContent }));
 
         try {
             const response = await fetch('https://j11b107.p.ssafy.io/api/article', {

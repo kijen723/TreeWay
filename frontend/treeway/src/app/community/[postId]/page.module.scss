@@ -473,5 +473,12 @@
         width: 100%;
         height: 95%;
         padding: 10px;
+        overflow: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
     }
 }

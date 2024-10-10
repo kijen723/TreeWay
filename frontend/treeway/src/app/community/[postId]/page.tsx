@@ -137,7 +137,7 @@ export default function CommunityDetail() {
                     )}
                 </div>
                 <div>
-                    {post && <PostDetail postContent={post.content} />}
+                    {post && <PostDetail postContent={post.content} postImageList={post.articleAttachedFile} />}
                 </div>
             </div>
         </div>

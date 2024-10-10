@@ -4,6 +4,12 @@ export type PostListProps = {
   postList: Array<PostType>;
 };
 
+export type ArticleAttachedFile = {
+  id: number;
+  filePath: string;
+  fileName: string;
+};
+
 export type PostType = {
   // 서버에서 넘어오는 데이터
   id: number;
@@ -21,6 +27,7 @@ export type PostType = {
   scrapCount: number;
   isScrap?: boolean;
   imgSrc?: string;
+  articleAttachedFile?: ArticleAttachedFile[];
 };
 
 export type CommentType = {
