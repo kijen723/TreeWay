@@ -16,12 +16,12 @@ export default function Post({ post, onClick }: PostProps) {
     <div className={styles.post} onClick={onClick}>
       <div className={styles.postSummary}>
         <div className={styles.postInfo}>
-          <p>{post.regionName} | {post.industryDetailName}</p>
-          <p>{date} {time}</p>
+          <p className={styles.orange}>{post.regionName} | {post.industryDetailName}</p>
+          <p className={styles.gray}>{date} {time}</p>
         </div>
         <h2>{post.title}</h2>
         <div className={styles.postInfo}>
-          <p>{post.memberName}</p>
+          <p className={styles.gray}>{post.memberName}</p>
         </div>
       </div>
       <div className={styles.postEnd}>

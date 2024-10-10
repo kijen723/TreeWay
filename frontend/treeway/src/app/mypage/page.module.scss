@@ -1,155 +1,188 @@
 .background {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
 }
 
 .block {
-    width: 20vw; 
-    height: 60vh; 
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(2px);
-    padding: 10px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
+  width: 20vw;
+  height: 60vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  padding: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
 }
 
 .imgContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profileImg {
-    width: 60%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 50%;
+  width: 60%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .nameField {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .contentManage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .contentBtn {
-    display: flex;
-    align-items: center;
-    margin: 5px;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  gap: 20px;
 }
 
 .contentBlock {
-    width: 55vw; 
-    height: 75vh; 
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(2px);
-    padding: 10px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
-    overflow: hidden;
-    overflow-y: auto;
+  width: 55vw;
+  height: 75vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  padding: 10px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  overflow: hidden;
+  overflow-y: auto;
 
-    &::-webkit-scrollbar {
-        width: 0;
-        display: none;
-    }
+  &::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
 }
 
 .postList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 85%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .post {
+    background-color: white;
+    width: 51vw;
+    height: 100px;
+    padding: 1cap;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  .postSummary {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    justify-content: space-between;
 
-    .post {
-        background-color: white;
-        width: 49vw;
-        height: 15vh;
-        padding: 1%;
-        display: flex;
-        justify-content: space-between;
-        border-radius: 10px;
-        cursor: pointer;
+    h2 {
+      margin: 5px 0;
     }
 
-    .postSummary {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        h2 {
-            margin: 5px 0;
-        }
-
-        p {
-            margin: 0;
-            margin-right: 10px;
-            font-size: 14px;
-        }
+    p {
+      margin: 0;
+      margin-right: 10px;
+      font-size: 14px;
     }
 
     .postInfo {
-        width: 40vw;
+    //   width: 50vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  
+      .orange {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #ffa505;
+        border-radius: 5px;
+        padding: 3px;
+      }
+  
+      .gray {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #f5f7fa;
+        border-radius: 5px;
+        padding: 3px;
+      }
+    }
+  
+  }
+
+  .postEnd {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+
+    *:only-child {
+      margin-left: auto;
     }
 
-    .postEnd {
-        width: 100%;
+    .postStats {
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      justify-content: space-between;
+
+      .count {
         display: flex;
-        justify-content: space-between;
-        gap: 10px;
+        gap: 5px;
+      }
 
-        *:only-child {
-            margin-left: auto;
+      .scrapBtn {
+        font-size: 28px;
+
+        .colorBookmark {
+          color: red;
         }
-
-        .postImg {
-            height: 10vh;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .postStats {
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: end;
-            justify-content: space-between;
-
-            .count {
-                display: flex;
-                gap: 5px;
-            }
-        }
-
+      }
     }
+  }
+
 }
 
 .loader {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1rem;
-    color: #666;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #666;
 }

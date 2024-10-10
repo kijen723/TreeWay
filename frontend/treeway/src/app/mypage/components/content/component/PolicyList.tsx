@@ -54,6 +54,37 @@ export default function PolicyList({ policyData }: PolicyListProps) {
         }
     }, [policyData]);
 
+    const toggleScrap = async (index: number, policyId: number) => {
+        const updatedPolicyList = [...policyList];
+        const newScrapStatus = !updatedPolicyList[index].isScrap;
+
+        try {
+            const response = await fetch(`https://j11b107.p.ssafy.io/api/policy/scrap`, {
+                method: newScrapStatus ? 'POST' : 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: memberId,
+                    policyId: policyId,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update scrap status');
+            }
+
+            updatedPolicyList[index].isScrap = newScrapStatus;
+            updatedPolicyList[index].scrapCount = newScrapStatus
+                ? updatedPolicyList[index].scrapCount + 1
+                : updatedPolicyList[index].scrapCount - 1;
+
+            setPolicyList(updatedPolicyList);
+        } catch (error) {
+            console.error('Error updating scrap status:', error);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -79,14 +110,29 @@ export default function PolicyList({ policyData }: PolicyListProps) {
                             </div>
                             <div className={styles.policyContent}>
                                 <div className={styles.content}>
-                                    <p>대상: {policy.target}</p>
-                                    <p>사업 자격: {policy.eligibility}</p>
+                                    <p>대상: {policy.target.split(",").map((word, i)=>{
+                                        return(
+                                            <span className={styles.word}>{word + " "}</span>
+                                        )
+                                    })}</p>
+                                    <p>사업 자격: {policy.eligibility.split(",").map((word, i)=>{
+                                        return(
+                                            <span className={styles.word}>{word + " "}</span>
+                                        )
+                                    })}</p>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.policyStats}>
                             <div className={styles.count}>
                                 <span><MdBookmarks /> {policy.scrapCount}</span>
+                            </div>
+                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index, policy.id)}>
+                                {policy.isScrap ? (
+                                    <IoBookmark className={styles.colorBookmark} />
+                                ) : (
+                                    <IoBookmarkOutline className={styles.bookmark} />
+                                )}
                             </div>
                         </div>
                     </div>

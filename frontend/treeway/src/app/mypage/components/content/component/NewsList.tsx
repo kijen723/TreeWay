@@ -1,10 +1,12 @@
 import styles from './NewsList.module.scss';
 import { MdBookmarks } from "react-icons/md";
+import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { NewsListProps } from "@/types/NewsPolicyPropsTypes";
 import { formatDateTime } from '@/util/formatDateTime';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Swal from "sweetalert2";
 
 export default function NewsList({ newsData }: NewsListProps) {
     const [newsList, setNewsList] = useState(newsData || []);
@@ -53,6 +55,47 @@ export default function NewsList({ newsData }: NewsListProps) {
         }
     }, [newsData]);
 
+    const toggleScrap = async (index: number, newsId: number) => {
+        if (!memberId) {
+            Swal.fire({
+                title: '로그인이 필요합니다!',
+                text: "로그인 후 이용할 수 있는 기능입니다.",
+                icon: 'warning',
+                confirmButtonText: '확인',
+            });
+            return;
+        }
+        
+        const updatedNewsList = [...newsList];
+        const newScrapStatus = !updatedNewsList[index].isScrap;
+
+        try {
+            const response = await fetch(`https://j11b107.p.ssafy.io/api/news/scrap`, {
+                method: newScrapStatus ? 'POST' : 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    memberId: memberId,
+                    newsId: newsId,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update scrap status');
+            }
+
+            updatedNewsList[index].isScrap = newScrapStatus;
+            updatedNewsList[index].scrapCount = newScrapStatus
+                ? updatedNewsList[index].scrapCount + 1
+                : updatedNewsList[index].scrapCount - 1;
+
+            setNewsList(updatedNewsList);
+        } catch (error) {
+            console.error('Error updating scrap status:', error);
+        }
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -77,6 +120,13 @@ export default function NewsList({ newsData }: NewsListProps) {
                         <div className={styles.newsStats}>
                             <div className={styles.count}>
                                 <span><MdBookmarks /> {news.scrapCount}</span>
+                            </div>
+                            <div className={styles.scrapBtn} onClick={() => toggleScrap(index, news.id)}>
+                                {news.isScrap ? (
+                                    <IoBookmark className={styles.colorBookmark} />
+                                ) : (
+                                    <IoBookmarkOutline className={styles.bookmark} />
+                                )}
                             </div>
                         </div>
                     </div>
