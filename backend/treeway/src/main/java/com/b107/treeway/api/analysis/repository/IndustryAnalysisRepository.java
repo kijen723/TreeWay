@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IndustryAnalysisRepository extends JpaRepository<IndustryAnalysis, Long> {
-    @Query("SELECT new com.b107.treeway.api.analysis.dto.IndustryAnalysisResponse(ia.id, id.id, id.industryDetailName, r.id, r.regionName, ia.dataType, ia.analysisData) " +
+    @Query("SELECT new com.b107.treeway.api.analysis.dto.IndustryAnalysisResponse(ia.id, id.industry.id, id.industryDetailName, r.id, r.regionName, ia.dataType, ia.analysisData) " +
             "FROM IndustryAnalysis ia " +
             "JOIN ia.industryDetail id " +
             "JOIN ia.region r " +
