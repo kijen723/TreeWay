@@ -1,4 +1,5 @@
 .background {
+<<<<<<< HEAD
     border : 1px solid blue;
     height: 100vh;
     display: flex;
@@ -36,91 +37,117 @@
     border-radius: 10px;
 =======
     box-sizing: border-box;
+=======
+  border: 1px solid blue;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/path/to/your/image.jpg'); /* 배경 이미지 경로 설정 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.block {
+  width: calc(100vw - 80px);
+  height: calc(100vh - max(9vh + 20px, 80px));
+  position: relative;
+  top: max(9vh + 10px, 70px);
+  left: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+>>>>>>> 44c262d (fix:프롬프트 임의설정, 스피너추가, 분석이력페이지 개발 완료)
 }
 
 .formBlock {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
-    padding: 20px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .headerText {
-    text-align: center;
-    color: rgb(60, 60, 60);
-    font-size: 1.5em;
+  text-align: center;
+  color: rgb(60, 60, 60);
+  font-size: 1.5em;
 
-    h5{
-        color : orange;
-        font-size : 50px;
-    }
+  h5 {
+    color: orange;
+    font-size: 50px;
+  }
 }
 
 .formArea {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-    max-width: 700px;  /* 최대 너비 설정 */
-    margin: 0 auto;
-    //background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 700px; /* 최대 너비 설정 */
+  margin: 0 auto;
+  //background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .column {
-    width: 48%;  /* 각각의 인풋 필드가 차지할 너비 */
+  width: 48%; /* 각각의 인풋 필드가 차지할 너비 */
 }
 
 .formLabel {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #333;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-.formSelect, .formInput {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.formSelect,
+.formInput {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .analyzeButton {
-    width: 100%;  /* 버튼 전체 너비 */
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;  /* 버튼과 폼 사이 간격 */
+  width: 100%; /* 버튼 전체 너비 */
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* 버튼과 폼 사이 간격 */
 }
 
 .analyzeButton:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .resetButtonArea {
+<<<<<<< HEAD
     position : absolute;
     bottom : 30px;
 >>>>>>> ed0a542 (feat : modify AI page)
@@ -168,4 +195,46 @@
     height: 100%;
     object-fit: fill;
 >>>>>>> ed0a542 (feat : modify AI page)
+=======
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.resetButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resetButton:hover {
+  background-color: #0056b3;
+}
+
+.imageContainer {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.spinnerWrapper {
+  padding-top: 15%;
+>>>>>>> 44c262d (fix:프롬프트 임의설정, 스피너추가, 분석이력페이지 개발 완료)
 }

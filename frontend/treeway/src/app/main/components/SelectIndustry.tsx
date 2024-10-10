@@ -40,8 +40,7 @@ export default function SelectIndustry() {
     onSuccess: async (data) => {
       setDetailData(data);
     },
-    onError: () => {
-    },
+    onError: () => {},
   });
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

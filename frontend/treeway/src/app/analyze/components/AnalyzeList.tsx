@@ -17,6 +17,7 @@ interface idData {
   memberId: number;
   region: string;
   regionId: number;
+  ratingScore: number;
 }
 
 export default function SideDetailItem() {
@@ -64,7 +65,9 @@ export default function SideDetailItem() {
           <div className={styles.Info}>
             <div className={styles.top}>
               <span className={styles.category}>{index + 1}</span>
-              <span className={styles.name}>점수/100점</span>
+              <span className={styles.name}>
+                {Math.min(Math.floor(data.ratingScore * 10), 100)}/100점
+              </span>
             </div>
             {/* 날짜, 지역, 업종 나열 */}
             <div className={styles.mid}>
