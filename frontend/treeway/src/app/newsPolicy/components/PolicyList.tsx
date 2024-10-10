@@ -1,5 +1,4 @@
 import styles from '../page.module.scss';
-import { LuEye } from 'react-icons/lu'; // 조회수 아이콘
 import { MdBookmarks } from 'react-icons/md'; // 스크랩 수 아이콘
 import { IoBookmarkOutline, IoBookmark } from 'react-icons/io5'; // 스크랩 버튼 아이콘
 import { useState, useEffect } from 'react';
@@ -7,6 +6,7 @@ import { PolicyListProps } from '@/types/NewsPolicyPropsTypes';
 import { formatDateTime } from '@/util/formatDateTime';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Swal from "sweetalert2";
 
 export default function PolicyList({ policyData }: PolicyListProps) {
     const [policyList, setPolicyList] = useState(policyData || []);
@@ -56,6 +56,16 @@ export default function PolicyList({ policyData }: PolicyListProps) {
     }, [policyData]);
 
     const toggleScrap = async (index: number, policyId: number) => {
+        if (!memberId) {
+            Swal.fire({
+                title: '로그인이 필요합니다!',
+                text: "로그인 후 이용할 수 있는 기능입니다.",
+                icon: 'warning',
+                confirmButtonText: '확인',
+            });
+            return;
+        }
+
         const updatedPolicyList = [...policyList];
         const newScrapStatus = !updatedPolicyList[index].isScrap;
 

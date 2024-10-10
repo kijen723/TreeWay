@@ -29,7 +29,8 @@
     "react-spinners": "^0.14.1",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "sass": "^1.79.2"
+    "sass": "^1.79.2",
+    "sweetalert2": "^11.14.2"
   },
   "devDependencies": {
     "@types/node": "^20",
