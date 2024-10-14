@@ -2,38 +2,19 @@
 import { useEffect, useState } from 'react';
 
 import categories from '@/app/common/categories';
-<<<<<<< HEAD
-import locations from '@/app/common/locations';
-=======
 import locations from '@/app/common/locations'; // LocationItem 타입 기반
 import styles from './SelectRating.module.scss';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import AnalyzeBox from './AnalyzeBox';
-<<<<<<< HEAD
-import { useDispatch } from 'react-redux';
-=======
 import AnalyzeRatingBox from './AnalyzeRatingBox';
 import { useDispatch, useSelector } from 'react-redux';
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 import { changeDumData } from '@/redux/slice/dumdataSlice';
-=======
-=======
-import AnalyzeRatingBox from './AnalyzeRatingBox';
->>>>>>> c8ee142 (api 연결 및 종합,업종,지역추천 페이지 개발)
 import { useRecommandOverall } from '@/hooks/useRecommand';
-<<<<<<< HEAD
->>>>>>> 454cf81 (feat:종합, 지역, 종합 api 연결)
-=======
 import { FadeLoader } from 'react-spinners';
 import { RootState } from '@/redux/store';
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
 
 interface CategoryItem {
   label: string;
   value: number;
 }
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
 
 export default function SelectRating() {
   const [budget, setBudget] = useState('');
@@ -190,86 +171,12 @@ export default function SelectRating() {
     }
   };
   const dispatch = useDispatch();
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(changeDumData([]));
-  }, [])
+  }, []);
 
   return (
     <div>
-<<<<<<< HEAD
-      <div>
-        {/* 대업종 리스트 */}
-        <div>
-          <label htmlFor='main-category'>대업종 선택</label>
-          <div
-            style={{
-              maxHeight: '100px',
-              overflowY: 'auto',
-              border: '1px solid #ccc',
-              padding: '5px',
-            }}
-          >
-            <ul>
-              {Object.keys(categories).map((mainCategory, index) => (
-                <ul
-                  key={index}
-                  onClick={() => handleMainCategoryChange(mainCategory)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight:
-                      selectedMainCategory === mainCategory ? 'bold' : 'normal',
-                  }}
-                >
-                  {mainCategory}
-                </ul>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* 소업종 리스트 */}
-<<<<<<< HEAD
-        <div>
-          <label htmlFor='sub-category'>소업종 선택</label>
-          <div
-            style={{
-              maxHeight: '100px',
-              overflowY: 'auto',
-              border: '1px solid #ccc',
-              padding: '5px',
-            }}
-          >
-            <ul>
-              {categories[selectedMainCategory].map((subCategory, index) => (
-                <ul
-                  key={index}
-                  onClick={() => handleSubCategoryChange(subCategory)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight:
-                      selectedSubCategory === subCategory ? 'bold' : 'normal',
-                  }}
-                >
-                  {subCategory}
-                </ul>
-              ))}
-            </ul>
-=======
-        <div className={styles.selectBox}>
-          <div className={styles.selectText}>
-            {categories[selectedMainCategory].map((subCategory, index) => (
-              <li
-                className={`${
-                  selectedSubCategory === subCategory ? styles.selected : ''
-                }`}
-                key={index}
-                onClick={() => handleSubCategoryChange(subCategory)}
-              >
-                {subCategory.label}
-              </li>
-            ))}
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-=======
       {loading ? (
         <div className={styles.spinnerWrapper}>
           <FadeLoader color='#36d7b7' />
@@ -279,7 +186,6 @@ export default function SelectRating() {
           <div className={styles.textSub}>
             <label htmlFor='main-category'>대업종 선택</label>
             <label htmlFor='sub-category'>소업종 선택</label>
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
           </div>
           <div className={styles.container}>
             {/* 대업종 리스트 */}
@@ -301,59 +207,6 @@ export default function SelectRating() {
               </div>
             </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <div>
-        {/* 시도 리스트 */}
-        <div>
-          <label htmlFor='main-Location'>시도 선택</label>
-          <div
-            style={{
-              maxHeight: '100px',
-              overflowY: 'auto',
-              border: '1px solid #ccc',
-              padding: '5px',
-            }}
-          >
-            <ul>
-              {Object.keys(locations).map((mainLocation, index) => (
-                <ul
-                  key={index}
-                  onClick={() => handleMainLocationChange(mainLocation)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight:
-                      selectedMainLocation === mainLocation ? 'bold' : 'normal',
-                  }}
-                >
-                  {mainLocation}
-                </ul>
-              ))}
-            </ul>
-=======
-      <div className={styles.textSub}>
-        <label htmlFor='main-location'>시도 선택</label>
-        <label htmlFor='district'>시군구 선택</label>
-      </div>
-      <div className={styles.container}>
-        {/* 시도 리스트 */}
-        <div className={styles.selectBox}>
-          <div className={styles.selectText}>
-            {locations.map((mainLocation, index) => (
-              <li
-                className={`${
-                  selectedMainLocation === mainLocation.label
-                    ? styles.selected
-                    : ''
-                }`}
-                key={index}
-                onClick={() => handleMainLocationChange(mainLocation.label)}
-              >
-                {mainLocation.label}
-              </li>
-            ))}
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-=======
             {/* 소업종 리스트 */}
             <div className={styles.selectBox}>
               <div className={styles.selectText}>
@@ -370,59 +223,11 @@ export default function SelectRating() {
                 ))}
               </div>
             </div>
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
           </div>
 
-<<<<<<< HEAD
-        {/* 시군구 리스트 */}
-<<<<<<< HEAD
-        <div>
-          <label htmlFor='sub-location'>시군구 선택</label>
-          <div
-            style={{
-              maxHeight: '100px',
-              overflowY: 'auto',
-              border: '1px solid #ccc',
-              padding: '5px',
-            }}
-          >
-            <ul>
-              {locations[selectedMainLocation].map((subLocation, index) => (
-                <ul
-                  key={index}
-                  onClick={() => handleSubLocationChange(subLocation)}
-                  style={{
-                    cursor: 'pointer',
-                    fontWeight:
-                      selectedSubLocation === subLocation ? 'bold' : 'normal',
-                  }}
-                >
-                  {subLocation}
-                </ul>
-              ))}
-            </ul>
-=======
-        <div className={styles.selectBox}>
-          <div className={styles.selectText}>
-            {locations
-              .find((location) => location.label === selectedMainLocation)
-              ?.districts.map((district, index) => (
-                <li
-                  className={`${
-                    selectedDistrict === district ? styles.selected : ''
-                  }`}
-                  key={index}
-                  onClick={() => handleDistrictChange(district)}
-                >
-                  {district}
-                </li>
-              ))}
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-=======
           <div className={styles.textSub}>
             <label htmlFor='main-location'>시도 선택</label>
             <label htmlFor='district'>시군구 선택</label>
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
           </div>
           <div className={styles.container}>
             {/* 시도 리스트 */}
@@ -444,12 +249,6 @@ export default function SelectRating() {
               </div>
             </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <label htmlFor='business-hours'>가능 영업시간: </label>
-=======
-      <div className={styles.textSub}>
-=======
             {/* 시군구 리스트 */}
             <div className={styles.selectBox}>
               <div className={styles.selectText}>
@@ -471,11 +270,10 @@ export default function SelectRating() {
           </div>
 
           {/* <div className={styles.textSub}>
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
         <label htmlFor='business-hours'>가능 영업시간 </label>
       </div>
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
       <select
+        className={styles.businessHours}
         id='business-hours'
         value={businessHours}
         onChange={(e) => setBusinessHours(Number(e.target.value))}
@@ -484,37 +282,6 @@ export default function SelectRating() {
         <option value='1'>09시~18시</option>
         <option value='2'>18시~02시</option>
         <option value='3'>02시~09시</option>
-<<<<<<< HEAD
-      </select>
-      <div>
-        {showBusinessHoursError && (
-          <p style={{ color: 'red' }}>영업시간을 선택해야 합니다.</p>
-        )}
-        <label htmlFor='budget'>예산: </label>
-        <input
-          id='budget'
-          type='text'
-          value={budget}
-          onChange={(e) => setBudget(e.target.value)}
-          placeholder='예산 입력'
-        />
-        만원
-      </div>
-      {/* 예산 미입력시 에러 메시지 */}
-      {showBudgetError && (
-        <p style={{ color: 'red' }}>예산을 입력해야 합니다.</p>
-      )}
-      {/* 예산이 숫자가 아닐 때 에러 메시지 */}
-      {showInvalidBudgetError && (
-        <p style={{ color: 'red' }}>숫자를 입력해야 합니다.</p>
-      )}
-<<<<<<< HEAD
-      <button onClick={handleSubmit}>종합 추천 받기</button>
-=======
-      <button className={styles.submitButton} onClick={handleSubmit}>
-        종합 추천 받기
-      </button>
-=======
       </select> */}
 
           <div>
@@ -549,7 +316,6 @@ export default function SelectRating() {
         </>
       )}
 
->>>>>>> 193d899 (feat: 종합추천 페이지 api 연결)
       {showModal && (
         <AnalyzeRatingBox
           explanation={explanation}
@@ -558,7 +324,6 @@ export default function SelectRating() {
           onClose={handleCloseModal}
         />
       )}
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
     </div>
   );
 }

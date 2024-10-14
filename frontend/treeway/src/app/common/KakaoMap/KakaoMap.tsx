@@ -1,10 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8a88ecf (feat : modify trend page and main page)
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import styles from "./KakaoMap.module.scss";
@@ -16,37 +11,7 @@ import { changeShopIndex } from "@/redux/slice/shopIndexSlice";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import SearchBtn from "@/app/main/components/SearchBtn";
 import { usePathname } from "next/navigation";
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import { useEffect, useRef, useState } from 'react';
-import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
-import styles from './KakaoMap.module.scss';
-import { LatLng, Store } from '@/types/MapType';
-=======
-import { useEffect, useRef, useState } from 'react';
-import { Map, MapMarker, MarkerClusterer } from 'react-kakao-maps-sdk';
-import styles from './KakaoMap.module.scss';
-import { LatLng, locationData, Store } from '@/types/MapType';
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-import { useDispatch, useSelector } from 'react-redux';
-import { changeDumData } from '@/redux/slice/dumdataSlice';
-import { AppDispatch, RootState } from '@/redux/store';
-import { changeShopIndex } from '@/redux/slice/shopIndexSlice';
-<<<<<<< HEAD
-import { useQuery } from '@tanstack/react-query';
-import SearchBtn from '@/app/main/components/SearchBtn';
->>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
-=======
-import { useMutation, useQuery } from '@tanstack/react-query';
-import SearchBtn from '@/app/main/components/SearchBtn';
-import { usePathname } from 'next/navigation';
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-=======
->>>>>>> 8a88ecf (feat : modify trend page and main page)
-=======
 import { changeSideControl } from "@/redux/slice/sidecontrolSlice";
->>>>>>> 6ebe837 (fix : main page)
 
 export default function KakaoMap() {
   const dispatch: AppDispatch = useDispatch();
@@ -60,39 +25,8 @@ export default function KakaoMap() {
     lat: 36.628297,
     lng: 127.492533,
   });
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   const [isCentered, setIsCentered] = useState<boolean>(false);
->>>>>>> e4bd95b (feat : add hover box)
   const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
-<<<<<<< HEAD
-=======
-  const shopIdx: number = useSelector(
-    (state: RootState) => state.shopIndex.value
-  );
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-
-  const mutation = useMutation<Store[], Error, locationData>(
-    async (locationData) => {
-      const response = await fetch('https://j11b107.p.ssafy.io/api/sales/map', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(locationData),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to send location data');
-      }
-
-      return response.json();
-=======
-=======
-  const shopIdx: number = useSelector((state: RootState) => state.shopIndex.value);
->>>>>>> 8a88ecf (feat : modify trend page and main page)
   const mutation = useMutation<Store[], Error, locationData>(async (locationData) => {
     const response = await fetch("https://j11b107.p.ssafy.io/api/sales/map", {
       method: "POST",
@@ -103,39 +37,10 @@ export default function KakaoMap() {
     });
     if (!response.ok) {
       throw new Error("Failed to send location data");
-<<<<<<< HEAD
->>>>>>> dc46a3e (feat : modify kakaoMap)
-    }
-<<<<<<< HEAD
-
-    return response.json();
-=======
-  const shopIdx: number = useSelector(
-    (state: RootState) => state.shopIndex.value
-  );
-  // 리액트 쿼리 사용하여 대전 데이터 가져오기
-  const {
-    isLoading,
-    error,
-    data,
-  }: { isLoading: boolean; error: any; data: Store[] | undefined } = useQuery({
-    queryKey: ['dumdata'],
-    queryFn: async () => {
-      return await fetch('https://j11b107.p.ssafy.io/api/temp').then((res) =>
-        res.json()
-      );
-    },
->>>>>>> 579c2e4 (feat:분석이력조회 컴포넌트 개발)
-  });
-=======
-  );
->>>>>>> 8e87981 (feat: 분석 페이지 개발 및 query 폴더 구조  생성)
-=======
     }
 
     return response.json();
   });
->>>>>>> 8a88ecf (feat : modify trend page and main page)
 
   const getInfo = () => {
     const map = mapRef.current;
@@ -180,9 +85,9 @@ export default function KakaoMap() {
     }
   }, [scriptLoad]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(changeShopIndex(0));
-  }, [])
+  }, []);
 
   // 카카오 맵 로드 및 현재 접속 위치 확인
   useEffect(() => {
@@ -192,7 +97,6 @@ export default function KakaoMap() {
     document.head.appendChild(script);
     script.addEventListener("load", () => {
       setScriptLoad(true);
-      
     });
 
     if (navigator.geolocation) {
@@ -210,11 +114,7 @@ export default function KakaoMap() {
         <Map
           center={{ lat: nowPosition.lat, lng: nowPosition.lng }}
           style={{ width: "100%", height: "100%" }}
-<<<<<<< HEAD
-          level={4}
-=======
           level={zoomLevel}
->>>>>>> 8a88ecf (feat : modify trend page and main page)
           isPanto={true}
           ref={mapRef}
           onZoomChanged={(map) => {

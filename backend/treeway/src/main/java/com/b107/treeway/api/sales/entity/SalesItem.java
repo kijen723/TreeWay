@@ -12,21 +12,13 @@ import lombok.Setter;
 public class SalesItem {
 
     @Id
-<<<<<<< HEAD
     @Column(name = "sales_item_id")
-=======
-    @Column(name = "sales_item_id", nullable = false)
->>>>>>> 4a4b54f (fix: edit entity detail)
     private Long id;
 
-<<<<<<< HEAD
     @Column(name = "major_business")
     private String majorBusiness;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-=======
     @ManyToOne(fetch = FetchType.LAZY)
->>>>>>> 9daa993 (fix: entity cascade delete)
     @JoinColumn(name = "industry_detail_id", nullable = false)
     private IndustryDetail industryDetail;
 

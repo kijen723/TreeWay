@@ -7,15 +7,9 @@ services:
     ports:
       - 8081:8080
     environment:
-<<<<<<< HEAD
       - TZ=Asia/Seoul
     volumes:
       - /etc/localtime:/etc/localtime:ro
-=======
-      - TZ=Asia/Seoul  # 시간대 설정 추가
-    volumes:
-      - /etc/localtime:/etc/localtime:ro  # 호스트의 시간대를 컨테이너에 공유
->>>>>>> 2b529ff (Update docker-compose.yml)
       - /etc/timezone:/etc/timezone:ro
     networks:
       - treeway-network
@@ -26,15 +20,9 @@ services:
     ports:
       - 3001:80
     environment:
-<<<<<<< HEAD
       - TZ=Asia/Seoul
     volumes:
       - /etc/localtime:/etc/localtime:ro
-=======
-      - TZ=Asia/Seoul  # 시간대 설정 추가
-    volumes:
-      - /etc/localtime:/etc/localtime:ro  # 호스트의 시간대를 컨테이너에 공유
->>>>>>> 2b529ff (Update docker-compose.yml)
       - /etc/timezone:/etc/timezone:ro
     networks:
       - treeway-network

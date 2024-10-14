@@ -2,14 +2,8 @@ package com.b107.treeway.config;
 
 import com.b107.treeway.jwt.JWTFilter;
 import com.b107.treeway.jwt.JWTUtil;
-<<<<<<< HEAD
-import com.b107.treeway.oauth2.CustomSuccessHandler;
-import com.b107.treeway.service.CustomOAuth2UserService;
-import org.springframework.beans.factory.annotation.Value;
-=======
 import com.b107.treeway.oauth2.hadler.CustomSuccessHandler;
 import com.b107.treeway.oauth2.service.CustomOAuth2UserService;
->>>>>>> 30661c1 (feat : 멤버 추가 정보 입력 기능 추가)
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,21 +15,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Value("${custom.redirect-url}")
-    private String frontUrl;
 
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomSuccessHandler customSuccessHandler;
     private final JWTUtil jwtUtil;
 
     public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil) {
-
         this.customOAuth2UserService = customOAuth2UserService;
         this.customSuccessHandler = customSuccessHandler;
         this.jwtUtil = jwtUtil;
@@ -45,70 +34,55 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
-
                     CorsConfiguration configuration = new CorsConfiguration();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    configuration.setAllowedOrigins(Collections.singletonList(frontUrl));
-=======
-                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3001", "https://j11b107.p.ssafy.io"));
->>>>>>> 89a094a (fix : 설정 변경)
-=======
-                    configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001", "https://j11b107.p.ssafy.io"));
->>>>>>> cde53ae (fix : 경로 추가)
-                    configuration.setAllowedMethods(Collections.singletonList("*"));
+                    // 허용할 Origin 설정
+                    configuration.setAllowedOrigins(Arrays.asList(
+                            "http://localhost:3000",
+                            "http://localhost:3001",
+                            "https://j11b107.p.ssafy.io"
+                    ));
+
+                    // 허용할 HTTP 메소드 설정
+                    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+                    // 헤더와 인증 정보 허용
+                    configuration.setAllowedHeaders(Arrays.asList("*"));
                     configuration.setAllowCredentials(true);
-                    configuration.setAllowedHeaders(Collections.singletonList("*"));
+
+                    // preflight 요청 캐시 시간 설정
                     configuration.setMaxAge(3600L);
 
-                    configuration.setExposedHeaders(Collections.singletonList("Set-Cookie"));
-                    configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+                    // 노출할 헤더 설정
+                    configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
 
                     return configuration;
                 }));
 
-        //csrf disable
-        http
-                .csrf(AbstractHttpConfigurer::disable);
+        // CSRF 비활성화
+        http.csrf(AbstractHttpConfigurer::disable);
 
-        //From 로그인 방식 disable
-        http
-                .formLogin(AbstractHttpConfigurer::disable);
+        // From 로그인 방식 비활성화
+        http.formLogin(AbstractHttpConfigurer::disable);
 
-        //HTTP Basic 인증 방식 disable
-        http
-                .httpBasic(AbstractHttpConfigurer::disable);
+        // HTTP Basic 인증 방식 비활성화
+        http.httpBasic(AbstractHttpConfigurer::disable);
 
-        //JWTFilter 추가
-        http
-                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        // JWT 필터 추가
+        http.addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
-        //oauth2
-        http
-                .oauth2Login((oauth2) -> oauth2
-                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService))
-                        .successHandler(customSuccessHandler)
-                );
+        // OAuth2 로그인 설정
+        http.oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService))
+                .successHandler(customSuccessHandler)
+        );
 
-        //경로별 인가 작업
-//        http
-//                .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/").permitAll()
-//                        .anyRequest().authenticated());
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .anyRequest().permitAll());
+        // 모든 요청을 허용
+        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 
-
-        //세션 설정 : STATELESS
-        http
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        // 세션 설정: STATELESS
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
-
-
 }

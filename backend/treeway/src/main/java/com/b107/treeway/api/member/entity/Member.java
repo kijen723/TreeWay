@@ -34,7 +34,6 @@ public class Member {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-<<<<<<< HEAD
     @Column(name = "is_deleted")
     private Boolean isDeleted = false;
 
@@ -42,22 +41,6 @@ public class Member {
     @Column(name = "registered_time", nullable = false)
     private LocalDateTime registeredTime;
 
-=======
->>>>>>> 30661c1 (feat : 멤버 추가 정보 입력 기능 추가)
     @Column(name = "profile_img")
-<<<<<<< HEAD
-    private String profileImg;
-<<<<<<< HEAD
-
-    @Column(name = "is_deleted")
-    private Integer isDeleted;
-
-    @Column(name = "registered_time")
-    private Timestamp registeredTime;
-=======
     private Long profileImg;
->>>>>>> 2d822b5 (feat: image change)
 }
-=======
-}
->>>>>>> 3aa451d (fix: fix)

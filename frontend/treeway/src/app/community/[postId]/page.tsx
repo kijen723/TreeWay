@@ -26,29 +26,8 @@ const fetchComments = async (postId: number | undefined) => {
 };
 
 export default function CommunityDetail() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 19073e0 (fix: merge 에러 수정)
-=======
-    const pathname = usePathname();
-    const postId = Number(pathname.split('/').pop());
-=======
     const pathname = useParams();
     const postId = Number(pathname?.postId);
->>>>>>> 7de1f0e (fix: 빌드 에러 수정)
-=======
-  const pathname = useParams();
-  const postId = Number(pathname?.postId);
->>>>>>> 5ab4ed5 (feat : modify css)
-=======
-    const pathname = useParams();
-    const postId = Number(pathname?.postId);
->>>>>>> 34aa98a (fix: 오류 해결)
 
     const [post, setPost] = useState<any>(null); 
     const [comments, setComments] = useState<any[]>([]);
@@ -84,67 +63,23 @@ export default function CommunityDetail() {
         }
     }, [postId]);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 4c30418 (feat: 커뮤니티 수정)
-    const [ defView, setDefView ] = useState(true);
-=======
-=======
-=======
->>>>>>> 34aa98a (fix: 오류 해결)
     const handleCommentSubmit = () => {
         setLoadingComments(true);
         loadComments();
     };
-<<<<<<< HEAD
-
-<<<<<<< HEAD
->>>>>>> a235e72 (feat: 댓글 입력 후 컴포넌트 재랜더링)
-=======
-    const handleCommentDelete = (commentId: number) => {
-        setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
-    };
-
->>>>>>> cb3190e (feat: 댓글 삭제 api 연결)
-    const [defView, setDefView] = useState(true);
->>>>>>> 29b1edb (feat: 커뮤니티 게시글 상세 페이지 댓글 컴포넌트 수정)
-=======
-  const handleCommentDelete = (commentId: number) => {
-    setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
-  };
-=======
->>>>>>> 34aa98a (fix: 오류 해결)
 
     const handleCommentDelete = (commentId: number) => {
         setComments((prevComments) => prevComments.filter(comment => comment.id !== commentId));
     };
 
-<<<<<<< HEAD
-  const toggleDefView = () => {
-    setDefView(!defView);
-  };
->>>>>>> 5ab4ed5 (feat : modify css)
-=======
     const [defView, setDefView] = useState(true);
->>>>>>> 34aa98a (fix: 오류 해결)
 
     const toggleDefView = () => {
         setDefView(!defView);
     };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a452d35 (feat : modify main page list)
-=======
->>>>>>> 19073e0 (fix: merge 에러 수정)
-=======
     if (loading) return <div>Loading...</div>; 
 
->>>>>>> 998e6ca (feat: 게시글 상세 조회 api 연결)
     return (
         <div className={styles.background}>
             <div className={styles.contentsArea}>
@@ -175,33 +110,6 @@ export default function CommunityDetail() {
                     {post && <PostDetail postContent={post.content} postImageList={post.articleAttachedFile} />}
                 </div>
             </div>
-=======
-  return (
-    <div className={styles.background}>
-      <div className={styles.contentsArea}>
-        <div>
-          {defView ? (
-            <>
-              {post && <PostSummary post={post} />}
-              <Comments
-                postId={postId}
-                commentList={comments}
-                onClick={toggleDefView}
-                onCommentSubmit={handleCommentSubmit}
-              />
-            </>
-          ) : (
-            <>
-              <NarrowPostSummary post={post} onClick={toggleDefView} />
-              <WideComments
-                postId={postId}
-                commentList={comments}
-                onCommentSubmit={handleCommentSubmit}
-                onCommentDelete={handleCommentDelete}
-              />
-            </>
-          )}
->>>>>>> 5ab4ed5 (feat : modify css)
         </div>
     );
 }

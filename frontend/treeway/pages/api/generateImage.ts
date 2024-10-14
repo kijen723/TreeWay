@@ -8,15 +8,8 @@ export default async function handler(
     const apiKey = process.env.NEXT_PUBLIC_GPT_API_KEY;
     console.log('API Key:', apiKey); // API 키 로그로 확인
 
-<<<<<<< HEAD
     const { prompt } = req.body;
     console.log('Received Prompt:', prompt); // 클라이언트로부터 받은 prompt 로그로 확인
-=======
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
-        const apiKey = process.env.NEXT_PUBLIC_GPT_API_KEY;
-        console.log("API Key:", apiKey);  // API 키 로그로 확인
->>>>>>> ed0a542 (feat : modify AI page)
 
     try {
       const response = await fetch(

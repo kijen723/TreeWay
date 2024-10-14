@@ -79,17 +79,9 @@ export default function SideNav() {
   const lowerButtonsForAuth = [
     {
       icon: MdLogout,
-<<<<<<< HEAD
-      alt: "Logout Button",
-      onClick: handleLogout,
-=======
       alt: "로그아웃",
-      onClick: () => {
-        dispatch(logOut());
-        router.push("/");
-      },
+      onClick: handleLogout,
       left : "50px",
->>>>>>> e4bd95b (feat : add hover box)
     },
   ];
 
