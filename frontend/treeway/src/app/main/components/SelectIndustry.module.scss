@@ -1,0 +1,81 @@
+.textSub {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.selectBox {
+  max-height: 100px;
+  padding: 10px;
+  overflow-y: auto;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  background-color: #fff; /* 박스 흰색 */
+  border-radius: 10px; /* 둥근 모서리 */
+}
+
+.selectText {
+  cursor: pointer;
+  list-style: none;
+}
+
+.selected {
+  color : green;
+  font-weight: bold;
+}
+
+/* 가능 영업시간 select box 스타일 */
+.businessHours {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+/* 예산 입력 스타일 */
+.budget {
+  width: calc(100% - 60px);
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+/* 예산 텍스트박스 옆의 '만원' 텍스트 스타일 */
+.budgetLabel {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* 종합 추천 받기 버튼 스타일 */
+.submitButton {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #45a049;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+
+  &:hover {
+    background-color: darkgreen;
+  }
+}
+
+.failedText {
+  color: red;
+  margin-top: 4%;
+}
+
+.spinnerWrapper {
+  padding-top: 70%;
+  padding-left: 40%;
+}

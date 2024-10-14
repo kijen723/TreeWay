@@ -1,0 +1,25 @@
+.DetailBox{
+    position : fixed;
+    display : flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left : 6vw;
+    top : 10vh;
+    width : 67.5vw;
+    height : 89vh;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+
+    .WhiteBox{
+        display : flex;
+        flex-direction: column;
+        align-items: center;
+        width : 95%;
+        height : 95%;
+        background-color: white;
+        border-radius: 10px;
+    }
+}

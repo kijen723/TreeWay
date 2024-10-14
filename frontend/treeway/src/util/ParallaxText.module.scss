@@ -1,0 +1,10 @@
+.text{
+    display : flex;
+    gap : 50px;
+    font-size : 19vh;
+    font-weight: bold;
+
+    &:nth-child(1){
+        color : green;
+    }
+}

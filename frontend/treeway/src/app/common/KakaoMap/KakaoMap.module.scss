@@ -1,0 +1,22 @@
+.map{
+    position : absolute;
+    z-index: 0;
+    width : 100vw;
+    height : 100vh;
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width : 6vw;
+    height : 6vh;
+    position : fixed;
+    bottom : 2vh;
+    left : 47vw;
+    background-color: rgb(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px black;
+    z-index: 10;
+}

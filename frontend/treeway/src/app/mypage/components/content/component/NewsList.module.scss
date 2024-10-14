@@ -1,0 +1,115 @@
+.newsList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 90%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .news {
+    background-color: white;
+    width: 93%;
+    height: 110px;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    gap: 10px;
+    box-shadow: 4px 4px 4px rgb(0, 0, 0, 0.3);
+  }
+
+  .newsInfo {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+    font-size: 14px;
+
+    span {
+      &:nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #ffa505;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      &:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #f5f7fa;
+        border-radius: 5px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .newsTitle {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+
+    :hover {
+      color: #004fe2;
+    }
+
+    h3 {
+      margin: 10px 0;
+    }
+  }
+
+  .newsContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    box-sizing: border-box;
+    background-color: #f5f7fa;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .newsBody {
+    width: 90%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .newsStats {
+    width: 10%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+
+    .count {
+      display: flex;
+      gap: 5px;
+      color: green;
+    }
+
+    .scrapBtn {
+      font-size: 28px;
+
+      .colorBookmark {
+        color: red;
+      }
+    }
+  }
+}

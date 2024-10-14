@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Pretendard-Regular";
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+
+  background-image: url('/image/background.png');
+  background-size: cover; /* 배경 이미지가 비율에 맞게 화면을 꽉 채우도록 조정 */
+  background-position: center; /* 이미지의 중심을 화면의 중심에 맞추기 */
+  background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+}
+
+.ql-toolbar.ql-snow {
+    border-radius: 10px 10px 0 0;
+    border: none !important;
+    border-bottom: solid 1px rgb(221, 221, 221) !important;
+}
+
+.ql-container.ql-snow {
+    border-radius: 0 0 10px 10px;
+    border: none !important;
+}

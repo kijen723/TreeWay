@@ -1,0 +1,139 @@
+.policyList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 90%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .policy {
+    background-color: white;
+    width: 95%;
+    height: 110px;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    gap: 10px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .policyInfo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    height: 20px;
+
+    span {
+      &:nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #ffa505;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      &:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #f5f7fa;
+        border-radius: 5px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .policyTitle {
+    width: 80%;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: 200px 600px;
+    // gap: 1%;
+
+    h3 {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: break-all;
+    }
+
+    a {
+      color: #333;
+      text-decoration: none;
+
+      :hover {
+        color: #004fe2;
+      }
+    }
+  }
+
+  .policyContent {
+    font-size: 14px;
+    margin: 0;
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        gap: 2px;
+      }
+      .word {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: #f5f7fa;
+        white-space: nowrap;
+        border-radius: 5px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .policyBody {
+    width: 90%;
+  }
+
+  .policyStats {
+    width: 20%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+
+    .count {
+      display: flex;
+      gap: 5px;
+      color: green;
+    }
+
+    .scrapBtn {
+      font-size: 28px;
+
+      .colorBookmark {
+        color: red;
+      }
+    }
+  }
+}

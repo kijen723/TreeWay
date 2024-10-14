@@ -1,0 +1,70 @@
+pipeline {
+    agent any
+
+//     environment {
+//         TARGET_BRANCH='develop/be'
+//     }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // def branch = env.gitlabSourceBranch ?: 'develop/be'
+                    // if(branch != env.TARGET_BRANCH) {
+                    //     error "This build is only for the '${env.TARGET_BRANCH}' branch, but was run on '${branch}'"
+                    // }
+
+                    checkout scm
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('backend/treeway') {
+                    withCredentials([file(credentialsId: 'APPLICATION_YML', variable: 'application_yml')]) {
+                        sh 'cp $application_yml ./src/main/resources/application.yml'
+                    }
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build --no-daemon'
+                    // sh './gradlew test -i'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // def image = docker.build("treeway-dev-backend:latest", 'backend/.')
+                    // image.push()
+                     sh 'docker build -t treeway-dev-backend:latest ./backend/treeway'
+                }
+            }
+        }
+        // stage('Stop old Container') {
+        //     steps {
+        //         script {
+        //             sh 'docker stop treeway-dev-backend'
+        //             sh 'docker rm treeway-dev-backend'
+        //         }
+        //     }
+        // }
+
+        stage('Depoly') {
+            steps {
+                dir('/var/jenkins_home/workspace/test') {
+                    sh 'docker-compose stop backend || true'
+                    sh 'docker-compose rm -f backend || true'
+                    sh 'docker-compose up backend -d'
+                    // sh 'docker-compose up -d'
+                    
+                }
+            }
+        }
+        stage('Remove old Image') {
+            steps {
+                script {
+                    sh 'docker image prune -f'
+                }
+            }
+        }
+    }
+}

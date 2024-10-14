@@ -1,0 +1,14 @@
+.backBox {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 8%;
+  align-items: center;
+  padding-right: 2%;
+  box-sizing: border-box;
+
+  .backBtn {
+    font-size: 25px;
+    cursor: pointer;
+  }
+}

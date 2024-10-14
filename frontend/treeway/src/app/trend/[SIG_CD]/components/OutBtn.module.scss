@@ -1,0 +1,15 @@
+.OutBtn{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    padding-right : 20px;
+    align-items: center;
+    width : 100%;
+    height : 60px;
+    box-sizing: border-box;
+
+    img{
+        cursor : pointer;
+    }
+
+}

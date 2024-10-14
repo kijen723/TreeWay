@@ -1,0 +1,116 @@
+.main {
+  display : flex;
+  width: 100vw;
+  height: 2200px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  position: relative;
+  transition : background-image 0.3s;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .left{
+    width : 40vw;
+    height: 2200px;
+
+    .info{
+        position : sticky;
+        top : 0;
+        z-index : 3;
+        color: white;
+        display : flex;
+        padding-left: 10vw;
+        padding-top : 40vh;
+        padding-bottom : 40vh;
+        flex-direction: column;
+        font-weight : bold;
+
+        .info1{
+            font-size : 30px;
+        }
+
+        .info2{
+            font-size : 50px;
+            margin-top : 10px;
+            margin-bottom : 10px;
+        }
+
+        .info3{
+            font-size : 15px;
+            letter-spacing: 1px;
+        }
+    }
+  }
+
+  .right{
+    display :flex;
+    width : 800px;
+    height: 2200px;
+
+    .right1{
+        width : 50%;
+        height: 2200px;
+        display : flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top : 150px;
+        padding-bottom : 50px;
+        padding-right : 1vw;
+        padding-left : 1vw;
+    }
+
+    .right2{
+        width : 50%;
+        height: 2200px;
+        display : flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top : 400px;
+        padding-bottom : 50px;
+        padding-right : 1vw;
+        padding-left : 1vw;
+    }
+  }
+}
+
+
+.card{
+    position : relative;
+    z-index : 0;
+    width : 350px;
+    height : 500px;
+    margin-top : 70px;
+    margin-bottom : 70px;
+    border-radius: 20px;
+    background-image: url('/image/cat.jpg');
+    background-repeat: no-repeat;
+    background-size : 101% 200px;
+    background-color: rgb(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding-top : 220px;
+    padding-left : 7%;
+    padding-right : 10%;
+    box-sizing: border-box;
+    transition : all 0.3s;
+    color : white;
+
+    p{
+      font-weight : bold;
+      font-size : 23px;
+    }
+
+    span{
+      font-weight : 18px;
+      font-weight : 300;
+    }
+}

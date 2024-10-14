@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  height: 400vh;
+  width: 100vw;
+
+  .left{
+    display : flex;
+    flex-direction: column;
+    width : 50vw;
+    height : 400vh;
+  }
+
+  .right{
+    width : 50vw;
+    height : 400vh;
+    display : flex;
+    justify-content: center;
+
+    img{
+        position : sticky;
+        border-radius: 20px;
+        box-shadow: 5px 5px gray;
+        top : 5vh;
+        left : 5vw;
+        width : 80%;
+        height : 20%;
+    }
+  }
+}
+
+.info{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    height : 100vh;
+    
+}

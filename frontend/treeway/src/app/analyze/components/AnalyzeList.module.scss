@@ -1,0 +1,115 @@
+.items {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  border-radius: 20px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 200px;
+    border: 1px solid #d5deef;
+    background-color: white;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 5%;
+    box-sizing: border-box;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    img {
+      width: 40%;
+    }
+
+    .Info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        height: 20%;
+
+        .category {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;
+          width: 60px;
+          height: 80%;
+          font-size: 15px;
+          background-color: darkgreen;
+          color: white;
+          font-weight: bold;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .name {
+          width: 60%;
+          font-size: 23px;
+          font-weight: bold;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .address {
+        font-size: 15px;
+        color: #c3c3c5;
+        font-weight: 400;
+      }
+
+      .mid {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 15%;
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .mid2 {
+        font-weight: bold;
+        font-size: 1.1vw;
+      }
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        color: #7e6ef7;
+        font-weight: bold;
+        font-size: 1.1vw;
+
+        .icon {
+          margin-right: 3px;
+        }
+      }
+    }
+  }
+}
+
+.back {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+
+  &:hover {
+    color: green;
+  }
+}
